@@ -1,3 +1,15 @@
-[gd_scene format=3 uid="uid://cep3uftobunu0"]
+[gd_scene load_steps=3 format=3 uid="uid://cep3uftobunu0"]
+
+[ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_ttugd"]
+[ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_qkhss"]
 
 [node name="Node3D" type="Node3D"]
+
+[node name="Kuan-yu-recentered-for-unity-2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01901, -0.0396889, 1.95273)
+mesh = ExtResource("1_ttugd")
+surface_material_override/0 = ExtResource("2_qkhss")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.289637, -0.417689, 0.861189, -0.148645, 0.908468, 0.390628, -0.945524, -0.0148715, -0.325214, -0.163478, 2.52453, -6.34546)
+light_color = Color(0.415686, 0.415686, 0.415686, 1)
