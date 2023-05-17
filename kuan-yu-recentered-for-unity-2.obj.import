@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ick0frjrcmtm"
+path="res://.godot/imported/kuan-yu-recentered-for-unity-2.obj-74a8f8d3485b2e0238fc1495898b3e40.mesh"
+
+[deps]
+
+files=["res://.godot/imported/kuan-yu-recentered-for-unity-2.obj-74a8f8d3485b2e0238fc1495898b3e40.mesh"]
+
+source_file="res://kuan-yu-recentered-for-unity-2.obj"
+dest_files=["res://.godot/imported/kuan-yu-recentered-for-unity-2.obj-74a8f8d3485b2e0238fc1495898b3e40.mesh", "res://.godot/imported/kuan-yu-recentered-for-unity-2.obj-74a8f8d3485b2e0238fc1495898b3e40.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
