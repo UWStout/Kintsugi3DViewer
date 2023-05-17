@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://jg334iq333p"]
+
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="1_jfnds"]
+[ext_resource type="Texture2D" uid="uid://dddk0b2lvn7ah" path="res://diffuse.png" id="2_l42kg"]
+[ext_resource type="Texture2D" uid="uid://cddpryxoh3ldj" path="res://normal.png" id="3_b4lua"]
+[ext_resource type="Texture2D" uid="uid://b14d2l6utlg8q" path="res://roughness.png" id="4_x51ws"]
+[ext_resource type="Texture2D" uid="uid://g6dr8ahyex37" path="res://specular.png" id="5_re8yr"]
+[ext_resource type="Texture2DArray" uid="uid://sp2hx7f11kmh" path="res://weights.tres" id="6_7okf3"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_jfnds")
+shader_parameter/diffuseMap = ExtResource("2_l42kg")
+shader_parameter/normalMap = ExtResource("3_b4lua")
+shader_parameter/specularMap = ExtResource("5_re8yr")
+shader_parameter/roughnessMap = ExtResource("4_x51ws")
+shader_parameter/weights = ExtResource("6_7okf3")
