@@ -2,20 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0w3lid7c4m6j"
-path="res://.godot/imported/weights04-07.png-043c3c6d79110d8029a86e3577f02f02.ctex"
+uid="uid://mquwt56tai8v"
+path.s3tc="res://.godot/imported/weights04-07.png-043c3c6d79110d8029a86e3577f02f02.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://weights04-07.png"
-dest_files=["res://.godot/imported/weights04-07.png-043c3c6d79110d8029a86e3577f02f02.ctex"]
+dest_files=["res://.godot/imported/weights04-07.png-043c3c6d79110d8029a86e3577f02f02.s3tc.ctex"]
 
 [params]
 
-compress/mode=3
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

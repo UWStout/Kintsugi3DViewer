@@ -1,18 +1,18 @@
 [gd_resource type="ShaderMaterial" load_steps=9 format=3 uid="uid://jg334iq333p"]
 
 [ext_resource type="Shader" path="res://BasisIBR.gdshader" id="1_jfnds"]
-[ext_resource type="Texture2D" uid="uid://bosn1rdty3fyg" path="res://basisFunctions.csv" id="2_f7885"]
-[ext_resource type="Texture2D" uid="uid://dddk0b2lvn7ah" path="res://diffuse.png" id="3_fpnja"]
-[ext_resource type="Texture2D" uid="uid://cddpryxoh3ldj" path="res://normal.png" id="4_adq1h"]
-[ext_resource type="Texture2D" uid="uid://b14d2l6utlg8q" path="res://roughness.png" id="5_8w2o6"]
-[ext_resource type="Texture2D" uid="uid://g6dr8ahyex37" path="res://specular.png" id="6_jw3fh"]
-[ext_resource type="Texture2D" uid="uid://ck4p6136vc7mv" path="res://weights00-03.png" id="7_fxkqg"]
-[ext_resource type="Texture2D" uid="uid://d0w3lid7c4m6j" path="res://weights04-07.png" id="8_hfw3m"]
+[ext_resource type="Texture2D" uid="uid://ds1m5ywv1xils" path="res://basisFunctions.csv" id="2_f7885"]
+[ext_resource type="Texture2D" uid="uid://bh5tiuqwmfeo5" path="res://diffuse.png" id="3_1y2im"]
+[ext_resource type="Texture2D" uid="uid://bxnsft15p026l" path="res://normal.png" id="4_adq1h"]
+[ext_resource type="Texture2D" uid="uid://coeyf3qmhmymh" path="res://roughness.png" id="5_8w2o6"]
+[ext_resource type="Texture2D" uid="uid://7gapqmdfffmv" path="res://specular.png" id="6_jw3fh"]
+[ext_resource type="Texture2D" uid="uid://dsi25plfn5gsf" path="res://weights00-03.png" id="7_fxkqg"]
+[ext_resource type="Texture2D" uid="uid://mquwt56tai8v" path="res://weights04-07.png" id="8_hfw3m"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_jfnds")
-shader_parameter/diffuseMap = ExtResource("3_fpnja")
+shader_parameter/diffuseMap = ExtResource("3_1y2im")
 shader_parameter/normalMap = ExtResource("4_adq1h")
 shader_parameter/specularMap = ExtResource("6_jw3fh")
 shader_parameter/roughnessMap = ExtResource("5_8w2o6")

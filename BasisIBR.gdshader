@@ -56,7 +56,7 @@ void fragment()
 	NORMAL_MAP = texture(normalMap, UV).xyz;
 	vec3 metallicHeuristic = (specularLinear - 0.04) / (pow(diffuse, vec3(2.2)) + specularLinear - 0.04);
 	METALLIC = //dot(vec3(1.0 / 3.0), metallicHeuristic);
-		0.75*min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b));
+		max(0.0, 0.9*min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
 	ALBEDO = //pow(pow(diffuse, vec3(2.2)) + specularLinear, vec3(1.0 / 2.2));
 		diffuse / pow(1.0 - METALLIC, 1.0/2.2);
 	ROUGHNESS = texture(roughnessMap, UV)[0];
