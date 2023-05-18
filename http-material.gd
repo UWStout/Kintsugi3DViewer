@@ -1,6 +1,7 @@
 extends ShaderMaterial
 class_name HTTPMaterial
 
+@export var externalServer = true
 @export var serverURL = "http://127.0.0.1:3000/"
 
 var _loading = false
@@ -22,50 +23,69 @@ func load(parent : Node):
 # Request an image over HTTP, store it in a texture, and bind it to a shader uniform
 func _requestTexture(shaderParameter, textureName, parent):
 	var http_request = HTTPRequest.new()
+	http_request.accept_gzip = false # causes problems on itch.io, for example
 	parent.add_child(http_request)
 	http_request.request_completed.connect(
 		func(result, response_code, headers, body):
 			var tex = _http_texture_request_completed(result, response_code, headers, body)
 			self.set_shader_parameter(shaderParameter, tex))
-	var error = http_request.request(serverURL + textureName)
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
+			
+	if (externalServer):
+		var error = http_request.request(serverURL + textureName)
+		if error != OK:
+			push_error("An error occurred in the HTTP request.")
+	else:
+		# URL assumed to be relative to host URL
+		var fullURL = RelativeToAbsoluteURL.convert(textureName)
+		var error = http_request.request(fullURL)
+		if error != OK:
+			push_error("An error occurred in the HTTP request.")
 		
 # Request an CSV file over HTTP, convert it to a texture, and bind it to a shader uniform
-func _requestTextureFromCSV(shaderParameter, textureName, parent):
+func _requestTextureFromCSV(shaderParameter, csvFilename, parent):
 	var http_request = HTTPRequest.new()
+	http_request.accept_gzip = false # causes problems on itch.io, for example
 	parent.add_child(http_request)
 	http_request.request_completed.connect(
 		func(result, response_code, headers, body):
 			var tex = _http_csv_texture_request_completed(result, response_code, headers, body)
 			self.set_shader_parameter(shaderParameter, tex))
-	var error = http_request.request(serverURL + textureName)
-	if error != OK:
-		push_error("An error occurred in the HTTP request.")
+	if (externalServer):
+		var error = http_request.request(serverURL + csvFilename)
+		if error != OK:
+			push_error("An error occurred in the HTTP request.")
+	else:
+		# URL assumed to be relative to host URL
+		var fullURL = RelativeToAbsoluteURL.convert(csvFilename)
+		var error = http_request.request(fullURL)
+		if error != OK:
+			push_error("An error occurred in the HTTP request.")
 	
 # Called when the HTTP request is completed.
 # Loads the content as an image and stores it in a texture
 func _http_texture_request_completed(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		push_error("Image couldn't be downloaded.")
-
+		push_error("Image couldn't be downloaded.  Error code: " + str(result))
+	
 	var image = Image.new()
 	var error = image.load_png_from_buffer(body)
 	if error != OK:
 		push_error("Couldn't load the image.")
-
-	var tex = ImageTexture.create_from_image(image)
-	return tex
+		return null
+	else:
+		var tex = ImageTexture.create_from_image(image)
+		return tex
 	
 	
 # Called when the HTTP request is completed.
 # Processes the content as a CSV file and stores it in a texture
 func _http_csv_texture_request_completed(result, response_code, headers, body):
 	if result != HTTPRequest.RESULT_SUCCESS:
-		push_error("CSV file couldn't be downloaded.")
-
-	var tex = _csv_to_texture(body.get_string_from_utf8())
-	return tex
+		push_error("CSV file couldn't be downloaded.  Error code: " + str(result))
+		return null
+	else:
+		var tex = _csv_to_texture(body.get_string_from_utf8())
+		return tex
 
 func _csv_to_texture(body : String):
 	var width = 0;
