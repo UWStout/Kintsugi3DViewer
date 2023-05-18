@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b14d2l6utlg8q"
+uid="uid://coeyf3qmhmymh"
 path.s3tc="res://.godot/imported/roughness.png-9c5b2fdffc35816138c2cfd21bd46a4b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
@@ -24,7 +24,7 @@ compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=2
+roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false

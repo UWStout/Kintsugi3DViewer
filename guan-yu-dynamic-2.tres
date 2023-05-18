@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" script_class="HTTPMaterial" load_steps=3 format=3 uid="uid://bs4k8vqe7q0hi"]
+
+[ext_resource type="Script" path="res://http-material.gd" id="1_fvcv0"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="2_4dic0"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("2_4dic0")
+script = ExtResource("1_fvcv0")
+serverURL = "http://127.0.0.1:3000/"

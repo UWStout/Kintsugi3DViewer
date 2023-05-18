@@ -1,15 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://cep3uftobunu0"]
+[gd_scene load_steps=8 format=3 uid="uid://cvwipuuufwbit"]
 
 [ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_ttugd"]
 [ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_qkhss"]
+[ext_resource type="Script" path="res://test-dynamic-load.gd" id="3_dcf57"]
+[ext_resource type="Script" path="res://load-from-gltf.gd" id="3_vl0m4"]
+[ext_resource type="Material" uid="uid://bs4k8vqe7q0hi" path="res://guan-yu-dynamic-2.tres" id="4_2yjyt"]
+[ext_resource type="Material" uid="uid://dme5m1mswd71g" path="res://guan-yu-dynamic-1.tres" id="5_gs61c"]
+[ext_resource type="PackedScene" uid="uid://kknu2ud7ttik" path="res://guan_yu_from_gltf.tscn" id="5_qnvud"]
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Kuan-yu-recentered-for-unity-2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01901, -0.0396889, 1.95273)
+[node name="guan-yu-packaged" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.860106, 0.147835, 0.488223, -0.138509, 0.98881, -0.0554018, -0.490951, -0.0199721, 0.870959, -0.684032, 2.24017, 5.44822)
 mesh = ExtResource("1_ttugd")
 surface_material_override/0 = ExtResource("2_qkhss")
+
+[node name="guan-yu-dynamic-gltf" type="Node3D" parent="."]
+transform = Transform3D(0.964536, -0.131268, 0.228996, 0.134851, 0.990866, 3.93309e-09, -0.226905, 0.0308804, 0.973427, 0.0114294, -2.28514, 2.85995)
+script = ExtResource("3_vl0m4")
+material = ExtResource("4_2yjyt")
+
+[node name="guan-yu-dynamic" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.97629, -0.0784939, -0.201736, 0.0768699, 0.996915, -0.015884, 0.20236, 0, 0.979311, 0.427905, -2.29266, -2.30318)
+mesh = ExtResource("1_ttugd")
+surface_material_override/0 = ExtResource("5_gs61c")
+script = ExtResource("3_dcf57")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.289637, -0.417689, 0.861189, -0.148645, 0.908468, 0.390628, -0.945524, -0.0148715, -0.325214, -0.163478, 2.52453, -6.34546)
 light_color = Color(0.415686, 0.415686, 0.415686, 1)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.014572, -0.019011, 0.999713, -0.00242701, 0.999816, 0.0190483, -0.999891, -0.00270389, 0.0145232, 7.16528, 2.34778, 1.59839)
+
+[node name="guan-yu-gltf" parent="." instance=ExtResource("5_qnvud")]
+transform = Transform3D(0.975245, 0.160863, 0.151725, -0.158951, 0.986977, -0.0247291, -0.153727, 0, 0.988113, 0, 1.89372, 0.327432)
