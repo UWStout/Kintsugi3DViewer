@@ -12,22 +12,52 @@ func load(parent : Node):
 		_loading = true
 		
 		# TODO could make this general purpose if these weren't hardcoded
-		_requestTexture("diffuseMap", "diffuse.png", parent)
-		_requestTexture("normalMap", "normal.png", parent)
-		_requestTexture("specularMap", "specular.png", parent)
-		_requestTexture("roughnessMap", "roughness.png", parent)
-		_requestTexture("weights0123", "weights00-03.png", parent)
-		_requestTexture("weights4567", "weights04-07.png", parent)
+		_requestTexture("diffuseMap", "diffuse.png", parent, func(img):
+			img.generate_mipmaps() # need to generate mipmaps before compressing
+#			img.compress(Image.COMPRESS_S3TC, Image.COMPRESS_SOURCE_SRGB)
+			img.convert(Image.FORMAT_RGB8) 	# Workaround to get a little bit of compression
+											# TODO: Figure out why normal compression doesn't work on the web	
+			print("diffuse: " + str(img.get_format()))
+			return ImageTexture.create_from_image(img))
+		_requestTexture("normalMap", "normal.png", parent, func(img):
+			img.generate_mipmaps() # need to generate mipmaps before compressing
+#			img.compress(Image.COMPRESS_S3TC, Image.COMPRESS_SOURCE_NORMAL)
+			img.convert(Image.FORMAT_RG8)
+			print("normal: " + str(img.get_format()))
+			return ImageTexture.create_from_image(img))
+		_requestTexture("specularMap", "specular.png", parent, func(img):
+			img.generate_mipmaps() # need to generate mipmaps before compressing
+#			img.compress(Image.COMPRESS_S3TC, Image.COMPRESS_SOURCE_SRGB)
+			img.convert(Image.FORMAT_RGB8)
+			print("specular: " + str(img.get_format()))
+			return ImageTexture.create_from_image(img))
+		_requestTexture("roughnessMap", "roughness.png", parent, func(img):
+			img.generate_mipmaps() # need to generate mipmaps before compressing
+#			img.compress_from_channels(Image.COMPRESS_S3TC, Image.USED_CHANNELS_R)
+			img.convert(Image.FORMAT_R8)
+			print("roughness: " + str(img.get_format()))
+			return ImageTexture.create_from_image(img))
+		_requestTexture("weights0123", "weights00-03.png", parent, func(img):
+			img.generate_mipmaps() # need to generate mipmaps before compressing
+#			img.compress_from_channels(Image.COMPRESS_S3TC, Image.USED_CHANNELS_RGBA)
+			print("weights0123: " + str(img.get_format()))
+			return ImageTexture.create_from_image(img))
+		_requestTexture("weights4567", "weights04-07.png", parent, func(img):
+			img.generate_mipmaps() # need to generate mipmaps before compressing
+#			img.compress_from_channels(Image.COMPRESS_S3TC, Image.USED_CHANNELS_RGBA)
+			print("weights4567: " + str(img.get_format()))
+			return ImageTexture.create_from_image(img))
 		_requestTextureFromCSV("basisFunctions", "basisFunctions.csv", parent)
 	
 # Request an image over HTTP, store it in a texture, and bind it to a shader uniform
-func _requestTexture(shaderParameter, textureName, parent):
+func _requestTexture(shaderParameter, textureName, parent, processFunction):
 	var http_request = HTTPRequest.new()
 	http_request.accept_gzip = false # causes problems on itch.io, for example
 	parent.add_child(http_request)
 	http_request.request_completed.connect(
 		func(result, response_code, headers, body):
-			var tex = _http_texture_request_completed(result, response_code, headers, body)
+			var img = _http_texture_request_completed(result, response_code, headers, body)
+			var tex = processFunction.call(img)
 			self.set_shader_parameter(shaderParameter, tex))
 			
 	if (externalServer):
@@ -71,11 +101,7 @@ func _http_texture_request_completed(result, response_code, headers, body):
 	var error = image.load_png_from_buffer(body)
 	if error != OK:
 		push_error("Couldn't load the image.")
-		return null
-	else:
-		var tex = ImageTexture.create_from_image(image)
-		return tex
-	
+	return image
 	
 # Called when the HTTP request is completed.
 # Processes the content as a CSV file and stores it in a texture
@@ -113,4 +139,6 @@ func _csv_to_texture(body : String):
 	print(img.get_width())
 	print(img.get_height())
 	var texture = ImageTexture.create_from_image(img)
+	print(img.get_format())
+	print(texture.get_format())
 	return texture
