@@ -38,13 +38,11 @@ func load(parent : Node):
 			print("roughness: " + str(img.get_format()))
 			return ImageTexture.create_from_image(img))
 		_requestTexture("weights0123", "weights00-03.png", parent, func(img):
-			img.generate_mipmaps() # need to generate mipmaps before compressing
-#			img.compress_from_channels(Image.COMPRESS_S3TC, Image.USED_CHANNELS_RGBA)
+			img.generate_mipmaps() 
 			print("weights0123: " + str(img.get_format()))
 			return ImageTexture.create_from_image(img))
 		_requestTexture("weights4567", "weights04-07.png", parent, func(img):
-			img.generate_mipmaps() # need to generate mipmaps before compressing
-#			img.compress_from_channels(Image.COMPRESS_S3TC, Image.USED_CHANNELS_RGBA)
+			img.generate_mipmaps()
 			print("weights4567: " + str(img.get_format()))
 			return ImageTexture.create_from_image(img))
 		_requestTextureFromCSV("basisFunctions", "basisFunctions.csv", parent)
