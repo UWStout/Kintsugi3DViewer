@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://biunck6grf0wh"]
+
+[ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_3g80q"]
+[ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_ab3ts"]
+[ext_resource type="Shader" path="res://reverse_engineering.gdshader" id="3_urs41"]
+
+[sub_resource type="Environment" id="Environment_utlda"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x4fd7"]
+render_priority = 0
+shader = ExtResource("3_urs41")
+
+[node name="test_scene_2" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_3g80q")
+surface_material_override/0 = ExtResource("2_ab3ts")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.251545, 0.214307, 0.943821, -0.535187, -0.84332, 0.0488498, 0.806412, -0.492833, 0.326827, 0, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_utlda")
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.67231, 0, 0)
+radial_segments = 32
+rings = 16
+material = SubResource("ShaderMaterial_x4fd7")

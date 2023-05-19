@@ -51,21 +51,36 @@ vec3 getMFDEstimate(vec2 uv, float nDotH)
 
 void fragment() 
 {
+	// Godot 4 is different than Godot 3 in that the diffuse texture is NOT automatically decoded
+	// -- this is because it wants ALBEDO to be passed through gamma-encoded.
+	// To use it for other purposes (like the hacky metallic heuristic), we need to decode it.
 	vec3 diffuse = texture(diffuseMap, UV).rgb;
-	vec3 specularLinear = texture(specularMap, UV).rgb;
-	NORMAL_MAP = texture(normalMap, UV).xyz;
-	vec3 metallicHeuristic = (specularLinear - 0.04) / (pow(diffuse, vec3(2.2)) + specularLinear - 0.04);
-	METALLIC = //dot(vec3(1.0 / 3.0), metallicHeuristic);
-		max(0.0, 0.9*min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
-	ALBEDO = //pow(pow(diffuse, vec3(2.2)) + specularLinear, vec3(1.0 / 2.2));
-		diffuse / pow(1.0 - METALLIC, 1.0/2.2);
-	ROUGHNESS = texture(roughnessMap, UV)[0];
-	// No slot for traditional specular color (uses metallic instead), 
-	// so we'll have to look that up in the light() function.
+	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
 	
-	// For testing
-	//IRRADIANCE = vec4(0, 0, 0, 1);
-	//RADIANCE = vec4(0, 0, 0, 1);
+	// Both specular texture is designated as sRGB, so it gets automatically decoded.
+	vec3 specularLinear = texture(specularMap, UV).rgb;
+	
+	NORMAL_MAP = texture(normalMap, UV).xyz;
+	
+	// TODO generate optimized metallic map when doing the specular fit
+	vec3 metallicHeuristic = (specularLinear - 0.04) / (diffuseLinear + specularLinear - 0.04);
+	METALLIC = //0.0;
+		//dot(vec3(1.0 / 3.0), metallicHeuristic);
+		max(0.0, 0.9*min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
+	ALBEDO = //vec3(0.0);
+		//pow(diffuseLinear + specularLinear, vec3(1.0 / 2.2));
+		diffuse / pow(1.0 - METALLIC, 1.0/2.2);
+
+	ROUGHNESS = texture(roughnessMap, UV)[0]; // roughness = sqrt(m)
+	
+//	// Hard-coded for reverse-engineering BRDF
+//	METALLIC = 1.0;
+//	ALBEDO = pow(vec3(0.15, 0.05, 0.1),vec3(1.0/2.2));  // Godot 4 expects albedo to be gamma-encoded
+//	ROUGHNESS = 0.5;  // roughness = sqrt(m)
+	
+//	// For testing
+//	IRRADIANCE = vec4(0, 0, 0, 1);
+//	RADIANCE = vec4(0, 0, 0, 1);
 }
 
 void light()
@@ -76,20 +91,20 @@ void light()
 	vec3 halfway = normalize(LIGHT + VIEW);
 	float nDotH = max(0.0, dot(NORMAL, halfway));
 	float hDotV = max(0.0, dot(halfway, VIEW));
-	float m = ROUGHNESS * ROUGHNESS;
+	float m = ROUGHNESS * ROUGHNESS; // roughness = sqrt(m)
 	float mSq = m * m;
 	vec3 irradiance = LIGHT_COLOR * ATTENUATION * nDotL;
-	
+
 	vec3 mfdTimesFresnel = getMFDEstimate(UV, nDotH);
 	float geomRatio = 0.5 / max(0.05, nDotV * sqrt(mix(nDotL * nDotL, 1, mSq) + nDotL * sqrt(mix(nDotV * nDotV, 1, mSq))));
-	
+
 	DIFFUSE_LIGHT += irradiance; // Godot expects this to not be divided by pi
 
 	// Fresnel effect
 	vec3 f0 = mix(vec3(0.04), ALBEDO, METALLIC);
 	float oneMinusHDotV = 1.0 - hDotV;
 	float oneMinusHDotVSq = oneMinusHDotV * oneMinusHDotV;
-	
+
 	 // mfdTimesFresnel will come out pre-divided by pi, so we need to multiply by PI to cancel it out.
 	SPECULAR_LIGHT += 
 //		mfdTimesFresnel
