@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cvwipuuufwbit"]
+[gd_scene load_steps=11 format=3 uid="uid://cvwipuuufwbit"]
 
 [ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_ttugd"]
 [ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_qkhss"]
@@ -10,6 +10,8 @@
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="8_nsglu"]
 
 [sub_resource type="Environment" id="Environment_23ss7"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5av8c"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -48,3 +50,7 @@ script = ExtResource("8_nsglu")
 rotationpoint = NodePath("../rotation-point")
 
 [node name="rotation-point" type="Node3D" parent="Camera"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Camera/rotation-point"]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+mesh = SubResource("SphereMesh_5av8c")
