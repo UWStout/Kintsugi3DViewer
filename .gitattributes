@@ -1,2 +1,10 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Keep all Godot scenes, scripts and project files as LF even on Windows
+*.tscn text eol=lf
+*.tres text eol=lf
+*.gd text eol=lf
+*.godot text eol=lf
+*.import text eol=lf
+
