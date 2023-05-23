@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cvwipuuufwbit"]
+[gd_scene load_steps=10 format=3 uid="uid://cvwipuuufwbit"]
 
 [ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_ttugd"]
 [ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_qkhss"]
@@ -7,6 +7,7 @@
 [ext_resource type="Material" uid="uid://bs4k8vqe7q0hi" path="res://guan-yu-dynamic-2.tres" id="4_2yjyt"]
 [ext_resource type="Material" uid="uid://dme5m1mswd71g" path="res://guan-yu-dynamic-1.tres" id="5_gs61c"]
 [ext_resource type="PackedScene" uid="uid://kknu2ud7ttik" path="res://guan_yu_from_gltf.tscn" id="5_qnvud"]
+[ext_resource type="Script" path="res://scripts/camera_controller.gd" id="8_nsglu"]
 
 [sub_resource type="Environment" id="Environment_23ss7"]
 
@@ -33,11 +34,17 @@ script = ExtResource("3_dcf57")
 transform = Transform3D(-0.289637, -0.417689, 0.861189, -0.148645, 0.908468, 0.390628, -0.945524, -0.0148715, -0.325214, -0.163478, 2.52453, -6.34546)
 light_color = Color(0.415686, 0.415686, 0.415686, 1)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.014572, -0.019011, 0.999713, -0.00242701, 0.999816, 0.0190483, -0.999891, -0.00270389, 0.0145232, 7.16528, 2.34778, 1.59839)
-
 [node name="guan-yu-gltf" parent="." instance=ExtResource("5_qnvud")]
 transform = Transform3D(0.903586, 0.155523, 0.399181, -0.158951, 0.986977, -0.0247291, -0.397828, -0.0411053, 0.916538, 0, 1.89372, 4.58668)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_23ss7")
+
+[node name="Camera" type="Node" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Camera" node_paths=PackedStringArray("rotationpoint")]
+transform = Transform3D(0.014572, -0.019011, 0.999713, -0.00242701, 0.999816, 0.0190483, -0.999891, -0.00270389, 0.0145232, 7.16528, 2.34778, 1.59839)
+script = ExtResource("8_nsglu")
+rotationpoint = NodePath("../rotation-point")
+
+[node name="rotation-point" type="Node3D" parent="Camera"]
