@@ -12,11 +12,16 @@ extends Camera3D
 @export var minZoomDistance: float = 1
 @export var maxZoomDistance: float = 100
 @export var distanceSpeed: float = 0.1
+@export var maxFov: float = 120
+@export var minFov: float = 10
+@export var fovModifier: float = 1
+@export var fovSpeed: float = 0.1
 
 var dragCamera: bool = false
 var rotateCamera: bool = false
 
 var targetDistance: float
+var targetFov: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,6 +33,7 @@ func _ready():
 	rotationpoint.rotation = rotation
 	
 	targetDistance = position.distance_to(rotationpoint.position)
+	targetFov = fov
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,6 +41,8 @@ func _process(delta):
 	var current_distance := position.distance_to(rotationpoint.position)
 	var delta_distance := (targetDistance - current_distance) * distanceSpeed
 	position += (position - rotationpoint.position).normalized() * delta_distance
+	
+	fov += (targetFov - fov) * fovSpeed
 
 func enable_camera():
 	controlEnabled = true
@@ -50,6 +58,9 @@ func detatch_control():
 
 func _input(event):
 	if not event is InputEventMouse:
+		return
+	
+	if not controlEnabled:
 		return
 	
 	if event is InputEventMouseButton:
@@ -68,23 +79,30 @@ func _input(event):
 				dragCamera = true
 			else:
 				dragCamera = false
+		
+		if event.is_command_or_control_pressed():
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				targetFov = max(minFov, targetFov - fovModifier)
+			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				targetFov = min(maxFov, targetFov + fovModifier)
 				
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP and controlEnabled:
-			if targetDistance >= minZoomDistance:
-				targetDistance -= zoomModifier
-			
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and controlEnabled:
-			if targetDistance <= maxZoomDistance:
-				targetDistance += zoomModifier
+		else:
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				if targetDistance >= minZoomDistance:
+					targetDistance -= zoomModifier
+				
+			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				if targetDistance <= maxZoomDistance:
+					targetDistance += zoomModifier
 			
 	
 	if event is InputEventMouseMotion:
-		if dragCamera and controlEnabled:
+		if dragCamera:
 			var offset := Vector3(-event.relative.x, event.relative.y, 0)
 			translate_object_local(offset * dragModifier)
 			rotationpoint.translate_object_local(offset * dragModifier)
 		
-		if rotateCamera and controlEnabled:
+		if rotateCamera:
 			var basis := global_transform.basis
 			var origin := global_transform.origin - rotationpoint.position
 			
