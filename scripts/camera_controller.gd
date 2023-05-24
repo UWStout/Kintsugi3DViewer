@@ -7,6 +7,8 @@ extends Camera3D
 @export var rotationModifier: float = 0.01
 @export var minAngle: float = 6
 @export var maxAngle: float = 174
+@export var minZoomDistance: float = 1
+@export var maxZoomDistance: float = 100
 
 var dragCamera: bool = false
 var rotateCamera: bool = false
@@ -47,6 +49,15 @@ func _input(event):
 			else:
 				dragCamera = false
 				
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			if position.distance_to(rotationpoint.position) >= minZoomDistance:
+				position = position - (position - rotationpoint.position).normalized()
+			
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			if position.distance_to(rotationpoint.position) <= maxZoomDistance:
+				position = position + (position - rotationpoint.position).normalized()
+			
+	
 	if event is InputEventMouseMotion:
 		if dragCamera:
 			var offset := Vector3(-event.relative.x, event.relative.y, 0)
