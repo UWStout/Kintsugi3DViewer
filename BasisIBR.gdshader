@@ -65,11 +65,11 @@ void fragment()
 	// TODO generate optimized metallic map when doing the specular fit
 	vec3 metallicHeuristic = (specularLinear - 0.04) / (diffuseLinear + specularLinear - 0.04);
 	METALLIC = //0.0;
-		//dot(vec3(1.0 / 3.0), metallicHeuristic);
-		max(0.0, 0.9*min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
+		clamp(dot(vec3(1.0 / 3.0), metallicHeuristic), 0.0, 1.0);
+		//max(0.0, min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
 	ALBEDO = //vec3(0.0);
-		//pow(diffuseLinear + specularLinear, vec3(1.0 / 2.2));
-		diffuse / pow(1.0 - METALLIC, 1.0/2.2);
+		pow(diffuseLinear + specularLinear, vec3(1.0 / 2.2));
+		//diffuse / pow(1.0 - METALLIC, 1.0/2.2);
 
 	ROUGHNESS = texture(roughnessMap, UV)[0]; // roughness = sqrt(m)
 	
@@ -98,7 +98,10 @@ void light()
 	vec3 mfdTimesFresnel = getMFDEstimate(UV, nDotH);
 	float geomRatio = 0.5 / max(0.05, nDotV * sqrt(mix(nDotL * nDotL, 1, mSq) + nDotL * sqrt(mix(nDotV * nDotV, 1, mSq))));
 
-	DIFFUSE_LIGHT += irradiance; // Godot expects this to not be divided by pi
+	vec3 diffuse = texture(diffuseMap, UV).rgb;
+	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
+
+	DIFFUSE_LIGHT += diffuseLinear / (ALBEDO * (1.0 - METALLIC) + step(1.0, METALLIC)) * irradiance; // Godot expects this to not be divided by pi
 
 	// Fresnel effect
 	vec3 f0 = mix(vec3(0.04), ALBEDO, METALLIC);
