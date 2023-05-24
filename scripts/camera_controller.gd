@@ -11,10 +11,12 @@ extends Camera3D
 @export var maxAngle: float = 174
 @export var minZoomDistance: float = 1
 @export var maxZoomDistance: float = 100
+@export var distanceSpeed: float = 0.1
 
 var dragCamera: bool = false
 var rotateCamera: bool = false
 
+var targetDistance: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,11 +26,15 @@ func _ready():
 		
 	look_at(rotationpoint.position)
 	rotationpoint.rotation = rotation
+	
+	targetDistance = position.distance_to(rotationpoint.position)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	var current_distance := position.distance_to(rotationpoint.position)
+	var delta_distance := (targetDistance - current_distance) * distanceSpeed
+	position += (position - rotationpoint.position).normalized() * delta_distance
 
 func enable_camera():
 	controlEnabled = true
@@ -64,12 +70,12 @@ func _input(event):
 				dragCamera = false
 				
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP and controlEnabled:
-			if position.distance_to(rotationpoint.position) >= minZoomDistance:
-				position = position - (position - rotationpoint.position).normalized() * zoomModifier
+			if targetDistance >= minZoomDistance:
+				targetDistance -= zoomModifier
 			
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and controlEnabled:
-			if position.distance_to(rotationpoint.position) <= maxZoomDistance:
-				position = position + (position - rotationpoint.position).normalized() * zoomModifier
+			if targetDistance <= maxZoomDistance:
+				targetDistance += zoomModifier
 			
 	
 	if event is InputEventMouseMotion:
