@@ -2,16 +2,25 @@
 
 extends Camera3D
 
+@export_category("Camera Controller")
 @export var controlEnabled: bool = true
 @export var rotationpoint: Node3D
+
+@export_group("Drag Control")
 @export var dragModifier: float = 0.01
+
+@export_group("Rotation Control")
 @export var rotationModifier: float = 0.01
-@export var zoomModifier: float = 1
 @export var minAngle: float = 6
 @export var maxAngle: float = 174
+
+@export_group("Dolly Control")
+@export var zoomModifier: float = 1
 @export var minZoomDistance: float = 1
 @export var maxZoomDistance: float = 100
 @export var distanceSpeed: float = 0.1
+
+@export_group("Zoom Control")
 @export var maxFov: float = 120
 @export var minFov: float = 10
 @export var fovModifier: float = 1
