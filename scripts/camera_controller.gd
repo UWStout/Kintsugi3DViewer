@@ -2,9 +2,11 @@
 
 extends Camera3D
 
+@export var controlEnabled: bool = true
 @export var rotationpoint: Node3D
 @export var dragModifier: float = 0.01
 @export var rotationModifier: float = 0.01
+@export var zoomModifier: float = 1
 @export var minAngle: float = 6
 @export var maxAngle: float = 174
 @export var minZoomDistance: float = 1
@@ -28,6 +30,18 @@ func _ready():
 func _process(delta):
 	pass
 
+func enable_camera():
+	controlEnabled = true
+
+func disable_camera():
+	controlEnabled = false
+	detatch_control()
+
+# Equivelant to the usage of DisableCamera() in Unity implementation
+func detatch_control():
+	dragCamera = false
+	rotateCamera = false
+
 func _input(event):
 	if not event is InputEventMouse:
 		return
@@ -49,22 +63,22 @@ func _input(event):
 			else:
 				dragCamera = false
 				
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP and controlEnabled:
 			if position.distance_to(rotationpoint.position) >= minZoomDistance:
-				position = position - (position - rotationpoint.position).normalized()
+				position = position - (position - rotationpoint.position).normalized() * zoomModifier
 			
-		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN and controlEnabled:
 			if position.distance_to(rotationpoint.position) <= maxZoomDistance:
-				position = position + (position - rotationpoint.position).normalized()
+				position = position + (position - rotationpoint.position).normalized() * zoomModifier
 			
 	
 	if event is InputEventMouseMotion:
-		if dragCamera:
+		if dragCamera and controlEnabled:
 			var offset := Vector3(-event.relative.x, event.relative.y, 0)
 			translate_object_local(offset * dragModifier)
 			rotationpoint.translate_object_local(offset * dragModifier)
 		
-		if rotateCamera:
+		if rotateCamera and controlEnabled:
 			var basis := global_transform.basis
 			var origin := global_transform.origin - rotationpoint.position
 			
