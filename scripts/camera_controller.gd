@@ -26,6 +26,12 @@ extends Camera3D
 @export var fovModifier: float = 1
 @export var fovSpeed: float = 0.1
 
+@export_group("Raycasting")
+@export var ray_distance : float = 1000
+@export_flags_2d_physics var collision_mask
+
+
+
 var dragCamera: bool = false
 var rotateCamera: bool = false
 
@@ -71,6 +77,11 @@ func _input(event):
 	
 	if not controlEnabled:
 		return
+		
+	
+	# DEBUG SPACE FOR ANNOTATION CLICKING
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		cast_ray_to_world()
 	
 	if event is InputEventMouseButton:
 		# Left Click
@@ -137,3 +148,22 @@ func _input(event):
 			global_transform = Transform3D(basis, rotationpoint.position + origin)
 			look_at(rotationpoint.position)
 			rotationpoint.rotation = rotation;
+
+func cast_ray_to_world():
+	var space_state = get_world_3d().direct_space_state
+	
+	var mouse_position_screen = get_viewport().get_mouse_position()
+	var mouse_position_world = project_ray_origin(mouse_position_screen)
+	
+	var ray_end = mouse_position_world + project_ray_normal(mouse_position_screen) * ray_distance
+	
+	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, collision_mask)
+	var ray_result = space_state.intersect_ray(ray_query)
+	
+	if ray_result:
+		print(ray_result["collider"].name)
+		
+		# Change the rotationPoint so that the camera focuses
+		# on the annotation's point
+		#rotationpoint = ray_result["collider"]
+		#rotationpoint.position = ray_result["collider"].position
