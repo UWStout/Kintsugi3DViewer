@@ -12,7 +12,7 @@
 
 [sub_resource type="Environment" id="Environment_23ss7"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D" type="Node"]
 
 [node name="guan-yu-packaged" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.98989, 0.139952, 0.023056, -0.140271, 0.990029, 0.0128635, -0.0210268, -0.0159678, 0.999652, -0.684032, 2.24017, -0.429135)

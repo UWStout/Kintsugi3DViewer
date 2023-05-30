@@ -35,8 +35,11 @@ extends Camera3D
 var dragCamera: bool = false
 var rotateCamera: bool = false
 
+var target_position: Vector3
 var targetDistance: float
 var targetFov: float
+
+var do_move_to_target_pos: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,6 +52,8 @@ func _ready():
 	
 	targetDistance = position.distance_to(rotationpoint.position)
 	targetFov = fov
+	
+	target_position = rotationpoint.global_position
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -58,6 +63,17 @@ func _process(delta):
 	position += (position - rotationpoint.position).normalized() * delta_distance
 	
 	fov += (targetFov - fov) * fovSpeed
+	
+	# LERP to the current target_position (the annotation / detail clicked by the viewer)
+	if do_move_to_target_pos:
+		var deltaPos = lerp(rotationpoint.global_position, target_position, delta * 3) - rotationpoint.global_position
+		
+		rotationpoint.global_position += deltaPos
+		global_position += deltaPos
+
+		if rotationpoint.global_position.distance_to(target_position) <= 0.001:
+			rotationpoint.global_position = target_position
+			do_move_to_target_pos = false
 
 func enable_camera():
 	controlEnabled = true
@@ -97,6 +113,8 @@ func _input(event):
 			if event.pressed:
 				rotateCamera = false
 				dragCamera = true
+				do_move_to_target_pos = false
+			
 			else:
 				dragCamera = false
 		
@@ -161,9 +179,5 @@ func cast_ray_to_world():
 	var ray_result = space_state.intersect_ray(ray_query)
 	
 	if ray_result:
-		print(ray_result["collider"].name)
-		
-		# Change the rotationPoint so that the camera focuses
-		# on the annotation's point
-		#rotationpoint = ray_result["collider"]
-		#rotationpoint.position = ray_result["collider"].position
+		target_position = ray_result["collider"].global_position
+		do_move_to_target_pos = true
