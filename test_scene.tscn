@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8h5re8my1pif"]
+[gd_scene load_steps=12 format=3 uid="uid://b8h5re8my1pif"]
 
 [ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_ttugd"]
 [ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_qkhss"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://kknu2ud7ttik" path="res://guan_yu_from_gltf.tscn" id="5_qnvud"]
 [ext_resource type="Script" path="res://scripts/camera/camera_rig.gd" id="8_lhahb"]
 [ext_resource type="Script" path="res://scripts/camera/basic_camera_input.gd" id="8_yqblt"]
+[ext_resource type="Script" path="res://scripts/camera/touch_input_provider.gd" id="10_g8plg"]
 
 [sub_resource type="Environment" id="Environment_23ss7"]
 
@@ -56,5 +57,10 @@ rot_vert_limit_maxAngle = 80.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
 fov = 69.9
 
-[node name="Input Handler" type="Node" parent="Camera"]
+[node name="Input Handler" type="Node" parent="Camera" node_paths=PackedStringArray("camera")]
 script = ExtResource("8_yqblt")
+camera = NodePath("..")
+
+[node name="Touch Input" type="Node" parent="Camera" node_paths=PackedStringArray("camera")]
+script = ExtResource("10_g8plg")
+camera = NodePath("..")
