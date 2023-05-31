@@ -46,6 +46,55 @@ var target_transform: Transform3D
 var target_dolly: float
 var target_fov: float
 
+func set_fov(new_fov: float):
+	target_fov = new_fov
+
+func set_dolly(new_dolly: float):
+	target_dolly = new_dolly
+
+func set_zoom(new_zoom: float):
+	set_dolly(new_zoom)
+
+func set_rig_transform(new_transform: Transform3D):
+	target_transform = new_transform
+
+func set_rig_rotation(new_rotation: Vector3):
+	var new_transform = Transform3D(Basis.from_euler(new_rotation), target_transform.origin)
+	set_rig_transform(new_transform)
+
+func set_rig_position(new_position: Vector3):
+	var new_transform = Transform3D(target_transform.basis, new_position)
+	set_rig_transform(new_transform)
+
+func apply_fov(delta_fov: float):
+	set_fov(target_fov + delta_fov)
+
+func apply_zoom(delta_zoom: float):
+	set_dolly(target_dolly + delta_zoom)
+
+func apply_transform(delta_transform: Transform3D):
+	set_rig_transform(delta_transform * target_transform)
+
+func apply_translation(delta_position: Vector3):
+	set_rig_transform(target_transform.translated(delta_position))
+
+# Buggy, should probably use apply_pitch() and apply_yaw() instead
+func apply_rotation(delta_rotation: Vector3):
+	target_transform.basis = Basis.from_euler(delta_rotation) * target_transform.basis
+
+func apply_yaw(delta_yaw: float):
+	target_transform.basis = target_transform.basis.rotated(Vector3.UP, delta_yaw).orthonormalized()
+
+func apply_pitch(delta_pitch: float):
+	target_transform.basis = target_transform.basis.rotated(target_transform.basis.x, delta_pitch).orthonormalized()
+
+func apply_drag(delta_drag: Vector2):
+	apply_translation(target_transform.basis * Vector3(delta_drag.x, delta_drag.y, 0))
+
+func apply_drag_direct(delta_drag: Vector2):
+	apply_drag(delta_drag)
+	rotationPoint.transform.origin = target_transform.origin
+
 func _ready():
 	# Validate variables
 	if not is_instance_valid(camera):
@@ -87,4 +136,4 @@ func _process(delta):
 		rotationPoint.transform.basis = new_basis
 	
 	if drag_enabled:
-		pass
+		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, drag_rate * delta)
