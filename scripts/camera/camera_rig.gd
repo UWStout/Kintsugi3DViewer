@@ -10,10 +10,12 @@ class_name CameraRig
 
 @export_group("Rotation", "rot_")
 @export var rot_enabled: bool = true
-@export_range(0, 10, 0.01) var rot_rate: float = 1
+@export var rot_interpolate: bool = true
+@export_range(0, 10, 0.01) var rot_rate: float = 4
 @export var rot_initial_rotation: Vector3
 @export_subgroup("Vertical Limits", "rot_vert_limit_")
 @export var rot_vert_limit_enabled: bool = true
+@export var rot_vert_limit_fix_roll: bool = true
 @export var rot_vert_limit_minAngle: float = -85
 @export var rot_vert_limit_maxAngle: float = 85
 # Not Implemented
@@ -24,13 +26,15 @@ class_name CameraRig
 
 @export_group("Translation", "drag_")
 @export var drag_enabled: bool = true
-@export_range(0, 10, 0.01) var drag_rate: float = 1
+@export var drag_interpolate: bool = true
+@export_range(0, 10, 0.01) var drag_rate: float = 4
 @export var drag_initial_translation: Vector3
 
 @export_group("Dolly Zoom", "dolly_")
 @export var dolly_enabled: bool = true
+@export var dolly_interpolate: bool = true
+@export_range(0, 10, 0.01) var dolly_rate: float = 4
 @export var dolly_initial_distance: float = 10
-@export_range(0, 10, 0.01) var dolly_rate: float = 1
 @export_subgroup("Limits", "dolly_limit_")
 @export var dolly_limit_enabled: bool = true
 @export var dolly_limit_minDistance: float = 1
@@ -38,7 +42,8 @@ class_name CameraRig
 
 @export_group("FOV Zoom", "fov_")
 @export var fov_enabled: bool = false
-@export_range(0, 10, 0.01) var fov_rate: float = 1
+@export var fov_interpolate: bool = true
+@export_range(0, 10, 0.01) var fov_rate: float = 4
 @export_range(1, 179, 0.1, "degrees") var fov_initial_fov: float = 75
 
 # Targets
@@ -120,20 +125,33 @@ func _process(delta):
 	
 	if fov_enabled:
 		target_fov = clamp(target_fov, 1, 179)
-		camera.fov = lerp(camera.fov, target_fov, fov_rate * delta)
+		var weight = fov_rate * delta if fov_interpolate else 1
+		camera.fov = lerp(camera.fov, target_fov, weight)
 	
 	if dolly_enabled:
 		if dolly_limit_enabled:
 			target_dolly = clamp(target_dolly, dolly_limit_minDistance, dolly_limit_maxDistance)
-		camera.position.z = lerp(camera.position.z, target_dolly, dolly_rate * delta)
+		var weight = dolly_rate * delta if dolly_interpolate else 1
+		camera.position.z = lerp(camera.position.z, target_dolly, weight)
 		
 	if rot_enabled:
-		var new_basis = rotationPoint.transform.basis.slerp(target_transform.basis, rot_rate * delta)
 		if rot_vert_limit_enabled:
-			var eulers = new_basis.get_euler()
+			var eulers = target_transform.basis.get_euler()
+			print(eulers)
 			eulers.x = clamp(eulers.x, deg_to_rad(rot_vert_limit_minAngle), deg_to_rad(rot_vert_limit_maxAngle))
-			new_basis = Basis.from_euler(eulers)
+			if rot_vert_limit_fix_roll:
+				eulers.z = 0.0
+			target_transform.basis = Basis.from_euler(eulers)
+			
+	
+		var new_basis: Basis
+		if rot_interpolate:
+			new_basis = rotationPoint.transform.basis.slerp(target_transform.basis, rot_rate * delta)
+		else:
+			new_basis = target_transform.basis
+		
 		rotationPoint.transform.basis = new_basis
 	
 	if drag_enabled:
-		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, drag_rate * delta)
+		var weight = drag_rate * delta if drag_interpolate else 1
+		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
