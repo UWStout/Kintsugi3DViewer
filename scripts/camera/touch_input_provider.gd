@@ -1,7 +1,7 @@
-﻿extends Node
+extends Node
 
 @export var camera: CameraRig
-@export var rotation_rate: float = 0.01
+@export var rotation_rate: float = 0.00025
 
 func _ready():
 	# If the target camera rig is not manually set, attempt to find one in the scene

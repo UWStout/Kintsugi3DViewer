@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://6a1mpov6q6do"
 path.bptc="res://.godot/imported/Stonewall_Ref_lowerres_pan.hdr-173ef3f8af1ca246f12f48f6d4f34089.bptc.ctex"
+path.astc="res://.godot/imported/Stonewall_Ref_lowerres_pan.hdr-173ef3f8af1ca246f12f48f6d4f34089.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Stonewall_Ref_lowerres_pan.hdr"
-dest_files=["res://.godot/imported/Stonewall_Ref_lowerres_pan.hdr-173ef3f8af1ca246f12f48f6d4f34089.bptc.ctex"]
+dest_files=["res://.godot/imported/Stonewall_Ref_lowerres_pan.hdr-173ef3f8af1ca246f12f48f6d4f34089.bptc.ctex", "res://.godot/imported/Stonewall_Ref_lowerres_pan.hdr-173ef3f8af1ca246f12f48f6d4f34089.astc.ctex"]
 
 [params]
 
