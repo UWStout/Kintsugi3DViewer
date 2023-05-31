@@ -137,7 +137,6 @@ func _process(delta):
 	if rot_enabled:
 		if rot_vert_limit_enabled:
 			var eulers = target_transform.basis.get_euler()
-			print(eulers)
 			eulers.x = clamp(eulers.x, deg_to_rad(rot_vert_limit_minAngle), deg_to_rad(rot_vert_limit_maxAngle))
 			if rot_vert_limit_fix_roll:
 				eulers.z = 0.0
