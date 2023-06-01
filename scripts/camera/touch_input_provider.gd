@@ -1,6 +1,8 @@
 extends Node
 
 @export var camera: CameraRig
+@export var keyboard_input_provider: Node
+@export var input_enabled: bool = true
 @export var rotation_rate: float = 0.005
 @export var drag_rate: float = 0.01
 @export var zoom_rate: float = 0.01
@@ -27,6 +29,9 @@ func _ready():
 			push_error("Basic Camera Input module at %s could not find, or was not assigned a CameraRig!" % get_path())
 
 func _input(event):
+	if not input_enabled:
+		return
+	
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			var data = FingerData.new()
@@ -38,6 +43,9 @@ func _input(event):
 			fingers[event.index] = data
 		else:
 			fingers.erase(event.index)
+		
+		if is_instance_valid(keyboard_input_provider):
+			keyboard_input_provider.input_enabled = fingers.size() <= 0
 		
 		match fingers.size():
 			1:

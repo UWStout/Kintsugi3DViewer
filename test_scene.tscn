@@ -59,6 +59,7 @@ fov = 69.9
 script = ExtResource("8_yqblt")
 camera = NodePath("..")
 
-[node name="Touch Input" type="Node" parent="Camera" node_paths=PackedStringArray("camera")]
+[node name="Touch Input" type="Node" parent="Camera" node_paths=PackedStringArray("camera", "keyboard_input_provider")]
 script = ExtResource("10_g8plg")
 camera = NodePath("..")
+keyboard_input_provider = NodePath("../Input Handler")
