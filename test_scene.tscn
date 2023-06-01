@@ -48,8 +48,6 @@ script = ExtResource("8_lhahb")
 camera = NodePath("rotation-point/Camera3D")
 rotationPoint = NodePath("rotation-point")
 rot_interpolate = false
-rot_vert_limit_minAngle = -80.0
-rot_vert_limit_maxAngle = 80.0
 
 [node name="rotation-point" type="Node3D" parent="Camera"]
 
