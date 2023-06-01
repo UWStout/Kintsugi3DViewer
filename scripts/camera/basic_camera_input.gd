@@ -1,6 +1,7 @@
 extends Node
 
 @export var camera: CameraRig
+@export var input_enabled: bool = true
 @export var zoom_rate: float = 1
 @export var drag_rate: float = 0.025
 @export var rotation_rate: float = 0.01
@@ -18,6 +19,9 @@ func _ready():
 			push_error("Basic Camera Input module at %s could not find, or was not assigned a CameraRig!" % get_path())
 
 func _input(event):
+	if not input_enabled:
+		return
+	
 	if event is InputEventMouseButton:
 		# Left Click
 		if event.button_index == MOUSE_BUTTON_LEFT:
