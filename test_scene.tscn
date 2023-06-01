@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvwipuuufwbit"]
+[gd_scene load_steps=14 format=3 uid="uid://cvwipuuufwbit"]
 
 [ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_ttugd"]
 [ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_qkhss"]
@@ -7,8 +7,12 @@
 [ext_resource type="Material" uid="uid://bs4k8vqe7q0hi" path="res://guan-yu-dynamic-2.tres" id="4_2yjyt"]
 [ext_resource type="Material" uid="uid://dme5m1mswd71g" path="res://guan-yu-dynamic-1.tres" id="5_gs61c"]
 [ext_resource type="PackedScene" uid="uid://kknu2ud7ttik" path="res://guan_yu_from_gltf.tscn" id="5_qnvud"]
-[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotation.tscn" id="8_44km6"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotation_marker.tscn" id="8_44km6"]
 [ext_resource type="Script" path="res://scripts/camera_controller.gd" id="8_nsglu"]
+[ext_resource type="Script" path="res://scripts/annotation_focus_point.gd" id="10_3doll"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotation_text_box.tscn" id="10_5j3wp"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_jbtap"]
 
 [sub_resource type="Environment" id="Environment_23ss7"]
 
@@ -38,9 +42,28 @@ light_color = Color(0.415686, 0.415686, 0.415686, 1)
 [node name="guan-yu-gltf" parent="." instance=ExtResource("5_qnvud")]
 transform = Transform3D(0.903586, 0.155523, 0.399181, -0.158951, 0.986977, -0.0247291, -0.397828, -0.0411053, 0.916538, 0, 1.89372, 4.58668)
 
-[node name="annotation" parent="guan-yu-gltf" instance=ExtResource("8_44km6")]
+[node name="marker_horse_head" parent="guan-yu-gltf" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("8_44km6")]
+transform = Transform3D(1, -1.86265e-09, 6.25849e-07, -2.21655e-07, 1, -8.56817e-08, -2.08616e-07, 0, 1, -0.0962307, 3.68889, 2.66977)
 collision_layer = 2
 collision_mask = 2
+focus_point = NodePath("../focus_point_horse_head")
+textbox = NodePath("../annotation_text_box_horse_head")
+
+[node name="focus_point_horse_head" type="Node3D" parent="guan-yu-gltf"]
+transform = Transform3D(0.0796598, -1.86265e-09, -0.996823, -2.98023e-08, 1, 9.31323e-09, 0.996823, 0, 0.0796598, 0.305531, 3.33812, 1.77996)
+script = ExtResource("10_3doll")
+annotation_distance = 2.25
+
+[node name="Camera3D" type="Camera3D" parent="guan-yu-gltf/focus_point_horse_head"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -2.25)
+visible = false
+
+[node name="annotation_text_box_horse_head" parent="guan-yu-gltf" instance=ExtResource("10_5j3wp")]
+transform = Transform3D(1, 1.02445e-07, 1.2517e-06, -5.21541e-07, 1, -1.93715e-07, -8.9407e-07, -1.86265e-08, 1, -1.22234, 2.32904, 5.09109)
+texture = SubResource("ViewportTexture_jbtap")
+annotation_name = "HORSE HEAD"
+annotation_text = "It's a horse's head. What did you expect? At least it's kind of shiny."
+recalculate_text = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_23ss7")
@@ -51,6 +74,7 @@ environment = SubResource("Environment_23ss7")
 
 [node name="Camera3D" type="Camera3D" parent="Camera" node_paths=PackedStringArray("rotationpoint")]
 transform = Transform3D(0.014572, -0.019011, 0.999713, -0.00242701, 0.999816, 0.0190483, -0.999891, -0.00270389, 0.0145232, 7.16528, 2.34778, 1.59839)
+current = true
 script = ExtResource("8_nsglu")
 rotationpoint = NodePath("../rotation-point")
 collision_mask = 2

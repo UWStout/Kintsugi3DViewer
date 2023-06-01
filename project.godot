@@ -15,6 +15,10 @@ run/main_scene="res://test_scene.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AnnotationsManager="*res://scripts/annotations_manager.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/load_texture_array/plugin.cfg")

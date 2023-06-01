@@ -30,16 +30,16 @@ extends Camera3D
 @export var ray_distance : float = 1000
 @export_flags_2d_physics var collision_mask
 
-
-
 var dragCamera: bool = false
 var rotateCamera: bool = false
 
-var target_position: Vector3
 var targetDistance: float
 var targetFov: float
 
+var annotation_target_position: Vector3
 var do_move_to_target_pos: bool = false
+var annotation_target_distance: float
+var do_zoom_to_target_distance: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,26 +53,36 @@ func _ready():
 	targetDistance = position.distance_to(rotationpoint.position)
 	targetFov = fov
 	
-	target_position = rotationpoint.global_position
+	# Set defaults for the annotation's auto zoom, pan, and rotate
+	annotation_target_position = rotationpoint.global_position
+	annotation_target_distance = targetDistance
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var current_target_distance : float = targetDistance
+	if do_zoom_to_target_distance:
+		current_target_distance = annotation_target_distance
+	
 	var current_distance := position.distance_to(rotationpoint.position)
-	var delta_distance := (targetDistance - current_distance) * distanceSpeed
+	var delta_distance := (current_target_distance - current_distance) * distanceSpeed
 	position += (position - rotationpoint.position).normalized() * delta_distance
+	
+	if do_zoom_to_target_distance and abs(current_distance - current_target_distance) <= 0.01:
+		do_zoom_to_target_distance = false
+		targetDistance = annotation_target_distance
 	
 	fov += (targetFov - fov) * fovSpeed
 	
-	# LERP to the current target_position (the annotation / detail clicked by the viewer)
+#	# LERP to the current annotation_target_position (the annotation / detail clicked by the viewer)
 	if do_move_to_target_pos:
-		var deltaPos = lerp(rotationpoint.global_position, target_position, delta * 3) - rotationpoint.global_position
-		
+		var deltaPos = lerp(rotationpoint.global_position, annotation_target_position, delta * 3) - rotationpoint.global_position
+
 		rotationpoint.global_position += deltaPos
 		global_position += deltaPos
 
-		if rotationpoint.global_position.distance_to(target_position) <= 0.001:
-			rotationpoint.global_position = target_position
+		if rotationpoint.global_position.distance_to(annotation_target_position) <= 0.001:
+			rotationpoint.global_position = annotation_target_position
 			do_move_to_target_pos = false
 
 func enable_camera():
@@ -139,6 +149,8 @@ func _input(event):
 			var offset := Vector3(-event.relative.x, event.relative.y, 0)
 			translate_object_local(offset * dragModifier)
 			rotationpoint.translate_object_local(offset * dragModifier)
+			
+			AnnotationsManager.change_selected_annotation(null)
 		
 		if rotateCamera:
 			var basis := global_transform.basis
@@ -179,5 +191,11 @@ func cast_ray_to_world():
 	var ray_result = space_state.intersect_ray(ray_query)
 	
 	if ray_result:
-		target_position = ray_result["collider"].global_position
-		do_move_to_target_pos = true
+		var annotation = ray_result["collider"]
+		annotation.on_annotation_clicked()
+		
+		annotation_target_position = annotation.get_focus_point().global_position
+		do_move_to_target_pos = annotation.get_focus_point().do_pan_to_annotation
+		
+		annotation_target_distance = annotation.get_focus_point().annotation_distance
+		do_zoom_to_target_distance = annotation.get_focus_point().do_zoom_to_annotation
