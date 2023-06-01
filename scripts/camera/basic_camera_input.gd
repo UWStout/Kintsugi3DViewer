@@ -45,7 +45,7 @@ func _input(event):
 	
 	if event is InputEventMouseMotion:
 		if dragCamera:
-			camera.apply_drag_direct((event.relative * Vector2(-1, 1)) * drag_rate)
+			camera.apply_drag((event.relative * Vector2(-1, 1)) * drag_rate)
 		
 		if rotateCamera:
 			#camera.apply_rotation(Vector3(-event.relative.y, event.relative.x, 0) * rotation_rate)

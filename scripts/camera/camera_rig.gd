@@ -29,7 +29,7 @@ class_name CameraRig
 @export_group("Translation", "drag_")
 @export var drag_enabled: bool = true
 @export var drag_interpolate: bool = true
-@export_range(0, 10, 0.01) var drag_rate: float = 4
+@export_range(0, 25, 0.01) var drag_rate: float = 10
 @export var drag_initial_translation: Vector3
 
 @export_group("Dolly Zoom", "dolly_")
