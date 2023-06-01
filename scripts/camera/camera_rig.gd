@@ -16,8 +16,10 @@ class_name CameraRig
 @export_subgroup("Vertical Limits", "rot_vert_limit_")
 @export var rot_vert_limit_enabled: bool = true
 @export var rot_vert_limit_fix_roll: bool = true
-@export var rot_vert_limit_minAngle: float = -85
-@export var rot_vert_limit_maxAngle: float = 85
+@export var rot_vert_limit_top_angle: float = 5
+@export var rot_vert_limit_bottom_angle: float = 5
+@onready var rot_limit_min = deg_to_rad(rot_vert_limit_top_angle)
+@onready var rot_limit_max = deg_to_rad(180 - rot_vert_limit_bottom_angle)
 # Not Implemented
 #@export_subgroup("Horizontal Limits", "rot_horiz_limit_")
 #@export var rot_horiz_limit_enabled: bool = false
@@ -136,12 +138,23 @@ func _process(delta):
 		
 	if rot_enabled:
 		if rot_vert_limit_enabled:
-			var eulers = target_transform.basis.get_euler()
-			eulers.x = clamp(eulers.x, deg_to_rad(rot_vert_limit_minAngle), deg_to_rad(rot_vert_limit_maxAngle))
-			if rot_vert_limit_fix_roll:
-				eulers.z = 0.0
-			target_transform.basis = Basis.from_euler(eulers)
-			
+			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
+			# Check if Camera is upside down (Limit was overrun in a single frame)
+			if target_transform.basis.y.dot(transform.basis.y) < 0:
+				# Camera is in northern hemisphere (Overran min angle)
+				if target_transform.basis.z.dot(transform.basis.y) > 0:
+					var err_angle = angle_to_north + rot_limit_min
+					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
+				else: # Camera is in southern hemisphere (Overran max angle)
+					var err_angle = angle_to_north-PI + rot_limit_max-PI
+					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
+			else: # Do normal limit calculations
+				if angle_to_north < rot_limit_min:
+					var err_angle = angle_to_north - rot_limit_min
+					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
+				if angle_to_north > rot_limit_max:
+					var err_angle = angle_to_north - rot_limit_max
+					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
 	
 		var new_basis: Basis
 		if rot_interpolate:
