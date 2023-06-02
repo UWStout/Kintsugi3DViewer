@@ -8,7 +8,7 @@
 [ext_resource type="Material" uid="uid://dme5m1mswd71g" path="res://guan-yu-dynamic-1.tres" id="5_gs61c"]
 [ext_resource type="PackedScene" uid="uid://kknu2ud7ttik" path="res://guan_yu_from_gltf.tscn" id="5_qnvud"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="8_bxpqr"]
-[ext_resource type="PackedScene" path="res://prefabs/ui/hud.tscn" id="9_ikqpc"]
+[ext_resource type="PackedScene" uid="uid://cto73bdrgblw" path="res://prefabs/ui/hud.tscn" id="9_ikqpc"]
 
 [sub_resource type="Environment" id="Environment_23ss7"]
 

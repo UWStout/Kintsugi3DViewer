@@ -2,6 +2,21 @@ extends Panel
 
 @export var artifact_button: PackedScene
 
+var test_data = [
+	{
+		"name": "Test Object A",
+		"iconUrl": "https://i.imgur.com/j9tpg3M.jpg"
+	},
+	{
+		"name": "Test Object B",
+		"iconUrl": "https://i.imgur.com/j9tpg3M.jpg"
+	},
+	{
+		"name": "Test Object C",
+		"iconUrl": "https://i.imgur.com/j9tpg3M.jpg"
+	}
+]
+
 func _ready():
 	hide_panel()
 	if not is_instance_valid(artifact_button):
@@ -26,6 +41,7 @@ func clear_list():
 
 func populate_list():
 	clear_list()
-	var button = artifact_button.instantiate()
-	button.text = "runtime button text!"
-	%ArtifactList.add_child(button)
+	for artifact_data in test_data:
+		var button = artifact_button.instantiate()
+		%ArtifactList.add_child(button)
+		button.setup(artifact_data)
