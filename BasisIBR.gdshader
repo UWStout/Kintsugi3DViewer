@@ -1,12 +1,12 @@
 shader_type spatial;
 
-uniform sampler2D diffuseMap : source_color;
-uniform sampler2D normalMap : hint_normal;
-uniform sampler2D specularMap : hint_default_black;
-uniform sampler2D roughnessMap : hint_default_white;
+uniform sampler2D diffuseMap : source_color, filter_linear_mipmap;
+uniform sampler2D normalMap : hint_normal, filter_linear_mipmap;
+uniform sampler2D specularMap : hint_default_black, filter_linear_mipmap;
+uniform sampler2D roughnessMap : hint_default_white, filter_linear_mipmap;
 
-uniform sampler2D weights0123 : hint_default_black;
-uniform sampler2D weights4567 : hint_default_black;
+uniform sampler2D weights0123 : hint_default_black, filter_linear_mipmap;
+uniform sampler2D weights4567 : hint_default_black, filter_linear_mipmap;
 uniform sampler2D basisFunctions : hint_default_black;
 
 const int BASIS_COUNT = 8;
@@ -57,18 +57,36 @@ void fragment()
 	vec3 diffuse = texture(diffuseMap, UV).rgb;
 	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
 	
-	// Both specular texture is designated as sRGB, so it gets automatically decoded.
-	vec3 specularLinear = texture(specularMap, UV).rgb;
+	// Specular texture is not designated as sRGB.
+	vec3 specularLinear = pow(texture(specularMap, UV).rgb, vec3(2.2));
 	
 	NORMAL_MAP = texture(normalMap, UV).xyz;
 	
-	// TODO generate optimized metallic map when doing the specular fit
+	vec3 diffusePlusSpecular = diffuseLinear + specularLinear;
+	
+//	// Adjust for dielectic specular (i.e. 0.04 for non-metallic)
+//    // See derivation above
+//    // Initially, calculate albedo assuming metallicity could be different for each RGB channel (for simplicity)
+//    vec3 albedoLinear = 0.5 * diffusePlusSpecular + 0.5 * sqrt(max(vec3(0.0), diffusePlusSpecular * diffusePlusSpecular - 0.16 * diffuseLinear));
+//
+//    // Then calculate metallicity for all channels
+//    vec3 metallicity = clamp(1.0 - diffuseLinear / albedoLinear, 0.0, 1.0);
+//
+//    // Take the highest metallicity of all the color channels (most conservative in terms of preserving color information in specular highlights)
+//    float maxMetallicity = max(metallicity.r, max(metallicity.g, metallicity.b));
+//
+//    // Recalculate albedo now assuming a single metallicity for the R, G, and B channels
+//    albedoLinear = diffusePlusSpecular - 0.04 * (1.0 - maxMetallicity);
+
+    vec3 albedoLinear = diffusePlusSpecular;
+	
 	vec3 metallicHeuristic = (specularLinear - 0.04) / (diffuseLinear + specularLinear - 0.04);
-	METALLIC = //0.0;
+	METALLIC = // 0.0;
+		//maxMetallicity;
 		clamp(dot(vec3(1.0 / 3.0), metallicHeuristic), 0.0, 1.0);
 		//max(0.0, min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
 	ALBEDO = //vec3(0.0);
-		pow(diffuseLinear + specularLinear, vec3(1.0 / 2.2));
+		pow(albedoLinear, vec3(1.0 / 2.2));
 		//diffuse / pow(1.0 - METALLIC, 1.0/2.2);
 
 	ROUGHNESS = texture(roughnessMap, UV)[0]; // roughness = sqrt(m)
@@ -101,16 +119,23 @@ void light()
 	vec3 diffuse = texture(diffuseMap, UV).rgb;
 	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
 
-	DIFFUSE_LIGHT += diffuseLinear / (ALBEDO * (1.0 - METALLIC) + step(1.0, METALLIC)) * irradiance; // Godot expects this to not be divided by pi
+	// Godot appears to divide by PI for normalized Lambertian
+	DIFFUSE_LIGHT += diffuseLinear / (PI * ALBEDO * (1.0 - METALLIC) + step(1.0, METALLIC)) * irradiance; // Godot expects this to not be divided by pi
 
 	// Fresnel effect
 	vec3 f0 = mix(vec3(0.04), ALBEDO, METALLIC);
 	float oneMinusHDotV = 1.0 - hDotV;
 	float oneMinusHDotVSq = oneMinusHDotV * oneMinusHDotV;
 
-	 // mfdTimesFresnel will come out pre-divided by pi, so we need to multiply by PI to cancel it out.
+//	// Debugging
+//	f0 = pow(texture(specularMap, UV).rgb, vec3(2.2));
+//	float nDotHSq = nDotH * nDotH;
+//	float sqrtDen = mix(1.0, mSq, nDotHSq);
+//	mfdTimesFresnel = f0 * mSq / (PI * sqrtDen * sqrtDen);
+
+	// Godot does not automatically / implicitly divide by pi, so no multiplication by PI is necessary.
 	SPECULAR_LIGHT += 
 //		mfdTimesFresnel
 	  	mix(mfdTimesFresnel, vec3(dot(mfdTimesFresnel / f0, vec3(1.0/3.0))), oneMinusHDotVSq * oneMinusHDotVSq * oneMinusHDotV)
-			* geomRatio * irradiance * PI;
+			* geomRatio * irradiance;
 }
