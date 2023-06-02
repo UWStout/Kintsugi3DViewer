@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://jhiwkxxnuf01"]
+
+[ext_resource type="Script" path="res://scripts/annotation_marker.gd" id="1_5qsrh"]
+[ext_resource type="Texture2D" uid="uid://cypbpd5a12wqg" path="res://dot.png" id="2_cxe8b"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hmlrd"]
+radius = 0.15
+
+[node name="annotation" type="StaticBody3D"]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_5qsrh")
+
+[node name="collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_hmlrd")
+
+[node name="target_sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, -1.86265e-09, -5.96046e-08, 2.42144e-08, 1, 0, 2.98023e-08, 3.72529e-09, 1, 0, 0, 0)
+pixel_size = 0.001
+billboard = 1
+double_sided = false
+no_depth_test = true
+texture = ExtResource("2_cxe8b")
