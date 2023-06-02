@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://cr3pgnbsky3y2"]
+
+[ext_resource type="Script" path="res://scripts/annotation_textbox.gd" id="1_ilovh"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_r3knp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5f4d"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="annotation_text_box" type="Sprite3D"]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -1.22234, 2.32904, 5.09109)
+billboard = 1
+texture = SubResource("ViewportTexture_r3knp")
+script = ExtResource("1_ilovh")
+recalculate_text = null
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visibility_layer = 0
+offset_right = 400.0
+offset_bottom = 300.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(400, 300)
+render_target_update_mode = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p5f4d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/PanelContainer"]
+layout_mode = 2
+
+[node name="TitleText" type="RichTextLabel" parent="SubViewportContainer/SubViewport/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+theme_override_font_sizes/bold_font_size = 32
+bbcode_enabled = true
+text = "[b]TITLE[b]"
+fit_content = true
+scroll_active = false
+
+[node name="ContentText" type="RichTextLabel" parent="SubViewportContainer/SubViewport/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+theme_override_font_sizes/italics_font_size = 16
+bbcode_enabled = true
+text = "[i]CONTENT[i]"
+fit_content = true
+scroll_active = false
