@@ -1,13 +1,16 @@
 extends Button
 
+var data: Dictionary
 
 func _pressed():
-	print("Artifact button pressed!")
+	print("Artifact button '%s' pressed!" % data.name)
+	#TODO: Load the object using urls found in the data dictionary
 
 func setup(artifact_data: Dictionary):
-	text = artifact_data.name
+	data = artifact_data
+	text = data.name
 	var placeholder = icon.get_image()
 	icon = HTTPImageTexture.new()
 	icon.set_image(placeholder)
-	icon.set_url(artifact_data.iconUrl)
+	icon.set_url(data.iconUrl)
 	icon.load(self)

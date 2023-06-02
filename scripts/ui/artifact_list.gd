@@ -9,11 +9,11 @@ var test_data = [
 	},
 	{
 		"name": "Test Object B",
-		"iconUrl": "https://i.imgur.com/j9tpg3M.jpg"
+		"iconUrl": "https://i.imgur.com/godLY1r.jpg"
 	},
 	{
 		"name": "Test Object C",
-		"iconUrl": "https://i.imgur.com/j9tpg3M.jpg"
+		"iconUrl": "https://i.imgur.com/Xp4NZCg.jpg"
 	}
 ]
 

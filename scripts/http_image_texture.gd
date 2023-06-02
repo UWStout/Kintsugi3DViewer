@@ -21,6 +21,22 @@ func load(parent: Node):
 
 func _http_request_complete(result, respose_code, headers, body):
 	var image = Image.new()
-	image.load_jpg_from_buffer(body)
+	
+	var type: String
+	for header in headers:
+		if header.begins_with("Content-Type: "):
+			type = header.get_slice(" ", 1)
+	
+	match type:
+		"image/jpeg":
+			image.load_jpg_from_buffer(body)
+		"image/png":
+			image.load_png_from_buffer(body)
+		"image/webp":
+			image.load_webp_from_buffer(body)
+		_:
+			push_error("Unrecognized image format received from server: '%s'" % type)
+			return
+	
 	image.resize(resize_width, resize_height)
 	set_image(image)
