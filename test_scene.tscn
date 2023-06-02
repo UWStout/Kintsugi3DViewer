@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8h5re8my1pif"]
+[gd_scene load_steps=10 format=3 uid="uid://b8h5re8my1pif"]
 
 [ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_ttugd"]
 [ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_qkhss"]
@@ -7,9 +7,7 @@
 [ext_resource type="Material" uid="uid://bs4k8vqe7q0hi" path="res://guan-yu-dynamic-2.tres" id="4_2yjyt"]
 [ext_resource type="Material" uid="uid://dme5m1mswd71g" path="res://guan-yu-dynamic-1.tres" id="5_gs61c"]
 [ext_resource type="PackedScene" uid="uid://kknu2ud7ttik" path="res://guan_yu_from_gltf.tscn" id="5_qnvud"]
-[ext_resource type="Script" path="res://scripts/camera/camera_rig.gd" id="8_lhahb"]
-[ext_resource type="Script" path="res://scripts/camera/basic_camera_input.gd" id="8_yqblt"]
-[ext_resource type="Script" path="res://scripts/camera/touch_input_provider.gd" id="10_g8plg"]
+[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="8_bxpqr"]
 
 [sub_resource type="Environment" id="Environment_23ss7"]
 
@@ -42,34 +40,4 @@ transform = Transform3D(0.903586, 0.155523, 0.399181, -0.158951, 0.986977, -0.02
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_23ss7")
 
-[node name="Camera" type="Node3D" parent="." node_paths=PackedStringArray("camera", "rotationPoint")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.94898, 4.80997)
-script = ExtResource("8_lhahb")
-camera = NodePath("rotation-point/Camera3D")
-rotationPoint = NodePath("rotation-point")
-rot_interpolate = false
-
-[node name="rotation-point" type="Node3D" parent="Camera"]
-
-[node name="Camera3D" type="Camera3D" parent="Camera/rotation-point"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
-fov = 69.9
-
-[node name="Input Handler" type="Node" parent="Camera" node_paths=PackedStringArray("camera")]
-script = ExtResource("8_yqblt")
-camera = NodePath("..")
-
-[node name="Touch Input" type="Node" parent="Camera" node_paths=PackedStringArray("camera", "keyboard_input_provider")]
-script = ExtResource("10_g8plg")
-camera = NodePath("..")
-keyboard_input_provider = NodePath("../Input Handler")
-
-[node name="InputRect" type="ReferenceRect" parent="Camera"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[connection signal="gui_input" from="Camera/InputRect" to="Camera/Input Handler" method="_handle_input_event"]
-[connection signal="gui_input" from="Camera/InputRect" to="Camera/Touch Input" method="_handle_input_event"]
+[node name="Camera" parent="." instance=ExtResource("8_bxpqr")]
