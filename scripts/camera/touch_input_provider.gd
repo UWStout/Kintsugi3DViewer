@@ -2,6 +2,7 @@ extends Node
 
 @export var camera: CameraRig
 @export var keyboard_input_provider: Node
+@export var capture_all_input: bool = false
 @export var input_enabled: bool = true
 @export var rotation_rate: float = 0.005
 @export var drag_rate: float = 0.01
@@ -29,6 +30,10 @@ func _ready():
 			push_error("Basic Camera Input module at %s could not find, or was not assigned a CameraRig!" % get_path())
 
 func _input(event):
+	if capture_all_input:
+		_handle_input_event(event)
+
+func _handle_input_event(event):
 	if not input_enabled:
 		return
 	
