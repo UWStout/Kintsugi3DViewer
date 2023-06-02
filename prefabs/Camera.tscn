@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl6qk62t7vj7w"]
+
+[ext_resource type="Script" path="res://scripts/camera/camera_rig.gd" id="1_lr3ga"]
+[ext_resource type="Script" path="res://scripts/camera/basic_camera_input.gd" id="2_k3ms6"]
+[ext_resource type="Script" path="res://scripts/camera/touch_input_provider.gd" id="3_32agc"]
+
+[node name="Camera" type="Node3D" node_paths=PackedStringArray("camera", "rotationPoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.94898, 4.80997)
+script = ExtResource("1_lr3ga")
+camera = NodePath("rotation-point/Camera3D")
+rotationPoint = NodePath("rotation-point")
+rot_interpolate = false
+
+[node name="rotation-point" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="rotation-point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
+fov = 69.9
+
+[node name="Input Handler" type="Node" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("2_k3ms6")
+camera = NodePath("..")
+
+[node name="Touch Input" type="Node" parent="." node_paths=PackedStringArray("camera", "keyboard_input_provider")]
+script = ExtResource("3_32agc")
+camera = NodePath("..")
+keyboard_input_provider = NodePath("../Input Handler")
+
+[node name="InputRect" type="ReferenceRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="gui_input" from="InputRect" to="Input Handler" method="_handle_input_event"]
+[connection signal="gui_input" from="InputRect" to="Touch Input" method="_handle_input_event"]

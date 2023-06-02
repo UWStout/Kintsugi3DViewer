@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://cto73bdrgblw"]
+
+[ext_resource type="PackedScene" uid="uid://crv8cwdpvreao" path="res://prefabs/ui/artifact_switcher/artifact_button.tscn" id="2_8qwwa"]
+[ext_resource type="Script" path="res://scripts/ui/artifact_list.gd" id="2_cx5yo"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+
+[node name="Button-ChangeArtifact" type="Button" parent="HFlowContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+text = "Change Artifacts"
+
+[node name="ArtifactListPanel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -250.0
+offset_right = 300.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_cx5yo")
+artifact_button = ExtResource("2_8qwwa")
+
+[node name="MarginContainer" type="MarginContainer" parent="ArtifactListPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ArtifactListPanel/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="ArtifactList" type="GridContainer" parent="ArtifactListPanel/MarginContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+columns = 2
+
+[connection signal="pressed" from="HFlowContainer/Button-ChangeArtifact" to="ArtifactListPanel" method="toggle_panel"]
