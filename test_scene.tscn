@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://scripts/annotation_focus_point.gd" id="10_3doll"]
 [ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotation_text_box.tscn" id="10_5j3wp"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_jbtap"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_udwmm"]
 
 [sub_resource type="Environment" id="Environment_23ss7"]
 
@@ -60,7 +60,7 @@ visible = false
 
 [node name="annotation_text_box_horse_head" parent="guan-yu-gltf" instance=ExtResource("10_5j3wp")]
 transform = Transform3D(1, 1.02445e-07, 1.2517e-06, -5.21541e-07, 1, -1.93715e-07, -8.9407e-07, -1.86265e-08, 1, -1.22234, 2.32904, 5.09109)
-texture = SubResource("ViewportTexture_jbtap")
+texture = SubResource("ViewportTexture_udwmm")
 annotation_name = "HORSE HEAD"
 annotation_text = "It's a horse's head. What did you expect? At least it's kind of shiny."
 recalculate_text = false
