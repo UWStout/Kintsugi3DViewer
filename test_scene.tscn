@@ -63,3 +63,13 @@ camera = NodePath("..")
 script = ExtResource("10_g8plg")
 camera = NodePath("..")
 keyboard_input_provider = NodePath("../Input Handler")
+
+[node name="InputRect" type="ReferenceRect" parent="Camera"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="gui_input" from="Camera/InputRect" to="Camera/Input Handler" method="_handle_input_event"]
+[connection signal="gui_input" from="Camera/InputRect" to="Camera/Touch Input" method="_handle_input_event"]
