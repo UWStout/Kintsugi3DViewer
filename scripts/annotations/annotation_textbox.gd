@@ -1,6 +1,8 @@
 @tool
 extends Sprite3D
 
+class_name AnnotationTextbox
+
 @export_category("Annotation")
 @export var annotation_name : String = "UNNAMED ANNOTATION"
 @export var annotation_text : String = "EMPTY ANNOTATION TEXT"

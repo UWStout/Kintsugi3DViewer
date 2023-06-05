@@ -42,5 +42,6 @@ transform = Transform3D(0.903586, 0.155523, 0.399181, -0.158951, 0.986977, -0.02
 environment = SubResource("Environment_23ss7")
 
 [node name="Camera" parent="." instance=ExtResource("8_bxpqr")]
+raycast_collision_mask = 2
 
 [node name="HUD" parent="." instance=ExtResource("9_ikqpc")]

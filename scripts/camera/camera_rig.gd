@@ -48,6 +48,16 @@ class_name CameraRig
 @export_range(0, 10, 0.01) var fov_rate: float = 4
 @export_range(1, 179, 0.1, "degrees") var fov_initial_fov: float = 75
 
+@export_group("Raycasting", "raycast_")
+@export var raycast_enabled : bool = true
+@export var raycast_distance : float = 1000
+@export_flags_2d_physics var raycast_collision_mask
+
+#autopan
+var do_autopan : bool = false
+var autopan_target : Vector3
+var autopan_speed : float = 0
+
 # Targets
 var target_transform: Transform3D
 var target_dolly: float
@@ -167,3 +177,54 @@ func _process(delta):
 	if drag_enabled:
 		var weight = drag_rate * delta if drag_interpolate else 1
 		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
+		
+	if do_autopan:
+		pass
+		
+		var deltaPos = lerp(rotationPoint.global_position, autopan_target, delta * 3) - rotationPoint.global_position
+		
+		rotationPoint.global_position += deltaPos
+		global_position += deltaPos
+
+		if rotationPoint.global_position.distance_to(autopan_target) <= 0.1:
+			rotationPoint.global_position = autopan_target
+			do_autopan = false
+
+#autopan functions
+func begin_autopan(new_target, new_speed : float):
+	do_autopan = true
+	autopan_target = new_target
+	autopan_speed = new_speed
+	
+func end_autopan():
+	do_autopan = false
+	autopan_target = Vector3(0,0,0)
+	autopan_speed = 0
+
+func cast_ray_to_world():
+	if not raycast_enabled:
+		return
+	
+	print("Fired a raycast!")
+	
+	var space_state = get_world_3d().direct_space_state
+	
+	var mouse_position_screen = get_viewport().get_mouse_position()
+	var mouse_position_world = camera.project_ray_origin(mouse_position_screen)
+	
+	var ray_end = mouse_position_world + camera.project_ray_normal(mouse_position_screen) * raycast_distance
+	
+	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, raycast_collision_mask)
+	var ray_result = space_state.intersect_ray(ray_query)
+	
+	if ray_result:
+		var annotation = ray_result["collider"]
+		annotation.on_annotation_clicked()
+		
+		begin_autopan(annotation.get_focus_point().global_position, 0.01)
+		
+		#annotation_target_position = annotation.get_focus_point().global_position
+		#do_move_to_target_pos = annotation.get_focus_point().do_pan_to_annotation
+		
+		#annotation_target_distance = annotation.get_focus_point().annotation_distance
+		#do_zoom_to_target_distance = annotation.get_focus_point().do_zoom_to_annotation

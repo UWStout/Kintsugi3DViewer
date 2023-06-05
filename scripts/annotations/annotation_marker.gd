@@ -1,7 +1,9 @@
 extends StaticBody3D
 
-@export var focus_point : Node3D
-@export var textbox: Sprite3D
+class_name AnnotationMarker
+
+@export var focus_point : AnnotationFocusPoint
+@export var textbox: AnnotationTextbox
 
 func get_focus_point():
 	if not focus_point == null:
@@ -50,4 +52,3 @@ func _process(delta):
 
 func on_annotation_clicked():
 	AnnotationsManager.change_selected_annotation(self)
-	pass
