@@ -36,6 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_cx5yo")
 artifact_button = ExtResource("2_8qwwa")
+remote_data_url = "https://pastebin.com/raw/89sZD3WD"
 
 [node name="MarginContainer" type="MarginContainer" parent="ArtifactListPanel"]
 layout_mode = 1
