@@ -16,6 +16,9 @@ func _ready():
 func load_artifacts():
 	_load_artifacts_from_remote_url(data_source_url)
 
+func get_artifacts() -> Array[ArtifactData]:
+	return artifacts
+
 func _parse_artifacts():
 	if raw_data.has("artifacts"):
 		artifacts.clear()
