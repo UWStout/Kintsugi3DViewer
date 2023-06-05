@@ -1,5 +1,7 @@
 extends Node3D
 
+class_name AnnotationFocusPoint
+
 @export_category("Camera View")
 @export var do_pan_to_annotation : bool = true
 @export var do_zoom_to_annotation : bool = true

@@ -1,5 +1,6 @@
-[gd_scene load_steps=66 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=70 format=3 uid="uid://bmmsv1log3xwv"]
 
+[ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
 [ext_resource type="ArrayMesh" uid="uid://dmnbvi4jsa27y" path="res://artifacts/Altarpiece/altarpiece-recentered-for-unity.obj" id="2_ec6yk"]
 [ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_iau3j"]
@@ -53,23 +54,8 @@
 [ext_resource type="Texture2D" uid="uid://cuoteaw8jw7gt" path="res://artifacts/Vase/weights00-03.png" id="51_6b8dp"]
 [ext_resource type="Texture2D" uid="uid://b3kpfqmmn07fa" path="res://artifacts/Vase/weights04-07.png" id="52_f43is"]
 [ext_resource type="Texture2D" uid="uid://d25wou8p4k0kd" path="res://next_prev_button.png" id="53_6iw1r"]
-
-[sub_resource type="Sky" id="Sky_vfwqk"]
-
-[sub_resource type="Environment" id="Environment_7futl"]
-background_mode = 1
-background_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
-sky = SubResource("Sky_vfwqk")
-sky_custom_fov = 1.0
-ambient_light_color = Color(0.266667, 0.317647, 0.396078, 1)
-fog_enabled = true
-fog_light_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
-fog_density = 0.05
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_bfdjv"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skwcb"]
-albedo_color = Color(0, 0, 0, 1)
+[ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
+[ext_resource type="Script" path="res://scripts/ui/select_artifact_button.gd" id="56_1pv8i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
 render_priority = 0
@@ -142,10 +128,97 @@ shader_parameter/weights0123 = ExtResource("51_6b8dp")
 shader_parameter/weights4567 = ExtResource("52_f43is")
 shader_parameter/basisFunctions = ExtResource("46_5orqu")
 
+[sub_resource type="Sky" id="Sky_vfwqk"]
+
+[sub_resource type="Environment" id="Environment_7futl"]
+background_mode = 1
+background_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+sky = SubResource("Sky_vfwqk")
+sky_custom_fov = 1.0
+ambient_light_color = Color(0.266667, 0.317647, 0.396078, 1)
+fog_enabled = true
+fog_light_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+fog_density = 0.05
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bfdjv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skwcb"]
+albedo_color = Color(0, 0, 0, 1)
+
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sn2gn"]
 load_path = "res://.godot/imported/next_prev_button.png-de7562ff0fe16efb655110d05edfd9c8.ctex"
 
+[sub_resource type="SystemFont" id="SystemFont_gbd4e"]
+font_names = PackedStringArray("Cascadia Code")
+
 [node name="viewer_scene" type="Node3D"]
+
+[node name="artifacts_controller" type="Node3D" parent="."]
+script = ExtResource("1_6cwju")
+artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), NodePath("boreas"), NodePath("ding"), NodePath("polyxena"), NodePath("tiger_hat"), NodePath("vase")])
+
+[node name="altarpiece" type="Node3D" parent="artifacts_controller"]
+visible = false
+
+[node name="altarpiece_model" type="MeshInstance3D" parent="artifacts_controller/altarpiece"]
+mesh = ExtResource("2_ec6yk")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_nd0hs")
+
+[node name="autumn_jade" type="Node3D" parent="artifacts_controller"]
+visible = false
+
+[node name="jade_model" type="MeshInstance3D" parent="artifacts_controller/autumn_jade"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3, 15.75)
+mesh = ExtResource("11_rwo2t")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_tvbba")
+
+[node name="boreas" type="Node3D" parent="artifacts_controller"]
+visible = false
+
+[node name="boreas_model" type="MeshInstance3D" parent="artifacts_controller/boreas"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -1.25, 6.25, -4.5)
+mesh = ExtResource("13_3miq1")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_u74xh")
+
+[node name="ding" type="Node3D" parent="artifacts_controller"]
+visible = false
+
+[node name="ding_model" type="MeshInstance3D" parent="artifacts_controller/ding"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = ExtResource("21_1w332")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_5odgc")
+
+[node name="polyxena" type="Node3D" parent="artifacts_controller"]
+visible = false
+
+[node name="polyxena_model" type="MeshInstance3D" parent="artifacts_controller/polyxena"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 6.8, 0.2, -4)
+mesh = ExtResource("29_rle5x")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ku340")
+
+[node name="tiger_hat" type="Node3D" parent="artifacts_controller"]
+visible = false
+
+[node name="tiger_hat_model" type="MeshInstance3D" parent="artifacts_controller/tiger_hat"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
+mesh = ExtResource("37_e3kkx")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ajm3n")
+
+[node name="vase" type="Node3D" parent="artifacts_controller"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
+visible = false
+
+[node name="vase_model" type="MeshInstance3D" parent="artifacts_controller/vase"]
+transform = Transform3D(0.455161, 0, 0.20695, 3.12485e-08, -0.5, -6.87275e-08, 0.20695, 7.54979e-08, -0.455161, 1.87841, 0.412214, 4.79818)
+mesh = ExtResource("45_wwjir")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_64fob")
 
 [node name="main_light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -168,96 +241,79 @@ material = SubResource("StandardMaterial3D_skwcb")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-
-[node name="altarpiece" type="Node3D" parent="."]
-visible = false
-
-[node name="altarpiece_model" type="MeshInstance3D" parent="altarpiece"]
-mesh = ExtResource("2_ec6yk")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_nd0hs")
-
-[node name="autumn_jade" type="Node3D" parent="."]
-visible = false
-
-[node name="jade_model" type="MeshInstance3D" parent="autumn_jade"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3, 15.75)
-mesh = ExtResource("11_rwo2t")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_tvbba")
-
-[node name="boreas" type="Node3D" parent="."]
-visible = false
-
-[node name="boreas_model" type="MeshInstance3D" parent="boreas"]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -1.25, 6.25, -4.5)
-mesh = ExtResource("13_3miq1")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_u74xh")
-
-[node name="ding" type="Node3D" parent="."]
-visible = false
-
-[node name="ding_model" type="MeshInstance3D" parent="ding"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
-mesh = ExtResource("21_1w332")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_5odgc")
-
-[node name="polyxena" type="Node3D" parent="."]
-visible = false
-
-[node name="polyxena_model" type="MeshInstance3D" parent="polyxena"]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 6.8, 0.2, -4)
-mesh = ExtResource("29_rle5x")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_ku340")
-
-[node name="tiger_hat" type="Node3D" parent="."]
-visible = false
-
-[node name="tiger_hat_model" type="MeshInstance3D" parent="tiger_hat"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
-mesh = ExtResource("37_e3kkx")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_ajm3n")
-
-[node name="vase" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
-visible = false
-
-[node name="vase_model" type="MeshInstance3D" parent="vase"]
-transform = Transform3D(0.455161, 0, 0.20695, 3.12485e-08, -0.5, -6.87275e-08, 0.20695, 7.54979e-08, -0.455161, 1.87841, 0.412214, 4.79818)
-mesh = ExtResource("45_wwjir")
-skeleton = NodePath("../..")
-surface_material_override/0 = SubResource("ShaderMaterial_64fob")
+raycast_collision_mask = 2
 
 [node name="ui_root" type="Node2D" parent="."]
 
 [node name="previous_object_button" type="Button" parent="ui_root"]
 self_modulate = Color(1, 1, 1, 0.501961)
-offset_left = 50.0
-offset_top = 523.0
-offset_right = 125.0
-offset_bottom = 598.0
+offset_left = 1002.0
+offset_top = 573.0
+offset_right = 1052.0
+offset_bottom = 623.0
 rotation = 3.14159
-pivot_offset = Vector2(37.5, 37.5)
+pivot_offset = Vector2(25, 25)
+tooltip_text = "View the previous object
+'Q'"
 icon = SubResource("CompressedTexture2D_sn2gn")
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("54_30yx2")
+move_forward = false
 
 [node name="next_object_button" type="Button" parent="ui_root"]
 self_modulate = Color(1, 1, 1, 0.501961)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1027.0
-offset_top = 523.0
-offset_right = 1102.0
-offset_bottom = 598.0
+offset_left = 1077.0
+offset_top = 573.0
+offset_right = 1127.0
+offset_bottom = 623.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "View the next object
+'E'"
 text = "
 "
 icon = ExtResource("53_6iw1r")
 expand_icon = true
+script = ExtResource("54_30yx2")
+
+[node name="select_object_button" type="Button" parent="ui_root"]
+self_modulate = Color(1, 1, 1, 0.501961)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 155.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("SystemFont_gbd4e")
+text = "Select Object"
+
+[node name="Window" type="Window" parent="."]
+disable_3d = true
+position = Vector2i(432, 81)
+size = Vector2i(288, 486)
+unresizable = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="select_artifact_button" type="Button" parent="Window/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Altarpiece
+"
+alignment = 0
+script = ExtResource("56_1pv8i")
+target_artifact_path = NodePath("../../../artifacts_controller/altarpiece")
