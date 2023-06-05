@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dydtjrpjttqvp"
+path="res://.godot/imported/180822_mia337_113283_OBJ.obj-23c3e670337ab59c028a0cef80fcf011.mesh"
+
+[deps]
+
+files=["res://.godot/imported/180822_mia337_113283_OBJ.obj-23c3e670337ab59c028a0cef80fcf011.mesh"]
+
+source_file="res://artifacts/Vase/180822_mia337_113283_OBJ.obj"
+dest_files=["res://.godot/imported/180822_mia337_113283_OBJ.obj-23c3e670337ab59c028a0cef80fcf011.mesh", "res://.godot/imported/180822_mia337_113283_OBJ.obj-23c3e670337ab59c028a0cef80fcf011.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
