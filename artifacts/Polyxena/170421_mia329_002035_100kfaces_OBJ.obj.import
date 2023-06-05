@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cy6leo2bd8t6y"
+path="res://.godot/imported/170421_mia329_002035_100kfaces_OBJ.obj-6f30b20c7418839bbfa1151b99765dc4.mesh"
+
+[deps]
+
+files=["res://.godot/imported/170421_mia329_002035_100kfaces_OBJ.obj-6f30b20c7418839bbfa1151b99765dc4.mesh"]
+
+source_file="res://artifacts/Polyxena/170421_mia329_002035_100kfaces_OBJ.obj"
+dest_files=["res://.godot/imported/170421_mia329_002035_100kfaces_OBJ.obj-6f30b20c7418839bbfa1151b99765dc4.mesh", "res://.godot/imported/170421_mia329_002035_100kfaces_OBJ.obj-6f30b20c7418839bbfa1151b99765dc4.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

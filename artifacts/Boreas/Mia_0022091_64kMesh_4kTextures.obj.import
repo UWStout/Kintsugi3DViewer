@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cgbb42akwol8f"
+path="res://.godot/imported/Mia_0022091_64kMesh_4kTextures.obj-bbed39d9805cb3675231ff0543ba9bfb.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Mia_0022091_64kMesh_4kTextures.obj-bbed39d9805cb3675231ff0543ba9bfb.mesh"]
+
+source_file="res://artifacts/Boreas/Mia_0022091_64kMesh_4kTextures.obj"
+dest_files=["res://.godot/imported/Mia_0022091_64kMesh_4kTextures.obj-bbed39d9805cb3675231ff0543ba9bfb.mesh", "res://.godot/imported/Mia_0022091_64kMesh_4kTextures.obj-bbed39d9805cb3675231ff0543ba9bfb.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

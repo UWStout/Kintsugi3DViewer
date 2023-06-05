@@ -1,0 +1,14 @@
+[remap]
+
+importer="1d_texture_array_from_csv"
+type="ImageTexture"
+uid="uid://b0fvyq3e5v7t3"
+path="res://.godot/imported/basisFunctions.csv-55a1c93b3f792e18792de56e425a174e.tres"
+
+[deps]
+
+source_file="res://artifacts/Ding/basisFunctions.csv"
+dest_files=["res://.godot/imported/basisFunctions.csv-55a1c93b3f792e18792de56e425a174e.tres"]
+
+[params]
+
