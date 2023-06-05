@@ -1,0 +1,14 @@
+[remap]
+
+importer="1d_texture_array_from_csv"
+type="ImageTexture"
+uid="uid://dscgbn15h1rc2"
+path="res://.godot/imported/basisFunctions.csv-92371edca50ced8319532642caaf2516.tres"
+
+[deps]
+
+source_file="res://artifacts/Boreas/basisFunctions.csv"
+dest_files=["res://.godot/imported/basisFunctions.csv-92371edca50ced8319532642caaf2516.tres"]
+
+[params]
+
