@@ -1,0 +1,263 @@
+[gd_scene load_steps=66 format=3 uid="uid://bmmsv1log3xwv"]
+
+[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
+[ext_resource type="ArrayMesh" uid="uid://dmnbvi4jsa27y" path="res://artifacts/Altarpiece/altarpiece-recentered-for-unity.obj" id="2_ec6yk"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_iau3j"]
+[ext_resource type="Texture2D" uid="uid://bajsdqeiue8sl" path="res://artifacts/Altarpiece/basisFunctions.csv" id="4_pth3r"]
+[ext_resource type="Texture2D" uid="uid://c8yxcxjs2vl5d" path="res://artifacts/Altarpiece/diffuse.png" id="5_ctjuj"]
+[ext_resource type="Texture2D" uid="uid://w71qrsippcs0" path="res://artifacts/Altarpiece/normal.png" id="6_ere1r"]
+[ext_resource type="Texture2D" uid="uid://bvy42xrbqdww1" path="res://artifacts/Altarpiece/roughness.png" id="7_lqejd"]
+[ext_resource type="Texture2D" uid="uid://gnu65edny12x" path="res://artifacts/Altarpiece/specular.png" id="8_yaj1j"]
+[ext_resource type="Texture2D" uid="uid://dm06w6uusvuj0" path="res://artifacts/Altarpiece/weights00-03.png" id="9_71mow"]
+[ext_resource type="Texture2D" uid="uid://djqnubhab6hw3" path="res://artifacts/Altarpiece/weights04-07.png" id="10_cpsrv"]
+[ext_resource type="ArrayMesh" uid="uid://dmh4n2nc1p42b" path="res://artifacts/AutumnJade/jade1model.obj" id="11_rwo2t"]
+[ext_resource type="Texture2D" uid="uid://c1fkdn5n6l15l" path="res://artifacts/AutumnJade/autumn-jade.png" id="12_si1g5"]
+[ext_resource type="ArrayMesh" uid="uid://cgbb42akwol8f" path="res://artifacts/Boreas/Mia_0022091_64kMesh_4kTextures.obj" id="13_3miq1"]
+[ext_resource type="Texture2D" uid="uid://dscgbn15h1rc2" path="res://artifacts/Boreas/basisFunctions.csv" id="14_xvf6h"]
+[ext_resource type="Texture2D" uid="uid://dmmbggdiiw3sj" path="res://artifacts/Boreas/diffuse.png" id="15_3aom6"]
+[ext_resource type="Texture2D" uid="uid://be6ktt5r0ogel" path="res://artifacts/Boreas/normal.png" id="16_2h8ef"]
+[ext_resource type="Texture2D" uid="uid://q6kuse0h5u68" path="res://artifacts/Boreas/roughness.png" id="17_eeg0s"]
+[ext_resource type="Texture2D" uid="uid://b15xvxjcvdy5e" path="res://artifacts/Boreas/specular.png" id="18_fyyy8"]
+[ext_resource type="Texture2D" uid="uid://d2t2cokyyratj" path="res://artifacts/Boreas/weights00-03.png" id="19_a230a"]
+[ext_resource type="Texture2D" uid="uid://dbqrbg4xv2vrc" path="res://artifacts/Boreas/weights04-07.png" id="20_sugxj"]
+[ext_resource type="ArrayMesh" uid="uid://bc3yyssiav73c" path="res://artifacts/Ding/ding-recentered-for-unity.obj" id="21_1w332"]
+[ext_resource type="Texture2D" uid="uid://b0fvyq3e5v7t3" path="res://artifacts/Ding/basisFunctions.csv" id="22_3gagl"]
+[ext_resource type="Texture2D" uid="uid://cuftxvyow4hb5" path="res://artifacts/Ding/diffuse.png" id="23_u4mf3"]
+[ext_resource type="Texture2D" uid="uid://cfgu7k5uy4jjk" path="res://artifacts/Ding/normal.png" id="24_yh4tn"]
+[ext_resource type="Texture2D" uid="uid://cx8oetuud2tsd" path="res://artifacts/Ding/roughness.png" id="25_3t3or"]
+[ext_resource type="Texture2D" uid="uid://kdicl4xekarh" path="res://artifacts/Ding/specular.png" id="26_b5vwq"]
+[ext_resource type="Texture2D" uid="uid://6xvo2oh4rk1o" path="res://artifacts/Ding/weights00-03.png" id="27_v3ndj"]
+[ext_resource type="Texture2D" uid="uid://sthfdfkllcmn" path="res://artifacts/Ding/weights04-07.png" id="28_sr5wk"]
+[ext_resource type="ArrayMesh" uid="uid://cy6leo2bd8t6y" path="res://artifacts/Polyxena/170421_mia329_002035_100kfaces_OBJ.obj" id="29_rle5x"]
+[ext_resource type="Texture2D" uid="uid://do3fbarc1ipjf" path="res://artifacts/Polyxena/basisFunctions.csv" id="30_xp0ly"]
+[ext_resource type="Texture2D" uid="uid://c65ys4ditvq43" path="res://artifacts/Polyxena/diffuse.png" id="31_1eb01"]
+[ext_resource type="Texture2D" uid="uid://c3w1mgayqqbgv" path="res://artifacts/Polyxena/normal.png" id="32_2lu4c"]
+[ext_resource type="Texture2D" uid="uid://beuhungxsgq6g" path="res://artifacts/Polyxena/roughness.png" id="33_y8llj"]
+[ext_resource type="Texture2D" uid="uid://dru18d1jyyn00" path="res://artifacts/Polyxena/specular.png" id="34_bm1sn"]
+[ext_resource type="Texture2D" uid="uid://dgv2ctmhlh1ep" path="res://artifacts/Polyxena/weights00-03.png" id="35_2s4tg"]
+[ext_resource type="Texture2D" uid="uid://cjlk2tl6q5hu6" path="res://artifacts/Polyxena/weights04-07.png" id="36_crsem"]
+[ext_resource type="ArrayMesh" uid="uid://xl5t4o6vtvec" path="res://artifacts/TigerHat/tiger-hat-lowres.obj" id="37_e3kkx"]
+[ext_resource type="Texture2D" uid="uid://c057fkt0qaom6" path="res://artifacts/TigerHat/basisFunctions.csv" id="38_52je0"]
+[ext_resource type="Texture2D" uid="uid://cmdn2hltx7lln" path="res://artifacts/TigerHat/diffuse.png" id="39_qg378"]
+[ext_resource type="Texture2D" uid="uid://b2s6cbbumwa27" path="res://artifacts/TigerHat/normal.png" id="40_r43m7"]
+[ext_resource type="Texture2D" uid="uid://bils2hrgn52lx" path="res://artifacts/TigerHat/roughness.png" id="41_wfn31"]
+[ext_resource type="Texture2D" uid="uid://caiqdwy0k60ii" path="res://artifacts/TigerHat/specular.png" id="42_mk2wp"]
+[ext_resource type="Texture2D" uid="uid://b5kjs3pq5jg4q" path="res://artifacts/TigerHat/weights00-03.png" id="43_uke4w"]
+[ext_resource type="Texture2D" uid="uid://cmd5wny7do21g" path="res://artifacts/TigerHat/weights04-07.png" id="44_1kf3c"]
+[ext_resource type="ArrayMesh" uid="uid://dydtjrpjttqvp" path="res://artifacts/Vase/180822_mia337_113283_OBJ.obj" id="45_wwjir"]
+[ext_resource type="Texture2D" uid="uid://bjip8i24hixro" path="res://artifacts/Vase/basisFunctions.csv" id="46_5orqu"]
+[ext_resource type="Texture2D" uid="uid://b86cvnfk0w770" path="res://artifacts/Vase/diffuse.png" id="47_dw0ng"]
+[ext_resource type="Texture2D" uid="uid://d36k7i28y6wxu" path="res://artifacts/Vase/normal.png" id="48_ssyin"]
+[ext_resource type="Texture2D" uid="uid://bg1qfpnctyrsp" path="res://artifacts/Vase/roughness.png" id="49_sxpcr"]
+[ext_resource type="Texture2D" uid="uid://bhe8nyx7wpik7" path="res://artifacts/Vase/specular.png" id="50_aq020"]
+[ext_resource type="Texture2D" uid="uid://cuoteaw8jw7gt" path="res://artifacts/Vase/weights00-03.png" id="51_6b8dp"]
+[ext_resource type="Texture2D" uid="uid://b3kpfqmmn07fa" path="res://artifacts/Vase/weights04-07.png" id="52_f43is"]
+[ext_resource type="Texture2D" uid="uid://d25wou8p4k0kd" path="res://next_prev_button.png" id="53_6iw1r"]
+
+[sub_resource type="Sky" id="Sky_vfwqk"]
+
+[sub_resource type="Environment" id="Environment_7futl"]
+background_mode = 1
+background_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+sky = SubResource("Sky_vfwqk")
+sky_custom_fov = 1.0
+ambient_light_color = Color(0.266667, 0.317647, 0.396078, 1)
+fog_enabled = true
+fog_light_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+fog_density = 0.05
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bfdjv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skwcb"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
+render_priority = 0
+shader = ExtResource("3_iau3j")
+shader_parameter/diffuseMap = ExtResource("5_ctjuj")
+shader_parameter/normalMap = ExtResource("6_ere1r")
+shader_parameter/specularMap = ExtResource("8_yaj1j")
+shader_parameter/roughnessMap = ExtResource("7_lqejd")
+shader_parameter/weights0123 = ExtResource("9_71mow")
+shader_parameter/weights4567 = ExtResource("10_cpsrv")
+shader_parameter/basisFunctions = ExtResource("4_pth3r")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvbba"]
+render_priority = 0
+shader = ExtResource("3_iau3j")
+shader_parameter/diffuseMap = ExtResource("12_si1g5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u74xh"]
+render_priority = 0
+shader = ExtResource("3_iau3j")
+shader_parameter/diffuseMap = ExtResource("15_3aom6")
+shader_parameter/normalMap = ExtResource("16_2h8ef")
+shader_parameter/specularMap = ExtResource("18_fyyy8")
+shader_parameter/roughnessMap = ExtResource("17_eeg0s")
+shader_parameter/weights0123 = ExtResource("19_a230a")
+shader_parameter/weights4567 = ExtResource("20_sugxj")
+shader_parameter/basisFunctions = ExtResource("14_xvf6h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5odgc"]
+render_priority = 0
+shader = ExtResource("3_iau3j")
+shader_parameter/diffuseMap = ExtResource("23_u4mf3")
+shader_parameter/normalMap = ExtResource("24_yh4tn")
+shader_parameter/specularMap = ExtResource("26_b5vwq")
+shader_parameter/roughnessMap = ExtResource("25_3t3or")
+shader_parameter/weights0123 = ExtResource("27_v3ndj")
+shader_parameter/weights4567 = ExtResource("28_sr5wk")
+shader_parameter/basisFunctions = ExtResource("22_3gagl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ku340"]
+render_priority = 0
+shader = ExtResource("3_iau3j")
+shader_parameter/diffuseMap = ExtResource("31_1eb01")
+shader_parameter/normalMap = ExtResource("32_2lu4c")
+shader_parameter/specularMap = ExtResource("34_bm1sn")
+shader_parameter/roughnessMap = ExtResource("33_y8llj")
+shader_parameter/weights0123 = ExtResource("35_2s4tg")
+shader_parameter/weights4567 = ExtResource("36_crsem")
+shader_parameter/basisFunctions = ExtResource("30_xp0ly")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajm3n"]
+render_priority = 0
+shader = ExtResource("3_iau3j")
+shader_parameter/diffuseMap = ExtResource("39_qg378")
+shader_parameter/normalMap = ExtResource("40_r43m7")
+shader_parameter/specularMap = ExtResource("42_mk2wp")
+shader_parameter/roughnessMap = ExtResource("41_wfn31")
+shader_parameter/weights0123 = ExtResource("43_uke4w")
+shader_parameter/weights4567 = ExtResource("44_1kf3c")
+shader_parameter/basisFunctions = ExtResource("38_52je0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_64fob"]
+render_priority = 0
+shader = ExtResource("3_iau3j")
+shader_parameter/diffuseMap = ExtResource("47_dw0ng")
+shader_parameter/normalMap = ExtResource("48_ssyin")
+shader_parameter/specularMap = ExtResource("50_aq020")
+shader_parameter/roughnessMap = ExtResource("49_sxpcr")
+shader_parameter/weights0123 = ExtResource("51_6b8dp")
+shader_parameter/weights4567 = ExtResource("52_f43is")
+shader_parameter/basisFunctions = ExtResource("46_5orqu")
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sn2gn"]
+load_path = "res://.godot/imported/next_prev_button.png-de7562ff0fe16efb655110d05edfd9c8.ctex"
+
+[node name="viewer_scene" type="Node3D"]
+
+[node name="main_light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="backlight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.866024, 0.433016, -0.250001, -1.49013e-08, 0.499998, 0.866027, 0.500003, -0.749999, 0.43301, 0, 0, 0)
+light_energy = 0.05
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7futl")
+
+[node name="world_plane" type="Node3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="world_plane"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_bfdjv")
+material = SubResource("StandardMaterial3D_skwcb")
+
+[node name="Camera" parent="." instance=ExtResource("1_degd7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="altarpiece" type="Node3D" parent="."]
+visible = false
+
+[node name="altarpiece_model" type="MeshInstance3D" parent="altarpiece"]
+mesh = ExtResource("2_ec6yk")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_nd0hs")
+
+[node name="autumn_jade" type="Node3D" parent="."]
+visible = false
+
+[node name="jade_model" type="MeshInstance3D" parent="autumn_jade"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3, 15.75)
+mesh = ExtResource("11_rwo2t")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_tvbba")
+
+[node name="boreas" type="Node3D" parent="."]
+visible = false
+
+[node name="boreas_model" type="MeshInstance3D" parent="boreas"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -1.25, 6.25, -4.5)
+mesh = ExtResource("13_3miq1")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_u74xh")
+
+[node name="ding" type="Node3D" parent="."]
+visible = false
+
+[node name="ding_model" type="MeshInstance3D" parent="ding"]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = ExtResource("21_1w332")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_5odgc")
+
+[node name="polyxena" type="Node3D" parent="."]
+visible = false
+
+[node name="polyxena_model" type="MeshInstance3D" parent="polyxena"]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 6.8, 0.2, -4)
+mesh = ExtResource("29_rle5x")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ku340")
+
+[node name="tiger_hat" type="Node3D" parent="."]
+visible = false
+
+[node name="tiger_hat_model" type="MeshInstance3D" parent="tiger_hat"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
+mesh = ExtResource("37_e3kkx")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ajm3n")
+
+[node name="vase" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
+visible = false
+
+[node name="vase_model" type="MeshInstance3D" parent="vase"]
+transform = Transform3D(0.455161, 0, 0.20695, 3.12485e-08, -0.5, -6.87275e-08, 0.20695, 7.54979e-08, -0.455161, 1.87841, 0.412214, 4.79818)
+mesh = ExtResource("45_wwjir")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_64fob")
+
+[node name="ui_root" type="Node2D" parent="."]
+
+[node name="previous_object_button" type="Button" parent="ui_root"]
+self_modulate = Color(1, 1, 1, 0.501961)
+offset_left = 50.0
+offset_top = 523.0
+offset_right = 125.0
+offset_bottom = 598.0
+rotation = 3.14159
+pivot_offset = Vector2(37.5, 37.5)
+icon = SubResource("CompressedTexture2D_sn2gn")
+icon_alignment = 1
+expand_icon = true
+
+[node name="next_object_button" type="Button" parent="ui_root"]
+self_modulate = Color(1, 1, 1, 0.501961)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1027.0
+offset_top = 523.0
+offset_right = 1102.0
+offset_bottom = 598.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "
+"
+icon = ExtResource("53_6iw1r")
+expand_icon = true

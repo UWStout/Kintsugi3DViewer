@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://xl5t4o6vtvec"
+path="res://.godot/imported/tiger-hat-lowres.obj-4b22184066c5a7cabb853f1c2b6a13be.mesh"
+
+[deps]
+
+files=["res://.godot/imported/tiger-hat-lowres.obj-4b22184066c5a7cabb853f1c2b6a13be.mesh"]
+
+source_file="res://artifacts/TigerHat/tiger-hat-lowres.obj"
+dest_files=["res://.godot/imported/tiger-hat-lowres.obj-4b22184066c5a7cabb853f1c2b6a13be.mesh", "res://.godot/imported/tiger-hat-lowres.obj-4b22184066c5a7cabb853f1c2b6a13be.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
