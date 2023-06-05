@@ -5,7 +5,6 @@
 [ext_resource type="Script" path="res://scripts/camera/touch_input_provider.gd" id="3_32agc"]
 
 [node name="Camera" type="Node3D" node_paths=PackedStringArray("camera", "rotationPoint")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.94898, 4.80997)
 script = ExtResource("1_lr3ga")
 camera = NodePath("rotation-point/Camera3D")
 rotationPoint = NodePath("rotation-point")
