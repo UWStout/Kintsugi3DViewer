@@ -17,14 +17,11 @@ func _process(delta):
 	pass
 
 func display_artifact(index : int):
-	print(index)
-	
 	if not current_index < 0 and not current_index >= artifacts.size() and not artifacts[current_index] == null:
 		(get_node(artifacts[current_index]) as Node3D).visible = false
 	
 	if not index < 0 and not index >= artifacts.size() and not artifacts[index] == null:
 			(get_node(artifacts[index]) as Node3D).visible = true
-			print((get_node(artifacts[index]) as Node3D).name)
 
 	current_index = index
 
@@ -39,4 +36,6 @@ func display_previous_artifact():
 	display_artifact(new_index)
 
 func display_this_artifact(artifact_node_path : NodePath):
-	display_artifact(artifacts.find(artifact_node_path))
+	var string_name := artifact_node_path.get_name(artifact_node_path.get_name_count() - 1)
+	var search_path := NodePath(string_name)
+	display_artifact(artifacts.find(search_path))

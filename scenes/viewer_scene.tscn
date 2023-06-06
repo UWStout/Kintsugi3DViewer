@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=72 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -53,9 +53,12 @@
 [ext_resource type="Texture2D" uid="uid://bhe8nyx7wpik7" path="res://artifacts/Vase/specular.png" id="50_aq020"]
 [ext_resource type="Texture2D" uid="uid://cuoteaw8jw7gt" path="res://artifacts/Vase/weights00-03.png" id="51_6b8dp"]
 [ext_resource type="Texture2D" uid="uid://b3kpfqmmn07fa" path="res://artifacts/Vase/weights04-07.png" id="52_f43is"]
-[ext_resource type="Texture2D" uid="uid://d25wou8p4k0kd" path="res://next_prev_button.png" id="53_6iw1r"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
+[ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
 [ext_resource type="Script" path="res://scripts/ui/select_artifact_button.gd" id="56_1pv8i"]
+[ext_resource type="Script" path="res://scripts/ui/open_select_object_window_button.gd" id="56_51th4"]
+[ext_resource type="Texture2D" uid="uid://oqumf0ifuv1m" path="res://assets/ui/prev_button.png" id="56_75ttd"]
+[ext_resource type="Script" path="res://scripts/ui/select_artifact_window.gd" id="56_oke6g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
 render_priority = 0
@@ -144,9 +147,6 @@ fog_density = 0.05
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skwcb"]
 albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sn2gn"]
-load_path = "res://.godot/imported/next_prev_button.png-de7562ff0fe16efb655110d05edfd9c8.ctex"
 
 [sub_resource type="SystemFont" id="SystemFont_gbd4e"]
 font_names = PackedStringArray("Cascadia Code")
@@ -243,33 +243,27 @@ material = SubResource("StandardMaterial3D_skwcb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 raycast_collision_mask = 2
 
-[node name="ui_root" type="Node2D" parent="."]
-
-[node name="previous_object_button" type="Button" parent="ui_root"]
-self_modulate = Color(1, 1, 1, 0.501961)
-offset_left = 1002.0
-offset_top = 573.0
-offset_right = 1052.0
-offset_bottom = 623.0
-rotation = 3.14159
-pivot_offset = Vector2(25, 25)
-tooltip_text = "View the previous object
-'Q'"
-icon = SubResource("CompressedTexture2D_sn2gn")
-icon_alignment = 1
-expand_icon = true
-script = ExtResource("54_30yx2")
-move_forward = false
-
-[node name="next_object_button" type="Button" parent="ui_root"]
-self_modulate = Color(1, 1, 1, 0.501961)
+[node name="ui_root" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1077.0
-offset_top = 573.0
-offset_right = 1127.0
-offset_bottom = 623.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="next_object_button" type="Button" parent="ui_root"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.935
+anchor_top = 0.884
+anchor_right = 0.978
+anchor_bottom = 0.961
+offset_left = -0.120117
+offset_top = 0.167969
+offset_right = 0.343994
+offset_bottom = 0.271973
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(25, 25)
@@ -277,29 +271,65 @@ tooltip_text = "View the next object
 'E'"
 text = "
 "
-icon = ExtResource("53_6iw1r")
+icon = ExtResource("54_85vjq")
 expand_icon = true
 script = ExtResource("54_30yx2")
 
-[node name="select_object_button" type="Button" parent="ui_root"]
-self_modulate = Color(1, 1, 1, 0.501961)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = 25.0
-offset_right = 155.0
-offset_bottom = 75.0
+[node name="previous_object_button" type="Button" parent="ui_root"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.87
+anchor_top = 0.884
+anchor_right = 0.913
+anchor_bottom = 0.961
+offset_left = -0.240051
+offset_top = 0.167969
+offset_right = 0.223999
+offset_bottom = 0.271973
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "View the previous object
+'Q'"
+icon = ExtResource("56_75ttd")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("54_30yx2")
+move_forward = false
+
+[node name="select_object_button" type="Button" parent="ui_root" node_paths=PackedStringArray("select_window")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.022
+anchor_top = 0.039
+anchor_right = 0.135
+anchor_bottom = 0.1
+offset_left = -0.344002
+offset_top = -0.272001
+offset_right = -0.520004
+offset_bottom = 0.199997
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(65, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_fonts/font = SubResource("SystemFont_gbd4e")
 text = "Select Object"
+script = ExtResource("56_51th4")
+select_window = NodePath("../../Window")
 
-[node name="Window" type="Window" parent="."]
+[node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
+title = "Select Artifact"
 position = Vector2i(432, 81)
 size = Vector2i(288, 486)
+visible = false
 unresizable = true
+transparent = true
+popup_window = true
+script = ExtResource("56_oke6g")
+artifacts_controller = NodePath("../artifacts_controller")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Window"]
 anchors_preset = 15
@@ -309,11 +339,19 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
-[node name="select_artifact_button" type="Button" parent="Window/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Altarpiece
+
+[node name="select_artifact_button" type="Button" parent="Window/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent_window")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+text = "DEMO TEXT
 "
 alignment = 0
 script = ExtResource("56_1pv8i")
-target_artifact_path = NodePath("../../../artifacts_controller/altarpiece")
+target_artifact_path = NodePath("../../../../artifacts_controller/altarpiece")
+parent_window = NodePath("../../..")
+
+[connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
