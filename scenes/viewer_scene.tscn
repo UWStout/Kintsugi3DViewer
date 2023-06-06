@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=79 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -53,6 +53,7 @@
 [ext_resource type="Texture2D" uid="uid://bhe8nyx7wpik7" path="res://artifacts/Vase/specular.png" id="50_aq020"]
 [ext_resource type="Texture2D" uid="uid://cuoteaw8jw7gt" path="res://artifacts/Vase/weights00-03.png" id="51_6b8dp"]
 [ext_resource type="Texture2D" uid="uid://b3kpfqmmn07fa" path="res://artifacts/Vase/weights04-07.png" id="52_f43is"]
+[ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
 [ext_resource type="Script" path="res://scripts/ui/select_artifact_button.gd" id="56_1pv8i"]
@@ -146,10 +147,38 @@ fog_density = 0.05
 [sub_resource type="PlaneMesh" id="PlaneMesh_bfdjv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skwcb"]
+transparency = 1
 albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="InputEventKey" id="InputEventKey_klwue"]
+device = -1
+shift_pressed = true
+keycode = 77
+unicode = 77
+
+[sub_resource type="Shortcut" id="Shortcut_qss7a"]
+events = [SubResource("InputEventKey_klwue")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_gj1rb"]
+device = -1
+shift_pressed = true
+keycode = 78
+unicode = 78
+
+[sub_resource type="Shortcut" id="Shortcut_rc08y"]
+events = [SubResource("InputEventKey_gj1rb")]
 
 [sub_resource type="SystemFont" id="SystemFont_gbd4e"]
 font_names = PackedStringArray("Cascadia Code")
+
+[sub_resource type="InputEventKey" id="InputEventKey_ytv0s"]
+device = -1
+shift_pressed = true
+keycode = 66
+unicode = 66
+
+[sub_resource type="Shortcut" id="Shortcut_5853c"]
+events = [SubResource("InputEventKey_ytv0s")]
 
 [node name="viewer_scene" type="Node3D"]
 
@@ -232,7 +261,9 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7futl")
 
-[node name="world_plane" type="Node3D" parent="."]
+[node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("53_2n2wg")
+camera = NodePath("../Camera")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="world_plane"]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
@@ -269,6 +300,7 @@ grow_vertical = 2
 pivot_offset = Vector2(25, 25)
 tooltip_text = "View the next object
 'E'"
+shortcut = SubResource("Shortcut_qss7a")
 text = "
 "
 icon = ExtResource("54_85vjq")
@@ -292,6 +324,7 @@ grow_vertical = 2
 pivot_offset = Vector2(25, 25)
 tooltip_text = "View the previous object
 'Q'"
+shortcut = SubResource("Shortcut_rc08y")
 icon = ExtResource("56_75ttd")
 icon_alignment = 1
 expand_icon = true
@@ -315,6 +348,7 @@ pivot_offset = Vector2(65, 20)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_fonts/font = SubResource("SystemFont_gbd4e")
+shortcut = SubResource("Shortcut_5853c")
 text = "Select Object"
 script = ExtResource("56_51th4")
 select_window = NodePath("../../Window")
