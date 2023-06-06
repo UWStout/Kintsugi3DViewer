@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=86 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -62,6 +62,8 @@
 [ext_resource type="Script" path="res://scripts/ui/select_artifact_window.gd" id="56_oke6g"]
 [ext_resource type="Texture2D" uid="uid://triprnly8itd" path="res://assets/ui/flashlight_off.png" id="59_7wb36"]
 [ext_resource type="Script" path="res://scripts/ui/flashlight_toggle_button.gd" id="60_r0ptn"]
+[ext_resource type="Texture2D" uid="uid://18l112q6up3u" path="res://assets/ui/light_full.png" id="61_4qfjy"]
+[ext_resource type="Script" path="res://scripts/ui/world_lighting_toggle_button.gd" id="62_yowdy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
 render_priority = 0
@@ -141,7 +143,9 @@ background_mode = 1
 background_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 sky = SubResource("Sky_vfwqk")
 sky_custom_fov = 1.0
-ambient_light_color = Color(0.266667, 0.317647, 0.396078, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.0
 fog_enabled = true
 fog_light_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 fog_density = 0.05
@@ -200,7 +204,6 @@ script = ExtResource("1_6cwju")
 artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), NodePath("boreas"), NodePath("ding"), NodePath("polyxena"), NodePath("tiger_hat"), NodePath("vase")])
 
 [node name="altarpiece" type="Node3D" parent="artifacts_controller"]
-visible = false
 
 [node name="altarpiece_model" type="MeshInstance3D" parent="artifacts_controller/altarpiece"]
 mesh = ExtResource("2_ec6yk")
@@ -366,7 +369,7 @@ script = ExtResource("56_51th4")
 select_window = NodePath("../../Window")
 
 [node name="flashlight_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("camera")]
-custom_minimum_size = Vector2(25, 25)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.935
@@ -387,6 +390,21 @@ icon = ExtResource("59_7wb36")
 expand_icon = true
 script = ExtResource("60_r0ptn")
 camera = NodePath("../../Camera")
+
+[node name="world_lighting_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("main_light", "backlight", "world_environment")]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 25.0
+offset_right = 1052.0
+offset_bottom = 75.0
+tooltip_text = "Toggle world lighting modes"
+icon = ExtResource("61_4qfjy")
+expand_icon = true
+script = ExtResource("62_yowdy")
+main_light = NodePath("../../main_light")
+backlight = NodePath("../../backlight")
+world_environment = NodePath("../../WorldEnvironment")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
