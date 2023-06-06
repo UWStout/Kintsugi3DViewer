@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=84 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -60,6 +60,8 @@
 [ext_resource type="Script" path="res://scripts/ui/open_select_object_window_button.gd" id="56_51th4"]
 [ext_resource type="Texture2D" uid="uid://oqumf0ifuv1m" path="res://assets/ui/prev_button.png" id="56_75ttd"]
 [ext_resource type="Script" path="res://scripts/ui/select_artifact_window.gd" id="56_oke6g"]
+[ext_resource type="Texture2D" uid="uid://triprnly8itd" path="res://assets/ui/flashlight_off.png" id="59_7wb36"]
+[ext_resource type="Script" path="res://scripts/ui/flashlight_toggle_button.gd" id="60_r0ptn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
 render_priority = 0
@@ -180,6 +182,17 @@ unicode = 66
 [sub_resource type="Shortcut" id="Shortcut_5853c"]
 events = [SubResource("InputEventKey_ytv0s")]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eq23d"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_0kej4"]
+device = -1
+shift_pressed = true
+keycode = 70
+unicode = 70
+
+[sub_resource type="Shortcut" id="Shortcut_uddkm"]
+events = [SubResource("InputEventKey_0kej4")]
+
 [node name="viewer_scene" type="Node3D"]
 
 [node name="artifacts_controller" type="Node3D" parent="."]
@@ -298,8 +311,7 @@ offset_bottom = 0.271973
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(25, 25)
-tooltip_text = "View the next object
-'E'"
+tooltip_text = "View the next object"
 shortcut = SubResource("Shortcut_qss7a")
 text = "
 "
@@ -322,8 +334,7 @@ offset_bottom = 0.271973
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(25, 25)
-tooltip_text = "View the previous object
-'Q'"
+tooltip_text = "View the previous object"
 shortcut = SubResource("Shortcut_rc08y")
 icon = ExtResource("56_75ttd")
 icon_alignment = 1
@@ -347,11 +358,35 @@ grow_vertical = 2
 pivot_offset = Vector2(65, 20)
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "Select another object to view"
 theme_override_fonts/font = SubResource("SystemFont_gbd4e")
 shortcut = SubResource("Shortcut_5853c")
 text = "Select Object"
 script = ExtResource("56_51th4")
 select_window = NodePath("../../Window")
+
+[node name="flashlight_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("camera")]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.935
+anchor_top = 0.039
+anchor_right = 0.978
+anchor_bottom = 0.116
+offset_left = -0.120117
+offset_top = -0.272001
+offset_right = 0.343994
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "Toggle flashlight on/off"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eq23d")
+shortcut = SubResource("Shortcut_uddkm")
+icon = ExtResource("59_7wb36")
+expand_icon = true
+script = ExtResource("60_r0ptn")
+camera = NodePath("../../Camera")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true

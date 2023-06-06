@@ -7,6 +7,7 @@ class_name CameraRig
 @export_group("Node References")
 @export var camera: Camera3D
 @export var rotationPoint: Node3D
+@export var spotLight : SpotLight3D
 
 @export_group("Rotation", "rot_")
 @export var rot_enabled: bool = true
@@ -228,3 +229,9 @@ func cast_ray_to_world():
 		
 		#annotation_target_distance = annotation.get_focus_point().annotation_distance
 		#do_zoom_to_target_distance = annotation.get_focus_point().do_zoom_to_annotation
+
+func enable_flashlight():
+	spotLight.visible = true
+	
+func disable_flashlight():
+	spotLight.visible = false
