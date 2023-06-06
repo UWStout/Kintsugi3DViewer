@@ -17,8 +17,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AnnotationsManager="*res://scripts/annotations_manager.gd"
 ArtifactCatalog="*res://scripts/data/artifact_catalog.gd"
+AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
 
 [editor_plugins]
 
