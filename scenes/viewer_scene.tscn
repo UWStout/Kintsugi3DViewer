@@ -1,8 +1,9 @@
-[gd_scene load_steps=86 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=103 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
 [ext_resource type="ArrayMesh" uid="uid://dmnbvi4jsa27y" path="res://artifacts/Altarpiece/altarpiece-recentered-for-unity.obj" id="2_ec6yk"]
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="2_eqdcn"]
 [ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_iau3j"]
 [ext_resource type="Texture2D" uid="uid://bajsdqeiue8sl" path="res://artifacts/Altarpiece/basisFunctions.csv" id="4_pth3r"]
 [ext_resource type="Texture2D" uid="uid://c8yxcxjs2vl5d" path="res://artifacts/Altarpiece/diffuse.png" id="5_ctjuj"]
@@ -12,8 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://dm06w6uusvuj0" path="res://artifacts/Altarpiece/weights00-03.png" id="9_71mow"]
 [ext_resource type="Texture2D" uid="uid://djqnubhab6hw3" path="res://artifacts/Altarpiece/weights04-07.png" id="10_cpsrv"]
 [ext_resource type="ArrayMesh" uid="uid://dmh4n2nc1p42b" path="res://artifacts/AutumnJade/jade1model.obj" id="11_rwo2t"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="12_hg2kv"]
 [ext_resource type="Texture2D" uid="uid://c1fkdn5n6l15l" path="res://artifacts/AutumnJade/autumn-jade.png" id="12_si1g5"]
 [ext_resource type="ArrayMesh" uid="uid://cgbb42akwol8f" path="res://artifacts/Boreas/Mia_0022091_64kMesh_4kTextures.obj" id="13_3miq1"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="13_kb2f3"]
+[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="14_0ks2p"]
 [ext_resource type="Texture2D" uid="uid://dscgbn15h1rc2" path="res://artifacts/Boreas/basisFunctions.csv" id="14_xvf6h"]
 [ext_resource type="Texture2D" uid="uid://dmmbggdiiw3sj" path="res://artifacts/Boreas/diffuse.png" id="15_3aom6"]
 [ext_resource type="Texture2D" uid="uid://be6ktt5r0ogel" path="res://artifacts/Boreas/normal.png" id="16_2h8ef"]
@@ -64,6 +68,8 @@
 [ext_resource type="Script" path="res://scripts/ui/flashlight_toggle_button.gd" id="60_r0ptn"]
 [ext_resource type="Texture2D" uid="uid://18l112q6up3u" path="res://assets/ui/light_full.png" id="61_4qfjy"]
 [ext_resource type="Script" path="res://scripts/ui/world_lighting_toggle_button.gd" id="62_yowdy"]
+[ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/ui/toggle_annotations_on.png" id="67_wwbkf"]
+[ext_resource type="Script" path="res://scripts/ui/annotations_toggle_button.gd" id="68_iinhw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
 render_priority = 0
@@ -76,10 +82,14 @@ shader_parameter/weights0123 = ExtResource("9_71mow")
 shader_parameter/weights4567 = ExtResource("10_cpsrv")
 shader_parameter/basisFunctions = ExtResource("4_pth3r")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_ifsh6"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tvbba"]
 render_priority = 0
 shader = ExtResource("3_iau3j")
 shader_parameter/diffuseMap = ExtResource("12_si1g5")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m6t66"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u74xh"]
 render_priority = 0
@@ -92,6 +102,8 @@ shader_parameter/weights0123 = ExtResource("19_a230a")
 shader_parameter/weights4567 = ExtResource("20_sugxj")
 shader_parameter/basisFunctions = ExtResource("14_xvf6h")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_4tncq"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5odgc"]
 render_priority = 0
 shader = ExtResource("3_iau3j")
@@ -102,6 +114,8 @@ shader_parameter/roughnessMap = ExtResource("25_3t3or")
 shader_parameter/weights0123 = ExtResource("27_v3ndj")
 shader_parameter/weights4567 = ExtResource("28_sr5wk")
 shader_parameter/basisFunctions = ExtResource("22_3gagl")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_41nmd"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ku340"]
 render_priority = 0
@@ -114,6 +128,8 @@ shader_parameter/weights0123 = ExtResource("35_2s4tg")
 shader_parameter/weights4567 = ExtResource("36_crsem")
 shader_parameter/basisFunctions = ExtResource("30_xp0ly")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_k6oce"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajm3n"]
 render_priority = 0
 shader = ExtResource("3_iau3j")
@@ -125,6 +141,8 @@ shader_parameter/weights0123 = ExtResource("43_uke4w")
 shader_parameter/weights4567 = ExtResource("44_1kf3c")
 shader_parameter/basisFunctions = ExtResource("38_52je0")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_oxqhf"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64fob"]
 render_priority = 0
 shader = ExtResource("3_iau3j")
@@ -135,6 +153,8 @@ shader_parameter/roughnessMap = ExtResource("49_sxpcr")
 shader_parameter/weights0123 = ExtResource("51_6b8dp")
 shader_parameter/weights4567 = ExtResource("52_f43is")
 shader_parameter/basisFunctions = ExtResource("46_5orqu")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_slq2c"]
 
 [sub_resource type="Sky" id="Sky_vfwqk"]
 
@@ -153,7 +173,9 @@ fog_density = 0.05
 [sub_resource type="PlaneMesh" id="PlaneMesh_bfdjv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_skwcb"]
+render_priority = -100
 transparency = 1
+depth_draw_mode = 1
 albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventKey" id="InputEventKey_klwue"]
@@ -197,30 +219,92 @@ unicode = 70
 [sub_resource type="Shortcut" id="Shortcut_uddkm"]
 events = [SubResource("InputEventKey_0kej4")]
 
+[sub_resource type="InputEventKey" id="InputEventKey_awmku"]
+device = -1
+shift_pressed = true
+keycode = 71
+unicode = 71
+
+[sub_resource type="Shortcut" id="Shortcut_m2pwi"]
+events = [SubResource("InputEventKey_awmku")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_yx0yo"]
+device = -1
+shift_pressed = true
+keycode = 73
+unicode = 73
+
+[sub_resource type="Shortcut" id="Shortcut_oup0k"]
+events = [SubResource("InputEventKey_yx0yo")]
+
 [node name="viewer_scene" type="Node3D"]
 
 [node name="artifacts_controller" type="Node3D" parent="."]
 script = ExtResource("1_6cwju")
 artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), NodePath("boreas"), NodePath("ding"), NodePath("polyxena"), NodePath("tiger_hat"), NodePath("vase")])
 
-[node name="altarpiece" type="Node3D" parent="artifacts_controller"]
+[node name="altarpiece" type="Node3D" parent="artifacts_controller" node_paths=PackedStringArray("artifact_model")]
+script = ExtResource("2_eqdcn")
+artifact_model = NodePath("altarpiece_model")
+annotations = Array[NodePath]([NodePath("annotations/annotation_main")])
 
 [node name="altarpiece_model" type="MeshInstance3D" parent="artifacts_controller/altarpiece"]
 mesh = ExtResource("2_ec6yk")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_nd0hs")
 
+[node name="annotations" type="Node3D" parent="artifacts_controller/altarpiece"]
+
+[node name="annotation_main" parent="artifacts_controller/altarpiece/annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("12_hg2kv")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 2, -2)
+focus_point = NodePath("../annotation_main_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="artifacts_controller/altarpiece/annotations" instance=ExtResource("13_kb2f3")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 4, 3, 0)
+texture = SubResource("ViewportTexture_ifsh6")
+annotation_name = "Cloisonné Altarpiece, 
+[i]Unkown Artist, 18th Century[i]"
+annotation_text = "A turquoise-blue pillar on two level base topped by lotus.
+Four decorative supports surrounding pillar.
+Gilt bronze and baked enamel."
+
+[node name="annotation_main_focuspoint" parent="artifacts_controller/altarpiece/annotations" instance=ExtResource("14_0ks2p")]
+
 [node name="autumn_jade" type="Node3D" parent="artifacts_controller"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
 visible = false
+script = ExtResource("2_eqdcn")
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="jade_model" type="MeshInstance3D" parent="artifacts_controller/autumn_jade"]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 3, 15.75)
+transform = Transform3D(-3, 2.62268e-07, 0, -2.62268e-07, -3, 0, 0, 0, 3, 0, 3, 15.75)
 mesh = ExtResource("11_rwo2t")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_tvbba")
 
+[node name="annotations" type="Node3D" parent="artifacts_controller/autumn_jade"]
+
+[node name="annotation" parent="artifacts_controller/autumn_jade/annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("12_hg2kv")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 5.55112e-17, 1, -0.5, 3, -0.866025)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="artifacts_controller/autumn_jade/annotations" instance=ExtResource("13_kb2f3")]
+transform = Transform3D(1, 7.26432e-08, 8.64267e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -4.22234, 3.32904, -0.105062)
+texture = SubResource("ViewportTexture_m6t66")
+annotation_name = "Traveling in Autumn Mountains, 
+[i]Unkown Artist, 17th-18th century[i]"
+annotation_text = "Depicts two travellers hiking across mountains, one riding a donkey, and the other carrying an umbrella. A similar scene is repeated on the top of the artifact, seemingly further away,"
+
+[node name="annotation_focuspoint" parent="artifacts_controller/autumn_jade/annotations" instance=ExtResource("14_0ks2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73205, 3, 1)
+
 [node name="boreas" type="Node3D" parent="artifacts_controller"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
 visible = false
+script = ExtResource("2_eqdcn")
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="boreas_model" type="MeshInstance3D" parent="artifacts_controller/boreas"]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -1.25, 6.25, -4.5)
@@ -228,8 +312,26 @@ mesh = ExtResource("13_3miq1")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_u74xh")
 
+[node name="annotations" type="Node3D" parent="artifacts_controller/boreas"]
+
+[node name="annotation" parent="artifacts_controller/boreas/annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("12_hg2kv")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 2, 3, 0)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="artifacts_controller/boreas/annotations" instance=ExtResource("13_kb2f3")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -0.22234, 2.32904, 4.09109)
+texture = SubResource("ViewportTexture_4tncq")
+annotation_name = "Boreas Abducting Orithyia,
+[i]Gaspard Marsy, Anselme Flamen, c.1700[i]"
+annotation_text = "Depicts the god of the north wind, Boreas, abducting the Athenian princess Orithyia while battling another wind, probably the god Zephyr."
+
+[node name="annotation_focuspoint" parent="artifacts_controller/boreas/annotations" instance=ExtResource("14_0ks2p")]
+
 [node name="ding" type="Node3D" parent="artifacts_controller"]
 visible = false
+script = ExtResource("2_eqdcn")
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="ding_model" type="MeshInstance3D" parent="artifacts_controller/ding"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
@@ -237,8 +339,28 @@ mesh = ExtResource("21_1w332")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_5odgc")
 
+[node name="annotations" type="Node3D" parent="artifacts_controller/ding"]
+
+[node name="annotation" parent="artifacts_controller/ding/annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("12_hg2kv")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 2, -2)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="artifacts_controller/ding/annotations" instance=ExtResource("13_kb2f3")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -4.22234, 2.32904, 0.0910902)
+texture = SubResource("ViewportTexture_41nmd")
+annotation_name = "Ding food vessel,
+[i] Unkown Artist, 3rd Century BCE[i]"
+annotation_text = "The food cauldron, known as a ding, was the most prominent type of ritual vessel during China’s Bronze Age. It was used to cook, hold, and season meat during ceremonies devoted to ancestral spirits."
+
+[node name="annotation_focuspoint" parent="artifacts_controller/ding/annotations" instance=ExtResource("14_0ks2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
 [node name="polyxena" type="Node3D" parent="artifacts_controller"]
+transform = Transform3D(-1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, -1, 0, 0, 0)
 visible = false
+script = ExtResource("2_eqdcn")
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="polyxena_model" type="MeshInstance3D" parent="artifacts_controller/polyxena"]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 6.8, 0.2, -4)
@@ -246,8 +368,28 @@ mesh = ExtResource("29_rle5x")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_ku340")
 
+[node name="annotations" type="Node3D" parent="artifacts_controller/polyxena"]
+
+[node name="annotation" parent="artifacts_controller/polyxena/annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("12_hg2kv")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 1.19209e-07, 4, 2)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="artifacts_controller/polyxena/annotations" instance=ExtResource("13_kb2f3")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -2.22234, 3.32904, -0.90891)
+texture = SubResource("ViewportTexture_k6oce")
+annotation_name = "Abduction of Polyxena
+[i]Pio Fedi, 1855[i]"
+annotation_text = "The sculpture depicts Achille's abduction of Polyxena, the princess of Troy, after her attempt to betray him. Clinging to Achilles, queen Hecuba of Troy implores mercy for her daughter."
+
+[node name="annotation_focuspoint" parent="artifacts_controller/polyxena/annotations" instance=ExtResource("14_0ks2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306535, 3.39396, 0.465254)
+
 [node name="tiger_hat" type="Node3D" parent="artifacts_controller"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 visible = false
+script = ExtResource("2_eqdcn")
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="tiger_hat_model" type="MeshInstance3D" parent="artifacts_controller/tiger_hat"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
@@ -255,15 +397,51 @@ mesh = ExtResource("37_e3kkx")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_ajm3n")
 
+[node name="annotations" type="Node3D" parent="artifacts_controller/tiger_hat"]
+
+[node name="annotation" parent="artifacts_controller/tiger_hat/annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("12_hg2kv")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 2, 3, 8.74228e-08)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="artifacts_controller/tiger_hat/annotations" instance=ExtResource("13_kb2f3")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -0.22234, 4.32904, -3.90891)
+texture = SubResource("ViewportTexture_oxqhf")
+annotation_name = "Child's Tiger Hat
+[i] Unknown Artist, 17th - 19th Century[i]"
+annotation_text = "The Tiger is one of China's most important symbols. Representing power and fearlessness, and renowned for it's ability to ward off evil and disaster."
+
+[node name="annotation_focuspoint" parent="artifacts_controller/tiger_hat/annotations" instance=ExtResource("14_0ks2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
+
 [node name="vase" type="Node3D" parent="artifacts_controller"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
 visible = false
+script = ExtResource("2_eqdcn")
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="vase_model" type="MeshInstance3D" parent="artifacts_controller/vase"]
 transform = Transform3D(0.455161, 0, 0.20695, 3.12485e-08, -0.5, -6.87275e-08, 0.20695, 7.54979e-08, -0.455161, 1.87841, 0.412214, 4.79818)
 mesh = ExtResource("45_wwjir")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("ShaderMaterial_64fob")
+
+[node name="annotations" type="Node3D" parent="artifacts_controller/vase"]
+
+[node name="annotation" parent="artifacts_controller/vase/annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("12_hg2kv")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, -0.533018, -2, 10)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="artifacts_controller/vase/annotations" instance=ExtResource("13_kb2f3")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 2.77766, 1.32904, 10.0911)
+texture = SubResource("ViewportTexture_slq2c")
+annotation_name = "Vase,
+[i]Unknown Aritst, 18th Century[i]"
+annotation_text = "Derived from the bronze hu vessel, this vase is made in cloisonné. The cloisonné technique reached China from Byzantium (present-day Istanbul) between 1200 and 1400 CE."
+
+[node name="annotation_focuspoint" parent="artifacts_controller/vase/annotations" instance=ExtResource("14_0ks2p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51493, 0.0137243, 10.6939)
 
 [node name="main_light" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -287,7 +465,7 @@ mesh = SubResource("PlaneMesh_bfdjv")
 material = SubResource("StandardMaterial3D_skwcb")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
 raycast_collision_mask = 2
 
 [node name="ui_root" type="Control" parent="."]
@@ -393,18 +571,46 @@ camera = NodePath("../../Camera")
 
 [node name="world_lighting_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("main_light", "backlight", "world_environment")]
 custom_minimum_size = Vector2(50, 50)
-layout_mode = 0
-offset_left = 1002.0
-offset_top = 25.0
-offset_right = 1052.0
-offset_bottom = 75.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.87
+anchor_top = 0.039
+anchor_right = 0.913
+anchor_bottom = 0.116
+offset_left = -0.240051
+offset_top = -0.272001
+offset_right = 0.223999
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
 tooltip_text = "Toggle world lighting modes"
+shortcut = SubResource("Shortcut_m2pwi")
 icon = ExtResource("61_4qfjy")
 expand_icon = true
 script = ExtResource("62_yowdy")
 main_light = NodePath("../../main_light")
 backlight = NodePath("../../backlight")
 world_environment = NodePath("../../WorldEnvironment")
+
+[node name="annotations_toggle_button" type="Button" parent="ui_root"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.805
+anchor_top = 0.039
+anchor_right = 0.848
+anchor_bottom = 0.116
+offset_left = -0.360107
+offset_top = -0.272001
+offset_right = 0.103943
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "Toggle annotations on/off"
+shortcut = SubResource("Shortcut_oup0k")
+icon = ExtResource("67_wwbkf")
+expand_icon = true
+script = ExtResource("68_iinhw")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true

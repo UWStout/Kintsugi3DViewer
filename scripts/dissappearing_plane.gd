@@ -7,8 +7,10 @@ extends Node3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var new_mat = StandardMaterial3D.new()
+	new_mat.render_priority = -100
 	new_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	new_mat.albedo_color = Color(0, 0, 0, 1)
+	#new_mat.depth_draw_mode = BaseMaterial3D.DEPTH_DRAW_ALWAYS
 	
 	csg_mesh_3d.set_material(new_mat)
 	pass # Replace with function body.
