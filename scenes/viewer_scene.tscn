@@ -244,7 +244,9 @@ script = ExtResource("1_6cwju")
 artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), NodePath("boreas"), NodePath("ding"), NodePath("polyxena"), NodePath("tiger_hat"), NodePath("vase")])
 
 [node name="altarpiece" type="Node3D" parent="artifacts_controller" node_paths=PackedStringArray("artifact_model")]
+visible = false
 script = ExtResource("2_eqdcn")
+artifact_name = "Cloisonné Altarpiece"
 artifact_model = NodePath("altarpiece_model")
 annotations = Array[NodePath]([NodePath("annotations/annotation_main")])
 
@@ -275,6 +277,7 @@ Gilt bronze and baked enamel."
 transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
 visible = false
 script = ExtResource("2_eqdcn")
+artifact_name = "Traveling in Autumn Mountains"
 annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="jade_model" type="MeshInstance3D" parent="artifacts_controller/autumn_jade"]
@@ -304,6 +307,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73205, 3, 1)
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
 visible = false
 script = ExtResource("2_eqdcn")
+artifact_name = "Boreas Abducting Orithyia"
 annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="boreas_model" type="MeshInstance3D" parent="artifacts_controller/boreas"]
@@ -331,6 +335,7 @@ annotation_text = "Depicts the god of the north wind, Boreas, abducting the Athe
 [node name="ding" type="Node3D" parent="artifacts_controller"]
 visible = false
 script = ExtResource("2_eqdcn")
+artifact_name = "Ding Food Vessel"
 annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="ding_model" type="MeshInstance3D" parent="artifacts_controller/ding"]
@@ -349,7 +354,7 @@ textbox = NodePath("../annotation_textbox")
 [node name="annotation_textbox" parent="artifacts_controller/ding/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -4.22234, 2.32904, 0.0910902)
 texture = SubResource("ViewportTexture_41nmd")
-annotation_name = "Ding food vessel,
+annotation_name = "Ding Food Vessel,
 [i] Unkown Artist, 3rd Century BCE[i]"
 annotation_text = "The food cauldron, known as a ding, was the most prominent type of ritual vessel during China’s Bronze Age. It was used to cook, hold, and season meat during ceremonies devoted to ancestral spirits."
 
@@ -360,6 +365,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 transform = Transform3D(-1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, -1, 0, 0, 0)
 visible = false
 script = ExtResource("2_eqdcn")
+artifact_name = "Abduction of Polyxena"
 annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="polyxena_model" type="MeshInstance3D" parent="artifacts_controller/polyxena"]
@@ -378,7 +384,7 @@ textbox = NodePath("../annotation_textbox")
 [node name="annotation_textbox" parent="artifacts_controller/polyxena/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -2.22234, 3.32904, -0.90891)
 texture = SubResource("ViewportTexture_k6oce")
-annotation_name = "Abduction of Polyxena
+annotation_name = "Abduction of Polyxena,
 [i]Pio Fedi, 1855[i]"
 annotation_text = "The sculpture depicts Achille's abduction of Polyxena, the princess of Troy, after her attempt to betray him. Clinging to Achilles, queen Hecuba of Troy implores mercy for her daughter."
 
@@ -389,6 +395,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.306535, 3.39396, 0.465254)
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 visible = false
 script = ExtResource("2_eqdcn")
+artifact_name = "Child's Tiger Hat"
 annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="tiger_hat_model" type="MeshInstance3D" parent="artifacts_controller/tiger_hat"]
@@ -418,6 +425,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
 visible = false
 script = ExtResource("2_eqdcn")
+artifact_name = "Vase"
 annotations = Array[NodePath]([NodePath("annotations/annotation")])
 
 [node name="vase_model" type="MeshInstance3D" parent="artifacts_controller/vase"]
@@ -623,6 +631,7 @@ transparent = true
 popup_window = true
 script = ExtResource("56_oke6g")
 artifacts_controller = NodePath("../artifacts_controller")
+artifacts_controller_node_path = NodePath("../artifacts_controller")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Window"]
 anchors_preset = 15

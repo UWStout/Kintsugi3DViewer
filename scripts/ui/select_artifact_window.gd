@@ -1,6 +1,7 @@
 extends Window
 
 @export var artifacts_controller : ArtifactsController
+@export var artifacts_controller_node_path : NodePath
 @onready var select_artifact_button = $ScrollContainer/VBoxContainer/select_artifact_button
 @onready var v_box_container = $ScrollContainer/VBoxContainer
 
@@ -27,7 +28,10 @@ func populate_list():
 		new_button.artifacts_controller = artifacts_controller
 		new_button.target_artifact_path = artifact
 		new_button.parent_window = self
-		new_button.text = artifact.get_name(artifact.get_name_count() - 1)
+		
+		var new_node_path = NodePath(artifacts_controller_node_path.get_concatenated_names() + "/" + artifact.get_name(0))
+		new_button.text = get_node(new_node_path).artifact_name
+		#new_button.text = artifact.get_name(artifact.get_name_count() - 1)
 		new_button.visible = true
 		
 		v_box_container.add_child(new_button)
