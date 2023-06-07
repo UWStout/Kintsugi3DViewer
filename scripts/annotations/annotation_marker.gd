@@ -23,7 +23,9 @@ func get_textbox():
 func _ready():
 	# Register this annotation marker to the Annotations Manager
 	# to make sure it is controlled properly
-	AnnotationsManager.register_new_annotation(self)
+	#AnnotationsManager.register_new_annotation(self)
+	
+	collision_layer = 0
 	
 	if not textbox == null:
 		textbox.visible = false
@@ -36,7 +38,7 @@ func select_annotation():
 	# and it's textbox appears
 	visible = false
 	textbox.visible = true
-	
+
 func unselect_annotation():
 	print(name + " was unselected!")
 	

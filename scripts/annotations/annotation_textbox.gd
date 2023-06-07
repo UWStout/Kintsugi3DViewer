@@ -4,8 +4,8 @@ extends Sprite3D
 class_name AnnotationTextbox
 
 @export_category("Annotation")
-@export var annotation_name : String = "UNNAMED ANNOTATION"
-@export var annotation_text : String = "EMPTY ANNOTATION TEXT"
+@export_multiline var annotation_name : String = "UNNAMED ANNOTATION"
+@export_multiline var annotation_text : String = "EMPTY ANNOTATION TEXT"
 @export var recalculate_text : bool = false : set = recalc_text
 
 @onready var sub_viewport_container = $SubViewportContainer
@@ -20,8 +20,8 @@ func recalc_text(new_value):
 	# appear in the editor on-demand.
 	if new_value:
 		recalculate_text = false
-		title_text.text = str("[b]", annotation_name, "[b]")
-		content_text.text = str("[i]", annotation_text, "[i]")
+		title_text.set_text("[b]" + annotation_name + "[b]")
+		content_text.set_text("[i]" + annotation_text + "[i]")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

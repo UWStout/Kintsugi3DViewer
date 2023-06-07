@@ -22,4 +22,5 @@ pixel_size = 0.001
 billboard = 1
 double_sided = false
 no_depth_test = true
+alpha_cut = 1
 texture = ExtResource("2_cxe8b")

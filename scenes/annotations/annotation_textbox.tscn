@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/annotations/annotation_textbox.gd" id="1_ilovh"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_r3knp"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ca35x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5f4d"]
 content_margin_left = 20.0
@@ -21,12 +21,13 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="annotation_text_box" type="Sprite3D"]
+[node name="annotation_textbox" type="Sprite3D"]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -1.22234, 2.32904, 5.09109)
 billboard = 1
-texture = SubResource("ViewportTexture_r3knp")
+double_sided = false
+alpha_cut = 1
+texture = SubResource("ViewportTexture_ca35x")
 script = ExtResource("1_ilovh")
-recalculate_text = null
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 visibility_layer = 0
@@ -56,7 +57,7 @@ custom_minimum_size = Vector2(4, 4)
 layout_mode = 2
 theme_override_font_sizes/bold_font_size = 32
 bbcode_enabled = true
-text = "[b]TITLE[b]"
+text = "[b]UNNAMED ANNOTATION[b]"
 fit_content = true
 scroll_active = false
 
@@ -65,6 +66,6 @@ custom_minimum_size = Vector2(4, 4)
 layout_mode = 2
 theme_override_font_sizes/italics_font_size = 16
 bbcode_enabled = true
-text = "[i]CONTENT[i]"
+text = "[i]EMPTY ANNOTATION TEXT[i]"
 fit_content = true
 scroll_active = false

@@ -9,8 +9,7 @@ var current_index : int = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	current_index = 0
-	if not artifacts.size() < 0 and not current_index >= artifacts.size() and not artifacts[0] == null:
-		(get_node(artifacts[0]) as Node3D).visible = true
+	display_artifact(0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -18,10 +17,14 @@ func _process(delta):
 
 func display_artifact(index : int):
 	if not current_index < 0 and not current_index >= artifacts.size() and not artifacts[current_index] == null:
-		(get_node(artifacts[current_index]) as Node3D).visible = false
+		var prev_artifact = get_node(artifacts[current_index])
+		prev_artifact.visible = false
+		prev_artifact.deselect_artifact()
 	
 	if not index < 0 and not index >= artifacts.size() and not artifacts[index] == null:
-			(get_node(artifacts[index]) as Node3D).visible = true
+		var new_artifact = get_node(artifacts[index])
+		new_artifact.visible = true
+		new_artifact.select_artifact()
 
 	current_index = index
 
