@@ -11,8 +11,8 @@ class_name AnnotationTextbox
 @onready var sub_viewport_container = $SubViewportContainer
 @onready var sub_viewport = $SubViewportContainer/SubViewport
 
-@onready var title_text = $SubViewportContainer/SubViewport/PanelContainer/VBoxContainer/TitleText 
-@onready var content_text = $SubViewportContainer/SubViewport/PanelContainer/VBoxContainer/ContentText 
+@onready var title_text = $SubViewportContainer/SubViewport/Panel/VBoxContainer/TitleText
+@onready var content_text = $SubViewportContainer/SubViewport/Panel/VBoxContainer/ContentText
 
 func recalc_text(new_value):
 	# Update the text in the UI to match the properties of this object.

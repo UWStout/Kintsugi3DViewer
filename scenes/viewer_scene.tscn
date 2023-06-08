@@ -82,14 +82,14 @@ shader_parameter/weights0123 = ExtResource("9_71mow")
 shader_parameter/weights4567 = ExtResource("10_cpsrv")
 shader_parameter/basisFunctions = ExtResource("4_pth3r")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ifsh6"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_ldvmk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tvbba"]
 render_priority = 0
 shader = ExtResource("3_iau3j")
 shader_parameter/diffuseMap = ExtResource("12_si1g5")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_m6t66"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_e87lt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u74xh"]
 render_priority = 0
@@ -102,7 +102,7 @@ shader_parameter/weights0123 = ExtResource("19_a230a")
 shader_parameter/weights4567 = ExtResource("20_sugxj")
 shader_parameter/basisFunctions = ExtResource("14_xvf6h")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_4tncq"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_hgkw1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5odgc"]
 render_priority = 0
@@ -115,7 +115,7 @@ shader_parameter/weights0123 = ExtResource("27_v3ndj")
 shader_parameter/weights4567 = ExtResource("28_sr5wk")
 shader_parameter/basisFunctions = ExtResource("22_3gagl")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_41nmd"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_h2wr4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ku340"]
 render_priority = 0
@@ -128,7 +128,7 @@ shader_parameter/weights0123 = ExtResource("35_2s4tg")
 shader_parameter/weights4567 = ExtResource("36_crsem")
 shader_parameter/basisFunctions = ExtResource("30_xp0ly")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_k6oce"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_yw2b8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajm3n"]
 render_priority = 0
@@ -141,7 +141,7 @@ shader_parameter/weights0123 = ExtResource("43_uke4w")
 shader_parameter/weights4567 = ExtResource("44_1kf3c")
 shader_parameter/basisFunctions = ExtResource("38_52je0")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_oxqhf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_s61cq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64fob"]
 render_priority = 0
@@ -154,7 +154,7 @@ shader_parameter/weights0123 = ExtResource("51_6b8dp")
 shader_parameter/weights4567 = ExtResource("52_f43is")
 shader_parameter/basisFunctions = ExtResource("46_5orqu")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_slq2c"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_hyshc"]
 
 [sub_resource type="Sky" id="Sky_vfwqk"]
 
@@ -264,7 +264,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="artifacts_controller/altarpiece/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 4, 3, 0)
-texture = SubResource("ViewportTexture_ifsh6")
+texture = SubResource("ViewportTexture_ldvmk")
 annotation_name = "Cloisonné Altarpiece, 
 [i]Unkown Artist, 18th Century[i]"
 annotation_text = "A turquoise-blue pillar on two level base topped by lotus.
@@ -295,7 +295,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="artifacts_controller/autumn_jade/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.64267e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -4.22234, 3.32904, -0.105062)
-texture = SubResource("ViewportTexture_m6t66")
+texture = SubResource("ViewportTexture_e87lt")
 annotation_name = "Traveling in Autumn Mountains, 
 [i]Unkown Artist, 17th-18th century[i]"
 annotation_text = "Depicts two travellers hiking across mountains, one riding a donkey, and the other carrying an umbrella. A similar scene is repeated on the top of the artifact, seemingly further away,"
@@ -325,7 +325,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="artifacts_controller/boreas/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -0.22234, 2.32904, 4.09109)
-texture = SubResource("ViewportTexture_4tncq")
+texture = SubResource("ViewportTexture_hgkw1")
 annotation_name = "Boreas Abducting Orithyia,
 [i]Gaspard Marsy, Anselme Flamen, c.1700[i]"
 annotation_text = "Depicts the god of the north wind, Boreas, abducting the Athenian princess Orithyia while battling another wind, probably the god Zephyr."
@@ -353,7 +353,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="artifacts_controller/ding/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -4.22234, 2.32904, 0.0910902)
-texture = SubResource("ViewportTexture_41nmd")
+texture = SubResource("ViewportTexture_h2wr4")
 annotation_name = "Ding Food Vessel,
 [i] Unkown Artist, 3rd Century BCE[i]"
 annotation_text = "The food cauldron, known as a ding, was the most prominent type of ritual vessel during China’s Bronze Age. It was used to cook, hold, and season meat during ceremonies devoted to ancestral spirits."
@@ -383,7 +383,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="artifacts_controller/polyxena/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -2.22234, 3.32904, -0.90891)
-texture = SubResource("ViewportTexture_k6oce")
+texture = SubResource("ViewportTexture_yw2b8")
 annotation_name = "Abduction of Polyxena,
 [i]Pio Fedi, 1855[i]"
 annotation_text = "The sculpture depicts Achille's abduction of Polyxena, the princess of Troy, after her attempt to betray him. Clinging to Achilles, queen Hecuba of Troy implores mercy for her daughter."
@@ -413,7 +413,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="artifacts_controller/tiger_hat/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -0.22234, 4.32904, -3.90891)
-texture = SubResource("ViewportTexture_oxqhf")
+texture = SubResource("ViewportTexture_s61cq")
 annotation_name = "Child's Tiger Hat
 [i] Unknown Artist, 17th - 19th Century[i]"
 annotation_text = "The Tiger is one of China's most important symbols. Representing power and fearlessness, and renowned for it's ability to ward off evil and disaster."
@@ -443,7 +443,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="artifacts_controller/vase/annotations" instance=ExtResource("13_kb2f3")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 2.77766, 1.32904, 10.0911)
-texture = SubResource("ViewportTexture_slq2c")
+texture = SubResource("ViewportTexture_hyshc")
 annotation_name = "Vase,
 [i]Unknown Aritst, 18th Century[i]"
 annotation_text = "Derived from the bronze hu vessel, this vase is made in cloisonné. The cloisonné technique reached China from Byzantium (present-day Istanbul) between 1200 and 1400 CE."
