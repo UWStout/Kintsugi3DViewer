@@ -5,7 +5,7 @@ extends Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_viewport().gui_embed_subwindows = false
+	#get_viewport().gui_embed_subwindows = false
 	pass # Replace with function body.
 
 

@@ -244,7 +244,6 @@ script = ExtResource("1_6cwju")
 artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), NodePath("boreas"), NodePath("ding"), NodePath("polyxena"), NodePath("tiger_hat"), NodePath("vase")])
 
 [node name="altarpiece" type="Node3D" parent="artifacts_controller" node_paths=PackedStringArray("artifact_model")]
-visible = false
 script = ExtResource("2_eqdcn")
 artifact_name = "Cloisonné Altarpiece"
 artifact_model = NodePath("altarpiece_model")
