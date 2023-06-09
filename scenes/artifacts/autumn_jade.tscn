@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://cb1g5turiyauj"]
+
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="1_cphro"]
+[ext_resource type="ArrayMesh" uid="uid://dmh4n2nc1p42b" path="res://artifacts/AutumnJade/jade1model.obj" id="2_ovbv2"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_fkc4n"]
+[ext_resource type="Texture2D" uid="uid://c1fkdn5n6l15l" path="res://artifacts/AutumnJade/autumn-jade.png" id="4_ddggg"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="5_jhshj"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="6_ghp1f"]
+[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="7_olpru"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tvbba"]
+render_priority = 0
+shader = ExtResource("3_fkc4n")
+shader_parameter/diffuseMap = ExtResource("4_ddggg")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_yy6gt"]
+
+[node name="autumn_jade" type="Node3D"]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, 0, 0, 0)
+visible = false
+script = ExtResource("1_cphro")
+artifact_name = "Traveling in Autumn Mountains"
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
+
+[node name="jade_model" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3, 2.62268e-07, 0, -2.62268e-07, -3, 0, 0, 0, 3, 0, 3, 15.75)
+mesh = ExtResource("2_ovbv2")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_tvbba")
+
+[node name="annotations" type="Node3D" parent="."]
+
+[node name="annotation" parent="annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("5_jhshj")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 5.55112e-17, 1, -0.5, 3, -0.866025)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="annotations" instance=ExtResource("6_ghp1f")]
+transform = Transform3D(1, 7.26432e-08, 8.64267e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -4.22234, 3.32904, -0.105062)
+texture = SubResource("ViewportTexture_yy6gt")
+annotation_name = "Traveling in Autumn Mountains, 
+[i]Unkown Artist, 17th-18th century[i]"
+annotation_text = "Depicts two travellers hiking across mountains, one riding a donkey, and the other carrying an umbrella. A similar scene is repeated on the top of the artifact, seemingly further away,"
+
+[node name="annotation_focuspoint" parent="annotations" instance=ExtResource("7_olpru")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.73205, 3, 1)

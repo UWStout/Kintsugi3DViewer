@@ -1,0 +1,58 @@
+[gd_scene load_steps=16 format=3 uid="uid://ko2nmdk51x58"]
+
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="1_6f18c"]
+[ext_resource type="ArrayMesh" uid="uid://dydtjrpjttqvp" path="res://artifacts/Vase/180822_mia337_113283_OBJ.obj" id="2_jpwjw"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_vxhl7"]
+[ext_resource type="Texture2D" uid="uid://bjip8i24hixro" path="res://artifacts/Vase/basisFunctions.csv" id="4_25cf6"]
+[ext_resource type="Texture2D" uid="uid://b86cvnfk0w770" path="res://artifacts/Vase/diffuse.png" id="5_ja1ob"]
+[ext_resource type="Texture2D" uid="uid://d36k7i28y6wxu" path="res://artifacts/Vase/normal.png" id="6_6tfci"]
+[ext_resource type="Texture2D" uid="uid://bg1qfpnctyrsp" path="res://artifacts/Vase/roughness.png" id="7_k4flf"]
+[ext_resource type="Texture2D" uid="uid://bhe8nyx7wpik7" path="res://artifacts/Vase/specular.png" id="8_utqqg"]
+[ext_resource type="Texture2D" uid="uid://cuoteaw8jw7gt" path="res://artifacts/Vase/weights00-03.png" id="9_75ckn"]
+[ext_resource type="Texture2D" uid="uid://b3kpfqmmn07fa" path="res://artifacts/Vase/weights04-07.png" id="10_t5lmp"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_d6dsa"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_hl8t5"]
+[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_obv8j"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_64fob"]
+render_priority = 0
+shader = ExtResource("3_vxhl7")
+shader_parameter/diffuseMap = ExtResource("5_ja1ob")
+shader_parameter/normalMap = ExtResource("6_6tfci")
+shader_parameter/specularMap = ExtResource("8_utqqg")
+shader_parameter/roughnessMap = ExtResource("7_k4flf")
+shader_parameter/weights0123 = ExtResource("9_75ckn")
+shader_parameter/weights4567 = ExtResource("10_t5lmp")
+shader_parameter/basisFunctions = ExtResource("4_25cf6")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_6g6pr"]
+
+[node name="vase" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
+visible = false
+script = ExtResource("1_6f18c")
+artifact_name = "Vase"
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
+
+[node name="vase_model" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.455161, 0, 0.20695, 3.12485e-08, -0.5, -6.87275e-08, 0.20695, 7.54979e-08, -0.455161, 1.87841, 0.412214, 4.79818)
+mesh = ExtResource("2_jpwjw")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_64fob")
+
+[node name="annotations" type="Node3D" parent="."]
+
+[node name="annotation" parent="annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("11_d6dsa")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, -0.533018, -2, 10)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="annotations" instance=ExtResource("12_hl8t5")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 2.77766, 1.32904, 10.0911)
+texture = SubResource("ViewportTexture_6g6pr")
+annotation_name = "Vase,
+[i]Unknown Aritst, 18th Century[i]"
+annotation_text = "Derived from the bronze hu vessel, this vase is made in cloisonné. The cloisonné technique reached China from Byzantium (present-day Istanbul) between 1200 and 1400 CE."
+
+[node name="annotation_focuspoint" parent="annotations" instance=ExtResource("13_obv8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.51493, 0.0137243, 10.6939)
