@@ -1,0 +1,58 @@
+[gd_scene load_steps=16 format=3 uid="uid://bylxii3alupxh"]
+
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="1_u8k1v"]
+[ext_resource type="ArrayMesh" uid="uid://xl5t4o6vtvec" path="res://artifacts/TigerHat/tiger-hat-lowres.obj" id="2_j5iab"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_8onlg"]
+[ext_resource type="Texture2D" uid="uid://c057fkt0qaom6" path="res://artifacts/TigerHat/basisFunctions.csv" id="4_e612n"]
+[ext_resource type="Texture2D" uid="uid://cmdn2hltx7lln" path="res://artifacts/TigerHat/diffuse.png" id="5_sciaj"]
+[ext_resource type="Texture2D" uid="uid://b2s6cbbumwa27" path="res://artifacts/TigerHat/normal.png" id="6_pmnjv"]
+[ext_resource type="Texture2D" uid="uid://bils2hrgn52lx" path="res://artifacts/TigerHat/roughness.png" id="7_2q4ep"]
+[ext_resource type="Texture2D" uid="uid://caiqdwy0k60ii" path="res://artifacts/TigerHat/specular.png" id="8_gfux7"]
+[ext_resource type="Texture2D" uid="uid://b5kjs3pq5jg4q" path="res://artifacts/TigerHat/weights00-03.png" id="9_3e1mw"]
+[ext_resource type="Texture2D" uid="uid://cmd5wny7do21g" path="res://artifacts/TigerHat/weights04-07.png" id="10_r3ixp"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_wnpuu"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_hlntb"]
+[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_ftxnl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajm3n"]
+render_priority = 0
+shader = ExtResource("3_8onlg")
+shader_parameter/diffuseMap = ExtResource("5_sciaj")
+shader_parameter/normalMap = ExtResource("6_pmnjv")
+shader_parameter/specularMap = ExtResource("8_gfux7")
+shader_parameter/roughnessMap = ExtResource("7_2q4ep")
+shader_parameter/weights0123 = ExtResource("9_3e1mw")
+shader_parameter/weights4567 = ExtResource("10_r3ixp")
+shader_parameter/basisFunctions = ExtResource("4_e612n")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2rq2u"]
+
+[node name="tiger_hat" type="Node3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+visible = false
+script = ExtResource("1_u8k1v")
+artifact_name = "Child's Tiger Hat"
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
+
+[node name="tiger_hat_model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.5, 12.5, 0)
+mesh = ExtResource("2_j5iab")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_ajm3n")
+
+[node name="annotations" type="Node3D" parent="."]
+
+[node name="annotation" parent="annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("11_wnpuu")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 2, 3, 8.74228e-08)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="annotations" instance=ExtResource("12_hlntb")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -0.22234, 4.32904, -3.90891)
+texture = SubResource("ViewportTexture_2rq2u")
+annotation_name = "Child's Tiger Hat
+[i] Unknown Artist, 17th - 19th Century[i]"
+annotation_text = "The Tiger is one of China's most important symbols. Representing power and fearlessness, and renowned for it's ability to ward off evil and disaster."
+
+[node name="annotation_focuspoint" parent="annotations" instance=ExtResource("13_ftxnl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
