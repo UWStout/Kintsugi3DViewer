@@ -127,11 +127,11 @@ artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), No
 
 [node name="vase" parent="artifacts_controller" instance=ExtResource("8_v46se")]
 
-[node name="lighting_controller" type="Node3D" parent="."]
+[node name="lighting_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button")]
 script = ExtResource("9_n55bv")
+connected_button = NodePath("../ui_root/select_lighting_preset_option_ button")
 
 [node name="lighting_preset_default" type="Node3D" parent="lighting_controller"]
-visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Default"
 
@@ -286,18 +286,20 @@ preset_name = "Empty"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7futl")
 
-[node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
-script = ExtResource("53_2n2wg")
-camera = NodePath("../Camera")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="world_plane"]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
-mesh = SubResource("PlaneMesh_bfdjv")
-material = SubResource("StandardMaterial3D_skwcb")
-
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
 raycast_collision_mask = 2
+
+[node name="world_plane" type="Node3D" parent="."]
+
+[node name="world_plane" type="Node3D" parent="world_plane" node_paths=PackedStringArray("camera")]
+script = ExtResource("53_2n2wg")
+camera = NodePath("../../Camera")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="world_plane/world_plane"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("PlaneMesh_bfdjv")
+material = SubResource("StandardMaterial3D_skwcb")
 
 [node name="ui_root" type="Control" parent="."]
 layout_mode = 3
@@ -456,10 +458,9 @@ offset_left = -0.0160522
 offset_top = -0.272001
 offset_right = 0.223999
 offset_bottom = -0.167999
-item_count = 1
+grow_horizontal = 2
+grow_vertical = 2
 selected = 0
-popup/item_0/text = "Default"
-popup/item_0/id = 0
 script = ExtResource("23_timv0")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
@@ -498,4 +499,5 @@ script = ExtResource("56_1pv8i")
 target_artifact_path = NodePath("../../../../artifacts_controller/altarpiece")
 parent_window = NodePath("../../..")
 
+[connection signal="item_selected" from="ui_root/select_lighting_preset_option_ button" to="ui_root/select_lighting_preset_option_ button" method="_on_item_selected"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
