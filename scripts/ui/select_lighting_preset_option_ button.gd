@@ -1,11 +1,14 @@
 extends OptionButton
 
+class_name SelectLightingButton
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var connected_controller : LightingController
 
+# make the default preset active. Called in the connected_controller
+func init():
+	select(0)
+	_on_item_selected(0)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _on_item_selected(index : int):
+	connected_controller.make_active(index)
 	pass
