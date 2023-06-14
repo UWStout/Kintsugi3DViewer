@@ -10,9 +10,12 @@ var height : float = 0
 
 var connected_light : DirectionalLight3D
 
+# Always look towards the world origin, which is approximately the
+# angle of the world light
 func _process(delta):
 	look_at(Vector3(0,0,0))
 
+# modify the material to look like the light it represents
 func set_color(new_color : Color, energy_percent : float):
 	if not $mesh == null:
 		var mat = StandardMaterial3D.new()
