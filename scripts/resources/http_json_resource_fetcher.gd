@@ -69,11 +69,41 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	return object
 
 
+func fetch_image(url: String) -> Image:
+	return await force_fetch_image(url)
+
+
+func force_fetch_image(url: String) -> Image:
+	var image = Image.new()
+	
+	var request_headers = ["Accept: image/png, image/jpeg, image/webp"]
+	var response = await _fetch_url_fullraw(_format_relative_url(url), request_headers)
+	var data = response[3]
+	var headers = response[2]
+	
+	var type: String
+	for header in headers:
+		if header.begins_with("Content-Type: "):
+			type = header.get_slice(" ", 1)
+	
+	match type:
+		"image/jpeg":
+			image.load_jpg_from_buffer(data)
+		"image/png":
+			image.load_png_from_buffer(data)
+		"image/webp":
+			image.load_webp_from_buffer(data)
+		_:
+			push_error("Unrecognized image format received from server: '%s'" % type)
+	
+	return image
+
+
 func _format_relative_url(url: String) -> String:
 	return server_root + url
 
 
-func _fetch_url_raw(url: String, request_headers := PackedStringArray()) -> PackedByteArray:
+func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> Array:
 	var request = HTTPRequest.new();
 	add_child(request)
 	
@@ -95,16 +125,21 @@ func _fetch_url_raw(url: String, request_headers := PackedStringArray()) -> Pack
 	if result != OK:
 		push_error("An error occured while requesting json from url: '%s'" % url)
 		request.queue_free()
-		return []
+		return response
 	
 	# Check server status code
 	if response_code != 200:
 		push_error("Erorr fetching json data: Server returned a %s status code fetching url '%s'" % [response_code, url])
 		request.queue_free()
-		return []
+		return response
 	
 	request.queue_free()
-	return body
+	return [result, response_code, headers, body]
+
+
+func _fetch_url_raw(url: String, request_headers := PackedStringArray()) -> PackedByteArray:
+	var response = await _fetch_url_fullraw(url, request_headers)
+	return response[3]
 
 
 # Fetches a url and attempts to parse JSON data from it.
