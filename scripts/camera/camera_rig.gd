@@ -64,6 +64,9 @@ var target_transform: Transform3D
 var target_dolly: float
 var target_fov: float
 
+#lights
+var movable_lights_controller : MovableLightingController
+
 func set_fov(new_fov: float):
 	target_fov = new_fov
 
@@ -206,8 +209,6 @@ func cast_ray_to_world():
 	if not raycast_enabled:
 		return
 	
-	print("Fired a raycast!")
-	
 	var space_state = get_world_3d().direct_space_state
 	
 	var mouse_position_screen = get_viewport().get_mouse_position()
@@ -219,16 +220,23 @@ func cast_ray_to_world():
 	var ray_result = space_state.intersect_ray(ray_query)
 	
 	if ray_result:
-		var annotation = ray_result["collider"]
-		annotation.on_annotation_clicked()
+		if ray_result["collider"] is AnnotationMarker:
+			var annotation = ray_result["collider"]
+			annotation.on_annotation_clicked()
 		
-		begin_autopan(annotation.get_focus_point().global_position, 0.01)
-		
-		#annotation_target_position = annotation.get_focus_point().global_position
-		#do_move_to_target_pos = annotation.get_focus_point().do_pan_to_annotation
-		
-		#annotation_target_distance = annotation.get_focus_point().annotation_distance
-		#do_zoom_to_target_distance = annotation.get_focus_point().do_zoom_to_annotation
+			begin_autopan(annotation.get_focus_point().global_position, 0.01)
+			
+			if not movable_lights_controller == null:
+				movable_lights_controller.select_light(null)
+		if ray_result["collider"] is MovableSpotlight:
+			AnnotationsManager.change_selected_annotation(null)
+			
+			if not movable_lights_controller == null:
+				movable_lights_controller.select_light(ray_result["collider"])
+			print("clicked on a light!")
+	else:
+		if not movable_lights_controller == null:
+			movable_lights_controller.select_light(null)
 
 func enable_flashlight():
 	spotLight.visible = true
