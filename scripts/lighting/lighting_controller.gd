@@ -3,6 +3,7 @@ extends Node3D
 class_name LightingController
 
 @export var connected_button : SelectLightingButton
+@export var connected_moving_light_controller : MovableLightingController
 
 var presets : Array[LightingPreset]
 var active_index : int = -1
@@ -30,6 +31,8 @@ func make_active(preset_index : int):
 	# enable the newly selected preset
 	active_index = preset_index
 	presets[active_index].visible = true
+	
+	connected_moving_light_controller.provide_preset(presets[active_index])
 
 # register a new preset to this controllers list, only if
 # it doesn't already exist in the list, and update the button
