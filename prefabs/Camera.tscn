@@ -10,6 +10,7 @@ camera = NodePath("rotation-point/Camera3D")
 rotationPoint = NodePath("rotation-point")
 spotLight = NodePath("rotation-point/Camera3D/SpotLight3D")
 rot_interpolate = false
+raycast_collision_mask = 2
 
 [node name="rotation-point" type="Node3D" parent="."]
 
