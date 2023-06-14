@@ -182,9 +182,9 @@ func _process(delta):
 		var weight = drag_rate * delta if drag_interpolate else 1
 		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
 		
+	# if autopanning, lerp the camera towards the target point
+	# until it's close enough, then stop.
 	if do_autopan:
-		pass
-		
 		var deltaPos = lerp(rotationPoint.global_position, autopan_target, delta * 3) - rotationPoint.global_position
 		
 		rotationPoint.global_position += deltaPos
@@ -209,17 +209,18 @@ func cast_ray_to_world():
 	if not raycast_enabled:
 		return
 	
+	# Godot Raycasting setup
 	var space_state = get_world_3d().direct_space_state
-	
 	var mouse_position_screen = get_viewport().get_mouse_position()
 	var mouse_position_world = camera.project_ray_origin(mouse_position_screen)
-	
 	var ray_end = mouse_position_world + camera.project_ray_normal(mouse_position_screen) * raycast_distance
-	
 	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, raycast_collision_mask)
 	var ray_result = space_state.intersect_ray(ray_query)
 	
+	# if something was hit
 	if ray_result:
+		# if an annotation marker was hit, let it know that it was clicked,
+		# and begin autopanning towards it. If there was a light selected, unselect it
 		if ray_result["collider"] is AnnotationMarker:
 			var annotation = ray_result["collider"]
 			annotation.on_annotation_clicked()
@@ -228,12 +229,13 @@ func cast_ray_to_world():
 			
 			if not movable_lights_controller == null:
 				movable_lights_controller.select_light(null)
+		# if a light was clicked, select it, and if there was an annotation
+		# selected unselect it
 		if ray_result["collider"] is MovableSpotlight:
 			AnnotationsManager.change_selected_annotation(null)
 			
 			if not movable_lights_controller == null:
 				movable_lights_controller.select_light(ray_result["collider"])
-			print("clicked on a light!")
 	else:
 		if not movable_lights_controller == null:
 			movable_lights_controller.select_light(null)

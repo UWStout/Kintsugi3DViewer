@@ -2,8 +2,11 @@ extends Node3D
 
 class_name MovableLightingController
 
+# The height of the displayed spotlights above the world origin
 @export var rig_height : float = 5
+# The radius of the displayed spotlights around the world origin
 @export var rig_radius : float = 3
+# The cameraRig in this scene
 @export var camera : CameraRig
 
 var selected_light : MovableSpotlight
@@ -12,15 +15,12 @@ var slider_button : RotateLightsButton
 var movable_spotlight = preload("res://scenes/lighting/spotlight_model.tscn")
 var spotlight_models : Array[MovableSpotlight]
 
-# Called when the node enters the scene tree for the first time.
+# If there is a camera connected, let it know that this exists
 func _ready():
 	if not camera == null:
 		camera.movable_lights_controller = self
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
+# Select a preset to modify lighting for
 func provide_preset(preset : LightingPreset):
 	# Clear the currently displayed
 	# movable spotlights
@@ -50,15 +50,18 @@ func provide_preset(preset : LightingPreset):
 		# Set initial color
 		new_spotlight_model.set_color(preset.get_lights()[i].light_color, preset.get_lights()[i].light_energy / 1.0)
 		
-		# Set dependency
+		# Let the spotlight display know which light to modify
 		new_spotlight_model.connected_light = preset.get_lights()[i]
 		pass
 	pass
 
+# Select a spotlight display to modify
 func select_light(new_selected_light : MovableSpotlight):
+	# In case nothing was selected, clear all selections
 	selected_light = null
 	slider_button.disable_slider()
 	
+	# Select the light, and enable the slider for it
 	if not new_selected_light == null:
 		selected_light = new_selected_light
 		
