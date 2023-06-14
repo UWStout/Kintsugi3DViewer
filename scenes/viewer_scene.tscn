@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=47 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" path="res://scripts/lighting/lighting_controller.gd" id="9_n55bv"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="10_d6id1"]
 [ext_resource type="Script" path="res://scripts/ui/select_lighting_preset_option_ button.gd" id="23_timv0"]
+[ext_resource type="Script" path="res://scripts/ui/rotate_light_button.gd" id="25_jnm0n"]
+[ext_resource type="Script" path="res://scripts/lighting/moving_light_controller.gd" id="26_rrpov"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
@@ -107,6 +109,8 @@ unicode = 73
 [sub_resource type="Shortcut" id="Shortcut_oup0k"]
 events = [SubResource("InputEventKey_yx0yo")]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_31mmy"]
+
 [node name="viewer_scene" type="Node3D"]
 
 [node name="artifacts_controller" type="Node3D" parent="."]
@@ -127,13 +131,15 @@ artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), No
 
 [node name="vase" parent="artifacts_controller" instance=ExtResource("8_v46se")]
 
-[node name="lighting_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button")]
+[node name="lighting_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button", "connected_moving_light_controller")]
 script = ExtResource("9_n55bv")
 connected_button = NodePath("../ui_root/select_lighting_preset_option_ button")
+connected_moving_light_controller = NodePath("../moving_light_controller")
 
 [node name="lighting_preset_default" type="Node3D" parent="lighting_controller"]
 script = ExtResource("10_d6id1")
 preset_name = "Default"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_default"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -148,6 +154,7 @@ transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.70
 visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Soft"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_soft"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -165,6 +172,7 @@ light_energy = 0.05
 visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Soft 2"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_soft_2"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -185,6 +193,7 @@ light_energy = 0.05
 visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Warm"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_warm"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -205,6 +214,7 @@ light_energy = 0.25
 visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Cool"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_cool"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -225,6 +235,7 @@ light_energy = 0.25
 visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Chromatic"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_chromatic"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -243,6 +254,7 @@ light_color = Color(0, 0, 0.988235, 1)
 visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Red & Blue"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_red_and_blue"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -262,6 +274,7 @@ light_color = Color(0, 0, 0.988235, 1)
 visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Darkroom"
+is_customizable = true
 
 [node name="main_light" type="DirectionalLight3D" parent="lighting_controller/lighting_preset_darkroom"]
 transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
@@ -283,6 +296,10 @@ visible = false
 script = ExtResource("10_d6id1")
 preset_name = "Empty"
 
+[node name="moving_light_controller" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+script = ExtResource("26_rrpov")
+camera = NodePath("../Camera")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7futl")
 
@@ -290,13 +307,11 @@ environment = SubResource("Environment_7futl")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
 raycast_collision_mask = 2
 
-[node name="world_plane" type="Node3D" parent="."]
-
-[node name="world_plane" type="Node3D" parent="world_plane" node_paths=PackedStringArray("camera")]
+[node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
 script = ExtResource("53_2n2wg")
-camera = NodePath("../../Camera")
+camera = NodePath("../Camera")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="world_plane/world_plane"]
+[node name="CSGMesh3D" type="CSGMesh3D" parent="world_plane"]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0)
 mesh = SubResource("PlaneMesh_bfdjv")
 material = SubResource("StandardMaterial3D_skwcb")
@@ -430,16 +445,17 @@ world_environment = NodePath("../../WorldEnvironment")
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.761
+anchor_left = 0.718
 anchor_top = 0.039
-anchor_right = 0.805
+anchor_right = 0.761
 anchor_bottom = 0.116
-offset_left = -49.6721
+offset_left = -0.136169
 offset_top = -0.272001
-offset_right = -50.36
+offset_right = 0.327942
 offset_bottom = -0.167999
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(25, 25)
 tooltip_text = "Toggle annotations on/off"
 shortcut = SubResource("Shortcut_oup0k")
 icon = ExtResource("67_wwbkf")
@@ -460,8 +476,24 @@ offset_right = 0.223999
 offset_bottom = -0.167999
 grow_horizontal = 2
 grow_vertical = 2
-selected = 0
+pivot_offset = Vector2(75, 25)
 script = ExtResource("23_timv0")
+
+[node name="rotate_light_button" type="HSlider" parent="ui_root" node_paths=PackedStringArray("connected_moving_lights_controller")]
+visible = false
+layout_mode = 0
+offset_left = 877.0
+offset_top = 75.0
+offset_right = 1077.0
+offset_bottom = 125.0
+pivot_offset = Vector2(100, 25)
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxEmpty_31mmy")
+min_value = -360.0
+max_value = 360.0
+step = 5.0
+rounded = true
+script = ExtResource("25_jnm0n")
+connected_moving_lights_controller = NodePath("../../moving_light_controller")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
@@ -500,4 +532,5 @@ target_artifact_path = NodePath("../../../../artifacts_controller/altarpiece")
 parent_window = NodePath("../../..")
 
 [connection signal="item_selected" from="ui_root/select_lighting_preset_option_ button" to="ui_root/select_lighting_preset_option_ button" method="_on_item_selected"]
+[connection signal="value_changed" from="ui_root/rotate_light_button" to="ui_root/rotate_light_button" method="_on_value_changed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
