@@ -1,5 +1,5 @@
 extends Node
-class_name ArtifactFetcher
+class_name ResourceFetcher
 
 signal artifacts_refreshed(artifacts: Array[ArtifactData])
 
@@ -11,13 +11,13 @@ func force_fetch_artifacts() -> Array[ArtifactData]:
 	push_error("Abstract function force_fetch_artifacts() called on ArtifactFetcher!")
 	return Array()
 
-func fetch_gltf(artifact: ArtifactData) -> GLTFDocument:
+func fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	push_error("Abstract function fetch_gltf() called on ArtifactFetcher!")
-	return GLTFDocument.new()
+	return GLTFObject.new()
 
-func force_fetch_gltf(artifact: ArtifactData) -> GLTFDocument:
+func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	push_error("Abstract function force_fetch_gltf() called on ArtifactFetcher!")
-	return GLTFDocument.new()
+	return GLTFObject.new()
 
 func fetch_buffer(uri: String) -> PackedByteArray:
 	push_error("Abstract function fetch_buffer() called on ArtifactFetcher!")

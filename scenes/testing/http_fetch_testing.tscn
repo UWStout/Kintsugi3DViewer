@@ -1,8 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4g5ukcjy6xg7"]
+[gd_scene load_steps=5 format=3 uid="uid://c4g5ukcjy6xg7"]
 
-[ext_resource type="Script" path="res://scripts/data/http_json_artifact_fetcher.gd" id="1_5fbna"]
+[ext_resource type="Script" path="res://scripts/resources/http_json_resource_fetcher.gd" id="1_wa3l0"]
+[ext_resource type="Script" path="res://scripts/resources/remote_gltf.gd" id="2_5oje7"]
+[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="3_v7l8o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xef05"]
+albedo_color = Color(1, 0, 1, 1)
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Node" type="Node" parent="."]
-script = ExtResource("1_5fbna")
+[node name="Fetcher" type="Node" parent="."]
+script = ExtResource("1_wa3l0")
+
+[node name="Model" type="Node3D" parent="." node_paths=PackedStringArray("fetcher")]
+script = ExtResource("2_5oje7")
+mat = SubResource("StandardMaterial3D_xef05")
+artifactGltfUrl = "guan-yu/model.glb"
+fetcher = NodePath("../Fetcher")
+
+[node name="Camera" parent="." instance=ExtResource("3_v7l8o")]
