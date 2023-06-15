@@ -29,25 +29,50 @@ func load(parent: Node):
 		
 		if pbr.has("baseColorTexture"):
 			var image_index = pbr["baseColorTexture"]["index"]
-			_fetcher.fetch_image_callback(_get_image_uri(image_index), _load_diffuse)
+			_load_image(image_index, _load_diffuse)
 		
 		if pbr.has("metallicRoughnessTexture"):
 			var image_index = pbr["metallicRoughnessTexture"]["index"]
-			_fetcher.fetch_image_callback(_get_image_uri(image_index), _load_roughness)
+			_load_image(image_index, _load_roughness)
 	
 	if material.has("normalTexture"):
 		var image_index = material["normalTexture"]["index"]
-		_fetcher.fetch_image_callback(_get_image_uri(image_index), _load_normal)
+		_load_image(image_index, _load_normal)
 	
 	# Hacky textures that arent a part of the material
 	var specular_index = _get_texture_image_index("specular")
 	if specular_index >= 0:
-		pass
+		_load_image(specular_index, _load_specular)
 
 
-func _get_image_uri(index: int) -> String:
-	var gltf_relative = _gltf.state.json["images"][index]["uri"]
-	return _format_gltf_relative_uri(gltf_relative)
+func _load_image(image_index: int, callback: Callable):
+	var image = _gltf.state.json["images"][image_index]
+	if image.has("uri"):
+		var uri = image["uri"]
+		if uri.begins_with("data:"):
+			# Base64 embedded image
+			var image_data = _decode_b64_image(uri)
+			callback.call(image_data)
+		else:
+			# External image on server
+			uri = _format_gltf_relative_uri(uri)
+			_fetcher.fetch_image_callback(uri, callback)
+	elif image.has("bufferView"):
+		# Image in buffer
+		var image_data = _decode_buffer_image(image["bufferView"])
+		callback.call(image_data)
+	else:
+		push_error("Image at index %s could not be decoded: No uri or bufferView!" % image_index)
+
+
+func _decode_buffer_image(bufferView: Dictionary) -> Image:
+	push_error("Unsupported operation: buffered material images are not supported yet") #TODO
+	return Image.new()
+
+
+func _decode_b64_image(uri: String) -> Image:
+	push_error("Unsupported operation: Base64 encoded material images are not supported yet") #TODO
+	return Image.new()
 
 
 func _get_texture_image_index(texture_name: String) -> int:
@@ -100,4 +125,4 @@ func _load_roughness(image: Image):
 	print("loaded roughness")
 	image.generate_mipmaps()
 	image.convert(Image.FORMAT_R8)
-	set_shader_parameter("rougnessMap", ImageTexture.create_from_image(image))
+	set_shader_parameter("roughnessMap", ImageTexture.create_from_image(image))

@@ -101,7 +101,7 @@ func force_fetch_image(url: String) -> Image:
 
 
 func _format_relative_url(url: String) -> String:
-	return server_root + url
+	return server_root + url.simplify_path()
 
 
 func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> Array:
