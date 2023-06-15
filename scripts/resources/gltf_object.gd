@@ -3,6 +3,7 @@ class_name GLTFObject
 
 var document: GLTFDocument
 var state: GLTFState
+var sourceUri: String
 
 
 func generate_scene() -> Node:

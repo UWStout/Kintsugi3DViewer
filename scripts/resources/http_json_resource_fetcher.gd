@@ -65,6 +65,7 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	var object := GLTFObject.new()
 	object.document = document
 	object.state = state
+	object.sourceUri = artifact.gltfUrl
 	
 	return object
 
