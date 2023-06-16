@@ -77,7 +77,9 @@ func load(parent: Node):
 	var basis_index = _get_texture_image_index("basisFunctions")
 	if basis_index >= 0:
 		var uri = _gltf.state.json["images"][basis_index].get("uri")
+		uri = _format_gltf_relative_uri(uri)
 		_fetcher.fetch_csv_callback(uri, func(csv):
+			print("loaded basis")
 			var img = _basis_csv_to_image(csv)
 			img = _process_image(img, Image.FORMAT_RGBF)
 			_load_shader_image(img, "basisFunctions")
@@ -93,12 +95,6 @@ func load(parent: Node):
 		print("Loaded upper weights")
 		img = _process_image(img, Image.FORMAT_RGBA8)
 		_load_shader_image(img, "weights4567")
-	)
-	_fetcher.fetch_csv_callback("guan-yu/basisFunctions.csv", func(csv):
-		print("loading basis functions")
-		var img = _basis_csv_to_image(csv)
-		img = _process_image(img, Image.FORMAT_RGBF)
-		_load_shader_image(img, "basisFunctions")
 	)
 
 
