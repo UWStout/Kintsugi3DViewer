@@ -79,7 +79,6 @@ func load(parent: Node):
 		var uri = _gltf.state.json["images"][basis_index].get("uri")
 		uri = _format_gltf_relative_uri(uri)
 		_fetcher.fetch_csv_callback(uri, func(csv):
-			print("loaded basis")
 			var img = _basis_csv_to_image(csv)
 			img = _process_image(img, Image.FORMAT_RGBF)
 			_load_shader_image(img, "basisFunctions")
