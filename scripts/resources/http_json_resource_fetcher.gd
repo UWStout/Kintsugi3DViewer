@@ -40,10 +40,6 @@ func force_fetch_artifacts() -> Array[ArtifactData]:
 	return artifacts_cache
 
 
-func fetch_gltf(artifact: ArtifactData) -> GLTFObject:
-	return await force_fetch_gltf(artifact)
-
-
 func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	var url = _format_relative_url(artifact.gltfUrl)
 	var headers = PackedStringArray(["Accept: model/gltf-binary, model/gltf+json"])
@@ -70,10 +66,6 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	return object
 
 
-func fetch_image(url: String) -> Image:
-	return await force_fetch_image(url)
-
-
 func force_fetch_image(url: String) -> Image:
 	var image = Image.new()
 	
@@ -98,6 +90,10 @@ func force_fetch_image(url: String) -> Image:
 			push_error("Unrecognized image format received from server: '%s'" % type)
 	
 	return image
+
+
+func force_fetch_csv(uri: String) -> Array:
+	return await _fetch_url_csv(_format_relative_url(uri))
 
 
 func _format_relative_url(url: String) -> String:
