@@ -158,6 +158,36 @@ func _fetch_url_json(url: String) -> Dictionary:
 	return json.data
 
 
+func _fetch_url_csv(url: String) -> Array:
+	var data = await _fetch_url_raw(url, ["Accept: application/csv"])
+	
+	# Parse csv data, creating 2d array
+	var file_array = Array()
+	var string = data.get_string_from_utf8()
+	
+	for line in string.split('\n'):
+		line = line.strip_edges() # Fix windows line endings
+		var line_array = Array()
+		
+		if line == "":
+			continue
+		
+		for entry_str in line.split(','):
+			var entry = entry_str.trim_prefix(' ') # Removes leading space if the delimiter is ', '
+			
+			# Convert ints and floats to their respecive types
+			if entry.is_valid_int():
+				entry = entry.to_int()
+			elif entry.is_valid_float():
+				entry = entry.to_float()
+			
+			line_array.append(entry)
+		
+		file_array.append(line_array)
+	
+	return file_array
+
+
 func _parse_artifacts_data(raw_data: Dictionary) -> Array[ArtifactData]:
 	if raw_data == null:
 		push_error("Failed to parse artifacts data: Raw data is invalid!")
