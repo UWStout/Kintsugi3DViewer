@@ -70,6 +70,19 @@ func load(parent: Node):
 			_load_shader_image(img, "weights4567")
 		)
 	
+	# Having a .csv uri in the gtTF image array breaks specification!
+	# https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#schema-reference-image
+	# only image/jpeg and image/png are allowed
+	# Should we do this some other way? Perhaps a glTF extension?
+	var basis_index = _get_texture_image_index("basisFunctions")
+	if basis_index >= 0:
+		var uri = _gltf.state.json["images"][basis_index].get("uri")
+		_fetcher.fetch_csv_callback(uri, func(csv):
+			var img = _basis_csv_to_image(csv)
+			img = _process_image(img, Image.FORMAT_RGBF)
+			_load_shader_image(img, "basisFunctions")
+		)
+	
 	#TODO: Temporary!!!
 	_fetcher.fetch_image_callback("guan-yu/weights00-03.png", func(img):
 		print("Loaded lower weights")
@@ -81,12 +94,12 @@ func load(parent: Node):
 		img = _process_image(img, Image.FORMAT_RGBA8)
 		_load_shader_image(img, "weights4567")
 	)
-	# TODO: How will this uri be included in the gltf? Just as another image?
-	var csv = await _fetcher._fetch_url_csv(_fetcher._format_relative_url("guan-yu/basisFunctions.csv"))
-	print("loading basis functions")
-	var img = _basis_csv_to_image(csv)
-	img = _process_image(img, Image.FORMAT_RGBF)
-	_load_shader_image(img, "basisFunctions")
+	_fetcher.fetch_csv_callback("guan-yu/basisFunctions.csv", func(csv):
+		print("loading basis functions")
+		var img = _basis_csv_to_image(csv)
+		img = _process_image(img, Image.FORMAT_RGBF)
+		_load_shader_image(img, "basisFunctions")
+	)
 
 
 func _load_image_from_index(image_index: int, callback: Callable):
