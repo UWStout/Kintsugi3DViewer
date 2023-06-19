@@ -27,9 +27,9 @@ sky_material = SubResource("PanoramaSkyMaterial_1f848")
 
 [sub_resource type="Environment" id="Environment_utlda"]
 background_mode = 2
-background_energy_multiplier = 7.61
+background_energy_multiplier = 4.12
 sky = SubResource("Sky_hunwo")
-sky_rotation = Vector3(0, 6.85042, 0)
+sky_rotation = Vector3(0, 2.29162, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x4fd7"]
 render_priority = 0
@@ -54,7 +54,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wo4df")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.0851874, 0.286956, 0.954148, -0.841618, -0.491855, 0.223064, 0.533312, -0.822031, 0.199608, -0.221585, 1.91788, 7.54582)
-light_energy = 0.229
+light_energy = 0.403
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_utlda")
