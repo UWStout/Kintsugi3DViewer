@@ -47,13 +47,31 @@ func load(parent: Node):
 			_load_shader_image(img, "normalMap")
 		)
 	
-	# Hacky textures that arent a part of the material
-	var specular_index = _get_texture_image_index("specular")
-	if specular_index >= 0:
-		_load_image_from_index(specular_index, func(img):
-			img = _process_image(img, Image.FORMAT_RGB8)
-			_load_shader_image(img, "specularMap")
-		)
+	# Load textures stored in material extras data
+	if material.has("extras"):
+		var extras = material.get("extras")
+		
+		if extras.has("specularTexture"):
+			var image_index = extras["specularTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "specularMap")
+			)
+		
+		if extras.has("roughnessTexture"):
+			var image_index = extras["roughnessTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "roughnessMap")
+			)
+		
+		if extras.has("basisFunctionsUri"):
+			var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
+			_fetcher.fetch_csv_callback(uri, func(csv):
+				var img = _basis_csv_to_image(csv)
+				img = _process_image(img, Image.FORMAT_RGBF)
+				_load_shader_image(img, "basisFunctions")
+			)
 	
 	# Load the combined weight images
 	var weight03_index = _get_texture_image_index("weight00-03")
@@ -70,21 +88,7 @@ func load(parent: Node):
 			_load_shader_image(img, "weights4567")
 		)
 	
-	# Having a .csv uri in the gtTF image array breaks specification!
-	# https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#schema-reference-image
-	# only image/jpeg and image/png are allowed
-	# Should we do this some other way? Perhaps a glTF extension?
-	var basis_index = _get_texture_image_index("basisFunctions")
-	if basis_index >= 0:
-		var uri = _gltf.state.json["images"][basis_index].get("uri")
-		uri = _format_gltf_relative_uri(uri)
-		_fetcher.fetch_csv_callback(uri, func(csv):
-			var img = _basis_csv_to_image(csv)
-			img = _process_image(img, Image.FORMAT_RGBF)
-			_load_shader_image(img, "basisFunctions")
-		)
-	
-	#TODO: Temporary!!!
+	#TODO: Temporary! Remove once IBRelight is able to export these combined weight images
 	_fetcher.fetch_image_callback("guan-yu/weights00-03.png", func(img):
 		print("Loaded lower weights")
 		img = _process_image(img, Image.FORMAT_RGBA8)
