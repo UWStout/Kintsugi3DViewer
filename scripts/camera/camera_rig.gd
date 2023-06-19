@@ -54,6 +54,8 @@ class_name CameraRig
 @export var raycast_distance : float = 1000
 @export_flags_2d_physics var raycast_collision_mask
 
+var do_rotate_in_frame = true
+
 #autopan
 var do_autopan : bool = false
 var autopan_target : Vector3
@@ -104,9 +106,13 @@ func apply_rotation(delta_rotation: Vector3):
 	target_transform.basis = Basis.from_euler(delta_rotation) * target_transform.basis
 
 func apply_yaw(delta_yaw: float):
+	if not do_rotate_in_frame:
+		return
 	target_transform.basis = target_transform.basis.rotated(Vector3.UP, delta_yaw).orthonormalized()
 
 func apply_pitch(delta_pitch: float):
+	if not do_rotate_in_frame:
+		return
 	target_transform.basis = target_transform.basis.rotated(target_transform.basis.x, delta_pitch).orthonormalized()
 
 func apply_drag(delta_drag: Vector2):
@@ -150,7 +156,7 @@ func _process(delta):
 		var weight = dolly_rate * delta if dolly_interpolate else 1
 		camera.position.z = lerp(camera.position.z, target_dolly, weight)
 		
-	if rot_enabled:
+	if rot_enabled and do_rotate_in_frame:
 		if rot_vert_limit_enabled:
 			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
 			# Check if Camera is upside down (Limit was overrun in a single frame)
@@ -193,6 +199,8 @@ func _process(delta):
 		if rotationPoint.global_position.distance_to(autopan_target) <= 0.1:
 			rotationPoint.global_position = autopan_target
 			do_autopan = false
+			
+	do_rotate_in_frame = true
 
 #autopan functions
 func begin_autopan(new_target, new_speed : float):
@@ -229,6 +237,7 @@ func cast_ray_to_world():
 			
 			if not movable_lights_controller == null:
 				movable_lights_controller.select_light(null)
+				movable_lights_controller.select_widget(null)
 		# if a light was clicked, select it, and if there was an annotation
 		# selected unselect it
 		if ray_result["collider"] is MovableSpotlight:
@@ -236,9 +245,17 @@ func cast_ray_to_world():
 			
 			if not movable_lights_controller == null:
 				movable_lights_controller.select_light(ray_result["collider"])
+		
+		
+		if ray_result["collider"] is MovableLightWidgetAxis:
+			AnnotationsManager.change_selected_annotation(null)
+			
+			if not movable_lights_controller == null:
+				ray_result["collider"].parent_widget.grab(ray_result["collider"], ray_result["position"])
 	else:
 		if not movable_lights_controller == null:
 			movable_lights_controller.select_light(null)
+			movable_lights_controller.select_widget(null)
 
 func enable_flashlight():
 	spotLight.visible = true

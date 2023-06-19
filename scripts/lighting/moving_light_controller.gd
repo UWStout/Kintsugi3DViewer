@@ -5,12 +5,15 @@ class_name MovableLightingController
 # The height of the displayed spotlights above the world origin
 @export var rig_height : float = 5
 # The radius of the displayed spotlights around the world origin
-@export var rig_radius : float = 3
+@export var rig_radius : float = 5
 # The cameraRig in this scene
 @export var camera : CameraRig
 
 var selected_light : MovableSpotlight
-var slider_button : RotateLightsButton
+
+var selected_widget : MovableLightWidget
+
+@onready var csg_torus_3d = $CSGTorus3D
 
 var movable_spotlight = preload("res://scenes/lighting/spotlight_model.tscn")
 var spotlight_models : Array[MovableSpotlight]
@@ -19,6 +22,10 @@ var spotlight_models : Array[MovableSpotlight]
 func _ready():
 	if not camera == null:
 		camera.movable_lights_controller = self
+		
+	csg_torus_3d.position = get_rig_center()
+	
+	end_customizing()
 
 # Select a preset to modify lighting for
 func provide_preset(preset : LightingPreset):
@@ -37,6 +44,7 @@ func provide_preset(preset : LightingPreset):
 	# and set their initial position and color
 	for i in range(0, preset.get_lights().size()):
 		var new_spotlight_model = movable_spotlight.instantiate()
+		new_spotlight_model.controller = self
 		add_child(new_spotlight_model)
 		spotlight_models.push_back(new_spotlight_model)
 		
@@ -59,11 +67,32 @@ func provide_preset(preset : LightingPreset):
 func select_light(new_selected_light : MovableSpotlight):
 	# In case nothing was selected, clear all selections
 	selected_light = null
-	slider_button.disable_slider()
 	
-	# Select the light, and enable the slider for it
 	if not new_selected_light == null:
 		selected_light = new_selected_light
-		
-		if not slider_button == null:
-			slider_button.enable_slider()
+
+func get_rig_center():
+	return global_position + Vector3(0, rig_height, 0)
+
+func get_rig_forward():
+	return get_rig_center() + Vector3(0, 0, 1)
+
+func begin_customizing():
+	csg_torus_3d.visible = true
+	
+	for spotlight in spotlight_models:
+		spotlight.make_visible()
+	
+func end_customizing():
+	csg_torus_3d.visible = false
+	
+	for spotlight in spotlight_models:
+		spotlight.make_not_visible()
+
+func select_widget(widget : MovableLightWidget):
+	selected_widget = widget
+
+func clear_selected_widget():
+	if not selected_widget == null:
+		selected_widget.reset_axis_displays()
+	selected_widget = null
