@@ -7,6 +7,7 @@ class_name CameraRig
 @export_group("Node References")
 @export var camera: Camera3D
 @export var rotationPoint: Node3D
+@export var spotLight : SpotLight3D
 
 @export_group("Rotation", "rot_")
 @export var rot_enabled: bool = true
@@ -48,10 +49,23 @@ class_name CameraRig
 @export_range(0, 10, 0.01) var fov_rate: float = 4
 @export_range(1, 179, 0.1, "degrees") var fov_initial_fov: float = 75
 
+@export_group("Raycasting", "raycast_")
+@export var raycast_enabled : bool = true
+@export var raycast_distance : float = 1000
+@export_flags_2d_physics var raycast_collision_mask
+
+#autopan
+var do_autopan : bool = false
+var autopan_target : Vector3
+var autopan_speed : float = 0
+
 # Targets
 var target_transform: Transform3D
 var target_dolly: float
 var target_fov: float
+
+#lights
+var movable_lights_controller : MovableLightingController
 
 func set_fov(new_fov: float):
 	target_fov = new_fov
@@ -167,3 +181,67 @@ func _process(delta):
 	if drag_enabled:
 		var weight = drag_rate * delta if drag_interpolate else 1
 		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
+		
+	# if autopanning, lerp the camera towards the target point
+	# until it's close enough, then stop.
+	if do_autopan:
+		var deltaPos = lerp(rotationPoint.global_position, autopan_target, delta * 3) - rotationPoint.global_position
+		
+		rotationPoint.global_position += deltaPos
+		global_position += deltaPos
+
+		if rotationPoint.global_position.distance_to(autopan_target) <= 0.1:
+			rotationPoint.global_position = autopan_target
+			do_autopan = false
+
+#autopan functions
+func begin_autopan(new_target, new_speed : float):
+	do_autopan = true
+	autopan_target = new_target
+	autopan_speed = new_speed
+	
+func end_autopan():
+	do_autopan = false
+	autopan_target = Vector3(0,0,0)
+	autopan_speed = 0
+
+func cast_ray_to_world():
+	if not raycast_enabled:
+		return
+	
+	# Godot Raycasting setup
+	var space_state = get_world_3d().direct_space_state
+	var mouse_position_screen = get_viewport().get_mouse_position()
+	var mouse_position_world = camera.project_ray_origin(mouse_position_screen)
+	var ray_end = mouse_position_world + camera.project_ray_normal(mouse_position_screen) * raycast_distance
+	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, raycast_collision_mask)
+	var ray_result = space_state.intersect_ray(ray_query)
+	
+	# if something was hit
+	if ray_result:
+		# if an annotation marker was hit, let it know that it was clicked,
+		# and begin autopanning towards it. If there was a light selected, unselect it
+		if ray_result["collider"] is AnnotationMarker:
+			var annotation = ray_result["collider"]
+			annotation.on_annotation_clicked()
+		
+			begin_autopan(annotation.get_focus_point().global_position, 0.01)
+			
+			if not movable_lights_controller == null:
+				movable_lights_controller.select_light(null)
+		# if a light was clicked, select it, and if there was an annotation
+		# selected unselect it
+		if ray_result["collider"] is MovableSpotlight:
+			AnnotationsManager.change_selected_annotation(null)
+			
+			if not movable_lights_controller == null:
+				movable_lights_controller.select_light(ray_result["collider"])
+	else:
+		if not movable_lights_controller == null:
+			movable_lights_controller.select_light(null)
+
+func enable_flashlight():
+	spotLight.visible = true
+	
+func disable_flashlight():
+	spotLight.visible = false

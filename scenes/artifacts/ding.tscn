@@ -1,0 +1,57 @@
+[gd_scene load_steps=16 format=3 uid="uid://ds68a0mcf3631"]
+
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="1_vtawe"]
+[ext_resource type="ArrayMesh" uid="uid://bc3yyssiav73c" path="res://artifacts/Ding/ding-recentered-for-unity.obj" id="2_vui7u"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_lciae"]
+[ext_resource type="Texture2D" uid="uid://b0fvyq3e5v7t3" path="res://artifacts/Ding/basisFunctions.csv" id="4_unsra"]
+[ext_resource type="Texture2D" uid="uid://cuftxvyow4hb5" path="res://artifacts/Ding/diffuse.png" id="5_hokui"]
+[ext_resource type="Texture2D" uid="uid://cfgu7k5uy4jjk" path="res://artifacts/Ding/normal.png" id="6_gend2"]
+[ext_resource type="Texture2D" uid="uid://cx8oetuud2tsd" path="res://artifacts/Ding/roughness.png" id="7_o7ix7"]
+[ext_resource type="Texture2D" uid="uid://kdicl4xekarh" path="res://artifacts/Ding/specular.png" id="8_lvy8w"]
+[ext_resource type="Texture2D" uid="uid://6xvo2oh4rk1o" path="res://artifacts/Ding/weights00-03.png" id="9_36u2r"]
+[ext_resource type="Texture2D" uid="uid://sthfdfkllcmn" path="res://artifacts/Ding/weights04-07.png" id="10_gjj7h"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_sf55b"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_0a754"]
+[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_a6wmv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5odgc"]
+render_priority = 0
+shader = ExtResource("3_lciae")
+shader_parameter/diffuseMap = ExtResource("5_hokui")
+shader_parameter/normalMap = ExtResource("6_gend2")
+shader_parameter/specularMap = ExtResource("8_lvy8w")
+shader_parameter/roughnessMap = ExtResource("7_o7ix7")
+shader_parameter/weights0123 = ExtResource("9_36u2r")
+shader_parameter/weights4567 = ExtResource("10_gjj7h")
+shader_parameter/basisFunctions = ExtResource("4_unsra")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ecwgu"]
+
+[node name="ding" type="Node3D"]
+visible = false
+script = ExtResource("1_vtawe")
+artifact_name = "Ding Food Vessel"
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
+
+[node name="ding_model" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = ExtResource("2_vui7u")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_5odgc")
+
+[node name="annotations" type="Node3D" parent="."]
+
+[node name="annotation" parent="annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("11_sf55b")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 2, -2)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="annotations" instance=ExtResource("12_0a754")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -4.22234, 2.32904, 0.0910902)
+texture = SubResource("ViewportTexture_ecwgu")
+annotation_name = "Ding Food Vessel,
+[i] Unkown Artist, 3rd Century BCE[i]"
+annotation_text = "The food cauldron, known as a ding, was the most prominent type of ritual vessel during China’s Bronze Age. It was used to cook, hold, and season meat during ceremonies devoted to ancestral spirits."
+
+[node name="annotation_focuspoint" parent="annotations" instance=ExtResource("13_a6wmv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

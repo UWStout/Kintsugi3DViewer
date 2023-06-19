@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d25wou8p4k0kd"
-path="res://.godot/imported/next_prev_button.png-de7562ff0fe16efb655110d05edfd9c8.ctex"
+uid="uid://triprnly8itd"
+path="res://.godot/imported/flashlight_off.png-3039553de693f020a4f6e019d34a1363.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://next_prev_button.png"
-dest_files=["res://.godot/imported/next_prev_button.png-de7562ff0fe16efb655110d05edfd9c8.ctex"]
+source_file="res://assets/ui/flashlight_off.png"
+dest_files=["res://.godot/imported/flashlight_off.png-3039553de693f020a4f6e019d34a1363.ctex"]
 
 [params]
 
