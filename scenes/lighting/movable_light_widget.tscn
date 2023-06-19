@@ -1,0 +1,145 @@
+[gd_scene load_steps=11 format=3 uid="uid://hhkqv8yyqo7v"]
+
+[ext_resource type="ArrayMesh" uid="uid://b1g57rjtc2nhj" path="res://assets/mesh/light_widget_axis.res" id="1_f2faa"]
+[ext_resource type="Script" path="res://scripts/lighting/movable_light_widget.gd" id="1_gp4st"]
+[ext_resource type="Script" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_fmjf4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pg2fx"]
+radius = 0.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_3yny2"]
+radius = 0.15
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftq6s"]
+transparency = 1
+no_depth_test = true
+albedo_color = Color(1, 1, 1, 0.501961)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e2h3a"]
+radius = 0.05
+height = 2.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3i0s5"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.12549)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ndrtb"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.501961)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aphyv"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.12549)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[node name="movable_light_widget" type="Node3D"]
+script = ExtResource("1_gp4st")
+
+[node name="focus" type="StaticBody3D" parent="." node_paths=PackedStringArray("parent_widget")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_fmjf4")
+parent_widget = NodePath("..")
+
+[node name="collider" type="CollisionShape3D" parent="focus"]
+shape = SubResource("SphereShape3D_pg2fx")
+
+[node name="mesh" type="CSGMesh3D" parent="focus"]
+mesh = SubResource("SphereMesh_3yny2")
+material = SubResource("StandardMaterial3D_ftq6s")
+
+[node name="widget_root" type="Node3D" parent="."]
+
+[node name="in_out" type="StaticBody3D" parent="widget_root" node_paths=PackedStringArray("parent_widget")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_fmjf4")
+parent_widget = NodePath("../..")
+
+[node name="collider" type="CollisionShape3D" parent="widget_root/in_out"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_e2h3a")
+
+[node name="track" type="CSGCylinder3D" parent="widget_root/in_out"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+visible = false
+radius = 0.005
+height = 100.0
+sides = 16
+material = SubResource("StandardMaterial3D_3i0s5")
+
+[node name="mesh" type="MeshInstance3D" parent="widget_root/in_out"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("1_f2faa")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ndrtb")
+
+[node name="axis_target" type="Node3D" parent="widget_root/in_out"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="vertical" type="StaticBody3D" parent="widget_root" node_paths=PackedStringArray("parent_widget")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_fmjf4")
+parent_widget = NodePath("../..")
+
+[node name="collider" type="CollisionShape3D" parent="widget_root/vertical"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_e2h3a")
+
+[node name="mesh" type="MeshInstance3D" parent="widget_root/vertical"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("1_f2faa")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ndrtb")
+
+[node name="axis_target" type="Node3D" parent="widget_root/vertical"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.37114e-08, 1)
+
+[node name="track" type="CSGTorus3D" parent="widget_root/vertical"]
+transform = Transform3D(4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, -4.37114e-08, 0, 1, -4.37114e-08, -1.91069e-15)
+visible = false
+inner_radius = 0.99
+sides = 64
+ring_sides = 64
+material = SubResource("StandardMaterial3D_aphyv")
+
+[node name="horizontal" type="StaticBody3D" parent="widget_root" node_paths=PackedStringArray("parent_widget")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_fmjf4")
+parent_widget = NodePath("../..")
+
+[node name="collider" type="CollisionShape3D" parent="widget_root/horizontal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_e2h3a")
+
+[node name="mesh" type="MeshInstance3D" parent="widget_root/horizontal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("1_f2faa")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ndrtb")
+
+[node name="axis_target" type="Node3D" parent="widget_root/horizontal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.37114e-08, 0, -1)
+
+[node name="track" type="CSGTorus3D" parent="widget_root/horizontal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+visible = false
+inner_radius = 0.99
+sides = 64
+ring_sides = 64
+material = SubResource("StandardMaterial3D_aphyv")

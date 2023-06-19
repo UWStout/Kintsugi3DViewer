@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scripts/lighting/moving_spotlight.gd" id="1_8n41p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t3qp1"]
-radius = 0.35
-height = 1.0
+radius = 0.75
+height = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_26i7k"]
 
