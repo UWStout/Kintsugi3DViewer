@@ -1,0 +1,57 @@
+[gd_scene load_steps=16 format=3 uid="uid://bb1s1327i87sm"]
+
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="1_q57fb"]
+[ext_resource type="ArrayMesh" uid="uid://dmnbvi4jsa27y" path="res://artifacts/Altarpiece/altarpiece-recentered-for-unity.obj" id="2_noc06"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_efkx6"]
+[ext_resource type="Texture2D" uid="uid://bajsdqeiue8sl" path="res://artifacts/Altarpiece/basisFunctions.csv" id="4_mrnkc"]
+[ext_resource type="Texture2D" uid="uid://c8yxcxjs2vl5d" path="res://artifacts/Altarpiece/diffuse.png" id="5_cdmrn"]
+[ext_resource type="Texture2D" uid="uid://w71qrsippcs0" path="res://artifacts/Altarpiece/normal.png" id="6_4lsbd"]
+[ext_resource type="Texture2D" uid="uid://bvy42xrbqdww1" path="res://artifacts/Altarpiece/roughness.png" id="7_jpcei"]
+[ext_resource type="Texture2D" uid="uid://gnu65edny12x" path="res://artifacts/Altarpiece/specular.png" id="8_tjacv"]
+[ext_resource type="Texture2D" uid="uid://dm06w6uusvuj0" path="res://artifacts/Altarpiece/weights00-03.png" id="9_5guym"]
+[ext_resource type="Texture2D" uid="uid://djqnubhab6hw3" path="res://artifacts/Altarpiece/weights04-07.png" id="10_7qwwt"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_7n5rl"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_aloqa"]
+[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_3wep4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
+render_priority = 0
+shader = ExtResource("3_efkx6")
+shader_parameter/diffuseMap = ExtResource("5_cdmrn")
+shader_parameter/normalMap = ExtResource("6_4lsbd")
+shader_parameter/specularMap = ExtResource("8_tjacv")
+shader_parameter/roughnessMap = ExtResource("7_jpcei")
+shader_parameter/weights0123 = ExtResource("9_5guym")
+shader_parameter/weights4567 = ExtResource("10_7qwwt")
+shader_parameter/basisFunctions = ExtResource("4_mrnkc")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_xe5b7"]
+
+[node name="altarpiece" type="Node3D" node_paths=PackedStringArray("artifact_model")]
+script = ExtResource("1_q57fb")
+artifact_name = "Cloisonné Altarpiece"
+artifact_model = NodePath("altarpiece_model")
+annotations = Array[NodePath]([NodePath("annotations/annotation_main")])
+
+[node name="altarpiece_model" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_noc06")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_nd0hs")
+
+[node name="annotations" type="Node3D" parent="."]
+
+[node name="annotation_main" parent="annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("11_7n5rl")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 2, -2)
+focus_point = NodePath("../annotation_main_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="annotations" instance=ExtResource("12_aloqa")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 4, 3, 0)
+texture = SubResource("ViewportTexture_xe5b7")
+annotation_name = "Cloisonné Altarpiece, 
+[i]Unkown Artist, 18th Century[i]"
+annotation_text = "A turquoise-blue pillar on two level base topped by lotus.
+Four decorative supports surrounding pillar.
+Gilt bronze and baked enamel."
+
+[node name="annotation_main_focuspoint" parent="annotations" instance=ExtResource("13_3wep4")]

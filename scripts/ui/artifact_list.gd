@@ -2,29 +2,19 @@ extends Panel
 
 @export var artifact_button: PackedScene
 
-var test_data = [
-	{
-		"name": "Test Object A",
-		"iconUrl": "https://i.imgur.com/j9tpg3M.jpg"
-	},
-	{
-		"name": "Test Object B",
-		"iconUrl": "https://i.imgur.com/godLY1r.jpg"
-	},
-	{
-		"name": "Test Object C",
-		"iconUrl": "https://i.imgur.com/Xp4NZCg.jpg"
-	}
-]
+@onready var artifact_catalog = ArtifactCatalog
 
 func _ready():
 	hide_panel()
 	if not is_instance_valid(artifact_button):
 		push_error("Artifact button not set!")
+	artifact_catalog.artifacts_loaded.connect(
+		func(_artifacts):
+			populate_list())
 
 func show_panel():
-	populate_list()
 	show()
+	#populate_list()
 
 func hide_panel():
 	hide()
@@ -41,7 +31,7 @@ func clear_list():
 
 func populate_list():
 	clear_list()
-	for artifact_data in test_data:
+	for artifact_data in artifact_catalog.get_artifacts():
 		var button = artifact_button.instantiate()
 		%ArtifactList.add_child(button)
 		button.setup(artifact_data)

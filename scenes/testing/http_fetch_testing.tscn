@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4g5ukcjy6xg7"]
+
+[ext_resource type="Script" path="res://scripts/resources/http_json_resource_fetcher.gd" id="1_wa3l0"]
+[ext_resource type="Script" path="res://scripts/resources/remote_gltf.gd" id="2_5oje7"]
+[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="3_v7l8o"]
+[ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="4_1absr"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="4_835iu"]
+[ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="5_vcydr"]
+
+[sub_resource type="Environment" id="Environment_uoe1a"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Fetcher" type="Node" parent="."]
+script = ExtResource("1_wa3l0")
+
+[node name="Model" type="Node3D" parent="." node_paths=PackedStringArray("fetcher")]
+script = ExtResource("2_5oje7")
+artifactGltfUrl = "guan-yu/model.glb"
+shader = ExtResource("4_835iu")
+fetcher = NodePath("../Fetcher")
+
+[node name="Camera" parent="." instance=ExtResource("3_v7l8o")]
+
+[node name="guan-yu-packaged" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.98989, 0.139952, 0.023056, -0.140271, 0.990029, 0.0128635, -0.0210268, -0.0159678, 0.999652, -0.684032, 2.24017, -0.429135)
+mesh = ExtResource("4_1absr")
+surface_material_override/0 = ExtResource("5_vcydr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.289637, -0.417689, 0.861189, -0.148645, 0.908468, 0.390628, -0.945524, -0.0148712, -0.325213, -0.163478, 2.52453, -6.34546)
+light_color = Color(0.415686, 0.415686, 0.415686, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uoe1a")

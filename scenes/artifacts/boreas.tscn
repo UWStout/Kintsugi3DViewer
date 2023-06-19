@@ -1,0 +1,57 @@
+[gd_scene load_steps=16 format=3 uid="uid://dfama7c4fibjl"]
+
+[ext_resource type="Script" path="res://scripts/artifact.gd" id="1_qeqnc"]
+[ext_resource type="ArrayMesh" uid="uid://cgbb42akwol8f" path="res://artifacts/Boreas/Mia_0022091_64kMesh_4kTextures.obj" id="2_wwwcd"]
+[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_cd1vb"]
+[ext_resource type="Texture2D" uid="uid://dscgbn15h1rc2" path="res://artifacts/Boreas/basisFunctions.csv" id="4_k8h8s"]
+[ext_resource type="Texture2D" uid="uid://dmmbggdiiw3sj" path="res://artifacts/Boreas/diffuse.png" id="5_ooxlx"]
+[ext_resource type="Texture2D" uid="uid://be6ktt5r0ogel" path="res://artifacts/Boreas/normal.png" id="6_q2k5c"]
+[ext_resource type="Texture2D" uid="uid://q6kuse0h5u68" path="res://artifacts/Boreas/roughness.png" id="7_wk5tm"]
+[ext_resource type="Texture2D" uid="uid://b15xvxjcvdy5e" path="res://artifacts/Boreas/specular.png" id="8_w2mly"]
+[ext_resource type="Texture2D" uid="uid://d2t2cokyyratj" path="res://artifacts/Boreas/weights00-03.png" id="9_v5vnx"]
+[ext_resource type="Texture2D" uid="uid://dbqrbg4xv2vrc" path="res://artifacts/Boreas/weights04-07.png" id="10_lj2bg"]
+[ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_hjcwl"]
+[ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_jpcds"]
+[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_x2wu2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u74xh"]
+render_priority = 0
+shader = ExtResource("3_cd1vb")
+shader_parameter/diffuseMap = ExtResource("5_ooxlx")
+shader_parameter/normalMap = ExtResource("6_q2k5c")
+shader_parameter/specularMap = ExtResource("8_w2mly")
+shader_parameter/roughnessMap = ExtResource("7_wk5tm")
+shader_parameter/weights0123 = ExtResource("9_v5vnx")
+shader_parameter/weights4567 = ExtResource("10_lj2bg")
+shader_parameter/basisFunctions = ExtResource("4_k8h8s")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_4splq"]
+
+[node name="boreas" type="Node3D"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 0, 0, 0)
+visible = false
+script = ExtResource("1_qeqnc")
+artifact_name = "Boreas Abducting Orithyia"
+annotations = Array[NodePath]([NodePath("annotations/annotation")])
+
+[node name="boreas_model" type="MeshInstance3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -1.25, 6.25, -4.5)
+mesh = ExtResource("2_wwwcd")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("ShaderMaterial_u74xh")
+
+[node name="annotations" type="Node3D" parent="."]
+
+[node name="annotation" parent="annotations" node_paths=PackedStringArray("focus_point", "textbox") instance=ExtResource("11_hjcwl")]
+transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 2, 3, 0)
+focus_point = NodePath("../annotation_focuspoint")
+textbox = NodePath("../annotation_textbox")
+
+[node name="annotation_textbox" parent="annotations" instance=ExtResource("12_jpcds")]
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -0.22234, 2.32904, 4.09109)
+texture = SubResource("ViewportTexture_4splq")
+annotation_name = "Boreas Abducting Orithyia,
+[i]Gaspard Marsy, Anselme Flamen, c.1700[i]"
+annotation_text = "Depicts the god of the north wind, Boreas, abducting the Athenian princess Orithyia while battling another wind, probably the god Zephyr."
+
+[node name="annotation_focuspoint" parent="annotations" instance=ExtResource("13_x2wu2")]
