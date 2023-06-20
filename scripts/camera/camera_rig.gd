@@ -54,7 +54,7 @@ class_name CameraRig
 @export var raycast_distance : float = 1000
 @export_flags_2d_physics var raycast_collision_mask
 
-var do_rotate_in_frame = true
+var do_move_in_frame = true
 
 #autopan
 var do_autopan : bool = false
@@ -106,19 +106,23 @@ func apply_rotation(delta_rotation: Vector3):
 	target_transform.basis = Basis.from_euler(delta_rotation) * target_transform.basis
 
 func apply_yaw(delta_yaw: float):
-	if not do_rotate_in_frame:
+	if not do_move_in_frame:
 		return
 	target_transform.basis = target_transform.basis.rotated(Vector3.UP, delta_yaw).orthonormalized()
 
 func apply_pitch(delta_pitch: float):
-	if not do_rotate_in_frame:
+	if not do_move_in_frame:
 		return
 	target_transform.basis = target_transform.basis.rotated(target_transform.basis.x, delta_pitch).orthonormalized()
 
 func apply_drag(delta_drag: Vector2):
+	if not do_move_in_frame:
+		return
 	apply_translation(target_transform.basis * Vector3(delta_drag.x, delta_drag.y, 0))
 
 func apply_drag_direct(delta_drag: Vector2):
+	if not do_move_in_frame:
+		return
 	apply_drag(delta_drag)
 	rotationPoint.transform.origin = target_transform.origin
 
@@ -142,7 +146,9 @@ func _ready():
 	camera.fov = target_fov
 	
 func _process(delta):
-	if not rig_enabled:
+	if not rig_enabled or not do_move_in_frame:
+		if not do_move_in_frame:
+			do_move_in_frame = true
 		return
 	
 	if fov_enabled:
@@ -156,7 +162,7 @@ func _process(delta):
 		var weight = dolly_rate * delta if dolly_interpolate else 1
 		camera.position.z = lerp(camera.position.z, target_dolly, weight)
 		
-	if rot_enabled and do_rotate_in_frame:
+	if rot_enabled:
 		if rot_vert_limit_enabled:
 			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
 			# Check if Camera is upside down (Limit was overrun in a single frame)
@@ -200,7 +206,7 @@ func _process(delta):
 			rotationPoint.global_position = autopan_target
 			do_autopan = false
 			
-	do_rotate_in_frame = true
+	do_move_in_frame = true
 
 #autopan functions
 func begin_autopan(new_target, new_speed : float):
@@ -232,30 +238,33 @@ func cast_ray_to_world():
 		if ray_result["collider"] is AnnotationMarker:
 			var annotation = ray_result["collider"]
 			annotation.on_annotation_clicked()
+			
 		
 			begin_autopan(annotation.get_focus_point().global_position, 0.01)
 			
 			if not movable_lights_controller == null:
 				movable_lights_controller.select_light(null)
 				movable_lights_controller.select_widget(null)
+				movable_lights_controller.select_new_widget(null)
 		# if a light was clicked, select it, and if there was an annotation
 		# selected unselect it
 		if ray_result["collider"] is MovableSpotlight:
 			AnnotationsManager.change_selected_annotation(null)
+
 			
 			if not movable_lights_controller == null:
 				movable_lights_controller.select_light(ray_result["collider"])
+				movable_lights_controller.select_new_widget(null)
 		
 		
 		if ray_result["collider"] is MovableLightWidgetAxis:
-			AnnotationsManager.change_selected_annotation(null)
-			
-			if not movable_lights_controller == null:
-				ray_result["collider"].parent_widget.grab(ray_result["collider"], ray_result["position"])
+			ray_result["collider"].parent_widget.select_widget(ray_result["collider"], ray_result["position"])
+			#movable_lights_controller.select_new_widget(ray_result["collider"].parent_widget, ray_result["collider"], ray_result["position"])
 	else:
 		if not movable_lights_controller == null:
 			movable_lights_controller.select_light(null)
 			movable_lights_controller.select_widget(null)
+			movable_lights_controller.select_new_widget(null)
 
 func enable_flashlight():
 	spotLight.visible = true

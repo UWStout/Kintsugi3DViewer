@@ -13,6 +13,8 @@ var selected_light : MovableSpotlight
 
 var selected_widget : MovableLightWidget
 
+var selected_new_widget : NewLightWidget
+
 @onready var csg_torus_3d = $CSGTorus3D
 
 var movable_spotlight = preload("res://scenes/lighting/spotlight_model.tscn")
@@ -96,3 +98,18 @@ func clear_selected_widget():
 	if not selected_widget == null:
 		selected_widget.reset_axis_displays()
 	selected_widget = null
+
+func select_new_widget(widget : NewLightWidget):
+	if not selected_new_widget == null:
+		# if the new widget is the same as the old one, do nothing
+		# otherwise, unselect the current widget
+		if not widget == null and selected_new_widget == widget:
+			return
+		selected_new_widget.unselect_widget()
+	
+	if widget == null:
+		selected_new_widget = null
+		return
+	
+	# Select the new widget
+	selected_new_widget = widget
