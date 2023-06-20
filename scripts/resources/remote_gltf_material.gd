@@ -72,33 +72,32 @@ func load(parent: Node):
 				img = _process_image(img, Image.FORMAT_RGBF)
 				_load_shader_image(img, "basisFunctions")
 			)
+		
+		if extras.has("specularWeights"):
+			var weights = extras["specularWeights"]
+			_load_specular_weights(weights)
+
+
+func _load_specular_weights(weights: Dictionary):
+	# Validate that specular weights object has required properties
+	if ((not weights.has_all(["stride", "textures"])) or 
+	weights.get("textures").size() <= 0):
+		push_error("Malformed specular weights extra data block: %s" % weights)
+		return
 	
-	# Load the combined weight images
-	var weight03_index = _get_texture_image_index("weight00-03")
-	if weight03_index >= 0:
-		_load_image_from_index(weight03_index, func(img):
-			img = _process_image(img, Image.FORMAT_RGBA8)
-			_load_shader_image(img, "weights0123")
-		)
-	
-	var weight07_index = _get_texture_image_index("weight00-07")
-	if weight07_index >= 0:
-		_load_image_from_index(weight07_index, func(img):
-			img = _process_image(img, Image.FORMAT_RGBA8)
-			_load_shader_image(img, "weights4567")
-		)
-	
-	#TODO: Temporary! Remove once IBRelight is able to export these combined weight images
-	_fetcher.fetch_image_callback("guan-yu/weights00-03.png", func(img):
-		print("Loaded lower weights")
-		img = _process_image(img, Image.FORMAT_RGBA8)
-		_load_shader_image(img, "weights0123")
-	)
-	_fetcher.fetch_image_callback("guan-yu/weights04-07.png", func(img):
-		print("Loaded upper weights")
-		img = _process_image(img, Image.FORMAT_RGBA8)
-		_load_shader_image(img, "weights4567")
-	)
+	if weights.get("stride") == 4 and weights.get("textures").size() >= 2:
+		# No conversion to RGBA is needed, Load upper and lower weights directly
+		const shaderKeys = ["weights0123", "weights4567"]
+		for i in range(0, 1):
+			var texIdx = weights["textures"][i]["index"]
+			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
+			_load_image_from_index(imgIdx, func(img):
+				img = _process_image(img, Image.FORMAT_RGBA8)
+				_load_shader_image(img, shaderKeys[i])
+			)
+	else:
+		push_error("Unsupported operation: Decoding specular weights where stride != 4 is not yet supported!") #TODO
+		return
 
 
 func _load_image_from_index(image_index: int, callback: Callable):
