@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=51 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -16,7 +16,7 @@
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
 [ext_resource type="Script" path="res://scripts/lighting/moving_light_controller.gd" id="26_rrpov"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
-[ext_resource type="PackedScene" uid="uid://hhkqv8yyqo7v" path="res://scenes/lighting/movable_light_widget.tscn" id="30_y71wk"]
+[ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="31_tkixp"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
@@ -118,6 +118,8 @@ unicode = 73
 
 [sub_resource type="Shortcut" id="Shortcut_oup0k"]
 events = [SubResource("InputEventKey_yx0yo")]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ijaf2"]
 
 [node name="viewer_scene" type="Node3D"]
 
@@ -569,21 +571,21 @@ script = ExtResource("56_1pv8i")
 target_artifact_path = NodePath("../../../../artifacts_controller/altarpiece")
 parent_window = NodePath("../../..")
 
-[node name="movable_light_widget" parent="." node_paths=PackedStringArray("controller", "camera", "focus_point", "connected_light") instance=ExtResource("30_y71wk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 4)
-controller = NodePath("../moving_light_controller")
-camera = NodePath("../Camera")
-focus_point = NodePath("../Node3D")
-connected_light = NodePath("../light_test")
-
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-
 [node name="light_test" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.17862, 7.24764)
+visible = false
 light_color = Color(1, 0, 1, 1)
 light_energy = 16.0
 spot_range = 35.0
+
+[node name="new_light_widget" parent="." node_paths=PackedStringArray("scene_camera_rig", "controller") instance=ExtResource("31_tkixp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+scene_camera_rig = NodePath("../Camera")
+controller = NodePath("../moving_light_controller")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+mesh = SubResource("CylinderMesh_ijaf2")
 
 [connection signal="item_selected" from="ui_root/select_lighting_preset_option_ button" to="ui_root/select_lighting_preset_option_ button" method="_on_item_selected"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]

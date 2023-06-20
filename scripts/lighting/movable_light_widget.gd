@@ -102,7 +102,7 @@ func _input(event):
 			reset_axis_displays()
 	
 	if event is InputEventMouseMotion and is_dragging:
-		camera.do_rotate_in_frame = false
+		camera.do_move_in_frame = false
 		
 		if selected_axis == 0:
 			handle_in_out_axis(event.position)
@@ -146,7 +146,7 @@ func handle_in_out_axis(event_pos : Vector2):
 		return
 		
 	# If we try to go to the other side of the focus point, cancel the movement
-	if not focus_point == null and (focus_point.global_position.direction_to(global_position) - focus_point.global_position.direction_to(next_global_position)).length() >= 0.05:
+	if not focus_point == null and (focus_point.global_position.direction_to(global_position) - focus_point.global_position.direction_to(next_global_position)).length() >= 0.5:
 		return
 		
 	global_position = next_global_position
