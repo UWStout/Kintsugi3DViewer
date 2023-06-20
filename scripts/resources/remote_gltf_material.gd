@@ -3,6 +3,7 @@ class_name RemoteGltfMaterial
 
 var _fetcher: ResourceFetcher
 var _gltf: GLTFObject
+var _parent: Node
 
 func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 	_fetcher = p_fetcher
@@ -10,6 +11,8 @@ func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 
 
 func load(parent: Node):
+	_parent = parent
+	
 	if not _gltf.state.json.has("materials"):
 		return
 	
@@ -85,9 +88,10 @@ func _load_specular_weights(weights: Dictionary):
 		push_error("Malformed specular weights extra data block: %s" % weights)
 		return
 	
+	const shaderKeys = ["weights0123", "weights4567"]
+	
 	if weights.get("stride") == 4 and weights.get("textures").size() >= 2:
 		# No conversion to RGBA is needed, Load upper and lower weights directly
-		const shaderKeys = ["weights0123", "weights4567"]
 		for i in range(0, 1):
 			var texIdx = weights["textures"][i]["index"]
 			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
@@ -96,8 +100,29 @@ func _load_specular_weights(weights: Dictionary):
 				_load_shader_image(img, shaderKeys[i])
 			)
 	else:
-		push_error("Unsupported operation: Decoding specular weights where stride != 4 is not yet supported!") #TODO
-		return
+		var uris: Array[String] = []
+		for texture in weights.get("textures"):
+			var texIdx = texture["index"]
+			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
+			var uri = _gltf.state.json["images"][imgIdx]["uri"]
+			uris.append(_format_gltf_relative_uri(uri))
+		
+		var converter = RemoteTextureCombiner.new()
+		_parent.add_child(converter)
+		
+		converter.fetcher = _fetcher
+		converter.output_format = Image.FORMAT_RGBA8
+		converter.input_format = weights.get("stride") + 1
+		converter.input_uris = uris
+		
+		converter.combination_complete.connect(func(images):
+			print("Weights loaded!")
+			for i in images.size():
+				_load_shader_image(images[i], shaderKeys[i])
+			converter.queue_free()
+		)
+		
+		converter.combine()
 
 
 func _load_image_from_index(image_index: int, callback: Callable):
