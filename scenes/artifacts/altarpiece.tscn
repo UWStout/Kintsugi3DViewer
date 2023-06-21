@@ -25,7 +25,7 @@ shader_parameter/weights0123 = ExtResource("9_5guym")
 shader_parameter/weights4567 = ExtResource("10_7qwwt")
 shader_parameter/basisFunctions = ExtResource("4_mrnkc")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_xe5b7"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_exy6q"]
 
 [node name="altarpiece" type="Node3D" node_paths=PackedStringArray("artifact_model")]
 script = ExtResource("1_q57fb")
@@ -47,7 +47,7 @@ textbox = NodePath("../annotation_textbox")
 
 [node name="annotation_textbox" parent="annotations" instance=ExtResource("12_aloqa")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 4, 3, 0)
-texture = SubResource("ViewportTexture_xe5b7")
+texture = SubResource("ViewportTexture_exy6q")
 annotation_name = "Cloisonné Altarpiece, 
 [i]Unkown Artist, 18th Century[i]"
 annotation_text = "A turquoise-blue pillar on two level base topped by lotus.

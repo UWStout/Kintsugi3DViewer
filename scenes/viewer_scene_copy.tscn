@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://c3dg7hk5qyva6"]
+[gd_scene load_steps=37 format=3 uid="uid://13jorje6jbmq"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_a50l3"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="2_fwj16"]
