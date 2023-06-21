@@ -6,14 +6,21 @@ var widget_distance : float = 0
 var widget_horizontal_angle : float = 0
 var widget_vertical_angle : float = 0
 
+var was_grabbed : bool = false
+
 @onready var target_point = $target_point
 
-@onready var direction_axis = $target_point/direction
+@onready var distance_axis = $target_point/direction
 @onready var horizontal_axis = $target_point/horizontal
 @onready var vertical_axis = $target_point/vertical
 
 @onready var target_point_mesh = $target_point/mesh
-@onready var direction_track = $target_point/direction/track
+@onready var distance_mesh = $target_point/direction/mesh
+@onready var horizontal_mesh = $target_point/horizontal/mesh
+@onready var vertical_mesh = $target_point/vertical/mesh
+
+
+@onready var distance_track = $target_point/direction/track
 @onready var horizontal_track = $target_point/horizontal/track
 @onready var vertical_track = $target_point/vertical/track
 
@@ -47,6 +54,8 @@ var selected_initial_position_screen : Vector2 = Vector2(-1, -1)
 func _ready():
 	widget_distance = 3
 	update_distance(widget_distance)
+	
+	change_color(Color(1, 1, 1, 1))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -58,6 +67,8 @@ func select_widget(clicked_object : Object, clicked_position : Vector3):
 	
 	select_widget_part(clicked_object)
 	
+	was_grabbed = true
+	
 	update_direction_track()
 	update_horizontal_track()
 	update_vertical_track()
@@ -68,11 +79,11 @@ func select_widget(clicked_object : Object, clicked_position : Vector3):
 # that causes this widge to be unselected
 func unselect_widget():
 	target_point_mesh.visible = true
-	direction_axis.visible = true
+	distance_axis.visible = true
 	horizontal_axis.visible = true
 	vertical_axis.visible = true
 	
-	direction_track.visible = false
+	distance_track.visible = false
 	horizontal_track.visible = false
 	vertical_track.visible = false
 
@@ -86,11 +97,11 @@ func select_widget_part(selected_object : Object):
 		hide_direction_axis()
 		hide_horizontal_axis()
 		hide_vertical_axis()
-	elif selected_object == direction_axis:
+	elif selected_object == distance_axis:
 		selected_widget_part = 1
-		selected_widget_part_initial_position_world = direction_axis.global_position
+		selected_widget_part_initial_position_world = distance_axis.global_position
 		
-		direction_track.visible = true
+		distance_track.visible = true
 		hide_horizontal_axis()
 		hide_vertical_axis()
 	elif selected_object == horizontal_axis:
@@ -115,7 +126,7 @@ func get_selected_widget_part():
 	if selected_widget_part == 0:
 		return target_point
 	elif selected_widget_part == 1:
-		return direction_axis
+		return distance_axis
 	elif selected_widget_part == 2:
 		return horizontal_axis
 	elif selected_widget_part == 3:
@@ -149,16 +160,18 @@ func _input(event):
 			is_dragging = false
 			
 			target_point_mesh.visible = true
-			direction_axis.visible = true
+			distance_axis.visible = true
 			horizontal_axis.visible = true
 			vertical_axis.visible = true
 			
-			direction_track.visible = false
+			distance_track.visible = false
 			horizontal_track.visible = false
 			vertical_track.visible = false
+			
+			was_grabbed = false
 	
 	# If the event is a mouse movement, and the mouse is being dragged, manipulate the widget
-	if event is InputEventMouseMotion and is_dragging:
+	if event is InputEventMouseMotion and is_dragging and was_grabbed:
 		# If we are manipulating the widget we don't want the camera to rotate or move
 		scene_camera_rig.do_move_in_frame = false
 		
@@ -194,7 +207,7 @@ func handle_distance_axis(event_pos : Vector2):
 	var direction_axis_screen_pos = scene_camera_rig.camera.unproject_position(selected_widget_part_initial_position_world)
 	# The screen space position of a point one meter infront of the direction axis
 	# (the vector from the direction axis position to this position points towards the target point)
-	var one_meter_screen_pos = scene_camera_rig.camera.unproject_position(selected_widget_part_initial_position_world - direction_axis.global_transform.basis.z)
+	var one_meter_screen_pos = scene_camera_rig.camera.unproject_position(selected_widget_part_initial_position_world - distance_axis.global_transform.basis.z)
 	
 	# The vector pointing from the direction axis' positon to the 
 	# target point (in screen space)
@@ -220,7 +233,7 @@ func handle_distance_axis(event_pos : Vector2):
 	var movement_direction = -sign(axis_vector.dot(projected_delta_vec))
 	var movement_distance = movement_direction * (projected_delta_vec.length() / scale_factor)
 
-	var new_world_pos = selected_widget_part_initial_position_world + (direction_axis.global_transform.basis.z * movement_distance)
+	var new_world_pos = selected_widget_part_initial_position_world + (distance_axis.global_transform.basis.z * movement_distance)
 	
 	var new_dist = target_point.global_position.distance_to(new_world_pos)
 	
@@ -285,7 +298,7 @@ func handle_vertical_axis(event_pos : Vector2):
 func update_distance(new_distance : float):
 	widget_distance = new_distance
 	
-	direction_axis.position = Vector3(0, 0, new_distance)
+	distance_axis.position = Vector3(0, 0, new_distance)
 	horizontal_axis.position = Vector3(0, 0, new_distance)
 	vertical_axis.position = Vector3(0, 0, new_distance)
 	light.position = Vector3(0, 0, new_distance)
@@ -298,8 +311,8 @@ func update_rotation(new_horizontal_angle : float, new_vertical_angle : float):
 	target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
 
 func hide_direction_axis():
-	direction_axis.visible = false
-	direction_track.visible = false
+	distance_axis.visible = false
+	distance_track.visible = false
 
 func hide_horizontal_axis():
 	horizontal_axis.visible = false
@@ -310,7 +323,7 @@ func hide_vertical_axis():
 	vertical_track.visible = false
 
 func update_direction_track():
-	direction_track.position = Vector3(0,0,50 - widget_distance)
+	distance_track.position = Vector3(0,0,50 - widget_distance)
 
 func update_horizontal_track():
 	var y_dist = horizontal_axis.global_position.y - target_point.global_position.y
@@ -327,3 +340,22 @@ func update_vertical_track():
 	vertical_track.inner_radius = widget_distance - .005
 	vertical_track.global_position = target_point.global_position
 	vertical_track.global_rotation = target_point.global_rotation + Vector3(0, 0, PI/2)
+
+func change_color(new_color : Color):
+	light.light_color = new_color
+	
+	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 0.75)
+	
+	var new_material = StandardMaterial3D.new()
+	new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	new_material.albedo_color = adjusted_color
+	new_material.emission_enabled = true
+	new_material.emission = new_color
+	new_material.emission_energy_multiplier = 1
+	
+	target_point_mesh.material.albedo_color = adjusted_color
+	target_point_mesh.material.emission = new_color
+	
+	distance_mesh.set_surface_override_material(0, new_material)
+	horizontal_mesh.set_surface_override_material(0, new_material)
+	vertical_mesh.set_surface_override_material(0, new_material)
