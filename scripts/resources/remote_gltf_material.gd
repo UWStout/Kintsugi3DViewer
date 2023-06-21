@@ -107,16 +107,13 @@ func _load_specular_weights(weights: Dictionary):
 			var uri = _gltf.state.json["images"][imgIdx]["uri"]
 			uris.append(_format_gltf_relative_uri(uri))
 		
-		var converter = RemoteTextureCombiner.new()
+		var format = weights.get("stride") + 1
+		var converter = RemoteTextureCombiner.new(_fetcher, format, uris)
 		_parent.add_child(converter)
 		
-		converter.fetcher = _fetcher
 		converter.output_format = Image.FORMAT_RGBA8
-		converter.input_format = weights.get("stride") + 1
-		converter.input_uris = uris
 		
 		converter.combination_complete.connect(func(images):
-			print("Weights loaded!")
 			for i in images.size():
 				_load_shader_image(images[i], shaderKeys[i])
 			converter.queue_free()
@@ -209,34 +206,3 @@ func _basis_csv_to_image(in_csv: Array) -> Image:
 				data.append(float(blue[i + 1]))
 	
 	return Image.create_from_data(width, in_csv.size() / 3, false, Image.FORMAT_RGBF, data.to_byte_array())
-
-
-func _combine_color_channels(in_images: Array[Image], out_format: Image.Format) -> Array[Image]:
-	var out_images: Array[Image] = Array()
-	
-	# Pull parameters from the first image
-	# Assumes all images are the same size, format and stride
-	var channels = _get_pixel_stride(in_images[0].get_format())
-	var width = in_images[0].get_width()
-	var height = in_images[0].get_height()
-	var stride = _get_pixel_stride(out_format)
-	
-	for index in range(0, (channels + (stride - 1)) / stride):
-		var image = Image.create(width, height, false, out_format)
-		
-		#TODO: Finish this function
-		
-		out_images.append(image)
-	
-	return out_images
-
-
-func _get_pixel_stride(format: Image.Format) -> int:
-	if format >= Image.FORMAT_R8 and format <= Image.FORMAT_RGBA8:
-		return format - (Image.FORMAT_R8 - 1)
-	elif format >= Image.FORMAT_RF and format <= Image.FORMAT_RGBAF:
-		return format - (Image.FORMAT_RF - 1)
-	elif format >= Image.FORMAT_RH and format <= Image.FORMAT_RGBAH:
-		return format - (Image.FORMAT_RH - 1)
-	else:
-		return 0
