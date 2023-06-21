@@ -48,7 +48,7 @@ func _input(event):
 		
 		if event is InputEventMouseMotion and is_dragging:
 			if not controller.camera == null and controller.camera.camera.is_position_in_frustum(controller.get_rig_center()):
-				controller.camera.do_rotate_in_frame = false
+				controller.camera.do_move_in_frame = false
 				
 				var rig_center_screen_space = controller.camera.camera.unproject_position(controller.get_rig_center())
 				var rig_forward_screen_space = controller.camera.camera.unproject_position(controller.get_rig_forward())

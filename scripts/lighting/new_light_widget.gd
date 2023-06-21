@@ -7,9 +7,17 @@ var widget_horizontal_angle : float = 0
 var widget_vertical_angle : float = 0
 
 @onready var target_point = $target_point
+
 @onready var direction_axis = $target_point/direction
 @onready var horizontal_axis = $target_point/horizontal
 @onready var vertical_axis = $target_point/vertical
+
+@onready var target_point_mesh = $target_point/mesh
+@onready var direction_track = $target_point/direction/track
+@onready var horizontal_track = $target_point/horizontal/track
+@onready var vertical_track = $target_point/vertical/track
+
+@onready var light = $target_point/light
 
 # 0 = Target Point
 # 1 = Distance Axis
@@ -37,7 +45,8 @@ var selected_initial_position_screen : Vector2 = Vector2(-1, -1)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	widget_distance = 3
+	update_distance(widget_distance)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -49,35 +58,57 @@ func select_widget(clicked_object : Object, clicked_position : Vector3):
 	
 	select_widget_part(clicked_object)
 	
+	update_direction_track()
+	update_horizontal_track()
+	update_vertical_track()
+	
 	selected_initial_position_screen = scene_camera_rig.camera.unproject_position(clicked_position)
 
 # Called when another widget is selected, or some other action is taken
 # that causes this widge to be unselected
 func unselect_widget():
-	pass
+	target_point_mesh.visible = true
+	direction_axis.visible = true
+	horizontal_axis.visible = true
+	vertical_axis.visible = true
+	
+	direction_track.visible = false
+	horizontal_track.visible = false
+	vertical_track.visible = false
 
 # Select a part of this widget to be manipulated by the user
 func select_widget_part(selected_object : Object):
 	if selected_object == target_point:
 		selected_widget_part = 0
 		selected_widget_part_initial_position_world = target_point.global_position
+		
+		target_point_mesh.visible = true
+		hide_direction_axis()
+		hide_horizontal_axis()
+		hide_vertical_axis()
 	elif selected_object == direction_axis:
 		selected_widget_part = 1
 		selected_widget_part_initial_position_world = direction_axis.global_position
+		
+		direction_track.visible = true
+		hide_horizontal_axis()
+		hide_vertical_axis()
 	elif selected_object == horizontal_axis:
 		selected_widget_part = 2
 		selected_widget_part_initial_position_world = horizontal_axis.global_position
+		
+		horizontal_track.visible = true
+		hide_direction_axis()
+		hide_vertical_axis()
 	elif selected_object == vertical_axis:
 		selected_widget_part = 3
 		selected_widget_part_initial_position_world = vertical_axis.global_position
+		
+		vertical_track.visible = true
+		hide_direction_axis()
+		hide_horizontal_axis()
 	else:
 		selected_widget_part = -1
-		
-	if not selected_widget_part == -1:
-		print("selected " + selected_object.name + "!")
-	else:
-		print("no valid part could be selected!")
-	pass
 
 # Returns the (Object) widget part that was selected
 func get_selected_widget_part():
@@ -104,6 +135,7 @@ func _input(event):
 	# if the selected part of this widget is outside of the camera's view, do nothing
 	if not scene_camera_rig.camera.is_position_in_frustum(get_selected_widget_part().global_position):
 		print("The selected part is outside of the screen view. It cannot be manipulated!")
+		controller.select_new_widget(null)
 		return
 	
 	# We only want to manipulate the widget if the cursor is being dragged
@@ -115,6 +147,15 @@ func _input(event):
 			selected_widget_part_initial_position_world = get_selected_widget_part().global_position
 		else:
 			is_dragging = false
+			
+			target_point_mesh.visible = true
+			direction_axis.visible = true
+			horizontal_axis.visible = true
+			vertical_axis.visible = true
+			
+			direction_track.visible = false
+			horizontal_track.visible = false
+			vertical_track.visible = false
 	
 	# If the event is a mouse movement, and the mouse is being dragged, manipulate the widget
 	if event is InputEventMouseMotion and is_dragging:
@@ -146,8 +187,6 @@ func handle_target_point(event_pos : Vector2):
 	
 	target_point.global_position = selected_widget_part_initial_position_world + world_offset
 
-# TODO: Need to make it so that dragging the axis beyong the target_point
-# stops it, instead of causing it to "bounce" back
 func handle_distance_axis(event_pos : Vector2):
 	# The vector pointing from the initial selected position to the mouse cursor
 	var delta_vec = event_pos - selected_initial_position_screen
@@ -162,6 +201,18 @@ func handle_distance_axis(event_pos : Vector2):
 	var axis_vector = (one_meter_screen_pos - direction_axis_screen_pos).normalized()
 	var scale_factor = one_meter_screen_pos.distance_to(direction_axis_screen_pos)
 	
+	var target_point_screen_pos = scene_camera_rig.camera.unproject_position(target_point.global_position)
+	var vector_from_target_point = event_pos - target_point_screen_pos
+	
+	# 1 if the cursor is on the same side of the screen as the axis
+	# -1 if not
+	var cursor_side = -sign(axis_vector.dot(vector_from_target_point))
+	
+	# if the cursor is on the wrong side of the screen, don't allow the axis
+	# to move
+	if cursor_side == -1:
+		return
+	
 	# The delta_vec projected onto the axis vector
 	var projected_delta_vec = delta_vec.project(axis_vector)
 	
@@ -174,9 +225,8 @@ func handle_distance_axis(event_pos : Vector2):
 	var new_dist = target_point.global_position.distance_to(new_world_pos)
 	
 	update_distance(new_dist)
+	update_direction_track()
 
-# TODO: Make it so that when viewing from above, the x-axis the angle_to_event_pos is flipped
-# and when viewing from below it is not (OR, more preferably, figure out why that is happening, and fix it)
 func handle_horizontal_axis(event_pos : Vector2):
 	# The position of the target_point in screen space
 	var target_point_screen_pos = scene_camera_rig.camera.unproject_position(target_point.global_position)
@@ -194,13 +244,17 @@ func handle_horizontal_axis(event_pos : Vector2):
 	# The vector from the target_point to the mouse cursor in screen space
 	var vector_to_event_pos = (event_pos - target_point_screen_pos).normalized()
 	
+	# 1 if the camera has a negative x angle, -1 if it has a positive x angle
+	var scale_var = sign(scene_camera_rig.rotationPoint.rotation_degrees.x)
+	
 	# The angle of the mouse cursor on the screen (where 0 would point straight up)
-	var angle_to_event_pos = atan2(-vector_to_event_pos.x, -vector_to_event_pos.y) + PI
+	var angle_to_event_pos = atan2(scale_var * vector_to_event_pos.x, -vector_to_event_pos.y) + PI
 	
 	# The adjusted angle to calculate the world rotation of the axis
 	var adjusted_angle = angle_to_event_pos + angle_to_forward
 	
 	update_rotation(adjusted_angle, widget_vertical_angle)
+	update_horizontal_track()
 
 func handle_vertical_axis(event_pos : Vector2):
 	# The position of the target_point in screen space
@@ -226,14 +280,15 @@ func handle_vertical_axis(event_pos : Vector2):
 	var angle_to_event_pos = -atan2(-vector_to_event_pos.y, axis_screen_side * vector_to_event_pos.x) #+ PI
 	
 	update_rotation(widget_horizontal_angle, angle_to_event_pos)
-	
-	pass
+	update_vertical_track()
 
-# TODO: Add clamping to restrict distances
 func update_distance(new_distance : float):
+	widget_distance = new_distance
+	
 	direction_axis.position = Vector3(0, 0, new_distance)
 	horizontal_axis.position = Vector3(0, 0, new_distance)
 	vertical_axis.position = Vector3(0, 0, new_distance)
+	light.position = Vector3(0, 0, new_distance)
 
 # TODO: Add clamping to vertical angles
 func update_rotation(new_horizontal_angle : float, new_vertical_angle : float):
@@ -241,3 +296,34 @@ func update_rotation(new_horizontal_angle : float, new_vertical_angle : float):
 	widget_vertical_angle = fmod(new_vertical_angle, 2*PI)
 	
 	target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
+
+func hide_direction_axis():
+	direction_axis.visible = false
+	direction_track.visible = false
+
+func hide_horizontal_axis():
+	horizontal_axis.visible = false
+	horizontal_track.visible = false
+	
+func hide_vertical_axis():
+	vertical_axis.visible = false
+	vertical_track.visible = false
+
+func update_direction_track():
+	direction_track.position = Vector3(0,0,50 - widget_distance)
+
+func update_horizontal_track():
+	var y_dist = horizontal_axis.global_position.y - target_point.global_position.y
+	var planar_distance = cos(widget_vertical_angle) * widget_distance
+	
+	horizontal_track.outer_radius = planar_distance
+	horizontal_track.inner_radius = planar_distance - .005
+	horizontal_track.global_position = target_point.global_position + Vector3(0, y_dist, 0)
+	horizontal_track.global_rotation = Vector3(0,0,0)
+	pass
+	
+func update_vertical_track():
+	vertical_track.outer_radius = widget_distance
+	vertical_track.inner_radius = widget_distance - .005
+	vertical_track.global_position = target_point.global_position
+	vertical_track.global_rotation = target_point.global_rotation + Vector3(0, 0, PI/2)
