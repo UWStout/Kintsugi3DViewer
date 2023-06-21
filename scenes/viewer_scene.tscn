@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=51 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
 [ext_resource type="Script" path="res://scripts/lighting/moving_light_controller.gd" id="26_rrpov"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
+[ext_resource type="Script" path="res://scripts/ui/light_widget_color_picker.gd" id="28_bg4xr"]
 [ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="31_tkixp"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
@@ -533,6 +534,23 @@ text = "Customize Lights"
 script = ExtResource("27_m6k8c")
 connected_lighting_controller = NodePath("../../moving_light_controller")
 
+[node name="light_widget_color_picker" type="ColorPicker" parent="ui_root" node_paths=PackedStringArray("movable_lights_controller")]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 454.0
+offset_right = 326.0
+offset_bottom = 1022.0
+scale = Vector2(0.75, 0.75)
+picker_shape = 2
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+script = ExtResource("28_bg4xr")
+movable_lights_controller = NodePath("../../moving_light_controller")
+
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
 title = "Select Artifact"
@@ -575,4 +593,5 @@ scene_camera_rig = NodePath("../Camera")
 controller = NodePath("../moving_light_controller")
 
 [connection signal="item_selected" from="ui_root/select_lighting_preset_option_ button" to="ui_root/select_lighting_preset_option_ button" method="_on_item_selected"]
+[connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
