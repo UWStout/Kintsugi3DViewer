@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c72ra7k2av6rs"]
+[gd_scene load_steps=8 format=3 uid="uid://c72ra7k2av6rs"]
 
 [ext_resource type="Script" path="res://scripts/lighting/new_light_widget.gd" id="1_tjvct"]
 [ext_resource type="Script" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_jqfgj"]
@@ -19,23 +19,9 @@ emission_energy_multiplier = 16.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_6lhmp"]
 radius = 0.15
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jhpy3"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.752941)
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 16.0
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rw2so"]
 radius = 0.1
 height = 2.5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvx50"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.752941)
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 16.0
 
 [node name="new_light_widget" type="Node3D"]
 script = ExtResource("1_tjvct")
@@ -63,7 +49,6 @@ parent_widget = NodePath("../..")
 [node name="mesh" type="MeshInstance3D" parent="target_point/direction"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("3_2tqa1")
-surface_material_override/0 = SubResource("StandardMaterial3D_jhpy3")
 
 [node name="collider" type="CollisionShape3D" parent="target_point/direction"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -79,7 +64,6 @@ parent_widget = NodePath("../..")
 [node name="mesh" type="MeshInstance3D" parent="target_point/horizontal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("3_2tqa1")
-surface_material_override/0 = SubResource("StandardMaterial3D_rvx50")
 
 [node name="collider" type="CollisionShape3D" parent="target_point/horizontal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -95,7 +79,6 @@ parent_widget = NodePath("../..")
 [node name="mesh" type="MeshInstance3D" parent="target_point/vertical"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("3_2tqa1")
-surface_material_override/0 = SubResource("StandardMaterial3D_rvx50")
 
 [node name="collider" type="CollisionShape3D" parent="target_point/vertical"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
