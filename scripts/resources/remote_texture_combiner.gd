@@ -4,17 +4,27 @@ class_name RemoteTextureCombiner
 signal combination_complete(images: Array[Image])
 
 @export var fetcher: ResourceFetcher
-
 @export var input_format: Image.Format
-@export var output_format: Image.Format
+@export var output_format: Image.Format = Image.FORMAT_RGBA8
 @export var input_uris: Array[String]
 
 var fetched_images: Array[Image]
 var output_images: Array[Image]
 
-#TODO: Threading is needed here, otherwise the app hangs for a couple seconds
+var in_progress: bool = false
+var worker_thread: Thread
+
+func _init(p_fetcher: ResourceFetcher, p_in_format: Image.Format, p_input_uris):
+	fetcher = p_fetcher
+	input_format = p_in_format
+	input_uris = p_input_uris
+
 
 func combine():
+	if in_progress:
+		return
+	
+	in_progress = true
 	fetched_images = []
 	fetched_images.resize(input_uris.size())
 	fetched_images.fill(null)
@@ -23,15 +33,14 @@ func combine():
 		fetcher.fetch_image_callback(input_uris[idx], func(img):
 			_load_image(img, idx)
 		)
-	
 
 
 func _load_image(img: Image, index: int):
 	img.convert(input_format)
 	fetched_images[index] = img
 	if _is_all_loaded():
-		_perform_conversion()
-		combination_complete.emit(output_images)
+		worker_thread = Thread.new()
+		worker_thread.start(_perform_conversion)
 
 
 func _is_all_loaded() -> bool:
@@ -42,7 +51,6 @@ func _is_all_loaded() -> bool:
 
 
 func _perform_conversion():
-	print("Performing conversion")
 	output_images = []
 	
 	var width = fetched_images[0].get_width()
@@ -52,20 +60,20 @@ func _perform_conversion():
 	
 	# Loop over the index of each output image
 	for out_index in range(0, ((in_stride * fetched_images.size()) + (out_stride - 1)) / out_stride):
-		print("Formatting output image #%s" % out_index)
 		var image = Image.create(width, height, false, output_format)
 		
 		# Loop over the *total* output channels that will be included in this output image
 		# i.e. 0,1,2,3 for image 0, 4,5,6,7 for image 1
 		for in_index in range(out_index * out_stride, (out_index + 1) * out_stride):
-			print("idx: %s" % in_index)
-			print("pull from image %s" % (in_index / in_stride))
 			var in_image = fetched_images[in_index / in_stride]
 			var from_channel = in_index % in_stride
 			var to_channel = in_index % out_stride
 			_copy_channel(in_image, from_channel, in_stride, image, to_channel, out_stride)
 		
 		output_images.append(image)
+	
+	in_progress = false
+	combination_complete.emit(output_images)
 
 
 func _copy_channel(in_image: Image, from_channel: int, in_stride: int, out_image: Image, to_channel: int, out_stride: int):
@@ -99,3 +107,7 @@ func _get_format_stride(format: Image.Format) -> int:
 		return format - (Image.FORMAT_RH - 1)
 	else:
 		return 0
+
+
+func _exit_tree():
+	worker_thread.wait_to_finish()
