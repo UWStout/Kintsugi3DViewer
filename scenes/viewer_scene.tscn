@@ -1,9 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=45 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_controller.gd" id="9_r2p7d"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="10_d6id1"]
+[ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="22_bf14r"]
 [ext_resource type="PackedScene" uid="uid://b30c7ucoxltg3" path="res://scenes/ui/select_artifact_button.tscn" id="23_iuohk"]
 [ext_resource type="Script" path="res://scripts/ui/select_lighting_preset_option_ button.gd" id="23_timv0"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
@@ -115,8 +116,9 @@ events = [SubResource("InputEventKey_yx0yo")]
 
 [node name="viewer_scene" type="Node3D"]
 
-[node name="artifacts_controller" type="Node3D" parent="."]
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
 script = ExtResource("1_6cwju")
+_loader = NodePath("../ui_root/LoaderContainer")
 
 [node name="light_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button", "connected_moving_light_controller")]
 script = ExtResource("9_r2p7d")
@@ -514,10 +516,10 @@ connected_lighting_controller = NodePath("../../moving_light_controller")
 
 [node name="light_widget_color_picker" type="ColorPicker" parent="ui_root" node_paths=PackedStringArray("movable_lights_controller")]
 layout_mode = 0
-offset_left = 68.0
-offset_top = 462.0
-offset_right = 334.0
-offset_bottom = 1030.0
+offset_left = 100.0
+offset_top = 478.0
+offset_right = 350.0
+offset_bottom = 1046.0
 scale = Vector2(0.75, 0.75)
 picker_shape = 2
 can_add_swatches = false
@@ -528,6 +530,13 @@ hex_visible = false
 presets_visible = false
 script = ExtResource("28_bg4xr")
 movable_lights_controller = NodePath("../../moving_light_controller")
+
+[node name="LoaderContainer" parent="ui_root" instance=ExtResource("22_bf14r")]
+visible = false
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
+mouse_filter = 2
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
