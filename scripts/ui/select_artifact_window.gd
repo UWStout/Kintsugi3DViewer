@@ -5,17 +5,6 @@ extends Window
 @export var select_artifact_button = preload("res://scenes/ui/select_artifact_button.tscn")
 @onready var v_box_container = $ScrollContainer/VBoxContainer
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	populate_list()
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-
 func on_open():
 	populate_list()
 
@@ -26,11 +15,13 @@ func _on_close_requested():
 
 
 func populate_list():
-	var count : int = 0
-	
+	# Refresh artifacts to make sure ui is up to date
 	await artifacts_controller.refresh_artifacts()
+	
+	# Remove all buttons
 	for child in v_box_container.get_children():
 		child.queue_free()
+		pass
 	
 	for artifact in artifacts_controller.artifacts:
 		var new_button = select_artifact_button.instantiate()
