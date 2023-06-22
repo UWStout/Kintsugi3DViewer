@@ -95,7 +95,7 @@ func _load_specular_weights(weights: Dictionary):
 	
 	if weights.get("stride") == 4 and weights.get("textures").size() >= 2:
 		# No conversion to RGBA is needed, Load upper and lower weights directly
-		for i in range(0, 1):
+		for i in 2:
 			var texIdx = weights["textures"][i]["index"]
 			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
 			_load_image_from_index(imgIdx, func(img):
@@ -188,6 +188,7 @@ func _process_image(image: Image, format) -> Image:
 func _load_shader_image(image: Image, shaderKey: String):
 	var texture := ImageTexture.create_from_image(image)
 	set_shader_parameter(shaderKey, texture)
+	print("Load shader parameter: %s" % shaderKey)
 	
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])

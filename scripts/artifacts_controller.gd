@@ -4,6 +4,7 @@ class_name ArtifactsController
 signal artifacts_refreshed(artifacts: Array[ArtifactData])
 
 @export var _fetcher: ResourceFetcher
+@export var _loader: ModelLoaderProgress
 
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
@@ -42,6 +43,9 @@ func display_artifact_data(artifact: ArtifactData):
 	loaded_artifact = RemoteGltfModel.create(artifact)
 	add_child(loaded_artifact)
 	loaded_artifact.load_artifact()
+	loaded_artifact.load_completed.connect(_on_model_load_complete)
+	loaded_artifact.load_progress.connect(_on_model_load_progress)
+	_on_model_begin_load()
 
 
 func display_next_artifact():
@@ -57,3 +61,19 @@ func display_previous_artifact():
 	
 	display_artifact(current_index)
 	pass
+
+
+func _on_model_begin_load():
+	if is_instance_valid(_loader):
+		_loader.start_loading()
+
+
+func _on_model_load_complete():
+	print("complete")
+	if is_instance_valid(_loader):
+		_loader.end_loading()
+
+
+func _on_model_load_progress(progress: float):
+	if is_instance_valid(_loader):
+		_loader.update_progress(progress)
