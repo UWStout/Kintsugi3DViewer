@@ -69,7 +69,6 @@ func _on_model_begin_load():
 
 
 func _on_model_load_complete():
-	print("complete")
 	if is_instance_valid(_loader):
 		_loader.end_loading()
 
