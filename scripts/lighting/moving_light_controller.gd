@@ -22,8 +22,8 @@ var spotlight_models : Array[MovableSpotlight]
 
 # If there is a camera connected, let it know that this exists
 func _ready():
-	if not camera == null:
-		camera.movable_lights_controller = self
+	#if not camera == null:
+		#camera.movable_lights_controller = self
 		
 	csg_torus_3d.position = get_rig_center()
 	
