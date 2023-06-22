@@ -1,6 +1,9 @@
 extends ShaderMaterial
 class_name RemoteGltfMaterial
 
+signal load_complete
+signal load_progress(complete: int, total: int)
+
 var _fetcher: ResourceFetcher
 var _gltf: GLTFObject
 var _parent: Node
@@ -185,6 +188,23 @@ func _process_image(image: Image, format) -> Image:
 func _load_shader_image(image: Image, shaderKey: String):
 	var texture := ImageTexture.create_from_image(image)
 	set_shader_parameter(shaderKey, texture)
+	
+	var progress = _get_load_progress()
+	load_progress.emit(progress[0], progress[1])
+	if progress[0] >= progress[1]:
+		load_complete.emit()
+
+
+func _get_load_progress() -> Array[int]:
+	const parameters = ["diffuseMap", "normalMap", "specularMap", "roughnessMap",
+		"weights0123", "weights4567", "basisFunctions"]
+	var items = 0
+	for param in parameters:
+		var value = get_shader_parameter(param)
+		if value != null:
+			items += 1
+	
+	return [items, parameters.size()]
 
 
 func _basis_csv_to_image(in_csv: Array) -> Image:

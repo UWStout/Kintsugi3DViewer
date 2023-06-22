@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4g5ukcjy6xg7"]
+[gd_scene load_steps=6 format=3 uid="uid://c4g5ukcjy6xg7"]
 
-[ext_resource type="Script" path="res://scripts/resources/http_json_resource_fetcher.gd" id="1_wa3l0"]
 [ext_resource type="Script" path="res://scripts/resources/remote_gltf_model.gd" id="2_cwgq4"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="3_v7l8o"]
 [ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="4_1absr"]
@@ -10,13 +9,10 @@
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Fetcher" type="Node" parent="."]
-script = ExtResource("1_wa3l0")
-
 [node name="Model" type="Node3D" parent="." node_paths=PackedStringArray("fetcher")]
 script = ExtResource("2_cwgq4")
 artifactGltfUrl = "guan-yu/model.glb"
-fetcher = NodePath("../Fetcher")
+fetcher = NodePath("")
 
 [node name="Camera" parent="." instance=ExtResource("3_v7l8o")]
 

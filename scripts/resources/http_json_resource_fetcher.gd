@@ -12,14 +12,6 @@ var artifacts_cache: Array[ArtifactData]
 
 var cache_timeout_ms: int = 120000
 
-
-func _ready():
-	var list = await fetch_artifacts()
-	print("returned data: %s" % [list])
-	print("raw data cache: %s" % [raw_data_cache])
-	print("artifacts cache: %s" % [artifacts_cache])
-
-
 func fetch_artifacts() -> Array[ArtifactData]:
 	if artifacts_cache != null:
 		if (Time.get_ticks_msec() - artifacts_cache_time) < cache_timeout_ms:
@@ -94,6 +86,10 @@ func force_fetch_image(url: String) -> Image:
 
 func force_fetch_csv(uri: String) -> Array:
 	return await _fetch_url_csv(_format_relative_url(uri))
+
+
+func force_fetch_json(uri: String) -> Dictionary:
+	return await _fetch_url_json(_format_relative_url(uri))
 
 
 func _format_relative_url(url: String) -> String:
