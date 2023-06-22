@@ -188,7 +188,6 @@ func _process_image(image: Image, format) -> Image:
 func _load_shader_image(image: Image, shaderKey: String):
 	var texture := ImageTexture.create_from_image(image)
 	set_shader_parameter(shaderKey, texture)
-	print("Load shader parameter: %s" % shaderKey)
 	
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])
