@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=54 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
@@ -11,13 +11,16 @@
 [ext_resource type="PackedScene" uid="uid://ko2nmdk51x58" path="res://scenes/artifacts/vase.tscn" id="8_75gif"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_controller.gd" id="9_r2p7d"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="10_d6id1"]
+[ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
+[ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
 [ext_resource type="Script" path="res://scripts/ui/select_lighting_preset_option_ button.gd" id="23_timv0"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
 [ext_resource type="Script" path="res://scripts/lighting/moving_light_controller.gd" id="26_rrpov"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
 [ext_resource type="Script" path="res://scripts/ui/light_widget_color_picker.gd" id="28_bg4xr"]
-[ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="31_tkixp"]
+[ext_resource type="PackedScene" uid="uid://c8tb8din2btal" path="res://scenes/environments/demo_environment.tscn" id="33_80o4d"]
+[ext_resource type="Script" path="res://scripts/ui/select_environment_button.gd" id="33_ynflu"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
@@ -102,15 +105,6 @@ unicode = 70
 [sub_resource type="Shortcut" id="Shortcut_uddkm"]
 events = [SubResource("InputEventKey_0kej4")]
 
-[sub_resource type="InputEventKey" id="InputEventKey_awmku"]
-device = -1
-shift_pressed = true
-keycode = 71
-unicode = 71
-
-[sub_resource type="Shortcut" id="Shortcut_m2pwi"]
-events = [SubResource("InputEventKey_awmku")]
-
 [sub_resource type="InputEventKey" id="InputEventKey_yx0yo"]
 device = -1
 shift_pressed = true
@@ -119,6 +113,15 @@ unicode = 73
 
 [sub_resource type="Shortcut" id="Shortcut_oup0k"]
 events = [SubResource("InputEventKey_yx0yo")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_awmku"]
+device = -1
+shift_pressed = true
+keycode = 71
+unicode = 71
+
+[sub_resource type="Shortcut" id="Shortcut_m2pwi"]
+events = [SubResource("InputEventKey_awmku")]
 
 [node name="viewer_scene" type="Node3D"]
 
@@ -141,6 +144,7 @@ artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), No
 [node name="vase" parent="artifacts_controller" instance=ExtResource("8_75gif")]
 
 [node name="light_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button", "connected_moving_light_controller")]
+visible = false
 script = ExtResource("9_r2p7d")
 connected_button = NodePath("../ui_root/select_lighting_preset_option_ button")
 connected_moving_light_controller = NodePath("../moving_light_controller")
@@ -317,6 +321,12 @@ sides = 64
 ring_sides = 16
 material = SubResource("StandardMaterial3D_whdku")
 
+[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button")]
+script = ExtResource("12_acvmt")
+scene_camera = NodePath("../Camera")
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("14_atfu2")])
+connected_button = NodePath("../ui_root/select_environment_button")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7futl")
 
@@ -324,6 +334,7 @@ environment = SubResource("Environment_7futl")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
 
 [node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
+visible = false
 script = ExtResource("53_2n2wg")
 camera = NodePath("../Camera")
 
@@ -433,6 +444,64 @@ expand_icon = true
 script = ExtResource("60_r0ptn")
 camera = NodePath("../../Camera")
 
+[node name="annotations_toggle_button" type="Button" parent="ui_root"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.718
+anchor_top = 0.039
+anchor_right = 0.761
+anchor_bottom = 0.116
+offset_left = -0.136169
+offset_top = -0.272001
+offset_right = 0.327942
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "Toggle annotations on/off"
+shortcut = SubResource("Shortcut_oup0k")
+icon = ExtResource("67_wwbkf")
+expand_icon = true
+script = ExtResource("68_iinhw")
+
+[node name="select_lighting_preset_option_ button" type="OptionButton" parent="ui_root"]
+visible = false
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.783
+anchor_top = 0.039
+anchor_right = 0.913
+anchor_bottom = 0.116
+offset_left = -0.0160522
+offset_top = -0.272001
+offset_right = 0.223999
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 25)
+script = ExtResource("23_timv0")
+
+[node name="customize_lighting_button" type="Button" parent="ui_root" node_paths=PackedStringArray("connected_controller")]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.783
+anchor_top = 0.154
+anchor_right = 0.913
+anchor_bottom = 0.231
+offset_left = -0.0160522
+offset_top = 0.207993
+offset_right = 0.223999
+offset_bottom = 0.311996
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 25)
+text = "Customize Lights"
+script = ExtResource("27_m6k8c")
+connected_controller = NodePath("../../environment_controller")
+
 [node name="world_lighting_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("main_light", "backlight", "world_environment")]
 visible = false
 custom_minimum_size = Vector2(50, 50)
@@ -457,45 +526,8 @@ main_light = NodePath("")
 backlight = NodePath("")
 world_environment = NodePath("../../WorldEnvironment")
 
-[node name="annotations_toggle_button" type="Button" parent="ui_root"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.718
-anchor_top = 0.039
-anchor_right = 0.761
-anchor_bottom = 0.116
-offset_left = -0.136169
-offset_top = -0.272001
-offset_right = 0.327942
-offset_bottom = -0.167999
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(25, 25)
-tooltip_text = "Toggle annotations on/off"
-shortcut = SubResource("Shortcut_oup0k")
-icon = ExtResource("67_wwbkf")
-expand_icon = true
-script = ExtResource("68_iinhw")
-
-[node name="select_lighting_preset_option_ button" type="OptionButton" parent="ui_root"]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.783
-anchor_top = 0.039
-anchor_right = 0.913
-anchor_bottom = 0.116
-offset_left = -0.0160522
-offset_top = -0.272001
-offset_right = 0.223999
-offset_bottom = -0.167999
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(75, 25)
-script = ExtResource("23_timv0")
-
 [node name="screenshot_button" type="Button" parent="ui_root"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -515,31 +547,13 @@ icon = ExtResource("24_xbw2p")
 expand_icon = true
 script = ExtResource("25_f72p0")
 
-[node name="customize_lighting_button" type="Button" parent="ui_root" node_paths=PackedStringArray("connected_lighting_controller")]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.783
-anchor_top = 0.154
-anchor_right = 0.913
-anchor_bottom = 0.231
-offset_left = -0.0160522
-offset_top = 0.207993
-offset_right = 0.223999
-offset_bottom = 0.311996
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(75, 25)
-text = "Customize Lights"
-script = ExtResource("27_m6k8c")
-connected_lighting_controller = NodePath("../../moving_light_controller")
-
 [node name="light_widget_color_picker" type="ColorPicker" parent="ui_root" node_paths=PackedStringArray("movable_lights_controller")]
+visible = false
 layout_mode = 0
-offset_left = 52.0
-offset_top = 454.0
-offset_right = 326.0
-offset_bottom = 1022.0
+offset_left = 130.0
+offset_top = 502.0
+offset_right = 364.0
+offset_bottom = 1070.0
 scale = Vector2(0.75, 0.75)
 picker_shape = 2
 can_add_swatches = false
@@ -550,6 +564,22 @@ hex_visible = false
 presets_visible = false
 script = ExtResource("28_bg4xr")
 movable_lights_controller = NodePath("../../moving_light_controller")
+
+[node name="select_environment_button" type="OptionButton" parent="ui_root"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.783
+anchor_top = 0.039
+anchor_right = 0.913
+anchor_bottom = 0.116
+offset_left = -0.0160522
+offset_top = -0.272001
+offset_right = 0.223999
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("33_ynflu")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
@@ -587,11 +617,12 @@ script = ExtResource("56_1pv8i")
 target_artifact_path = NodePath("../../../../artifacts_controller/altarpiece")
 parent_window = NodePath("../../..")
 
-[node name="new_light_widget" parent="." node_paths=PackedStringArray("scene_camera_rig", "controller") instance=ExtResource("31_tkixp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
-scene_camera_rig = NodePath("../Camera")
-controller = NodePath("../moving_light_controller")
+[node name="save_screenshot_popup_window" type="FileDialog" parent="."]
+initial_position = 2
+size = Vector2i(1152, 648)
+access = 2
 
 [connection signal="item_selected" from="ui_root/select_lighting_preset_option_ button" to="ui_root/select_lighting_preset_option_ button" method="_on_item_selected"]
 [connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]
+[connection signal="item_selected" from="ui_root/select_environment_button" to="ui_root/select_environment_button" method="_on_item_selected"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]

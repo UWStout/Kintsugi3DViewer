@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c72ra7k2av6rs"]
+[gd_scene load_steps=12 format=3 uid="uid://c72ra7k2av6rs"]
 
 [ext_resource type="Script" path="res://scripts/lighting/new_light_widget.gd" id="1_tjvct"]
 [ext_resource type="Script" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_jqfgj"]
@@ -8,15 +8,20 @@
 radius = 0.15
 height = 0.3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3pd4p"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6y0r7"]
 transparency = 1
 no_depth_test = true
-albedo_color = Color(1, 1, 1, 0.752941)
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.75)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6lhmp"]
 radius = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05ma2"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.75)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rw2so"]
 radius = 0.1
@@ -51,27 +56,28 @@ parent_widget = NodePath("..")
 
 [node name="mesh" type="CSGMesh3D" parent="target_point"]
 mesh = SubResource("SphereMesh_t5ior")
-material = SubResource("StandardMaterial3D_3pd4p")
+material = SubResource("StandardMaterial3D_6y0r7")
 
 [node name="collider" type="CollisionShape3D" parent="target_point"]
 shape = SubResource("SphereShape3D_6lhmp")
 
-[node name="direction" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
+[node name="distance" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_jqfgj")
 parent_widget = NodePath("../..")
 
-[node name="mesh" type="MeshInstance3D" parent="target_point/direction"]
+[node name="mesh" type="MeshInstance3D" parent="target_point/distance"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("3_2tqa1")
+surface_material_override/0 = SubResource("StandardMaterial3D_05ma2")
 
-[node name="collider" type="CollisionShape3D" parent="target_point/direction"]
+[node name="collider" type="CollisionShape3D" parent="target_point/distance"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_rw2so")
 
-[node name="track" type="CSGMesh3D" parent="target_point/direction"]
+[node name="track" type="CSGMesh3D" parent="target_point/distance"]
 visible = false
 mesh = SubResource("BoxMesh_8vuwc")
 material = SubResource("StandardMaterial3D_tsv0n")
@@ -86,6 +92,7 @@ parent_widget = NodePath("../..")
 [node name="mesh" type="MeshInstance3D" parent="target_point/horizontal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("3_2tqa1")
+surface_material_override/0 = SubResource("StandardMaterial3D_05ma2")
 
 [node name="collider" type="CollisionShape3D" parent="target_point/horizontal"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -110,6 +117,7 @@ parent_widget = NodePath("../..")
 [node name="mesh" type="MeshInstance3D" parent="target_point/vertical"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("3_2tqa1")
+surface_material_override/0 = SubResource("StandardMaterial3D_05ma2")
 
 [node name="collider" type="CollisionShape3D" parent="target_point/vertical"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
@@ -126,5 +134,5 @@ material = SubResource("StandardMaterial3D_8bm78")
 
 [node name="light" type="SpotLight3D" parent="target_point"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
-light_energy = 5.0
+light_energy = 10.0
 spot_range = 25.0

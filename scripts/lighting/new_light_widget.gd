@@ -1,6 +1,12 @@
+@tool
 extends Node3D
 
 class_name NewLightWidget
+
+@export_range(0, 10) var distance : float = 3 : set = set_distance_UTIL
+@export_range(0, 360) var horizontal_angle : float = 0 : set = set_horizontal_angle_UTIL
+@export_range(-90, 90) var vertical_angle : float = 0 : set = set_vertical_angle_UTIL
+@export var color : Color = Color(1,1,1,1) : set = set_color_UTIL
 
 var widget_distance : float = 0
 var widget_horizontal_angle : float = 0
@@ -10,17 +16,16 @@ var was_grabbed : bool = false
 
 @onready var target_point = $target_point
 
-@onready var distance_axis = $target_point/direction
+@onready var distance_axis = $target_point/distance
 @onready var horizontal_axis = $target_point/horizontal
 @onready var vertical_axis = $target_point/vertical
 
 @onready var target_point_mesh = $target_point/mesh
-@onready var distance_mesh = $target_point/direction/mesh
+@onready var distance_mesh = $target_point/distance/mesh
 @onready var horizontal_mesh = $target_point/horizontal/mesh
 @onready var vertical_mesh = $target_point/vertical/mesh
 
-
-@onready var distance_track = $target_point/direction/track
+@onready var distance_track = $target_point/distance/track
 @onready var horizontal_track = $target_point/horizontal/track
 @onready var vertical_track = $target_point/vertical/track
 
@@ -36,12 +41,9 @@ var selected_widget_part : int = -1
 
 var is_dragging : bool
 
-# TODO: Make this NOT an export variable. Should be supplied in code
-# when this object is created.
-@export var scene_camera_rig : CameraRig
 # TODO: This whole MovableLightingController class should be redone, into a 
 # global LightController class. That would eliminate the need for this variable
-@export var controller : MovableLightingController
+@export var controller : EnvironmentController
 
 # The selected widget part's world position
 # when the part was first selected
@@ -50,20 +52,9 @@ var selected_widget_part_initial_position_world : Vector3
 # when a new manipulation began
 var selected_initial_position_screen : Vector2 = Vector2(-1, -1)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	widget_distance = 3
-	update_distance(widget_distance)
-	
-	change_color(Color(1, 1, 1, 1))
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 # Called when a part of this object is selected by a raycast
 func select_widget(clicked_object : Object, clicked_position : Vector3):
-	controller.select_new_widget(self)
+	controller.select_light(self)
 	
 	select_widget_part(clicked_object)
 	
@@ -73,7 +64,7 @@ func select_widget(clicked_object : Object, clicked_position : Vector3):
 	update_horizontal_track()
 	update_vertical_track()
 	
-	selected_initial_position_screen = scene_camera_rig.camera.unproject_position(clicked_position)
+	selected_initial_position_screen = controller.scene_camera.camera.unproject_position(clicked_position)
 
 # Called when another widget is selected, or some other action is taken
 # that causes this widge to be unselected
@@ -94,30 +85,30 @@ func select_widget_part(selected_object : Object):
 		selected_widget_part_initial_position_world = target_point.global_position
 		
 		target_point_mesh.visible = true
-		hide_direction_axis()
-		hide_horizontal_axis()
-		hide_vertical_axis()
+		distance_axis.visible = false
+		horizontal_axis.visible = false
+		vertical_axis.visible = false
 	elif selected_object == distance_axis:
 		selected_widget_part = 1
 		selected_widget_part_initial_position_world = distance_axis.global_position
 		
 		distance_track.visible = true
-		hide_horizontal_axis()
-		hide_vertical_axis()
+		horizontal_axis.visible = false
+		vertical_axis.visible = false
 	elif selected_object == horizontal_axis:
 		selected_widget_part = 2
 		selected_widget_part_initial_position_world = horizontal_axis.global_position
 		
 		horizontal_track.visible = true
-		hide_direction_axis()
-		hide_vertical_axis()
+		distance_axis.visible = false
+		vertical_axis.visible = false
 	elif selected_object == vertical_axis:
 		selected_widget_part = 3
 		selected_widget_part_initial_position_world = vertical_axis.global_position
 		
 		vertical_track.visible = true
-		hide_direction_axis()
-		hide_horizontal_axis()
+		distance_axis.visible = false
+		horizontal_axis.visible = false
 	else:
 		selected_widget_part = -1
 
@@ -134,19 +125,18 @@ func get_selected_widget_part():
 	else:
 		return null
 
-# Set the camera that controls the current scene
-func set_scene_camera_rig(camera_rig : CameraRig):
-	scene_camera_rig = camera_rig
-
 func _input(event):
 	# if this widget is not selected, do nothing
-	if not controller.selected_new_widget == self:
+	if controller == null or not controller.selected_light == self:
+		return
+		
+	if controller.scene_camera == null:
 		return
 	
 	# if the selected part of this widget is outside of the camera's view, do nothing
-	if not scene_camera_rig.camera.is_position_in_frustum(get_selected_widget_part().global_position):
+	if not controller.scene_camera.camera.is_position_in_frustum(get_selected_widget_part().global_position):
 		print("The selected part is outside of the screen view. It cannot be manipulated!")
-		controller.select_new_widget(null)
+		controller.select_light(null)
 		return
 	
 	# We only want to manipulate the widget if the cursor is being dragged
@@ -173,7 +163,7 @@ func _input(event):
 	# If the event is a mouse movement, and the mouse is being dragged, manipulate the widget
 	if event is InputEventMouseMotion and is_dragging and was_grabbed:
 		# If we are manipulating the widget we don't want the camera to rotate or move
-		scene_camera_rig.do_move_in_frame = false
+		controller.scene_camera.do_move_in_frame = false
 		
 		if selected_widget_part == 0:
 			handle_target_point(event.position)
@@ -188,15 +178,15 @@ func handle_target_point(event_pos : Vector2):
 	# The vector pointing from the initial selected position to the mouse cursor
 	var delta_vec = event_pos - selected_initial_position_screen
 	
-	var target_one_screen_pos = scene_camera_rig.camera.unproject_position(selected_widget_part_initial_position_world)
+	var target_one_screen_pos = controller.scene_camera.camera.unproject_position(selected_widget_part_initial_position_world)
 	# The world position of a point one meter to the right of the target_point
 	# (relative to the camera). Used to get a scale for moving the point
-	var one_meter_screen_pos = scene_camera_rig.camera.unproject_position(selected_widget_part_initial_position_world + scene_camera_rig.camera.global_transform.basis.x)
+	var one_meter_screen_pos = controller.scene_camera.camera.unproject_position(selected_widget_part_initial_position_world + controller.scene_camera.camera.global_transform.basis.x)
 	
 	# The ratio of pixels to meters. (How many pixels in screen space make up one meter of world space)
 	var scale_factor = one_meter_screen_pos.distance_to(target_one_screen_pos)
 	
-	var world_offset = ((scene_camera_rig.camera.global_transform.basis.x * delta_vec.x) + (scene_camera_rig.camera.global_transform.basis.y * -delta_vec.y)) / scale_factor
+	var world_offset = ((controller.scene_camera.camera.global_transform.basis.x * delta_vec.x) + (controller.scene_camera.camera.global_transform.basis.y * -delta_vec.y)) / scale_factor
 	
 	target_point.global_position = selected_widget_part_initial_position_world + world_offset
 
@@ -204,17 +194,17 @@ func handle_distance_axis(event_pos : Vector2):
 	# The vector pointing from the initial selected position to the mouse cursor
 	var delta_vec = event_pos - selected_initial_position_screen
 	
-	var direction_axis_screen_pos = scene_camera_rig.camera.unproject_position(selected_widget_part_initial_position_world)
+	var direction_axis_screen_pos = controller.scene_camera.camera.unproject_position(selected_widget_part_initial_position_world)
 	# The screen space position of a point one meter infront of the direction axis
 	# (the vector from the direction axis position to this position points towards the target point)
-	var one_meter_screen_pos = scene_camera_rig.camera.unproject_position(selected_widget_part_initial_position_world - distance_axis.global_transform.basis.z)
+	var one_meter_screen_pos = controller.scene_camera.camera.unproject_position(selected_widget_part_initial_position_world - distance_axis.global_transform.basis.z)
 	
 	# The vector pointing from the direction axis' positon to the 
 	# target point (in screen space)
 	var axis_vector = (one_meter_screen_pos - direction_axis_screen_pos).normalized()
 	var scale_factor = one_meter_screen_pos.distance_to(direction_axis_screen_pos)
 	
-	var target_point_screen_pos = scene_camera_rig.camera.unproject_position(target_point.global_position)
+	var target_point_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position)
 	var vector_from_target_point = event_pos - target_point_screen_pos
 	
 	# 1 if the cursor is on the same side of the screen as the axis
@@ -242,10 +232,10 @@ func handle_distance_axis(event_pos : Vector2):
 
 func handle_horizontal_axis(event_pos : Vector2):
 	# The position of the target_point in screen space
-	var target_point_screen_pos = scene_camera_rig.camera.unproject_position(target_point.global_position)
+	var target_point_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position)
 	# The position of the target_point, offset by 1 meter in the world forward direction,
 	# in screen space
-	var target_point_world_forward_screen_pos = scene_camera_rig.camera.unproject_position(target_point.global_position + Vector3.FORWARD)
+	var target_point_world_forward_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position + Vector3.FORWARD)
 	
 	# The vector pointing from the target_point_screen_pos to the forward direction
 	var vector_to_forward = (target_point_world_forward_screen_pos - target_point_screen_pos).normalized()
@@ -258,7 +248,7 @@ func handle_horizontal_axis(event_pos : Vector2):
 	var vector_to_event_pos = (event_pos - target_point_screen_pos).normalized()
 	
 	# 1 if the camera has a negative x angle, -1 if it has a positive x angle
-	var scale_var = sign(scene_camera_rig.rotationPoint.rotation_degrees.x)
+	var scale_var = sign(controller.scene_camera.rotationPoint.rotation_degrees.x)
 	
 	# The angle of the mouse cursor on the screen (where 0 would point straight up)
 	var angle_to_event_pos = atan2(scale_var * vector_to_event_pos.x, -vector_to_event_pos.y) + PI
@@ -271,7 +261,7 @@ func handle_horizontal_axis(event_pos : Vector2):
 
 func handle_vertical_axis(event_pos : Vector2):
 	# The position of the target_point in screen space
-	var target_point_screen_pos = scene_camera_rig.camera.unproject_position(target_point.global_position)
+	var target_point_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position)
 	
 	# The vector from the target_point to the mouse cursor in screen space
 	var vector_to_event_pos = (event_pos - target_point_screen_pos).normalized()
@@ -298,29 +288,26 @@ func handle_vertical_axis(event_pos : Vector2):
 func update_distance(new_distance : float):
 	widget_distance = new_distance
 	
-	distance_axis.position = Vector3(0, 0, new_distance)
-	horizontal_axis.position = Vector3(0, 0, new_distance)
-	vertical_axis.position = Vector3(0, 0, new_distance)
-	light.position = Vector3(0, 0, new_distance)
+	# Because @onready variables aren't ready early enough
+	$target_point/distance.position = Vector3(0, 0, new_distance)
+	$target_point/horizontal.position = Vector3(0, 0, new_distance)
+	$target_point/vertical.position = Vector3(0, 0, new_distance)
+	$target_point/light.position = Vector3(0, 0, new_distance)
+	
+	#distance_axis.position = Vector3(0, 0, new_distance)
+	#horizontal_axis.position = Vector3(0, 0, new_distance)
+	#vertical_axis.position = Vector3(0, 0, new_distance)
+	#light.position = Vector3(0, 0, new_distance)
 
 # TODO: Add clamping to vertical angles
 func update_rotation(new_horizontal_angle : float, new_vertical_angle : float):
 	widget_horizontal_angle = fmod(new_horizontal_angle, 2*PI)
 	widget_vertical_angle = fmod(new_vertical_angle, 2*PI)
 	
-	target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
-
-func hide_direction_axis():
-	distance_axis.visible = false
-	distance_track.visible = false
-
-func hide_horizontal_axis():
-	horizontal_axis.visible = false
-	horizontal_track.visible = false
+	$target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
 	
-func hide_vertical_axis():
-	vertical_axis.visible = false
-	vertical_track.visible = false
+	#target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
+	pass
 
 func update_direction_track():
 	distance_track.position = Vector3(0,0,50 - widget_distance)
@@ -342,20 +329,88 @@ func update_vertical_track():
 	vertical_track.global_rotation = target_point.global_rotation + Vector3(0, 0, PI/2)
 
 func change_color(new_color : Color):
-	light.light_color = new_color
+	$target_point/light.light_color = new_color
 	
 	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 0.75)
 	
 	var new_material = StandardMaterial3D.new()
 	new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	new_material.albedo_color = adjusted_color
-	new_material.emission_enabled = true
-	new_material.emission = new_color
-	new_material.emission_energy_multiplier = 1
+	new_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	
-	target_point_mesh.material.albedo_color = adjusted_color
-	target_point_mesh.material.emission = new_color
+	var target_mat = new_material.duplicate()
+	target_mat.no_depth_test = true
+	target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
 	
-	distance_mesh.set_surface_override_material(0, new_material)
-	horizontal_mesh.set_surface_override_material(0, new_material)
-	vertical_mesh.set_surface_override_material(0, new_material)
+	$target_point/mesh.material = target_mat
+	
+	$target_point/distance/mesh.set_surface_override_material(0, new_material)
+	$target_point/horizontal/mesh.set_surface_override_material(0, new_material)
+	$target_point/vertical/mesh.set_surface_override_material(0, new_material)
+
+func hide_widget():
+	target_point_mesh.visible = false
+	
+	distance_axis.visible = false
+	horizontal_axis.visble = false
+	vertical_axis.visible = false
+
+func show_widget():
+	target_point_mesh.visible = true
+	distance_axis.visible = true
+	horizontal_axis.visible = true
+	vertical_axis.visible = true
+
+func set_distance_UTIL(dist : float):
+	distance = dist
+	update_distance(dist)
+
+func set_horizontal_angle_UTIL(angle : float):
+	horizontal_angle = angle
+	update_rotation(deg_to_rad(angle), widget_vertical_angle)
+
+func set_vertical_angle_UTIL(angle : float):
+	vertical_angle = angle
+	update_rotation(widget_horizontal_angle, deg_to_rad(angle))
+
+func set_color_UTIL(col : Color):
+	color = col
+	change_color(col)
+
+# Make it so this widget is invisible and cannot be clicked
+func make_immaterial():
+	$target_point/mesh.visible = false
+	$target_point/distance.visible = false
+	$target_point/horizontal.visible = false
+	$target_point/vertical.visible = false
+	
+	$target_point.collision_layer = 0
+	$target_point.collision_mask = 0
+	
+	$target_point/distance.collision_layer = 0
+	$target_point/distance.collision_mask = 0
+	
+	$target_point/horizontal.collision_layer = 0
+	$target_point/horizontal.collision_mask = 0
+	
+	$target_point/vertical.collision_layer = 0
+	$target_point/vertical.collision_mask = 0
+
+# Make it so this widget is visible and can be clicked
+func make_material():
+	$target_point/mesh.visible = true
+	$target_point/distance.visible = true
+	$target_point/horizontal.visible = true
+	$target_point/vertical.visible = true
+	
+	$target_point.collision_layer = 2
+	$target_point.collision_mask = 2
+	
+	$target_point/distance.collision_layer = 2
+	$target_point/distance.collision_mask = 2
+	
+	$target_point/horizontal.collision_layer = 2
+	$target_point/horizontal.collision_mask = 2
+	
+	$target_point/vertical.collision_layer = 2
+	$target_point/vertical.collision_mask = 2

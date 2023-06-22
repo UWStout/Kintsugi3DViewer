@@ -1,6 +1,6 @@
 extends Button
 
-@export var connected_lighting_controller : MovableLightingController
+@export var connected_controller : EnvironmentController
 
 var is_pressed : bool = false
 
@@ -14,16 +14,16 @@ func _process(delta):
 	pass
 
 func _pressed():
-	if connected_lighting_controller == null:
+	if connected_controller == null:
 		return
 	
 	is_pressed = not is_pressed
 	
 	if is_pressed:
 		text = "Stop Customizing"
-		connected_lighting_controller.begin_customizing()
+		connected_controller.begin_customizing_lights()
 		pass
 	else:
 		text = "Customize Lights"
-		connected_lighting_controller.end_customizing()
+		connected_controller.stop_customizing_lights()
 		pass

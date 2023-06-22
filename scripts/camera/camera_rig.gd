@@ -67,7 +67,7 @@ var target_dolly: float
 var target_fov: float
 
 #lights
-var movable_lights_controller : MovableLightingController
+var environment_controller : EnvironmentController
 
 func set_fov(new_fov: float):
 	target_fov = new_fov
@@ -238,33 +238,16 @@ func cast_ray_to_world():
 		if ray_result["collider"] is AnnotationMarker:
 			var annotation = ray_result["collider"]
 			annotation.on_annotation_clicked()
-			
 		
 			begin_autopan(annotation.get_focus_point().global_position, 0.01)
 			
-			if not movable_lights_controller == null:
-				movable_lights_controller.select_light(null)
-				movable_lights_controller.select_widget(null)
-				movable_lights_controller.select_new_widget(null)
-		# if a light was clicked, select it, and if there was an annotation
-		# selected unselect it
-		if ray_result["collider"] is MovableSpotlight:
-			AnnotationsManager.change_selected_annotation(null)
-
-			
-			if not movable_lights_controller == null:
-				movable_lights_controller.select_light(ray_result["collider"])
-				movable_lights_controller.select_new_widget(null)
-		
-		
+			if not environment_controller == null:
+				environment_controller.select_light(null)
 		if ray_result["collider"] is MovableLightWidgetAxis:
 			ray_result["collider"].parent_widget.select_widget(ray_result["collider"], ray_result["position"])
-			#movable_lights_controller.select_new_widget(ray_result["collider"].parent_widget, ray_result["collider"], ray_result["position"])
 	else:
-		if not movable_lights_controller == null:
-			movable_lights_controller.select_light(null)
-			movable_lights_controller.select_widget(null)
-			movable_lights_controller.select_new_widget(null)
+		if not environment_controller == null:
+			environment_controller.select_light(null)
 
 func enable_flashlight():
 	spotLight.visible = true
