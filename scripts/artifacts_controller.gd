@@ -1,44 +1,51 @@
 extends Node3D
-
 class_name ArtifactsController
 
-@export var artifacts : Array[NodePath]
+signal artifacts_refreshed(artifacts: Array[ArtifactData])
+
+@export var _fetcher: ResourceFetcher
 
 var current_index : int = 0
+var artifacts: Array[ArtifactData]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	current_index = 0
-	display_artifact(0)
+	if not is_instance_valid(_fetcher):
+		_fetcher = GlobalFetcher
+		if not is_instance_valid(_fetcher):
+			push_error("Artifacts Controller at node %s could not find a valid resource fetcher!" % get_path())
+			return
+	
+	print("Loading artifacts listing...") #TODO: Remove
+	refresh_artifacts()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+
+func refresh_artifacts():
+	print("Refreshing artifacts")
+	artifacts = await _fetcher.fetch_artifacts()
+	artifacts_refreshed.emit(artifacts)
+	return artifacts
+
 
 func display_artifact(index : int):
-	if not current_index < 0 and not current_index >= artifacts.size() and not artifacts[current_index] == null:
-		var prev_artifact = get_node(artifacts[current_index])
-		prev_artifact.visible = false
-		prev_artifact.deselect_artifact()
-	
-	if not index < 0 and not index >= artifacts.size() and not artifacts[index] == null:
-		var new_artifact = get_node(artifacts[index])
-		new_artifact.visible = true
-		new_artifact.select_artifact()
+	print("display_artifact id=%s" % index)
+	pass
 
-	current_index = index
 
 func display_next_artifact():
-	var new_index = (current_index + 1) % artifacts.size()
-	display_artifact(new_index)
+	print("display_next_artifact")
+	pass
+
 
 func display_previous_artifact():
-	var new_index = (current_index - 1) % artifacts.size()
-	if(new_index < 0):
-		new_index = artifacts.size()-1
-	display_artifact(new_index)
+	print("display_previous_artifact")
+	pass
+
 
 func display_this_artifact(artifact_node_path : NodePath):
-	var string_name := artifact_node_path.get_name(artifact_node_path.get_name_count() - 1)
-	var search_path := NodePath(string_name)
-	display_artifact(artifacts.find(search_path))
+	print("display_this_artifact")
+	pass
+
+
+func display_artifact_data(artifact: ArtifactData):
+	print("display_artifact_data name=%s" % artifact.name)
