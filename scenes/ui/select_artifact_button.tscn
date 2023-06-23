@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://b30c7ucoxltg3"]
+
+[ext_resource type="Script" path="res://scripts/ui/select_artifact_button.gd" id="1_m6bb4"]
+
+[node name="select_artifact_button" type="Button" node_paths=PackedStringArray("parent_window")]
+visible = false
+size_flags_horizontal = 3
+text = "DEMO TEXT
+"
+alignment = 0
+script = ExtResource("1_m6bb4")
+parent_window = NodePath("../../..")
