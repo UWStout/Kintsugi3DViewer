@@ -321,11 +321,13 @@ sides = 64
 ring_sides = 16
 material = SubResource("StandardMaterial3D_whdku")
 
-[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button")]
+[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button", "connected_customize_lighting_button", "connected_color_picker")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
 environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("14_atfu2")])
 connected_button = NodePath("../ui_root/select_environment_button")
+connected_customize_lighting_button = NodePath("../ui_root/customize_lighting_button")
+connected_color_picker = NodePath("../ui_root/light_widget_color_picker")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7futl")
@@ -547,13 +549,20 @@ icon = ExtResource("24_xbw2p")
 expand_icon = true
 script = ExtResource("25_f72p0")
 
-[node name="light_widget_color_picker" type="ColorPicker" parent="ui_root" node_paths=PackedStringArray("movable_lights_controller")]
+[node name="light_widget_color_picker" type="ColorPicker" parent="ui_root" node_paths=PackedStringArray("environment_controller")]
 visible = false
-layout_mode = 0
-offset_left = 130.0
-offset_top = 502.0
-offset_right = 364.0
-offset_bottom = 1070.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.022
+anchor_top = 0.665
+anchor_right = 0.211
+anchor_bottom = 0.962
+offset_left = -0.344002
+offset_top = 0.0799866
+offset_right = 71.928
+offset_bottom = 375.624
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.75, 0.75)
 picker_shape = 2
 can_add_swatches = false
@@ -563,7 +572,7 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 script = ExtResource("28_bg4xr")
-movable_lights_controller = NodePath("../../moving_light_controller")
+environment_controller = NodePath("../../environment_controller")
 
 [node name="select_environment_button" type="OptionButton" parent="ui_root"]
 custom_minimum_size = Vector2(150, 50)
