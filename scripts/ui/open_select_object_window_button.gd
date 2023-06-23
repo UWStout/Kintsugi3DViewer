@@ -16,5 +16,3 @@ func _process(delta):
 func _pressed():
 	if not select_window == null:
 		select_window.popup_centered()
-		if select_window.has_method("on_open"):
-			select_window.on_open()

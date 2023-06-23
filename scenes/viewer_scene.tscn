@@ -1,15 +1,18 @@
-
-[gd_scene load_steps=45 format=3 uid="uid://bmmsv1log3xwv"]
-
+[gd_scene load_steps=54 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
+[ext_resource type="PackedScene" uid="uid://bb1s1327i87sm" path="res://scenes/artifacts/altarpiece.tscn" id="2_5vg8u"]
+[ext_resource type="PackedScene" uid="uid://cb1g5turiyauj" path="res://scenes/artifacts/autumn_jade.tscn" id="3_1svix"]
+[ext_resource type="PackedScene" uid="uid://dfama7c4fibjl" path="res://scenes/artifacts/boreas.tscn" id="4_ca8gr"]
+[ext_resource type="PackedScene" uid="uid://ds68a0mcf3631" path="res://scenes/artifacts/ding.tscn" id="5_6kqj2"]
+[ext_resource type="PackedScene" uid="uid://dwwlv42dcudt6" path="res://scenes/artifacts/polyxena.tscn" id="6_uc5gq"]
+[ext_resource type="PackedScene" uid="uid://bylxii3alupxh" path="res://scenes/artifacts/tiger_hat.tscn" id="7_gbi7r"]
+[ext_resource type="PackedScene" uid="uid://ko2nmdk51x58" path="res://scenes/artifacts/vase.tscn" id="8_75gif"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_controller.gd" id="9_r2p7d"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="10_d6id1"]
-
-[ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="22_bf14r"]
-[ext_resource type="PackedScene" uid="uid://b30c7ucoxltg3" path="res://scenes/ui/select_artifact_button.tscn" id="23_iuohk"]
-
+[ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
+[ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
 [ext_resource type="Script" path="res://scripts/ui/select_lighting_preset_option_ button.gd" id="23_timv0"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
@@ -21,6 +24,7 @@
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
+[ext_resource type="Script" path="res://scripts/ui/select_artifact_button.gd" id="56_1pv8i"]
 [ext_resource type="Script" path="res://scripts/ui/open_select_object_window_button.gd" id="56_51th4"]
 [ext_resource type="Texture2D" uid="uid://oqumf0ifuv1m" path="res://assets/ui/prev_button.png" id="56_75ttd"]
 [ext_resource type="Script" path="res://scripts/ui/select_artifact_window.gd" id="56_oke6g"]
@@ -121,9 +125,23 @@ events = [SubResource("InputEventKey_awmku")]
 
 [node name="viewer_scene" type="Node3D"]
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
+[node name="artifacts_controller" type="Node3D" parent="."]
 script = ExtResource("1_6cwju")
-_loader = NodePath("../ui_root/LoaderContainer")
+artifacts = Array[NodePath]([NodePath("altarpiece"), NodePath("autumn_jade"), NodePath("boreas"), NodePath("ding"), NodePath("polyxena"), NodePath("tiger_hat"), NodePath("vase")])
+
+[node name="altarpiece" parent="artifacts_controller" instance=ExtResource("2_5vg8u")]
+
+[node name="autumn_jade" parent="artifacts_controller" instance=ExtResource("3_1svix")]
+
+[node name="boreas" parent="artifacts_controller" instance=ExtResource("4_ca8gr")]
+
+[node name="ding" parent="artifacts_controller" instance=ExtResource("5_6kqj2")]
+
+[node name="polyxena" parent="artifacts_controller" instance=ExtResource("6_uc5gq")]
+
+[node name="tiger_hat" parent="artifacts_controller" instance=ExtResource("7_gbi7r")]
+
+[node name="vase" parent="artifacts_controller" instance=ExtResource("8_75gif")]
 
 [node name="light_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button", "connected_moving_light_controller")]
 visible = false
@@ -545,19 +563,6 @@ offset_right = 71.928
 offset_bottom = 375.624
 grow_horizontal = 2
 grow_vertical = 2
-
-pivot_offset = Vector2(75, 25)
-text = "Customize Lights"
-script = ExtResource("27_m6k8c")
-connected_lighting_controller = NodePath("../../moving_light_controller")
-
-[node name="light_widget_color_picker" type="ColorPicker" parent="ui_root" node_paths=PackedStringArray("movable_lights_controller")]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 478.0
-offset_right = 350.0
-offset_bottom = 1046.0
-
 scale = Vector2(0.75, 0.75)
 picker_shape = 2
 can_add_swatches = false
@@ -585,13 +590,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("33_ynflu")
 
-[node name="LoaderContainer" parent="ui_root" instance=ExtResource("22_bf14r")]
-visible = false
-layout_mode = 1
-offset_right = 0.0
-offset_bottom = 0.0
-mouse_filter = 2
-
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
 title = "Select Artifact"
@@ -617,8 +615,16 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="select_artifact_button" parent="Window/ScrollContainer/VBoxContainer" instance=ExtResource("23_iuohk")]
+[node name="select_artifact_button" type="Button" parent="Window/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent_window")]
+visible = false
 layout_mode = 2
+size_flags_horizontal = 3
+text = "DEMO TEXT
+"
+alignment = 0
+script = ExtResource("56_1pv8i")
+target_artifact_path = NodePath("../../../../artifacts_controller/altarpiece")
+parent_window = NodePath("../../..")
 
 [node name="save_screenshot_popup_window" type="FileDialog" parent="."]
 initial_position = 2

@@ -95,7 +95,7 @@ func _load_specular_weights(weights: Dictionary):
 	
 	if weights.get("stride") == 4 and weights.get("textures").size() >= 2:
 		# No conversion to RGBA is needed, Load upper and lower weights directly
-		for i in 2:
+		for i in range(0, 1):
 			var texIdx = weights["textures"][i]["index"]
 			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
 			_load_image_from_index(imgIdx, func(img):
