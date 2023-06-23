@@ -8,6 +8,9 @@ class_name EnvironmentController
 var loaded_scenes : Array[DisplayEnvironment]
 
 @export var connected_button : SelectEnvironmentButton
+@export var connected_customize_lighting_button : CustomizeLightingButton
+
+@export var connected_color_picker : LightColorPicker
 
 var selected_index : int = -1
 var selected_light : NewLightWidget
@@ -47,11 +50,14 @@ func preload_all_scenes():
 			dynamic_light = dynamic_light as NewLightWidget
 			dynamic_light.controller = self
 			dynamic_light.make_immaterial()
+			dynamic_light.init_widget()
 
 func open_scene(index : int):
 	# Hide the current scene
 	if selected_index >= 0 and selected_index < loaded_scenes.size():
 		loaded_scenes[selected_index].visible = false
+		select_light(null)
+		connected_customize_lighting_button.override_stop_customizing()
 	
 	# Show the new scene
 	if index >= 0 and index < loaded_scenes.size():
@@ -79,10 +85,15 @@ func begin_customizing_lights():
 	show_scene_lighting(selected_index)
 	
 func stop_customizing_lights():
+	select_light(null)
 	hide_scene_lighting(selected_index)
 
 func select_light(light : NewLightWidget):
 	if light == null:
+		if not connected_color_picker == null:
+			connected_color_picker.visible = false
 		return
 	
 	selected_light = light
+	if not connected_color_picker == null:
+		connected_color_picker.visible = true

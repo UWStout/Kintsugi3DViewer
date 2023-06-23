@@ -1,5 +1,7 @@
 extends Button
 
+class_name CustomizeLightingButton
+
 @export var connected_controller : EnvironmentController
 
 var is_pressed : bool = false
@@ -27,3 +29,7 @@ func _pressed():
 		text = "Customize Lights"
 		connected_controller.stop_customizing_lights()
 		pass
+
+func override_stop_customizing():
+	is_pressed = false
+	text = "Customize Lights"

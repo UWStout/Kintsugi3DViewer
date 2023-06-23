@@ -414,3 +414,9 @@ func make_material():
 	
 	$target_point/vertical.collision_layer = 2
 	$target_point/vertical.collision_mask = 2
+
+func init_widget():
+	set_distance_UTIL(distance)
+	set_horizontal_angle_UTIL(horizontal_angle)
+	set_vertical_angle_UTIL(vertical_angle)
+	set_color_UTIL(color)
