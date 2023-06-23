@@ -8,7 +8,7 @@ func fetch_artifacts() -> Array[ArtifactData]:
 
 func force_fetch_artifacts() -> Array[ArtifactData]:
 	push_error("Abstract function force_fetch_artifacts() called on ArtifactFetcher!")
-	return Array()
+	return []
 
 func fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	return await force_fetch_gltf(artifact)
