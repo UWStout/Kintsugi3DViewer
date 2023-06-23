@@ -1,18 +1,10 @@
 extends ColorPicker
 
-@export var movable_lights_controller : MovableLightingController
+class_name LightColorPicker
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+@export var environment_controller : EnvironmentController
 
 func _on_color_changed(color):
-	if not movable_lights_controller == null:
-		if not movable_lights_controller.selected_new_widget == null:
-			movable_lights_controller.selected_new_widget.change_color(color)
-		pass
+	if not environment_controller == null:
+		if not environment_controller.selected_light == null:
+			environment_controller.selected_light.change_color(color)

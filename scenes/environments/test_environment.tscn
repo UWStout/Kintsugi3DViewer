@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://nhadmfkkkpi"]
+
+[ext_resource type="Script" path="res://scripts/environment.gd" id="1_koh4i"]
+[ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="2_wbbdy"]
+
+[node name="test_environment" type="Node3D"]
+script = ExtResource("1_koh4i")
+environment_name = "Test Environment"
+
+[node name="world_geometry" type="Node3D" parent="."]
+
+[node name="floor" type="CSGBox3D" parent="world_geometry"]
+size = Vector3(15, 0.001, 15)
+
+[node name="podium" type="CSGCylinder3D" parent="world_geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+height = 1.0
+sides = 16
+
+[node name="artifact_root" type="Node3D" parent="."]
+
+[node name="lighting" type="Node3D" parent="."]
+
+[node name="statics" type="Node3D" parent="lighting"]
+visible = false
+
+[node name="mainlight" type="DirectionalLight3D" parent="lighting/statics"]
+transform = Transform3D(-0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, 0.5, -0.5, 0, 0, 0)
+
+[node name="backlight" type="DirectionalLight3D" parent="lighting/statics"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+light_energy = 0.25
+
+[node name="dynamics" type="Node3D" parent="lighting"]
+
+[node name="new_light_widget" parent="lighting/dynamics" instance=ExtResource("2_wbbdy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+horizontal_angle = 270.0
+vertical_angle = 10.0
+color = Color(0.670588, 0.443137, 0.0352941, 1)
