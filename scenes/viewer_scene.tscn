@@ -1,14 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=48 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
-[ext_resource type="PackedScene" uid="uid://bb1s1327i87sm" path="res://scenes/artifacts/altarpiece.tscn" id="2_5vg8u"]
-[ext_resource type="PackedScene" uid="uid://cb1g5turiyauj" path="res://scenes/artifacts/autumn_jade.tscn" id="3_1svix"]
-[ext_resource type="PackedScene" uid="uid://dfama7c4fibjl" path="res://scenes/artifacts/boreas.tscn" id="4_ca8gr"]
-[ext_resource type="PackedScene" uid="uid://ds68a0mcf3631" path="res://scenes/artifacts/ding.tscn" id="5_6kqj2"]
-[ext_resource type="PackedScene" uid="uid://dwwlv42dcudt6" path="res://scenes/artifacts/polyxena.tscn" id="6_uc5gq"]
-[ext_resource type="PackedScene" uid="uid://bylxii3alupxh" path="res://scenes/artifacts/tiger_hat.tscn" id="7_gbi7r"]
-[ext_resource type="PackedScene" uid="uid://ko2nmdk51x58" path="res://scenes/artifacts/vase.tscn" id="8_75gif"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_controller.gd" id="9_r2p7d"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="10_d6id1"]
 [ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
@@ -22,7 +15,6 @@
 [ext_resource type="Script" path="res://scripts/ui/light_widget_color_picker.gd" id="28_bg4xr"]
 [ext_resource type="PackedScene" uid="uid://c8tb8din2btal" path="res://scenes/environments/demo_environment.tscn" id="33_80o4d"]
 [ext_resource type="Script" path="res://scripts/ui/select_environment_button.gd" id="33_ynflu"]
-[ext_resource type="Script" path="res://scripts/resources/resource_fetcher.gd" id="36_84h1c"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
@@ -127,25 +119,9 @@ events = [SubResource("InputEventKey_awmku")]
 
 [node name="viewer_scene" type="Node3D"]
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_fetcher", "_loader")]
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
 script = ExtResource("1_6cwju")
-_fetcher = NodePath("../ResourceFetcher")
 _loader = NodePath("../ui_root/LoaderContainer")
-
-[node name="altarpiece" parent="artifacts_controller" instance=ExtResource("2_5vg8u")]
-visible = false
-
-[node name="autumn_jade" parent="artifacts_controller" instance=ExtResource("3_1svix")]
-
-[node name="boreas" parent="artifacts_controller" instance=ExtResource("4_ca8gr")]
-
-[node name="ding" parent="artifacts_controller" instance=ExtResource("5_6kqj2")]
-
-[node name="polyxena" parent="artifacts_controller" instance=ExtResource("6_uc5gq")]
-
-[node name="tiger_hat" parent="artifacts_controller" instance=ExtResource("7_gbi7r")]
-
-[node name="vase" parent="artifacts_controller" instance=ExtResource("8_75gif")]
 
 [node name="light_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button", "connected_moving_light_controller")]
 visible = false
@@ -574,10 +550,10 @@ anchor_left = 0.022
 anchor_top = 0.665
 anchor_right = 0.211
 anchor_bottom = 0.962
-offset_left = 47.656
-offset_top = 24.08
-offset_right = 95.928
-offset_bottom = 399.624
+offset_left = 79.656
+offset_top = 40.08
+offset_right = 111.928
+offset_bottom = 415.624
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -646,9 +622,6 @@ parent_window = NodePath("../../..")
 initial_position = 2
 size = Vector2i(1152, 648)
 access = 2
-
-[node name="ResourceFetcher" type="Node" parent="."]
-script = ExtResource("36_84h1c")
 
 [connection signal="item_selected" from="ui_root/select_lighting_preset_option_ button" to="ui_root/select_lighting_preset_option_ button" method="_on_item_selected"]
 [connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]
