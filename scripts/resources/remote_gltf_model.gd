@@ -30,17 +30,7 @@ func _ready():
 
 func load_artifact():
 	obj = await fetcher.fetch_gltf(artifact)
-	
-	if obj == null:
-		push_error("Failed to fetch glTF!")
-		return
-	
 	var scene = obj.generate_scene()
-	
-	if scene == null:
-		push_error("Failed to load glTF into scene!")
-		return
-	
 	add_child(scene)
 	
 	# TODO: Support multiple materials by scanning entire subtree/glTF data to find meshes

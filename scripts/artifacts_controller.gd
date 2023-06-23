@@ -1,78 +1,44 @@
 extends Node3D
+
 class_name ArtifactsController
 
-signal artifacts_refreshed(artifacts: Array[ArtifactData])
-
-@export var _fetcher: ResourceFetcher
-@export var _loader: ModelLoaderProgress
+@export var artifacts : Array[NodePath]
 
 var current_index : int = 0
-var artifacts: Array[ArtifactData]
-
-var loaded_artifact: RemoteGltfModel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not is_instance_valid(_fetcher):
-		_fetcher = GlobalFetcher
-		if not is_instance_valid(_fetcher):
-			push_error("Artifacts Controller at node %s could not find a valid resource fetcher!" % get_path())
-			return
-	
-	await refresh_artifacts()
-	if not artifacts.is_empty():
-		display_artifact(0)
+	current_index = 0
+	display_artifact(0)
 
-
-func refresh_artifacts():
-	artifacts = await _fetcher.fetch_artifacts()
-	artifacts_refreshed.emit(artifacts)
-	return artifacts
-
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
 
 func display_artifact(index : int):
-	if index < artifacts.size():
-		display_artifact_data(artifacts[index])
-	pass
-
-
-func display_artifact_data(artifact: ArtifactData):
-	if is_instance_valid(loaded_artifact):
-		loaded_artifact.queue_free()
+	if not current_index < 0 and not current_index >= artifacts.size() and not artifacts[current_index] == null:
+		var prev_artifact = get_node(artifacts[current_index])
+		prev_artifact.visible = false
+		prev_artifact.deselect_artifact()
 	
-	loaded_artifact = RemoteGltfModel.create(artifact)
-	add_child(loaded_artifact)
-	loaded_artifact.load_artifact()
-	loaded_artifact.load_completed.connect(_on_model_load_complete)
-	loaded_artifact.load_progress.connect(_on_model_load_progress)
-	_on_model_begin_load()
+	if not index < 0 and not index >= artifacts.size() and not artifacts[index] == null:
+		var new_artifact = get_node(artifacts[index])
+		new_artifact.visible = true
+		new_artifact.select_artifact()
 
+	current_index = index
 
 func display_next_artifact():
-	current_index = (current_index + 1) % artifacts.size()
-	display_artifact(current_index)
-	pass
-
+	var new_index = (current_index + 1) % artifacts.size()
+	display_artifact(new_index)
 
 func display_previous_artifact():
-	current_index -= 1
-	if current_index < 0:
-		current_index = artifacts.size() - 1
-	
-	display_artifact(current_index)
-	pass
+	var new_index = (current_index - 1) % artifacts.size()
+	if(new_index < 0):
+		new_index = artifacts.size()-1
+	display_artifact(new_index)
 
-
-func _on_model_begin_load():
-	if is_instance_valid(_loader):
-		_loader.start_loading()
-
-
-func _on_model_load_complete():
-	if is_instance_valid(_loader):
-		_loader.end_loading()
-
-
-func _on_model_load_progress(progress: float):
-	if is_instance_valid(_loader):
-		_loader.update_progress(progress)
+func display_this_artifact(artifact_node_path : NodePath):
+	var string_name := artifact_node_path.get_name(artifact_node_path.get_name_count() - 1)
+	var search_path := NodePath(string_name)
+	display_artifact(artifacts.find(search_path))
