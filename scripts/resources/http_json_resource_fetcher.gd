@@ -66,14 +66,11 @@ func force_fetch_image(url: String) -> Image:
 	var data = response[3]
 	var headers = response[2]
 	
-	print("Received HTTP Headers: %s" % [headers])
-	
 	var type: String
 	for header in headers:
 		if header.to_lower().begins_with("content-type:"):
 			type = header.get_slice(":", 1)
 			type = type.lstrip(" ")
-	print("Parsed Content-Type: %s" % type)
 	
 	match type:
 		"image/jpeg":
