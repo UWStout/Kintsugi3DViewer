@@ -3,10 +3,10 @@ extends Node3D
 
 class_name NewLightWidget
 
-@export_range(0, 10) var distance : float = 3 : set = set_distance_UTIL
-@export_range(0, 360) var horizontal_angle : float = 0 : set = set_horizontal_angle_UTIL
-@export_range(-90, 90) var vertical_angle : float = 0 : set = set_vertical_angle_UTIL
-@export var color : Color = Color(1,1,1,1) : set = set_color_UTIL
+@export_range(0, 10) var distance : float = 3 : set = _set_distance_UTIL
+@export_range(0, 360) var horizontal_angle : float = 0 : set = _set_horizontal_angle_UTIL
+@export_range(-90, 90) var vertical_angle : float = 0 : set = _set_vertical_angle_UTIL
+@export var color : Color = Color(1,1,1,1) : set = _set_color_UTIL
 
 var widget_distance : float = 0
 var widget_horizontal_angle : float = 0
@@ -30,6 +30,8 @@ var was_grabbed : bool = false
 @onready var vertical_track = $target_point/vertical/track
 
 @onready var light = $target_point/light
+
+var max_distance : float = 20
 
 # 0 = Target Point
 # 1 = Distance Axis
@@ -126,7 +128,6 @@ func get_selected_widget_part():
 		return null
 
 func _input(event):
-	
 	# if this widget is not selected, do nothing
 	if controller == null or not controller.selected_light == self:
 		return
@@ -134,11 +135,15 @@ func _input(event):
 	if controller.scene_camera == null:
 		return
 	
+	controller.scene_camera.do_move_in_frame = false
+	
 	# if the selected part of this widget is outside of the camera's view, do nothing
 	if not controller.scene_camera.camera.is_position_in_frustum(get_selected_widget_part().global_position):
-		print("The selected part is outside of the screen view. It cannot be manipulated!")
-		controller.select_light(null)
-		return
+		#print("The selected part is outside of the screen view. It cannot be manipulated!")
+		#update_distance(widget_distance - 0.01)
+		#controller.select_light(null)
+		#return
+		pass
 	
 	# We only want to manipulate the widget if the cursor is being dragged
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
@@ -164,7 +169,7 @@ func _input(event):
 	# If the event is a mouse movement, and the mouse is being dragged, manipulate the widget
 	if (event is InputEventMouseMotion or event is InputEventScreenDrag) and is_dragging and was_grabbed:
 		# If we are manipulating the widget we don't want the camera to rotate or move
-		controller.scene_camera.do_move_in_frame = false
+		#controller.scene_camera.do_move_in_frame = false
 		
 		if selected_widget_part == 0:
 			handle_target_point(event.position)
@@ -179,6 +184,8 @@ func handle_target_point(event_pos : Vector2):
 	# The vector pointing from the initial selected position to the mouse cursor
 	var delta_vec = event_pos - selected_initial_position_screen
 	
+	#get_snapped_world_position(event_pos)
+	
 	var target_one_screen_pos = controller.scene_camera.camera.unproject_position(selected_widget_part_initial_position_world)
 	# The world position of a point one meter to the right of the target_point
 	# (relative to the camera). Used to get a scale for moving the point
@@ -189,7 +196,24 @@ func handle_target_point(event_pos : Vector2):
 	
 	var world_offset = ((controller.scene_camera.camera.global_transform.basis.x * delta_vec.x) + (controller.scene_camera.camera.global_transform.basis.y * -delta_vec.y)) / scale_factor
 	
-	target_point.global_position = selected_widget_part_initial_position_world + world_offset
+	var snapped_world_pos = get_snapped_world_position(event_pos)
+	
+	if snapped_world_pos != null:
+		target_point.global_position = snapped_world_pos
+	else:
+		target_point.global_position = selected_widget_part_initial_position_world + world_offset
+
+func get_snapped_world_position(event_pos : Vector2):
+	var space_state = get_world_3d().direct_space_state
+	var mouse_pos_world = controller.scene_camera.camera.project_ray_origin(event_pos)
+	var ray_end = mouse_pos_world + controller.scene_camera.camera.project_ray_normal(event_pos) * 30
+	var ray_query = PhysicsRayQueryParameters3D.create(mouse_pos_world, ray_end, 1)
+	var ray_result = space_state.intersect_ray(ray_query)
+	
+	if(ray_result):
+		return ray_result["position"]
+	else:
+		return null
 
 func handle_distance_axis(event_pos : Vector2):
 	# The vector pointing from the initial selected position to the mouse cursor
@@ -232,8 +256,11 @@ func handle_distance_axis(event_pos : Vector2):
 	update_direction_track()
 
 func handle_horizontal_axis(event_pos : Vector2):
+	# The distance of the horizontal plane to the target point on the Y-axis
+	var y_dist = horizontal_axis.global_position.y - target_point.global_position.y
+	
 	# The position of the target_point in screen space
-	var target_point_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position)
+	var target_point_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position + Vector3(0, y_dist, 0))
 	# The position of the target_point, offset by 1 meter in the world forward direction,
 	# in screen space
 	var target_point_world_forward_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position + Vector3.FORWARD)
@@ -287,13 +314,13 @@ func handle_vertical_axis(event_pos : Vector2):
 	update_vertical_track()
 
 func update_distance(new_distance : float):
-	widget_distance = new_distance
+	widget_distance = clampf(new_distance, 0, max_distance)
 	
 	# Because @onready variables aren't ready early enough
-	$target_point/distance.position = Vector3(0, 0, new_distance)
-	$target_point/horizontal.position = Vector3(0, 0, new_distance)
-	$target_point/vertical.position = Vector3(0, 0, new_distance)
-	$target_point/light.position = Vector3(0, 0, new_distance)
+	$target_point/distance.position = Vector3(0, 0, widget_distance)
+	$target_point/horizontal.position = Vector3(0, 0, widget_distance)
+	$target_point/vertical.position = Vector3(0, 0, widget_distance)
+	$target_point/light.position = Vector3(0, 0, widget_distance)
 	
 	#distance_axis.position = Vector3(0, 0, new_distance)
 	#horizontal_axis.position = Vector3(0, 0, new_distance)
@@ -362,19 +389,19 @@ func show_widget():
 	horizontal_axis.visible = true
 	vertical_axis.visible = true
 
-func set_distance_UTIL(dist : float):
+func _set_distance_UTIL(dist : float):
 	distance = dist
 	update_distance(dist)
 
-func set_horizontal_angle_UTIL(angle : float):
+func _set_horizontal_angle_UTIL(angle : float):
 	horizontal_angle = angle
 	update_rotation(deg_to_rad(angle), widget_vertical_angle)
 
-func set_vertical_angle_UTIL(angle : float):
+func _set_vertical_angle_UTIL(angle : float):
 	vertical_angle = angle
 	update_rotation(widget_horizontal_angle, deg_to_rad(angle))
 
-func set_color_UTIL(col : Color):
+func _set_color_UTIL(col : Color):
 	color = col
 	change_color(col)
 
@@ -417,7 +444,7 @@ func make_material():
 	$target_point/vertical.collision_mask = 2
 
 func init_widget():
-	set_distance_UTIL(distance)
-	set_horizontal_angle_UTIL(horizontal_angle)
-	set_vertical_angle_UTIL(vertical_angle)
-	set_color_UTIL(color)
+	_set_distance_UTIL(distance)
+	_set_horizontal_angle_UTIL(horizontal_angle)
+	_set_vertical_angle_UTIL(vertical_angle)
+	_set_color_UTIL(color)

@@ -58,6 +58,8 @@ func load_artifact():
 
 func _on_material_load_complete():
 	load_completed.emit()
+	
+	obj.document.write_to_filesystem(obj.state, "user://downloads/exported_gltf.glb")
 
 
 func _on_material_load_progress(complete: int, total: int):
