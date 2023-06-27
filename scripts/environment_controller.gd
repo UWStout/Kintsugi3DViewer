@@ -87,11 +87,15 @@ func begin_customizing_lights():
 func stop_customizing_lights():
 	select_light(null)
 	hide_scene_lighting(selected_index)
+	
+	if not connected_customize_lighting_button == null:
+		connected_customize_lighting_button.override_stop_customizing()
 
 func select_light(light : NewLightWidget):
 	if light == null:
 		if not connected_color_picker == null:
 			connected_color_picker.visible = false
+		selected_light = null
 		return
 	
 	selected_light = light

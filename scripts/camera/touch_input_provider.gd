@@ -37,6 +37,8 @@ func _handle_input_event(event):
 	if not input_enabled:
 		return
 	
+	var do_raycast = false
+	
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			var data = FingerData.new()
@@ -46,6 +48,8 @@ func _handle_input_event(event):
 			if fingers.is_empty():
 				primary_finger = event.index
 			fingers[event.index] = data
+			
+			do_raycast = true
 		else:
 			fingers.erase(event.index)
 		
@@ -91,3 +95,6 @@ func _handle_input_event(event):
 				current_mode = Mode.DRAG
 			elif move_grade <= -grace_period:
 				current_mode = Mode.ZOOM
+				
+	if do_raycast:
+		camera.cast_ray_to_world()
