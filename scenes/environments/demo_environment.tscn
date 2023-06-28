@@ -10,26 +10,32 @@ environment_name = "Demo Environment"
 [node name="world_geometry" type="Node3D" parent="."]
 
 [node name="floor" type="CSGBox3D" parent="world_geometry"]
+use_collision = true
 size = Vector3(15, 0.001, 15)
 
 [node name="wall_north" type="CSGBox3D" parent="world_geometry"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.27835e-07, 2.5, -7.5)
+use_collision = true
 size = Vector3(0.001, 5, 15)
 
 [node name="wall_east" type="CSGBox3D" parent="world_geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2.5, 0)
+use_collision = true
 size = Vector3(0.001, 5, 15)
 
 [node name="wall_south" type="CSGBox3D" parent="world_geometry"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.27835e-07, 2.5, 7.5)
+use_collision = true
 size = Vector3(0.001, 5, 15)
 
 [node name="wall_west" type="CSGBox3D" parent="world_geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.5, 0)
+use_collision = true
 size = Vector3(0.001, 5, 15)
 
 [node name="podium" type="CSGCylinder3D" parent="world_geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+use_collision = true
 height = 1.0
 sides = 16
 
@@ -52,8 +58,8 @@ light_energy = 0.25
 [node name="widget_one" parent="lighting/dynamics" instance=ExtResource("2_r13xv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 distance = 4.0
-horizontal_angle = 45.0
-vertical_angle = -30.0
+horizontal_angle = 75.0
+vertical_angle = -15.0
 
 [node name="widget_two" parent="lighting/dynamics" instance=ExtResource("2_r13xv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

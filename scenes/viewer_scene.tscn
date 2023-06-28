@@ -1,16 +1,12 @@
-[gd_scene load_steps=49 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=44 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
-[ext_resource type="Script" path="res://scripts/lighting/lighting_controller.gd" id="9_r2p7d"]
-[ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="10_d6id1"]
 [ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
 [ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="17_bden0"]
-[ext_resource type="Script" path="res://scripts/ui/select_lighting_preset_option_ button.gd" id="23_timv0"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
-[ext_resource type="Script" path="res://scripts/lighting/moving_light_controller.gd" id="26_rrpov"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
 [ext_resource type="Script" path="res://scripts/ui/light_widget_color_picker.gd" id="28_bg4xr"]
 [ext_resource type="Script" path="res://scripts/ui/save_screenshot_popup_window.gd" id="29_4k4a7"]
@@ -29,13 +25,6 @@
 [ext_resource type="Script" path="res://scripts/ui/world_lighting_toggle_button.gd" id="62_yowdy"]
 [ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/ui/toggle_annotations_on.png" id="67_wwbkf"]
 [ext_resource type="Script" path="res://scripts/ui/annotations_toggle_button.gd" id="68_iinhw"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whdku"]
-transparency = 1
-albedo_color = Color(1, 1, 1, 0.168627)
-emission_enabled = true
-emission = Color(1, 1, 1, 1)
-emission_energy_multiplier = 16.0
 
 [sub_resource type="Sky" id="Sky_vfwqk"]
 
@@ -123,184 +112,6 @@ events = [SubResource("InputEventKey_awmku")]
 [node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
 script = ExtResource("1_6cwju")
 _loader = NodePath("../ui_root/LoaderContainer")
-
-[node name="light_controller" type="Node3D" parent="." node_paths=PackedStringArray("connected_button", "connected_moving_light_controller")]
-visible = false
-script = ExtResource("9_r2p7d")
-connected_button = NodePath("../ui_root/select_lighting_preset_option_ button")
-connected_moving_light_controller = NodePath("../moving_light_controller")
-
-[node name="lighting_controller@lighting_preset_default" type="Node3D" parent="light_controller"]
-script = ExtResource("10_d6id1")
-preset_name = "Default"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_default@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_default"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-
-[node name="lighting_controllerlighting_preset_defaultbacklight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_default"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-
-[node name="lighting_controller@lighting_preset_default@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_default"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-
-[node name="lighting_controller@lighting_preset_soft" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Soft"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_soft@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_soft"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-light_energy = 0.25
-
-[node name="lighting_controller@lighting_preset_soft@backlight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_soft"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-light_energy = 0.05
-
-[node name="lighting_controller@lighting_preset_soft@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_soft"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-light_energy = 0.05
-
-[node name="lighting_controller@lighting_preset_soft_2" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Soft 2"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_soft_2@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_soft_2"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-light_color = Color(1, 0.937255, 0.858824, 1)
-light_energy = 0.15
-
-[node name="lighting_controller@lighting_preset_soft_2@backlight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_soft_2"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-light_color = Color(1, 0.937255, 0.858824, 1)
-light_energy = 0.05
-
-[node name="lighting_controller@lighting_preset_soft_2@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_soft_2"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-light_color = Color(1, 0.937255, 0.858824, 1)
-light_energy = 0.05
-
-[node name="lighting_controller@lighting_preset_warm" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Warm"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_warm@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_warm"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-light_color = Color(1, 0.917647, 0.811765, 1)
-light_energy = 0.75
-
-[node name="lighting_controller@lighting_preset_warm@backlight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_warm"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-light_color = Color(1, 0.917647, 0.811765, 1)
-light_energy = 0.25
-
-[node name="lighting_controller@lighting_preset_warm@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_warm"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-light_color = Color(1, 0.917647, 0.811765, 1)
-light_energy = 0.25
-
-[node name="lighting_controller@lighting_preset_cool" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Cool"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_cool@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_cool"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-light_color = Color(0.933333, 0.980392, 0.988235, 1)
-light_energy = 0.75
-
-[node name="lighting_controller@lighting_preset_cool@backlight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_cool"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-light_color = Color(0.933333, 0.980392, 0.988235, 1)
-light_energy = 0.25
-
-[node name="lighting_controller@lighting_preset_cool@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_cool"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-light_color = Color(0.933333, 0.980392, 0.988235, 1)
-light_energy = 0.25
-
-[node name="lighting_controller@lighting_preset_chromatic" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Chromatic"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_chromatic@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_chromatic"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-light_color = Color(1, 0, 0, 1)
-light_energy = 0.75
-
-[node name="lighting_controller@lighting_preset_chromatic@backlight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_chromatic"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-light_color = Color(0, 1, 0, 1)
-
-[node name="lighting_controller@lighting_preset_chromatic@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_chromatic"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-light_color = Color(0, 0, 0.988235, 1)
-
-[node name="lighting_controller@lighting_preset_red_and_blue" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Red & Blue"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_red_and_blue@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_red_and_blue"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-light_color = Color(1, 0, 0, 1)
-light_energy = 0.75
-
-[node name="lighting_controller@lighting_preset_red_and_blue@backlight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_red_and_blue"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-light_color = Color(0.572549, 0, 0.356863, 1)
-light_energy = 0.5
-
-[node name="lighting_controller@lighting_preset_red_and_blue@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_red_and_blue"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-light_color = Color(0, 0, 0.988235, 1)
-
-[node name="lighting_controller@lighting_preset_darkroom" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Darkroom"
-is_customizable = true
-
-[node name="lighting_controller@lighting_preset_darkroom@main_light" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_darkroom"]
-transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
-light_color = Color(1, 0, 0, 1)
-light_energy = 0.75
-
-[node name="lighting_controller@lighting_preset_darkroom@backlight_1" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_darkroom"]
-transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
-light_color = Color(1, 0.196078, 0.196078, 1)
-light_energy = 0.2
-
-[node name="lighting_controller@lighting_preset_darkroom@backlight_2" type="DirectionalLight3D" parent="light_controller/lighting_controller@lighting_preset_darkroom"]
-transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)
-light_color = Color(0.196078, 0.196078, 0.196078, 1)
-light_energy = 0.05
-
-[node name="lighting_controller@lighting_preset_empty" type="Node3D" parent="light_controller"]
-visible = false
-script = ExtResource("10_d6id1")
-preset_name = "Empty"
-
-[node name="moving_light_controller" type="Node3D" parent="." node_paths=PackedStringArray("camera")]
-script = ExtResource("26_rrpov")
-camera = NodePath("../Camera")
-
-[node name="CSGTorus3D" type="CSGTorus3D" parent="moving_light_controller"]
-visible = false
-inner_radius = 4.95
-outer_radius = 5.0
-sides = 64
-ring_sides = 16
-material = SubResource("StandardMaterial3D_whdku")
 
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button", "connected_customize_lighting_button", "connected_color_picker")]
 script = ExtResource("12_acvmt")
@@ -461,24 +272,6 @@ icon = ExtResource("67_wwbkf")
 expand_icon = true
 script = ExtResource("68_iinhw")
 
-[node name="select_lighting_preset_option_ button" type="OptionButton" parent="ui_root"]
-visible = false
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.783
-anchor_top = 0.039
-anchor_right = 0.913
-anchor_bottom = 0.116
-offset_left = -0.0160522
-offset_top = -0.272001
-offset_right = 0.223999
-offset_bottom = -0.167999
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(75, 25)
-script = ExtResource("23_timv0")
-
 [node name="customize_lighting_button" type="Button" parent="ui_root" node_paths=PackedStringArray("connected_controller")]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
@@ -547,16 +340,16 @@ save_window = NodePath("../../save_screenshot_popup_window")
 
 [node name="light_widget_color_picker" type="ColorPicker" parent="ui_root" node_paths=PackedStringArray("environment_controller")]
 visible = false
+custom_minimum_size = Vector2(290, 264)
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.022
-anchor_top = 0.665
+anchor_top = 0.656
 anchor_right = 0.211
-anchor_bottom = 0.962
-offset_left = 143.656
-offset_top = 72.08
-offset_right = 143.928
-offset_bottom = 447.624
+anchor_bottom = 0.961
+offset_left = 41.0
+offset_top = 7.91199
+offset_right = 79.928
+offset_bottom = 74.272
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -627,7 +420,6 @@ size = Vector2i(1152, 648)
 access = 2
 script = ExtResource("29_4k4a7")
 
-[connection signal="item_selected" from="ui_root/select_lighting_preset_option_ button" to="ui_root/select_lighting_preset_option_ button" method="_on_item_selected"]
 [connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]
 [connection signal="item_selected" from="ui_root/select_environment_button" to="ui_root/select_environment_button" method="_on_item_selected"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
