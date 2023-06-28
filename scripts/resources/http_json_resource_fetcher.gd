@@ -1,7 +1,7 @@
 extends ResourceFetcher
 
 #TODO: Temporary; idealy this should be fetched at runtime from some sort of user preferences object
-var server_root: String = "http://chviewer.jbuelow.com/" # Test server
+var server_root: String = "https://chviewer.jbuelow.com/" # Test server
 var index_filepath = "index.json"
 
 var raw_data_cache: Variant

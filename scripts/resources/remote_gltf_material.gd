@@ -54,6 +54,7 @@ func load(parent: Node):
 		)
 	
 	# Load textures stored in material extras data
+	# TODO: If no IBR extra data is found, Use a standard shader
 	if material.has("extras"):
 		var extras = material.get("extras")
 		
@@ -224,5 +225,6 @@ func _basis_csv_to_image(in_csv: Array) -> Image:
 				data.append(float(red[i + 1]))
 				data.append(float(green[i + 1]))
 				data.append(float(blue[i + 1]))
+	
 	
 	return Image.create_from_data(width, in_csv.size() / 3, false, Image.FORMAT_RGBF, data.to_byte_array())
