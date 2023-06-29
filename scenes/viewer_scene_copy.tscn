@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_a50l3"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="2_fwj16"]
 [ext_resource type="Script" path="res://scripts/lighting/moving_light_controller.gd" id="3_ltsmd"]
-[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="4_5mp82"]
+[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="4_5mp82"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="5_lliab"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="6_nupv4"]
 [ext_resource type="Script" path="res://scripts/ui/open_select_object_window_button.gd" id="7_hsklm"]

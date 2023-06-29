@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://crv8cwdpvreao"]
-
-[ext_resource type="Texture2D" uid="uid://dmayk1cmvl8b6" path="res://icon.svg" id="1_wr7lh"]
-[ext_resource type="Script" path="res://scripts/ui/artifact_button.gd" id="2_622lj"]
-
-[node name="ArtifactButton" type="Button"]
-text = "Load Artifact X"
-icon = ExtResource("1_wr7lh")
-script = ExtResource("2_622lj")
