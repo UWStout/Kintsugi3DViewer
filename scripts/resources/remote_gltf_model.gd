@@ -6,7 +6,6 @@ signal load_progress(estimation: float)
 
 @export var artifactGltfUrl: String
 
-@export var shader: Shader = preload("res://shaders/BasisIBR.gdshader")
 @export var fetcher: ResourceFetcher
 
 var artifact: ArtifactData = null
@@ -51,7 +50,6 @@ func load_artifact():
 	mat_loader.load_complete.connect(_on_material_load_complete)
 	mat_loader.load_progress.connect(_on_material_load_progress)
 	
-	mat_loader.shader = shader
 	mesh.set_surface_override_material(0, mat_loader)
 	mat_loader.load(mesh)
 
