@@ -12,7 +12,7 @@ var _resources_loaded: Dictionary
 
 const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader")
 const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader")
-const SHADER_STANDARD = preload("res://shaders/BasisIBR.gdshader") #TODO
+const SHADER_STANDARD = preload("res://shaders/standard_shader.gdshader")
 
 func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 	_fetcher = p_fetcher
@@ -84,7 +84,26 @@ func _load_ibr_common_textures(material: Dictionary):
 
 
 func _load_standard_material(material: Dictionary):
-	push_error("Standard material loading is not implemented yet.") #TODO
+	shader = SHADER_STANDARD
+	
+	if material.has("pbrMetallicRoughness"):
+		var pbr = material.get("pbrMetallicRoughness")
+		
+		if pbr.has("baseColorTexture"):
+			_resources_loaded["albedoMap"] = false
+			var image_index = pbr["baseColorTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "albedoMap")
+			)
+		
+		if pbr.has("metallicRoughnessTexture"):
+			_resources_loaded["ormMap"] = false
+			var image_index = pbr["metallicRoughnessTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "ormMap")
+			)
 
 
 func _load_specular_orm_ibr(material: Dictionary):
@@ -114,7 +133,7 @@ func _load_specular_orm_ibr(material: Dictionary):
 		
 		if extras.has("diffuseTexture"):
 			_resources_loaded["diffuseMap"] = false
-			var image_index = material["diffuseTexture"]["index"]
+			var image_index = material["extras"]["diffuseTexture"]["index"]
 			_load_image_from_index(image_index, func(img):
 				img = _process_image(img, Image.FORMAT_RGB8)
 				_load_shader_image(img, "diffuseMap")
@@ -220,19 +239,40 @@ func _load_image_from_index(image_index: int, callback: Callable):
 			_fetcher.fetch_image_callback(uri, callback)
 	elif image.has("bufferView"):
 		# Image in buffer
-		var image_data = _decode_buffer_image(image["bufferView"])
+		var image_data = _decode_buffer_image(_gltf.state.json["bufferViews"][image["bufferView"]], image)
 		callback.call(image_data)
 	else:
 		push_error("Image at index %s could not be decoded: No uri or bufferView!" % image_index)
 
 
-func _decode_buffer_image(bufferView: Dictionary) -> Image:
-	push_error("Unsupported operation: buffered material images are not supported yet") #TODO
-	return Image.new()
+func _decode_buffer_image(bufferView: Dictionary, p_image: Dictionary) -> Image:
+	print(bufferView)
+	var buffer = _gltf.state.json["buffers"][bufferView["buffer"]]
+	var data = Marshalls.base64_to_raw(buffer["uri"].get_slice(',', 1))
+	
+	var start = 0
+	if bufferView.has("byteOffset"):
+		start = bufferView["byteOffset"]
+	var end = start + bufferView["byteLength"]
+	
+	var viewData = data.slice(start, end)
+	
+	var o_image = Image.new()
+	match p_image["mimeType"]:
+		"image/jpeg":
+			o_image.load_jpg_from_buffer(data)
+		"image/png":
+			o_image.load_png_from_buffer(data)
+		"image/webp":
+			o_image.load_webp_from_buffer(data)
+		_:
+			push_error("Unrecognized image format received from server: '%s'" % p_image["mimeType"])
+	
+	return o_image
 
 
 func _decode_b64_image(uri: String) -> Image:
-	push_error("Unsupported operation: Base64 encoded material images are not supported yet") #TODO
+	print(uri)
 	return Image.new()
 
 
