@@ -10,6 +10,10 @@ var _parent: Node
 
 var _resources_loaded: Dictionary
 
+const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader")
+const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader")
+const SHADER_STANDARD = preload("res://shaders/BasisIBR.gdshader") #TODO
+
 func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 	_fetcher = p_fetcher
 	_gltf = p_gltf
@@ -17,6 +21,7 @@ func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 
 func load(parent: Node):
 	_parent = parent
+	_resources_loaded = {}
 	
 	if not _gltf.state.json.has("materials"):
 		return
@@ -29,10 +34,15 @@ func load(parent: Node):
 	var material_index = mesh.get("primitives")[0].get("material")
 	var material = _gltf.state.json.get("materials")[material_index]
 	
+	_load_common_textures(material)
 	if (material.has("extras") and
 	material["extras"].has_all(["basisFunctionsUri", "specularWeights"])):
 		# Is IBR
-		_load_specular_ibr(material)
+		_load_ibr_common_textures(material)
+		if material["extras"].has("roughnessTexture"):
+			_load_specular_ibr(material)
+		else:
+			_load_specular_orm_ibr(material)
 	else:
 		# Non-IBR, use standard shader
 		_load_standard_material(material)
@@ -41,11 +51,78 @@ func load(parent: Node):
 	load_progress.emit(progress[0], progress[1])
 
 
+# Loads textures common to all shader modes
+func _load_common_textures(material: Dictionary):
+	# Load normalMap from material
+	if material.has("normalTexture"):
+		_resources_loaded["normalMap"] = false
+		var image_index = material["normalTexture"]["index"]
+		_load_image_from_index(image_index, func(img):
+			img = _process_image(img, Image.FORMAT_RG8)
+			_load_shader_image(img, "normalMap")
+		)
+
+
+# Loads textures common to IBR shader modes
+func _load_ibr_common_textures(material: Dictionary):
+	# Load textures stored in material extras data
+	if material.has("extras"):
+		var extras = material.get("extras")
+		
+		if extras.has("basisFunctionsUri"):
+			_resources_loaded["basisFunctions"] = false
+			var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
+			_fetcher.fetch_csv_callback(uri, func(csv):
+				var img = _basis_csv_to_image(csv)
+				img = _process_image(img, Image.FORMAT_RGBF)
+				_load_shader_image(img, "basisFunctions")
+			)
+		
+		if extras.has("specularWeights"):
+			var weights = extras["specularWeights"]
+			_load_specular_weights(weights)
+
+
 func _load_standard_material(material: Dictionary):
 	push_error("Standard material loading is not implemented yet.") #TODO
 
 
+func _load_specular_orm_ibr(material: Dictionary):
+	shader = SHADER_ORM_IBR
+	
+	if material.has("pbrMetallicRoughness"):
+		var pbr = material.get("pbrMetallicRoughness")
+		
+		if pbr.has("baseColorTexture"):
+			_resources_loaded["albedoMap"] = false
+			var image_index = pbr["baseColorTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "albedoMap")
+			)
+		
+		if pbr.has("metallicRoughnessTexture"):
+			_resources_loaded["ormMap"] = false
+			var image_index = pbr["metallicRoughnessTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "ormMap")
+			)
+	
+	if material.has("extras"):
+		var extras = material.get("extras")
+		
+		if extras.has("diffuseTexture"):
+			_resources_loaded["diffuseMap"] = false
+			var image_index = material["diffuseTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "diffuseMap")
+			)
+
 func _load_specular_ibr(material: Dictionary):
+	shader = SHADER_IBR
+	
 	# Load diffuseMap and roughnessMap from pbr section of material
 	if material.has("pbrMetallicRoughness"):
 		var pbr = material.get("pbrMetallicRoughness")
@@ -66,17 +143,7 @@ func _load_specular_ibr(material: Dictionary):
 				_load_shader_image(img, "roughnessMap")
 			)
 	
-	# Load normalMap from material
-	if material.has("normalTexture"):
-		_resources_loaded["normalMap"] = false
-		var image_index = material["normalTexture"]["index"]
-		_load_image_from_index(image_index, func(img):
-			img = _process_image(img, Image.FORMAT_RG8)
-			_load_shader_image(img, "normalMap")
-		)
-	
 	# Load textures stored in material extras data
-	# TODO: If no IBR extra data is found, Use a standard shader
 	if material.has("extras"):
 		var extras = material.get("extras")
 		
@@ -95,19 +162,6 @@ func _load_specular_ibr(material: Dictionary):
 				img = _process_image(img, Image.FORMAT_RGB8)
 				_load_shader_image(img, "roughnessMap")
 			)
-		
-		if extras.has("basisFunctionsUri"):
-			_resources_loaded["basisFunctions"] = false
-			var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
-			_fetcher.fetch_csv_callback(uri, func(csv):
-				var img = _basis_csv_to_image(csv)
-				img = _process_image(img, Image.FORMAT_RGBF)
-				_load_shader_image(img, "basisFunctions")
-			)
-		
-		if extras.has("specularWeights"):
-			var weights = extras["specularWeights"]
-			_load_specular_weights(weights)
 
 
 func _load_specular_weights(weights: Dictionary):
