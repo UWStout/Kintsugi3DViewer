@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://scripts/artifact.gd" id="1_cphro"]
 [ext_resource type="ArrayMesh" uid="uid://dmh4n2nc1p42b" path="res://artifacts/AutumnJade/jade1model.obj" id="2_ovbv2"]
-[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_fkc4n"]
+[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_fkc4n"]
 [ext_resource type="Texture2D" uid="uid://c1fkdn5n6l15l" path="res://artifacts/AutumnJade/autumn-jade.png" id="4_ddggg"]
 [ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="5_jhshj"]
 [ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="6_ghp1f"]
-[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="7_olpru"]
+[ext_resource type="PackedScene" path="res://scenes/annotations/annotation_focuspoint.tscn" id="7_olpru"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tvbba"]
 render_priority = 0

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/artifact.gd" id="1_6f18c"]
 [ext_resource type="ArrayMesh" uid="uid://dydtjrpjttqvp" path="res://artifacts/Vase/180822_mia337_113283_OBJ.obj" id="2_jpwjw"]
-[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_vxhl7"]
+[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_vxhl7"]
 [ext_resource type="Texture2D" uid="uid://bjip8i24hixro" path="res://artifacts/Vase/basisFunctions.csv" id="4_25cf6"]
 [ext_resource type="Texture2D" uid="uid://b86cvnfk0w770" path="res://artifacts/Vase/diffuse.png" id="5_ja1ob"]
 [ext_resource type="Texture2D" uid="uid://d36k7i28y6wxu" path="res://artifacts/Vase/normal.png" id="6_6tfci"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://b3kpfqmmn07fa" path="res://artifacts/Vase/weights04-07.png" id="10_t5lmp"]
 [ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_d6dsa"]
 [ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_hl8t5"]
-[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_obv8j"]
+[ext_resource type="PackedScene" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_obv8j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64fob"]
 render_priority = 0

@@ -6,7 +6,7 @@ signal load_progress(estimation: float)
 
 @export var artifactGltfUrl: String
 
-@export var shader: Shader = preload("res://BasisIBR.gdshader")
+@export var shader: Shader = preload("res://shaders/BasisIBR.gdshader")
 @export var fetcher: ResourceFetcher
 
 var artifact: ArtifactData = null

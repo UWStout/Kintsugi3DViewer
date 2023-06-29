@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://kknu2ud7ttik"]
-
-[ext_resource type="PackedScene" uid="uid://dplfu186i7dl4" path="res://guan-yu.glb" id="1_emjit"]
-[ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_1mqle"]
-
-[node name="guan-yu" instance=ExtResource("1_emjit")]
-
-[node name="kuan-yu-decimated2-safetexcoords" parent="." index="0"]
-surface_material_override/0 = ExtResource("2_1mqle")

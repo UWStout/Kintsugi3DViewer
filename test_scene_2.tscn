@@ -1,13 +1,13 @@
 [gd_scene load_steps=14 format=3 uid="uid://biunck6grf0wh"]
 
-[ext_resource type="ArrayMesh" uid="uid://ick0frjrcmtm" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_3g80q"]
-[ext_resource type="Material" uid="uid://b0nr4cljly10u" path="res://guan-yu-orm.tres" id="2_6ehtn"]
-[ext_resource type="Material" uid="uid://jg334iq333p" path="res://guan-yu.tres" id="2_ab3ts"]
-[ext_resource type="Shader" path="res://reverse_engineering.gdshader" id="3_urs41"]
+[ext_resource type="ArrayMesh" path="res://kuan-yu-recentered-for-unity-2.obj" id="1_3g80q"]
+[ext_resource type="Material" path="res://guan-yu-orm.tres" id="2_6ehtn"]
+[ext_resource type="Material" path="res://guan-yu.tres" id="2_ab3ts"]
+[ext_resource type="Shader" path="res://shaders/reverse_engineering.gdshader" id="3_urs41"]
 [ext_resource type="Texture2D" uid="uid://6a1mpov6q6do" path="res://Stonewall_Ref_lowerres_pan.hdr" id="3_y30mb"]
-[ext_resource type="Texture2D" uid="uid://r2hrdonyhxqk" path="res://albedo.png" id="4_bqnh4"]
-[ext_resource type="Texture2D" uid="uid://ctsrnc288sbee" path="res://orm.png" id="5_i56t2"]
-[ext_resource type="Texture2D" uid="uid://bxnsft15p026l" path="res://normal.png" id="6_etugg"]
+[ext_resource type="Texture2D" path="res://albedo.png" id="4_bqnh4"]
+[ext_resource type="Texture2D" path="res://orm.png" id="5_i56t2"]
+[ext_resource type="Texture2D" path="res://normal.png" id="6_etugg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wo4df"]
 albedo_texture = ExtResource("4_bqnh4")
