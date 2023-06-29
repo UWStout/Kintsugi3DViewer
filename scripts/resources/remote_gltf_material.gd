@@ -8,6 +8,8 @@ var _fetcher: ResourceFetcher
 var _gltf: GLTFObject
 var _parent: Node
 
+var _resources_loaded: Dictionary
+
 func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 	_fetcher = p_fetcher
 	_gltf = p_gltf
@@ -27,11 +29,29 @@ func load(parent: Node):
 	var material_index = mesh.get("primitives")[0].get("material")
 	var material = _gltf.state.json.get("materials")[material_index]
 	
+	if (material.has("extras") and
+	material["extras"].has_all(["basisFunctionsUri", "specularWeights"])):
+		# Is IBR
+		_load_specular_ibr(material)
+	else:
+		# Non-IBR, use standard shader
+		_load_standard_material(material)
+	
+	var progress = _get_load_progress()
+	load_progress.emit(progress[0], progress[1])
+
+
+func _load_standard_material(material: Dictionary):
+	push_error("Standard material loading is not implemented yet.") #TODO
+
+
+func _load_specular_ibr(material: Dictionary):
 	# Load diffuseMap and roughnessMap from pbr section of material
 	if material.has("pbrMetallicRoughness"):
 		var pbr = material.get("pbrMetallicRoughness")
 		
 		if pbr.has("baseColorTexture"):
+			_resources_loaded["diffuseMap"] = false
 			var image_index = pbr["baseColorTexture"]["index"]
 			_load_image_from_index(image_index, func(img):
 				img = _process_image(img, Image.FORMAT_RGB8)
@@ -39,6 +59,7 @@ func load(parent: Node):
 			)
 		
 		if pbr.has("metallicRoughnessTexture"):
+			_resources_loaded["roughnessMap"] = false
 			var image_index = pbr["metallicRoughnessTexture"]["index"]
 			_load_image_from_index(image_index, func(img):
 				img = _process_image(img, Image.FORMAT_R8)
@@ -47,6 +68,7 @@ func load(parent: Node):
 	
 	# Load normalMap from material
 	if material.has("normalTexture"):
+		_resources_loaded["normalMap"] = false
 		var image_index = material["normalTexture"]["index"]
 		_load_image_from_index(image_index, func(img):
 			img = _process_image(img, Image.FORMAT_RG8)
@@ -59,6 +81,7 @@ func load(parent: Node):
 		var extras = material.get("extras")
 		
 		if extras.has("specularTexture"):
+			_resources_loaded["specularMap"] = false
 			var image_index = extras["specularTexture"]["index"]
 			_load_image_from_index(image_index, func(img):
 				img = _process_image(img, Image.FORMAT_RGB8)
@@ -66,6 +89,7 @@ func load(parent: Node):
 			)
 		
 		if extras.has("roughnessTexture"):
+			_resources_loaded["roughnessMap"] = false
 			var image_index = extras["roughnessTexture"]["index"]
 			_load_image_from_index(image_index, func(img):
 				img = _process_image(img, Image.FORMAT_RGB8)
@@ -73,6 +97,7 @@ func load(parent: Node):
 			)
 		
 		if extras.has("basisFunctionsUri"):
+			_resources_loaded["basisFunctions"] = false
 			var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
 			_fetcher.fetch_csv_callback(uri, func(csv):
 				var img = _basis_csv_to_image(csv)
@@ -99,6 +124,7 @@ func _load_specular_weights(weights: Dictionary):
 		for i in 2:
 			var texIdx = weights["textures"][i]["index"]
 			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
+			_resources_loaded[shaderKeys[i]] = false
 			_load_image_from_index(imgIdx, func(img):
 				img = _process_image(img, Image.FORMAT_RGBA8)
 				_load_shader_image(img, shaderKeys[i])
@@ -187,6 +213,9 @@ func _process_image(image: Image, format) -> Image:
 
 
 func _load_shader_image(image: Image, shaderKey: String):
+	if _resources_loaded.has(shaderKey):
+		_resources_loaded[shaderKey] = true
+	
 	var texture := ImageTexture.create_from_image(image)
 	set_shader_parameter(shaderKey, texture)
 	
@@ -197,15 +226,12 @@ func _load_shader_image(image: Image, shaderKey: String):
 
 
 func _get_load_progress() -> Array[int]:
-	const parameters = ["diffuseMap", "normalMap", "specularMap", "roughnessMap",
-		"weights0123", "weights4567", "basisFunctions"]
 	var items = 0
-	for param in parameters:
-		var value = get_shader_parameter(param)
-		if value != null:
+	for key in _resources_loaded.keys():
+		if _resources_loaded[key]:
 			items += 1
 	
-	return [items, parameters.size()]
+	return [items, _resources_loaded.size()]
 
 
 func _basis_csv_to_image(in_csv: Array) -> Image:
