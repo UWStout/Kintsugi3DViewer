@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/artifact.gd" id="1_vtawe"]
 [ext_resource type="ArrayMesh" uid="uid://bc3yyssiav73c" path="res://artifacts/Ding/ding-recentered-for-unity.obj" id="2_vui7u"]
-[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_lciae"]
+[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_lciae"]
 [ext_resource type="Texture2D" uid="uid://b0fvyq3e5v7t3" path="res://artifacts/Ding/basisFunctions.csv" id="4_unsra"]
 [ext_resource type="Texture2D" uid="uid://cuftxvyow4hb5" path="res://artifacts/Ding/diffuse.png" id="5_hokui"]
 [ext_resource type="Texture2D" uid="uid://cfgu7k5uy4jjk" path="res://artifacts/Ding/normal.png" id="6_gend2"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://sthfdfkllcmn" path="res://artifacts/Ding/weights04-07.png" id="10_gjj7h"]
 [ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_sf55b"]
 [ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_0a754"]
-[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_a6wmv"]
+[ext_resource type="PackedScene" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_a6wmv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5odgc"]
 render_priority = 0

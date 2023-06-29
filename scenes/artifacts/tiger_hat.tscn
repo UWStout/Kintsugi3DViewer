@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/artifact.gd" id="1_u8k1v"]
 [ext_resource type="ArrayMesh" uid="uid://xl5t4o6vtvec" path="res://artifacts/TigerHat/tiger-hat-lowres.obj" id="2_j5iab"]
-[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_8onlg"]
+[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_8onlg"]
 [ext_resource type="Texture2D" uid="uid://c057fkt0qaom6" path="res://artifacts/TigerHat/basisFunctions.csv" id="4_e612n"]
 [ext_resource type="Texture2D" uid="uid://cmdn2hltx7lln" path="res://artifacts/TigerHat/diffuse.png" id="5_sciaj"]
 [ext_resource type="Texture2D" uid="uid://b2s6cbbumwa27" path="res://artifacts/TigerHat/normal.png" id="6_pmnjv"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cmd5wny7do21g" path="res://artifacts/TigerHat/weights04-07.png" id="10_r3ixp"]
 [ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_wnpuu"]
 [ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_hlntb"]
-[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_ftxnl"]
+[ext_resource type="PackedScene" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_ftxnl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ajm3n"]
 render_priority = 0

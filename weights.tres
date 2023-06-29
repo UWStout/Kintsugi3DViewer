@@ -1,9 +1,0 @@
-[gd_resource type="Texture2DArray" script_class="Texture2DArrayLoader" load_steps=4 format=3 uid="uid://sp2hx7f11kmh"]
-
-[ext_resource type="Image" uid="uid://ck4p6136vc7mv" path="res://weights00-03.png" id="1_4gwlg"]
-[ext_resource type="Script" path="res://addons/load_texture_array/texture_2d_array_loader.gd" id="1_gp0sv"]
-[ext_resource type="Image" uid="uid://d0w3lid7c4m6j" path="res://weights04-07.png" id="2_4v5ex"]
-
-[resource]
-script = ExtResource("1_gp0sv")
-imagesToLoad = Array[Image]([ExtResource("1_4gwlg"), ExtResource("2_4v5ex")])

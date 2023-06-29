@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/artifact.gd" id="1_q57fb"]
 [ext_resource type="ArrayMesh" uid="uid://dmnbvi4jsa27y" path="res://artifacts/Altarpiece/altarpiece-recentered-for-unity.obj" id="2_noc06"]
-[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_efkx6"]
+[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_efkx6"]
 [ext_resource type="Texture2D" uid="uid://bajsdqeiue8sl" path="res://artifacts/Altarpiece/basisFunctions.csv" id="4_mrnkc"]
 [ext_resource type="Texture2D" uid="uid://c8yxcxjs2vl5d" path="res://artifacts/Altarpiece/diffuse.png" id="5_cdmrn"]
 [ext_resource type="Texture2D" uid="uid://w71qrsippcs0" path="res://artifacts/Altarpiece/normal.png" id="6_4lsbd"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://djqnubhab6hw3" path="res://artifacts/Altarpiece/weights04-07.png" id="10_7qwwt"]
 [ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_7n5rl"]
 [ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_aloqa"]
-[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_3wep4"]
+[ext_resource type="PackedScene" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_3wep4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nd0hs"]
 render_priority = 0

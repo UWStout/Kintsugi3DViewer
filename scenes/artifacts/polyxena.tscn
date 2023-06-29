@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/artifact.gd" id="1_hang3"]
 [ext_resource type="ArrayMesh" uid="uid://cy6leo2bd8t6y" path="res://artifacts/Polyxena/170421_mia329_002035_100kfaces_OBJ.obj" id="2_thuu4"]
-[ext_resource type="Shader" path="res://BasisIBR.gdshader" id="3_6v7br"]
+[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_6v7br"]
 [ext_resource type="Texture2D" uid="uid://do3fbarc1ipjf" path="res://artifacts/Polyxena/basisFunctions.csv" id="4_y6eb6"]
 [ext_resource type="Texture2D" uid="uid://c65ys4ditvq43" path="res://artifacts/Polyxena/diffuse.png" id="5_r0ctf"]
 [ext_resource type="Texture2D" uid="uid://c3w1mgayqqbgv" path="res://artifacts/Polyxena/normal.png" id="6_i0mmn"]
@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://cjlk2tl6q5hu6" path="res://artifacts/Polyxena/weights04-07.png" id="10_qbf6i"]
 [ext_resource type="PackedScene" uid="uid://jhiwkxxnuf01" path="res://scenes/annotations/annotation_marker.tscn" id="11_vyuqs"]
 [ext_resource type="PackedScene" uid="uid://cr3pgnbsky3y2" path="res://scenes/annotations/annotation_textbox.tscn" id="12_mvhjd"]
-[ext_resource type="PackedScene" uid="uid://perity6dkf66" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_usdt0"]
+[ext_resource type="PackedScene" path="res://scenes/annotations/annotation_focuspoint.tscn" id="13_usdt0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ku340"]
 render_priority = 0
