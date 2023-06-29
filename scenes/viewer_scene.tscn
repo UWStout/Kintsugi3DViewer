@@ -1,7 +1,7 @@
 [gd_scene load_steps=44 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
-[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="1_degd7"]
+[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
 [ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
 [ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="17_bden0"]

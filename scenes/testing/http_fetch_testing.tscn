@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/resources/remote_gltf_model.gd" id="2_cwgq4"]
 [ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_ta54f"]
-[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://prefabs/Camera.tscn" id="3_v7l8o"]
+[ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="3_v7l8o"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_aiiyt"]
 _surfaces = [{
