@@ -6,6 +6,8 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 @export var _fetcher: ResourceFetcher
 @export var _loader: ModelLoaderProgress
 
+@export var _ibr_shader : Shader
+
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
@@ -40,6 +42,8 @@ func display_artifact_data(artifact: ArtifactData):
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
 	
+	CacheManager.open_dir(artifact.name)
+	
 	loaded_artifact = RemoteGltfModel.create(artifact)
 	add_child(loaded_artifact)
 	loaded_artifact.load_artifact()
@@ -64,8 +68,11 @@ func display_previous_artifact():
 
 
 func _on_model_begin_load():
-	if is_instance_valid(_loader):
+	if is_instance_valid(_loader) and not loaded_artifact.load_finished:
 		_loader.start_loading()
+	
+	if loaded_artifact.load_finished:
+		_loader.end_loading()
 
 
 func _on_model_load_complete():
@@ -76,3 +83,22 @@ func _on_model_load_complete():
 func _on_model_load_progress(progress: float):
 	if is_instance_valid(_loader):
 		_loader.update_progress(progress)
+
+
+func _look_for_mesh(node : Node3D):
+	if node is MeshInstance3D:
+		return node
+	
+	var children = node.get_children()
+	var results = []
+	
+	for child in children:
+		var child_result = _look_for_mesh(child)
+		
+		if not child_result == null:
+			results.push_back(_look_for_mesh(child))
+	
+	if results.is_empty():
+		return null
+	else:
+		return results.pop_front()

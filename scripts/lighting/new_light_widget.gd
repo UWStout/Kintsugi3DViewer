@@ -61,6 +61,7 @@ func select_widget(clicked_object : Object, clicked_position : Vector3):
 	select_widget_part(clicked_object)
 	
 	was_grabbed = true
+	is_dragging = true
 	
 	update_direction_track()
 	update_horizontal_track()
@@ -152,6 +153,8 @@ func _input(event):
 			selected_initial_position_screen = event.position
 			
 			selected_widget_part_initial_position_world = get_selected_widget_part().global_position
+			
+			was_grabbed = true
 		else:
 			is_dragging = false
 			
@@ -170,6 +173,8 @@ func _input(event):
 	if (event is InputEventMouseMotion or event is InputEventScreenDrag) and is_dragging and was_grabbed:
 		# If we are manipulating the widget we don't want the camera to rotate or move
 		#controller.scene_camera.do_move_in_frame = false
+		
+		print("hello, Input!")
 		
 		if selected_widget_part == 0:
 			handle_target_point(event.position)
@@ -263,7 +268,7 @@ func handle_horizontal_axis(event_pos : Vector2):
 	var target_point_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position + Vector3(0, y_dist, 0))
 	# The position of the target_point, offset by 1 meter in the world forward direction,
 	# in screen space
-	var target_point_world_forward_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position + Vector3.FORWARD)
+	var target_point_world_forward_screen_pos = controller.scene_camera.camera.unproject_position(target_point.global_position + Vector3(0, y_dist, 0) + Vector3.FORWARD)
 	
 	# The vector pointing from the target_point_screen_pos to the forward direction
 	var vector_to_forward = (target_point_world_forward_screen_pos - target_point_screen_pos).normalized()
@@ -294,10 +299,11 @@ func handle_vertical_axis(event_pos : Vector2):
 	# The vector from the target_point to the mouse cursor in screen space
 	var vector_to_event_pos = (event_pos - target_point_screen_pos).normalized()
 	
-	# 1 if the axis is on the right of the screen, -1 if it is on the left
-	# used to ensure that 0 degrees is always on the horizontal equator of the screen,
-	# no matter which side (left or right) the axis is on
-	var axis_screen_side = sign(selected_initial_position_screen.x - (get_viewport().get_visible_rect().size.x/2))
+	var vertical_axis_screen_pos = controller.scene_camera.camera.unproject_position(vertical_axis.global_position)
+	
+	# 1 is the axis is on the right side of the target point, -1 if it's on the left.
+	# Usec to ensure that the axis always rotates on the correct side of the axis
+	var axis_screen_side = sign(vertical_axis_screen_pos.x - target_point_screen_pos.x)
 	
 	var vectors_dot_product = sign(vector_to_event_pos.dot(Vector2(axis_screen_side * 100, 0)))
 	
@@ -331,6 +337,7 @@ func update_distance(new_distance : float):
 func update_rotation(new_horizontal_angle : float, new_vertical_angle : float):
 	widget_horizontal_angle = fmod(new_horizontal_angle, 2*PI)
 	widget_vertical_angle = fmod(new_vertical_angle, 2*PI)
+	widget_vertical_angle = clampf(widget_vertical_angle, deg_to_rad(-89), deg_to_rad(89))
 	
 	$target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
 	

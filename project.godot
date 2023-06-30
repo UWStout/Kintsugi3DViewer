@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
 GlobalFetcher="*res://scripts/resources/http_json_resource_fetcher.gd"
+CacheManager="*res://scripts/cache_manager.gd"
 
 [editor_plugins]
 

@@ -12,6 +12,8 @@ var artifact: ArtifactData = null
 var mat_loader: RemoteGltfMaterial
 var obj: GLTFObject
 
+var load_finished : bool = false
+
 func _ready():
 	# Ensure the resource fetcher is avaliable
 	if not is_instance_valid(fetcher):
@@ -28,11 +30,26 @@ func _ready():
 
 
 func load_artifact():
-	obj = await fetcher.fetch_gltf(artifact)
+	var imported = null
+	
+	imported = CacheManager.import_gltf(artifact.name, artifact.name)
+	
+	if not imported == null:
+		obj = GLTFObject.new()
+		obj.document = imported.doc
+		obj.state = imported.state
+		obj.sourceUri = artifact.gltfUrl
+	else:
+		obj = await fetcher.fetch_gltf(artifact)
 	
 	if obj == null:
 		push_error("Failed to fetch glTF!")
 		return
+	
+	# if the import failed, then there isn't a GLTF file exported
+	# to the cache, so we should export this one
+	if imported == null:
+		CacheManager.export_gltf(artifact.name, artifact.name, obj.document, obj.state.duplicate())
 	
 	var scene = obj.generate_scene()
 	
@@ -51,20 +68,18 @@ func load_artifact():
 	mat_loader.load_progress.connect(_on_material_load_progress)
 	
 	mesh.set_surface_override_material(0, mat_loader)
-	mat_loader.load(mesh)
+	mat_loader.load(mesh, artifact.name)
 
 
 func _on_material_load_complete():
 	load_completed.emit()
-	
-	obj.document.write_to_filesystem(obj.state, "user://downloads/exported_gltf.glb")
+	load_finished = true
 
 
 func _on_material_load_progress(complete: int, total: int):
 	total += 1
 	if obj != null:
 		complete += 1
-		
 	var progress = float(complete) / (total)
 	load_progress.emit(progress)
 
