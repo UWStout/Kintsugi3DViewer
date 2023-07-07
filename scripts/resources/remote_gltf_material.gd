@@ -19,7 +19,7 @@ func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 	_gltf = p_gltf
 
 
-func load(parent: Node, artifact_name : String):
+func load(parent: Node):
 	_parent = parent
 	_resources_loaded = {}
 	
@@ -34,68 +34,56 @@ func load(parent: Node, artifact_name : String):
 	var material_index = mesh.get("primitives")[0].get("material")
 	var material = _gltf.state.json.get("materials")[material_index]
 	
-	_load_common_textures(material, artifact_name)
+	_load_common_textures(material)
 	if (material.has("extras") and
 	material["extras"].has_all(["basisFunctionsUri", "specularWeights"])):
 		# Is IBR
-		_load_ibr_common_textures(material, artifact_name)
+		_load_ibr_common_textures(material)
 		if material["extras"].has("roughnessTexture"):
-			_load_specular_ibr(material, artifact_name)
+			_load_specular_ibr(material)
 		else:
-			_load_specular_orm_ibr(material, artifact_name)
+			_load_specular_orm_ibr(material)
 	else:
 		# Non-IBR, use standard shader
-		_load_standard_material(material, artifact_name)
+		_load_standard_material(material)
 	
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])
 
 
 # Loads textures common to all shader modes
-func _load_common_textures(material: Dictionary, artifact_name : String):
+func _load_common_textures(material: Dictionary):
 	# Load normalMap from material
 	if material.has("normalTexture"):
 		_resources_loaded["normalMap"] = false
-		
-		var imported = CacheManager.import_png(artifact_name, "normalMap")
-		if not imported == null:
-			_load_shader_image(imported, "normalMap")
-		else:
-			var image_index = material["normalTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RG8)
-				CacheManager.export_png(artifact_name, "normalMap", img)
-				_load_shader_image(img, "normalMap")
-			)
+		var image_index = material["normalTexture"]["index"]
+		_load_image_from_index(image_index, func(img):
+			img = _process_image(img, Image.FORMAT_RG8)
+			_load_shader_image(img, "normalMap")
+		)
 
 
 # Loads textures common to IBR shader modes
-func _load_ibr_common_textures(material: Dictionary, artifact_name : String):
+func _load_ibr_common_textures(material: Dictionary):
 	# Load textures stored in material extras data
 	if material.has("extras"):
 		var extras = material.get("extras")
 		
 		if extras.has("basisFunctionsUri"):
 			_resources_loaded["basisFunctions"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "basisFunctions")
-			if not imported == null:
-				_load_shader_image(imported, "basisFunctions")
-			else:
-				var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
-				_fetcher.fetch_csv_callback(uri, func(csv):
-					var img = _basis_csv_to_image(csv)
-					CacheManager.export_png(artifact_name, "basisFunctions", img)
-					img = _process_image(img, Image.FORMAT_RGBF)
-					_load_shader_image(img, "basisFunctions")
-				)
+			var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
+			_fetcher.fetch_csv_callback(uri, func(csv):
+				var img = _basis_csv_to_image(csv)
+				img = _process_image(img, Image.FORMAT_RGBF)
+				_load_shader_image(img, "basisFunctions")
+			)
 		
 		if extras.has("specularWeights"):
 			var weights = extras["specularWeights"]
-			_load_specular_weights(weights, artifact_name)
+			_load_specular_weights(weights)
 
 
-func _load_standard_material(material: Dictionary, artifact_name : String):
+func _load_standard_material(material: Dictionary):
 	shader = SHADER_STANDARD
 	
 	if material.has("pbrMetallicRoughness"):
@@ -103,34 +91,22 @@ func _load_standard_material(material: Dictionary, artifact_name : String):
 		
 		if pbr.has("baseColorTexture"):
 			_resources_loaded["albedoMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "albedoMap")
-			if not imported == null:
-				_load_shader_image(imported, "albedoMap")
-			else:
-				var image_index = pbr["baseColorTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "albedoMap", img)
-					_load_shader_image(img, "albedoMap")
-				)
+			var image_index = pbr["baseColorTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "albedoMap")
+			)
 		
 		if pbr.has("metallicRoughnessTexture"):
 			_resources_loaded["ormMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "ormMap")
-			if not imported == null:
-				_load_shader_image(imported, "ormMap")
-			else:
-				var image_index = pbr["metallicRoughnessTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "ormMap", img)
-					_load_shader_image(img, "ormMap")
-				)
+			var image_index = pbr["metallicRoughnessTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "ormMap")
+			)
 
 
-func _load_specular_orm_ibr(material: Dictionary, artifact_name : String):
+func _load_specular_orm_ibr(material: Dictionary):
 	shader = SHADER_ORM_IBR
 	
 	if material.has("pbrMetallicRoughness"):
@@ -138,50 +114,32 @@ func _load_specular_orm_ibr(material: Dictionary, artifact_name : String):
 		
 		if pbr.has("baseColorTexture"):
 			_resources_loaded["albedoMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "albedoMap")
-			if not imported == null:
-				_load_shader_image(imported, "albedoMap")
-			else:
-				var image_index = pbr["baseColorTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "albedoMap", img)
-					_load_shader_image(img, "albedoMap")
-				)
+			var image_index = pbr["baseColorTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "albedoMap")
+			)
 		
 		if pbr.has("metallicRoughnessTexture"):
 			_resources_loaded["ormMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "ormMap")
-			if not imported == null:
-				_load_shader_image(imported, "ormMap")
-			else:
-				var image_index = pbr["metallicRoughnessTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "ormMap", img)
-					_load_shader_image(img, "ormMap")
-				)
+			var image_index = pbr["metallicRoughnessTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "ormMap")
+			)
 	
 	if material.has("extras"):
 		var extras = material.get("extras")
 		
 		if extras.has("diffuseTexture"):
 			_resources_loaded["diffuseMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "diffuseMap")
-			if not imported == null:
-				_load_shader_image(imported, "diffuseMap")
-			else:
-				var image_index = material["extras"]["diffuseTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "diffuseMap", img)
-					_load_shader_image(img, "diffuseMap")
-				)
+			var image_index = material["extras"]["diffuseTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "diffuseMap")
+			)
 
-func _load_specular_ibr(material: Dictionary, artifact_name : String):
+func _load_specular_ibr(material: Dictionary):
 	shader = SHADER_IBR
 	
 	# Load diffuseMap and roughnessMap from pbr section of material
@@ -190,31 +148,19 @@ func _load_specular_ibr(material: Dictionary, artifact_name : String):
 		
 		if pbr.has("baseColorTexture"):
 			_resources_loaded["diffuseMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "diffuseMap")
-			if not imported == null:
-				_load_shader_image(imported, "diffuseMap")
-			else:
-				var image_index = pbr["baseColorTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "diffuseMap", img)
-					_load_shader_image(img, "diffuseMap")
-				)
+			var image_index = pbr["baseColorTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "diffuseMap")
+			)
 		
 		if pbr.has("metallicRoughnessTexture"):
 			_resources_loaded["roughnessMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "roughnessMap")
-			if not imported == null:
-				_load_shader_image(imported, "roughnessMap")
-			else:
-				var image_index = pbr["metallicRoughnessTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_R8)
-					CacheManager.export_png(artifact_name, "roughnessMap", img)
-					_load_shader_image(img, "roughnessMap")
-				)
+			var image_index = pbr["metallicRoughnessTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_R8)
+				_load_shader_image(img, "roughnessMap")
+			)
 	
 	# Load textures stored in material extras data
 	if material.has("extras"):
@@ -222,34 +168,22 @@ func _load_specular_ibr(material: Dictionary, artifact_name : String):
 		
 		if extras.has("specularTexture"):
 			_resources_loaded["specularMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "specularMap")
-			if not imported == null:
-				_load_shader_image(imported, "specularMap")
-			else:
-				var image_index = extras["specularTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "specularMap", img)
-					_load_shader_image(img, "specularMap")
-				)
+			var image_index = extras["specularTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "specularMap")
+			)
 		
 		if extras.has("roughnessTexture"):
 			_resources_loaded["roughnessMap"] = false
-			
-			var imported = CacheManager.import_png(artifact_name, "roughnessMap")
-			if not imported == null:
-				_load_shader_image(imported, "roughnessMap")
-			else:
-				var image_index = extras["roughnessTexture"]["index"]
-				_load_image_from_index(image_index, func(img):
-					img = _process_image(img, Image.FORMAT_RGB8)
-					CacheManager.export_png(artifact_name, "roughnessMap", img)
-					_load_shader_image(img, "roughnessMap")
-				)
+			var image_index = extras["roughnessTexture"]["index"]
+			_load_image_from_index(image_index, func(img):
+				img = _process_image(img, Image.FORMAT_RGB8)
+				_load_shader_image(img, "roughnessMap")
+			)
 
 
-func _load_specular_weights(weights: Dictionary, artifact_name : String):
+func _load_specular_weights(weights: Dictionary):
 	# Validate that specular weights object has required properties
 	if ((not weights.has_all(["stride", "textures"])) or 
 	weights.get("textures").size() <= 0):
@@ -261,18 +195,13 @@ func _load_specular_weights(weights: Dictionary, artifact_name : String):
 	if weights.get("stride") == 4 and weights.get("textures").size() >= 2:
 		# No conversion to RGBA is needed, Load upper and lower weights directly
 		for i in 2:
-			var imported = CacheManager.import_png(artifact_name, shaderKeys[i])
-			if not imported == null:
-				_load_shader_image(imported, shaderKeys[i])
-			else:
-				var texIdx = weights["textures"][i]["index"]
-				var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
-				_resources_loaded[shaderKeys[i]] = false
-				_load_image_from_index(imgIdx, func(img):
-					img = _process_image(img, Image.FORMAT_RGBA8)
-					CacheManager.export_png(artifact_name, shaderKeys[i], img)
-					_load_shader_image(img, shaderKeys[i])
-				)
+			var texIdx = weights["textures"][i]["index"]
+			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
+			_resources_loaded[shaderKeys[i]] = false
+			_load_image_from_index(imgIdx, func(img):
+				img = _process_image(img, Image.FORMAT_RGBA8)
+				_load_shader_image(img, shaderKeys[i])
+			)
 	else:
 		var uris: Array[String] = []
 		for texture in weights.get("textures"):
