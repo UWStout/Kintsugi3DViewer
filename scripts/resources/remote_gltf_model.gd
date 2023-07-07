@@ -68,7 +68,7 @@ func load_artifact():
 	mat_loader.load_progress.connect(_on_material_load_progress)
 	
 	mesh.set_surface_override_material(0, mat_loader)
-	mat_loader.load(mesh, artifact.name)
+	mat_loader.load(mesh)
 
 
 func _on_material_load_complete():
