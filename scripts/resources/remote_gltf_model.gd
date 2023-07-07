@@ -11,6 +11,7 @@ signal load_progress(estimation: float)
 var artifact: ArtifactData = null
 var mat_loader: RemoteGltfMaterial
 var obj: GLTFObject
+var aabb : AABB
 
 var load_finished : bool = false
 
@@ -41,6 +42,7 @@ func load_artifact():
 		obj.sourceUri = artifact.gltfUri
 	else:
 		obj = await fetcher.fetch_gltf(artifact)
+		print("fetched!")
 	
 	if obj == null:
 		push_error("Failed to fetch glTF!")
@@ -62,6 +64,9 @@ func load_artifact():
 	# TODO: Support multiple materials by scanning entire subtree/glTF data to find meshes
 	# instead of just grabbing the first child node and hoping its a mesh!
 	var mesh = scene.get_child(0, true)
+	
+	aabb = mesh.get_aabb()
+	
 	mat_loader = RemoteGltfMaterial.new(fetcher, obj)
 	
 	mat_loader.load_complete.connect(_on_material_load_complete)

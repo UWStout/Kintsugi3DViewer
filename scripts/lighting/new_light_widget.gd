@@ -147,14 +147,14 @@ func _input(event):
 		pass
 	
 	# We only want to manipulate the widget if the cursor is being dragged
-	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT) or event is InputEventScreenTouch:
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):# or event is InputEventScreenTouch:
 		if event.pressed:
 			is_dragging = true
 			selected_initial_position_screen = event.position
 			
 			selected_widget_part_initial_position_world = get_selected_widget_part().global_position
 			
-			was_grabbed = true
+			#was_grabbed = true
 		else:
 			is_dragging = false
 			
@@ -170,7 +170,7 @@ func _input(event):
 			was_grabbed = false
 	
 	# If the event is a mouse movement, and the mouse is being dragged, manipulate the widget
-	if (event is InputEventMouseMotion or event is InputEventScreenDrag) and is_dragging and was_grabbed:
+	if (event is InputEventMouseMotion) and is_dragging and was_grabbed:
 		# If we are manipulating the widget we don't want the camera to rotate or move
 		#controller.scene_camera.do_move_in_frame = false
 		

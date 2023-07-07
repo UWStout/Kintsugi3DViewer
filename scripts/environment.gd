@@ -36,8 +36,8 @@ func _enter_tree():
 		get_lighting().add_child(dynamics)
 		dynamics.set_owner(self)
 
-func get_artifact_root():
-	return find_child("artifact_root")
+func get_artifact_root() -> Node3D:
+	return find_child("artifact_root") as Node3D
 
 func get_lighting():
 	return find_child("lighting")

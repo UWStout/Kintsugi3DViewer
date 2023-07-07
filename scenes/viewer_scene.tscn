@@ -109,10 +109,14 @@ events = [SubResource("InputEventKey_awmku")]
 
 [node name="viewer_scene" type="Node3D"]
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+[node name="CSGBox3D" type="CSGBox3D" parent="." groups=["testgroup"]]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0)
+visible = false
+
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller")]
 script = ExtResource("1_6cwju")
 _loader = NodePath("../ui_root/LoaderContainer")
+_environment_controller = NodePath("../environment_controller")
 
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button", "connected_customize_lighting_button", "connected_color_picker")]
 script = ExtResource("12_acvmt")
@@ -348,10 +352,10 @@ anchors_preset = -1
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.961
-offset_left = 105.0
-offset_top = 39.912
-offset_right = 111.928
-offset_bottom = 106.272
+offset_left = 185.0
+offset_top = 79.912
+offset_right = 151.928
+offset_bottom = 146.272
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -380,6 +384,20 @@ offset_bottom = -0.167999
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("33_ynflu")
+
+[node name="Button" type="Button" parent="ui_root"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.435
+anchor_top = 0.039
+anchor_right = 0.565
+anchor_bottom = 0.116
+offset_left = -0.120026
+offset_top = -0.272001
+offset_right = 0.119995
+offset_bottom = -0.167999
+text = "Turntable: OFF"
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
@@ -420,6 +438,7 @@ parent_window = NodePath("../../..")
 initial_position = 2
 size = Vector2i(1152, 648)
 access = 2
+show_hidden_files = true
 script = ExtResource("29_4k4a7")
 
 [connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]

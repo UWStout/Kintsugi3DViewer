@@ -58,6 +58,7 @@ func open_scene(index : int):
 		loaded_scenes[selected_index].visible = false
 		select_light(null)
 		connected_customize_lighting_button.override_stop_customizing()
+		hide_scene_lighting(selected_index)
 	
 	# Show the new scene
 	if index >= 0 and index < loaded_scenes.size():
@@ -101,3 +102,7 @@ func select_light(light : NewLightWidget):
 	selected_light = light
 	if not connected_color_picker == null:
 		connected_color_picker.visible = true
+
+func get_active_artifact_root() -> Node3D:
+	return loaded_scenes[selected_index].get_artifact_root()
+	pass

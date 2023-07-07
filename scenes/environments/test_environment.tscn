@@ -18,6 +18,7 @@ height = 1.0
 sides = 16
 
 [node name="artifact_root" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="lighting" type="Node3D" parent="."]
 
