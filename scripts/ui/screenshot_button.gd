@@ -4,39 +4,35 @@ extends Button
 @export var environment_controller : EnvironmentController
 @export var save_window : ScreenshotFileDialog
 
-var did_take_screenshot : bool = false
-var do_take_screenshot_frame_count : int = -1
-
-# If a screenshot is queued to be taken,
-# wait a few frames to make sure everything that shouldn't be on the screen is gone
-# and then take the screenshot, and then wait a few frames to
-# restore the UI or other hidden screen elements
-func _process(delta):
-	if do_take_screenshot_frame_count > 0:
-		do_take_screenshot_frame_count -= 1
-	elif do_take_screenshot_frame_count == 0:
-		if did_take_screenshot:
-			did_take_screenshot = false
-			show_screen_distractions()
-			do_take_screenshot_frame_count = -1
-		else:
-			take_screenshot()
-			did_take_screenshot = true
-			do_take_screenshot_frame_count = 1
-		pass
-	
-	pass
-
 func _pressed():
 	hide_screen_distractions()
-	do_take_screenshot_frame_count = 1
+	await get_tree().create_timer(0.1).timeout
+	take_screenshot()
+	show_screen_distractions()
 
 func take_screenshot():
 	var img = get_viewport().get_texture().get_image()
-	if not save_window == null:
-		save_window.visible = true
-		save_window.give_image(img)
-	#img.save_png("user://screenshot.png")
+	
+	var os = OS.get_name()
+	
+	match OS.get_name():
+		"Windows", "UWP":
+			save_on_desktop(img)
+		"macOS":
+			save_on_desktop(img)
+		"Linux", "FreeBSD", "NetBSD", "OpenBSD", "BSD":
+			save_on_desktop(img)
+		"Android":
+			save_on_mobile(img)
+		"iOS":
+			save_on_mobile(img)
+		"Web":
+			save_on_web(img)
+		_:
+			# if nothing else matches, use
+			# a filedialog to save the image
+			save_window.give_image(img)
+			save_window.visible = true
 
 func hide_screen_distractions():
 	if not ui_root == null:
@@ -47,3 +43,72 @@ func hide_screen_distractions():
 func show_screen_distractions():
 	if not ui_root == null:
 		get_node(ui_root).visible = true
+
+func save_on_desktop(image : Image):
+	var Dir = DirAccess.open(OS.get_system_dir(OS.SYSTEM_DIR_PICTURES))
+	if Dir == null:
+		printerr("There was an error attempting to acces the system's pictures directory!")
+		return
+	
+	if not Dir.dir_exists("Kintsugi"):
+		var error = Dir.make_dir("Kintsugi")
+		
+		if error:
+			printerr("There was an error attempting to create Pictures/Kintsugi directory")
+			return
+	
+	Dir = Dir.open(Dir.get_current_dir(false).path_join("Kintsugi"))
+	if Dir == null:
+		print("There was an error opening the Pictures/Kintsugi directory")
+		return
+	
+	var file_name = "screenshot.png"
+	var file_num = 0
+	while Dir.file_exists(file_name):
+		file_num += 1
+		file_name = "screenshot(" + str(file_num) + ").png"
+	
+	image.save_png(Dir.get_current_dir(false).path_join(file_name))
+	print("saved file " + file_name + " to directory Pictures/Kintsugi")
+
+func save_on_mobile(image : Image):
+	var has_permissions: bool = false
+
+	while not has_permissions:
+		var permissions: PackedStringArray = OS.get_granted_permissions()
+		
+		if not permissions.has("android.permission.READ_EXTERNAL_STORAGE") \
+			or not permissions.has("android.permission.WRITE_EXTERNAL_STORAGE"):
+			OS.request_permissions()
+			await get_tree().create_timer(1).timeout
+		else:
+			has_permissions = true
+	
+	var Dir = DirAccess.open(OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS))
+	if Dir == null:
+		printerr("There was an error attempting to acces the system's pictures directory!")
+		return
+	
+	if not Dir.dir_exists("Kintsugi"):
+		var error = Dir.make_dir("Kintsugi")
+		
+		if error:
+			printerr("There was an error attempting to create Pictures/Kintsugi directory")
+			return
+	
+	Dir = Dir.open(Dir.get_current_dir(false).path_join("Kintsugi"))
+	if Dir == null:
+		print("There was an error opening the Pictures/Kintsugi directory")
+		return
+	
+	var file_name = "screenshot.png"
+	var file_num = 0
+	while Dir.file_exists(file_name):
+		file_num += 1
+		file_name = "screenshot(" + str(file_num) + ").png"
+	
+	image.save_png(Dir.get_current_dir(false).path_join(file_name))
+
+func save_on_web(image : Image):
+	var buffer = image.save_png_to_buffer()
+	JavaScriptBridge.download_buffer(buffer, "screenshot.png")

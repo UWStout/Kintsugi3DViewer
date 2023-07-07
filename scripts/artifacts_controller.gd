@@ -8,6 +8,8 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 
 @export var _ibr_shader : Shader
 
+@export var _environment_controller : EnvironmentController
+
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
@@ -46,9 +48,10 @@ func display_artifact_data(artifact: ArtifactData):
 	
 	loaded_artifact = RemoteGltfModel.create(artifact)
 	add_child(loaded_artifact)
-	loaded_artifact.load_artifact()
 	loaded_artifact.load_completed.connect(_on_model_load_complete)
 	loaded_artifact.load_progress.connect(_on_model_load_progress)
+	loaded_artifact.load_artifact()
+
 	_on_model_begin_load()
 
 
@@ -71,14 +74,18 @@ func _on_model_begin_load():
 	if is_instance_valid(_loader) and not loaded_artifact.load_finished:
 		_loader.start_loading()
 	
-	if loaded_artifact.load_finished:
-		_loader.end_loading()
+	#if loaded_artifact.load_finished:
+		#_loader.end_loading()
 
 
 func _on_model_load_complete():
 	if is_instance_valid(_loader):
 		_loader.end_loading()
-
+	
+	var target_pos = _environment_controller.get_active_artifact_root().global_position
+	target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
+	
+	loaded_artifact.global_position = target_pos
 
 func _on_model_load_progress(progress: float):
 	if is_instance_valid(_loader):
