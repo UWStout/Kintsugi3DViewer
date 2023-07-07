@@ -33,7 +33,7 @@ func force_fetch_artifacts() -> Array[ArtifactData]:
 
 
 func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
-	var url = _format_relative_url(artifact.gltfUrl)
+	var url = _format_relative_url(artifact.gltfUri)
 	var headers = PackedStringArray(["Accept: model/gltf-binary, model/gltf+json"])
 	var raw_data = await _fetch_url_raw(url, headers)
 	
@@ -53,7 +53,7 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	var object := GLTFObject.new()
 	object.document = document
 	object.state = state
-	object.sourceUri = artifact.gltfUrl
+	object.sourceUri = artifact.gltfUri
 	
 	return object
 
