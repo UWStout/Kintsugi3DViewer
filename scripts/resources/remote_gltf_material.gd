@@ -56,11 +56,12 @@ func _load_common_textures(material: Dictionary):
 	# Load normalMap from material
 	if material.has("normalTexture"):
 		_resources_loaded["normalMap"] = false
-		var image_index = material["normalTexture"]["index"]
-		_load_image_from_index(image_index, func(img):
-			img = _process_image(img, Image.FORMAT_RG8)
-			_load_shader_image(img, "normalMap")
+		var textureLoader = RemoteGltfTexture.new(_fetcher, _gltf, self, material["normalTexture"])
+		textureLoader.load_complete.connect(func():
+			_resources_loaded["normalMap"] = true
+			_update_progress()
 		)
+		textureLoader.load("normalMap")
 
 
 # Loads textures common to IBR shader modes
@@ -313,6 +314,10 @@ func _load_shader_image(image: Image, shaderKey: String):
 	var texture := ImageTexture.create_from_image(image)
 	set_shader_parameter(shaderKey, texture)
 	
+	_update_progress()
+
+
+func _update_progress():
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])
 	if progress[0] >= progress[1]:
