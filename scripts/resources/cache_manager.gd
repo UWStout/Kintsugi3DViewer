@@ -1,4 +1,4 @@
-extends Node
+﻿extends Node
 
 const _MOBILE_FLAG : bool = false
 

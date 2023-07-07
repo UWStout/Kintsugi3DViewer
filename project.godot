@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
-GlobalFetcher="*res://scripts/resources/http_json_resource_fetcher.gd"
-CacheManager="*res://scripts/cache_manager.gd"
+GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
+CacheManager="*res://scripts/resources/cache_manager.gd"
 
 [editor_plugins]
 
