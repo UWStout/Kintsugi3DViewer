@@ -25,7 +25,7 @@ func _ready():
 	# If a URL is provided, override the artifact and load on ready. Used for testing.
 	if not artifactGltfUrl.is_empty():
 		artifact = ArtifactData.new()
-		artifact.gltfUrl = artifactGltfUrl
+		artifact.gltfUri = artifactGltfUrl
 		load_artifact()
 
 
@@ -38,7 +38,7 @@ func load_artifact():
 		obj = GLTFObject.new()
 		obj.document = imported.doc
 		obj.state = imported.state
-		obj.sourceUri = artifact.gltfUrl
+		obj.sourceUri = artifact.gltfUri
 	else:
 		obj = await fetcher.fetch_gltf(artifact)
 	

@@ -12,5 +12,5 @@ func setup(artifact_data: ArtifactData):
 	var placeholder = icon.get_image()
 	icon = HTTPImageTexture.new()
 	icon.set_image(placeholder)
-	icon.set_url(data.iconUrl)
+	icon.set_url(data.iconUri)
 	icon.load(self)
