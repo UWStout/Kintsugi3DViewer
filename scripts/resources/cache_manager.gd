@@ -42,6 +42,7 @@ func import_gltf(dir_name : String, name : String):
 	if _MOBILE_FLAG:
 		return null
 	
+	open_dir(dir_name)
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
 	
 	if not dir.file_exists(file_name):
@@ -109,6 +110,7 @@ func import_png(dir_name : String, name : String) -> Image:
 	if _MOBILE_FLAG:
 		return null
 	
+	open_dir(dir_name)
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
 	
 	if not dir.file_exists(file_name):

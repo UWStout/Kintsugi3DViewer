@@ -51,17 +51,28 @@ func load(parent: Node):
 	load_progress.emit(progress[0], progress[1])
 
 
+func _info_to_tex(texture_info: Dictionary) -> Dictionary:
+	return _gltf.state.json["textures"][texture_info["index"]]
+
+
+func _start_tex_load(texture: Dictionary, key: String):
+	_resources_loaded[key] = false
+	var texture_loader = RemoteGltfTexture.new(self, texture, key)
+	_parent.add_child(texture_loader)
+	texture_loader.texture_loaded.connect(_texture_loader_completion)
+	texture_loader.load()
+
+
+func _texture_loader_completion(key: String):
+	_resources_loaded[key] = true
+	_update_progress()
+
+
 # Loads textures common to all shader modes
 func _load_common_textures(material: Dictionary):
 	# Load normalMap from material
 	if material.has("normalTexture"):
-		_resources_loaded["normalMap"] = false
-		var textureLoader = RemoteGltfTexture.new(_fetcher, _gltf, self, material["normalTexture"])
-		textureLoader.load_complete.connect(func():
-			_resources_loaded["normalMap"] = true
-			_update_progress()
-		)
-		textureLoader.load("normalMap")
+		_start_tex_load(_info_to_tex(material["normalTexture"]), "normalMap")
 
 
 # Loads textures common to IBR shader modes
@@ -91,20 +102,10 @@ func _load_standard_material(material: Dictionary):
 		var pbr = material.get("pbrMetallicRoughness")
 		
 		if pbr.has("baseColorTexture"):
-			_resources_loaded["albedoMap"] = false
-			var image_index = pbr["baseColorTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "albedoMap")
-			)
+			_start_tex_load(_info_to_tex(pbr["baseColorTexture"]), "albedoMap")
 		
 		if pbr.has("metallicRoughnessTexture"):
-			_resources_loaded["ormMap"] = false
-			var image_index = pbr["metallicRoughnessTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "ormMap")
-			)
+			_start_tex_load(_info_to_tex(pbr["metallicRoughnessTexture"]), "ormMap")
 
 
 func _load_specular_orm_ibr(material: Dictionary):
@@ -114,31 +115,16 @@ func _load_specular_orm_ibr(material: Dictionary):
 		var pbr = material.get("pbrMetallicRoughness")
 		
 		if pbr.has("baseColorTexture"):
-			_resources_loaded["albedoMap"] = false
-			var image_index = pbr["baseColorTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "albedoMap")
-			)
+			_start_tex_load(_info_to_tex(pbr["baseColorTexture"]), "albedoMap")
 		
 		if pbr.has("metallicRoughnessTexture"):
-			_resources_loaded["ormMap"] = false
-			var image_index = pbr["metallicRoughnessTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "ormMap")
-			)
+			_start_tex_load(_info_to_tex(pbr["metallicRoughnessTexture"]), "ormMap")
 	
 	if material.has("extras"):
 		var extras = material.get("extras")
 		
 		if extras.has("diffuseTexture"):
-			_resources_loaded["diffuseMap"] = false
-			var image_index = material["extras"]["diffuseTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "diffuseMap")
-			)
+			_start_tex_load(_info_to_tex(extras["diffuseTexture"]), "diffuseMap")
 
 func _load_specular_ibr(material: Dictionary):
 	shader = SHADER_IBR
@@ -148,40 +134,20 @@ func _load_specular_ibr(material: Dictionary):
 		var pbr = material.get("pbrMetallicRoughness")
 		
 		if pbr.has("baseColorTexture"):
-			_resources_loaded["diffuseMap"] = false
-			var image_index = pbr["baseColorTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "diffuseMap")
-			)
+			_start_tex_load(_info_to_tex(pbr["baseColorTexture"]), "albedoMap")
 		
 		if pbr.has("metallicRoughnessTexture"):
-			_resources_loaded["roughnessMap"] = false
-			var image_index = pbr["metallicRoughnessTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_R8)
-				_load_shader_image(img, "roughnessMap")
-			)
+			_start_tex_load(_info_to_tex(pbr["metallicRoughnessTexture"]), "ormMap")
 	
 	# Load textures stored in material extras data
 	if material.has("extras"):
 		var extras = material.get("extras")
 		
 		if extras.has("specularTexture"):
-			_resources_loaded["specularMap"] = false
-			var image_index = extras["specularTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "specularMap")
-			)
+			_start_tex_load(_info_to_tex(extras["specularTexture"]), "specularMap")
 		
 		if extras.has("roughnessTexture"):
-			_resources_loaded["roughnessMap"] = false
-			var image_index = extras["roughnessTexture"]["index"]
-			_load_image_from_index(image_index, func(img):
-				img = _process_image(img, Image.FORMAT_RGB8)
-				_load_shader_image(img, "roughnessMap")
-			)
+			_start_tex_load(_info_to_tex(extras["roughnessTexture"]), "roughnessMap")
 
 
 func _load_specular_weights(weights: Dictionary):
