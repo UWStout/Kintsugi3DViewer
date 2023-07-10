@@ -10,6 +10,9 @@ var _shader_key: String
 
 var texture_format: Image.Format = Image.FORMAT_RGBA8
 
+var loaded_resolution: int = 0
+var max_resolution: int = -1
+
 enum ImageSource {
 	EXTERNAL,
 	BASE64,
@@ -25,19 +28,50 @@ func _init(p_material: RemoteGltfMaterial, p_texture: Dictionary, p_shader_key: 
 
 
 func load():
+	if loaded_resolution == max_resolution or (loaded_resolution != 0 and max_resolution == -1):
+		return
+	
+	if loaded_resolution != 0 and max_resolution != -1:
+		load_full_res()
+		return
+	
 	if _texture.has("extras") and _texture["extras"].has("lods"):
+		if _texture["extras"].has("baseRes"):
+			max_resolution = _texture["extras"]["baseRes"]
+		
+		if _texture["extras"]["lods"].size() <= 0:
+			load_full_res()
+			return
+		
 		# Check if the highest resolution texture needs to be transmitted
 		# i.e. not in the gltf (already loaded) or in the cache (if enabled)(quicker to load)
 		var full_image = _image_at_index(_texture["source"])
 		if not _image_needs_remote_load(full_image):
-			_load_image(full_image)
+			load_full_res()
 			return
 		
-		if _texture["extras"]["lods"].has("128"):
-			print("Loading 128px resolution for %s" % _shader_key)
-			_load_image(_image_at_index(_texture["extras"]["lods"]["128"]))
+		var lowest_res = str(_get_lods()[0])
+		if _texture["extras"]["lods"].has(lowest_res):
+			print("Loading %spx resolution for %s" % [lowest_res, _shader_key])
+			_load_image(_image_at_index(_texture["extras"]["lods"][lowest_res]))
 	else:
-		_load_image(_image_at_index(_texture["source"]))
+		load_full_res()
+
+
+func load_full_res():
+	_load_image(_image_at_index(_texture["source"]))
+
+
+func _get_lods() -> Array[int]:
+	if not (_texture.has("extras") and _texture["extras"].has("lods")):
+		return []
+	
+	var out: Array[int] = []
+	for res_str in _texture["extras"]["lods"].keys():
+		out.append(int(res_str))
+	
+	out.sort()
+	return out
 
 
 func _image_needs_remote_load(image: Dictionary) -> bool:
@@ -132,5 +166,7 @@ func _process_image(image: Image) -> Image:
 func _load_shader_image(image: Image):
 	var texture := ImageTexture.create_from_image(image)
 	_material.set_shader_parameter(_shader_key, texture)
+	loaded_resolution = image.get_height()
 	load_complete.emit()
 	texture_loaded.emit(_shader_key)
+	self.load()
