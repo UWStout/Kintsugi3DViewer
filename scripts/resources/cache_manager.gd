@@ -152,3 +152,15 @@ func export_png(dir_name : String, name : String, image : Image):
 		return
 	
 	print("exported file " + file_name + " to directory " + dir_path)
+
+func png_cached(dir_name: String, name: String) -> bool:
+	var file_name = name + ".png"
+	var dir_path = _CACHE_ROOT_DIR + dir_name + "/"
+	
+	if _MOBILE_FLAG:
+		return false
+	
+	open_dir(dir_name)
+	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
+	
+	return dir.file_exists(file_name)

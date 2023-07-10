@@ -1,10 +1,24 @@
-﻿extends ResourceFetcher
+extends ResourceFetcher
 class_name ResourceFetcherChain
 
 var _child_fetcher: ResourceFetcher
 
 func _init(p_child_fetcher: ResourceFetcher):
 	_child_fetcher = p_child_fetcher
+
+
+func get_subfetcher() -> ResourceFetcher:
+	return _child_fetcher
+
+
+func get_fetcher_by_type(type: Variant) -> ResourceFetcher:
+	if is_instance_of(self, type):
+		return self
+	else:
+		if is_instance_valid(_child_fetcher):
+			return _child_fetcher.get_fetcher_by_type(type)
+		else:
+			return null
 
 
 # By default, simply pass requests through to child fetcher
