@@ -12,7 +12,9 @@ func is_gltf_cached(uri: String) -> bool:
 
 
 func is_image_cached(uri: String) -> bool:
-	return false #TODO
+	var dir: String = uri.get_base_dir()
+	var file: String = uri.get_file().trim_suffix(uri.get_extension()).rstrip('.')
+	return _cache.png_cached(dir, file)
 
 
 func fetch_gltf(artifact: ArtifactData) -> GLTFObject:

@@ -26,12 +26,32 @@ func _init(p_material: RemoteGltfMaterial, p_texture: Dictionary, p_shader_key: 
 
 func load():
 	if _texture.has("extras") and _texture["extras"].has("lods"):
+		# Check if the highest resolution texture needs to be transmitted
+		# i.e. not in the gltf (already loaded) or in the cache (if enabled)(quicker to load)
+		var full_image = _image_at_index(_texture["source"])
+		if not _image_needs_remote_load(full_image):
+			_load_image(full_image)
+			return
+		
 		if _texture["extras"]["lods"].has("128"):
 			print("Loading 128px resolution for %s" % _shader_key)
 			_load_image(_image_at_index(_texture["extras"]["lods"]["128"]))
 	else:
 		_load_image(_image_at_index(_texture["source"]))
 
+
+func _image_needs_remote_load(image: Dictionary) -> bool:
+	var cache: CachedResourceFetcher
+	var chain := (_material._fetcher as ResourceFetcherChain)
+	if is_instance_valid(chain):
+		cache = chain.get_fetcher_by_type(CachedResourceFetcher)
+	
+	if _image_source(image) != ImageSource.EXTERNAL:
+		return false
+	elif is_instance_valid(cache) and cache.is_image_cached(_format_gltf_relative_uri(image["uri"])):
+		return false
+	
+	return true
 
 func _load_image(image: Dictionary, callback: Callable = _load_shader_image):
 	var type := _image_source(image)
