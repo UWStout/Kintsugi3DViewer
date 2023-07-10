@@ -10,40 +10,59 @@ var _shader_key: String
 
 var texture_format: Image.Format = Image.FORMAT_RGBA8
 
+enum ImageSource {
+	EXTERNAL,
+	BASE64,
+	BUFFER,
+	ERROR,
+}
+
 func _init(p_material: RemoteGltfMaterial, p_texture: Dictionary, p_shader_key: String):
 	_material = p_material
 	_texture = p_texture
 	_shader_key = p_shader_key
+	name = p_shader_key
 
 
 func load():
-	var image_index = _texture["source"]
-	_load_image_from_index(image_index, func(img):
-		img = _process_image(img, texture_format)
-		_load_shader_image(img, _shader_key)
-		load_complete.emit()
-		texture_loaded.emit(_shader_key)
-	)
+	if _texture.has("extras") and _texture["extras"].has("lods"):
+		if _texture["extras"]["lods"].has("128"):
+			print("Loading 128px resolution for %s" % _shader_key)
+			_load_image(_image_at_index(_texture["extras"]["lods"]["128"]))
+	else:
+		_load_image(_image_at_index(_texture["source"]))
 
 
-func _load_image_from_index(image_index: int, callback: Callable):
-	var image = _material._gltf.state.json["images"][image_index]
+func _load_image(image: Dictionary, callback: Callable = _load_shader_image):
+	var type := _image_source(image)
+	
+	match type:
+		ImageSource.EXTERNAL:
+			_material._fetcher.fetch_image_callback(_format_gltf_relative_uri(image["uri"]), callback)
+		ImageSource.BASE64:
+			callback.call(_decode_b64_image(image["uri"]))
+		ImageSource.BUFFER:
+			var image_data = _decode_buffer_image(_material._gltf.state.json["bufferViews"][image["bufferView"]], image)
+			callback.call(image_data)
+		_:
+			push_error("Image could not be decoded: No uri or bufferView!\n%s" % image)
+
+
+func _image_source(image: Dictionary) -> ImageSource:
 	if image.has("uri"):
 		var uri = image["uri"]
 		if uri.begins_with("data:"):
-			# Base64 embedded image
-			var image_data = _decode_b64_image(uri)
-			callback.call(image_data)
+			return ImageSource.BASE64
 		else:
-			# External image on server
-			uri = _format_gltf_relative_uri(uri)
-			_material._fetcher.fetch_image_callback(uri, callback)
+			return ImageSource.EXTERNAL
 	elif image.has("bufferView"):
-		# Image in buffer
-		var image_data = _decode_buffer_image(_material._gltf.state.json["bufferViews"][image["bufferView"]], image)
-		callback.call(image_data)
+		return ImageSource.BUFFER
 	else:
-		push_error("Image at index %s could not be decoded: No uri or bufferView!" % image_index)
+		return ImageSource.ERROR
+
+
+func _image_at_index(index: int) -> Dictionary:
+	return _material._gltf.state.json["images"][index]
 
 
 # TODO: Not working yet
@@ -84,12 +103,14 @@ func _format_gltf_relative_uri(uri: String) -> String:
 	return folder.path_join(uri)
 
 
-func _process_image(image: Image, format) -> Image:
+func _process_image(image: Image) -> Image:
 	image.generate_mipmaps()
-	image.convert(format)
+	image.convert(texture_format)
 	return image
 
 
-func _load_shader_image(image: Image, shaderKey: String):
+func _load_shader_image(image: Image):
 	var texture := ImageTexture.create_from_image(image)
-	_material.set_shader_parameter(shaderKey, texture)
+	_material.set_shader_parameter(_shader_key, texture)
+	load_complete.emit()
+	texture_loaded.emit(_shader_key)
