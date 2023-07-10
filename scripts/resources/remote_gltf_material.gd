@@ -34,21 +34,27 @@ func load(parent: Node):
 	var material_index = mesh.get("primitives")[0].get("material")
 	var material = _gltf.state.json.get("materials")[material_index]
 	
-	_load_common_textures(material)
+	# Load the correct shader
 	if (material.has("extras") and
 	material["extras"].has_all(["basisFunctionsUri", "specularWeights"])):
-		# Is IBR
-		_load_ibr_common_textures(material)
 		if material["extras"].has("roughnessTexture"):
-			_load_specular_ibr(material)
+			shader = SHADER_IBR
 		else:
-			_load_specular_orm_ibr(material)
+			shader = SHADER_ORM_IBR
 	else:
-		# Non-IBR, use standard shader
-		_load_standard_material(material)
+		shader = SHADER_STANDARD
 	
-	var progress = _get_load_progress()
-	load_progress.emit(progress[0], progress[1])
+	if material.has("pbrMetallicRoughness"):
+		_load_pbr_material(material["pbrMetallicRoughness"])
+	
+	if material.has("normalTexture"):
+		_start_tex_load(_info_to_tex(material["normalTexture"]), "normalMap")
+	
+	if material.has("extras"):
+		_load_ibr_material(material["extras"])
+		_load_ibr_common_textures(material)
+	
+	_update_progress()
 
 
 func _info_to_tex(texture_info: Dictionary) -> Dictionary:
@@ -66,13 +72,6 @@ func _start_tex_load(texture: Dictionary, key: String):
 func _texture_loader_completion(key: String):
 	_resources_loaded[key] = true
 	_update_progress()
-
-
-# Loads textures common to all shader modes
-func _load_common_textures(material: Dictionary):
-	# Load normalMap from material
-	if material.has("normalTexture"):
-		_start_tex_load(_info_to_tex(material["normalTexture"]), "normalMap")
 
 
 # Loads textures common to IBR shader modes
@@ -95,59 +94,23 @@ func _load_ibr_common_textures(material: Dictionary):
 			_load_specular_weights(weights)
 
 
-func _load_standard_material(material: Dictionary):
-	shader = SHADER_STANDARD
-	
-	if material.has("pbrMetallicRoughness"):
-		var pbr = material.get("pbrMetallicRoughness")
+func _load_pbr_material(pbr: Dictionary):
+	if pbr.has("baseColorTexture"):
+		_start_tex_load(_info_to_tex(pbr["baseColorTexture"]), "albedoMap")
 		
-		if pbr.has("baseColorTexture"):
-			_start_tex_load(_info_to_tex(pbr["baseColorTexture"]), "albedoMap")
-		
-		if pbr.has("metallicRoughnessTexture"):
-			_start_tex_load(_info_to_tex(pbr["metallicRoughnessTexture"]), "ormMap")
+	if pbr.has("metallicRoughnessTexture"):
+		_start_tex_load(_info_to_tex(pbr["metallicRoughnessTexture"]), "ormMap")
 
 
-func _load_specular_orm_ibr(material: Dictionary):
-	shader = SHADER_ORM_IBR
-	
-	if material.has("pbrMetallicRoughness"):
-		var pbr = material.get("pbrMetallicRoughness")
-		
-		if pbr.has("baseColorTexture"):
-			_start_tex_load(_info_to_tex(pbr["baseColorTexture"]), "albedoMap")
-		
-		if pbr.has("metallicRoughnessTexture"):
-			_start_tex_load(_info_to_tex(pbr["metallicRoughnessTexture"]), "ormMap")
-	
-	if material.has("extras"):
-		var extras = material.get("extras")
-		
-		if extras.has("diffuseTexture"):
-			_start_tex_load(_info_to_tex(extras["diffuseTexture"]), "diffuseMap")
+func _load_ibr_material(extras: Dictionary):
+	if extras.has("diffuseTexture") and _shader_wants("diffuseMap"):
+		_start_tex_load(_info_to_tex(extras["diffuseTexture"]), "diffuseMap")
 
-func _load_specular_ibr(material: Dictionary):
-	shader = SHADER_IBR
+	if extras.has("specularTexture") and _shader_wants("specularMap"):
+		_start_tex_load(_info_to_tex(extras["specularTexture"]), "specularMap")
 	
-	# Load diffuseMap and roughnessMap from pbr section of material
-	if material.has("pbrMetallicRoughness"):
-		var pbr = material.get("pbrMetallicRoughness")
-		
-		if pbr.has("baseColorTexture"):
-			_start_tex_load(_info_to_tex(pbr["baseColorTexture"]), "albedoMap")
-		
-		if pbr.has("metallicRoughnessTexture"):
-			_start_tex_load(_info_to_tex(pbr["metallicRoughnessTexture"]), "ormMap")
-	
-	# Load textures stored in material extras data
-	if material.has("extras"):
-		var extras = material.get("extras")
-		
-		if extras.has("specularTexture"):
-			_start_tex_load(_info_to_tex(extras["specularTexture"]), "specularMap")
-		
-		if extras.has("roughnessTexture"):
-			_start_tex_load(_info_to_tex(extras["roughnessTexture"]), "roughnessMap")
+	if extras.has("roughnessTexture") and _shader_wants("roughnessMap"):
+		_start_tex_load(_info_to_tex(extras["roughnessTexture"]), "roughnessMap")
 
 
 func _load_specular_weights(weights: Dictionary):
@@ -162,13 +125,7 @@ func _load_specular_weights(weights: Dictionary):
 	if weights.get("stride") == 4 and weights.get("textures").size() >= 2:
 		# No conversion to RGBA is needed, Load upper and lower weights directly
 		for i in 2:
-			var texIdx = weights["textures"][i]["index"]
-			var imgIdx = _gltf.state.json["textures"][texIdx]["source"]
-			_resources_loaded[shaderKeys[i]] = false
-			_load_image_from_index(imgIdx, func(img):
-				img = _process_image(img, Image.FORMAT_RGBA8)
-				_load_shader_image(img, shaderKeys[i])
-			)
+			_start_tex_load(_info_to_tex(weights["textures"][i]), shaderKeys[i])
 	else:
 		var uris: Array[String] = []
 		for texture in weights.get("textures"):
@@ -190,69 +147,6 @@ func _load_specular_weights(weights: Dictionary):
 		)
 		
 		converter.combine()
-
-
-func _load_image_from_index(image_index: int, callback: Callable):
-	var image = _gltf.state.json["images"][image_index]
-	if image.has("uri"):
-		var uri = image["uri"]
-		if uri.begins_with("data:"):
-			# Base64 embedded image
-			var image_data = _decode_b64_image(uri)
-			callback.call(image_data)
-		else:
-			# External image on server
-			uri = _format_gltf_relative_uri(uri)
-			_fetcher.fetch_image_callback(uri, callback)
-	elif image.has("bufferView"):
-		# Image in buffer
-		var image_data = _decode_buffer_image(_gltf.state.json["bufferViews"][image["bufferView"]], image)
-		callback.call(image_data)
-	else:
-		push_error("Image at index %s could not be decoded: No uri or bufferView!" % image_index)
-
-
-func _decode_buffer_image(bufferView: Dictionary, p_image: Dictionary) -> Image:
-	print(bufferView)
-	var buffer = _gltf.state.json["buffers"][bufferView["buffer"]]
-	var data = Marshalls.base64_to_raw(buffer["uri"].get_slice(',', 1))
-	
-	var start = 0
-	if bufferView.has("byteOffset"):
-		start = bufferView["byteOffset"]
-	var end = start + bufferView["byteLength"]
-	
-	var viewData = data.slice(start, end)
-	
-	var o_image = Image.new()
-	match p_image["mimeType"]:
-		"image/jpeg":
-			o_image.load_jpg_from_buffer(data)
-		"image/png":
-			o_image.load_png_from_buffer(data)
-		"image/webp":
-			o_image.load_webp_from_buffer(data)
-		_:
-			push_error("Unrecognized image format received from server: '%s'" % p_image["mimeType"])
-	
-	return o_image
-
-
-func _decode_b64_image(uri: String) -> Image:
-	print(uri)
-	return Image.new()
-
-
-func _get_texture_image_index(texture_name: String) -> int:
-	if not _gltf.state.json.has("textures"):
-		return -1
-		
-	var textures = _gltf.state.json["textures"]
-	for texture in textures:
-		if texture.get("name") == texture_name:
-			return texture["source"]
-	
-	return -1
 
 
 func _get_self_mesh_index(parent: Node, state: GLTFState) -> int:
@@ -319,3 +213,11 @@ func _basis_csv_to_image(in_csv: Array) -> Image:
 	
 	
 	return Image.create_from_data(width, in_csv.size() / 3, false, Image.FORMAT_RGBF, data.to_byte_array())
+
+
+func _shader_wants(key: String) -> bool:
+	var uniforms = shader.get_shader_uniform_list()
+	for uniform in uniforms:
+		if uniform.name == key:
+			return true
+	return false
