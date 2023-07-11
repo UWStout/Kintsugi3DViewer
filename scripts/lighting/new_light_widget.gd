@@ -67,6 +67,8 @@ func select_widget(clicked_object : Object, clicked_position : Vector3):
 	update_horizontal_track()
 	update_vertical_track()
 	
+	controller.scene_camera.rig_enabled = false
+	
 	selected_initial_position_screen = controller.scene_camera.camera.unproject_position(clicked_position)
 
 # Called when another widget is selected, or some other action is taken
@@ -80,6 +82,8 @@ func unselect_widget():
 	distance_track.visible = false
 	horizontal_track.visible = false
 	vertical_track.visible = false
+	
+	controller.scene_camera.rig_enabled = true
 
 # Select a part of this widget to be manipulated by the user
 func select_widget_part(selected_object : Object):
@@ -136,15 +140,13 @@ func _input(event):
 	if controller.scene_camera == null:
 		return
 	
-	controller.scene_camera.do_move_in_frame = false
-	
 	# if the selected part of this widget is outside of the camera's view, do nothing
-	if not controller.scene_camera.camera.is_position_in_frustum(get_selected_widget_part().global_position):
+	#if not controller.scene_camera.camera.is_position_in_frustum(get_selected_widget_part().global_position):
 		#print("The selected part is outside of the screen view. It cannot be manipulated!")
 		#update_distance(widget_distance - 0.01)
 		#controller.select_light(null)
 		#return
-		pass
+		#pass
 	
 	# We only want to manipulate the widget if the cursor is being dragged
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):# or event is InputEventScreenTouch:
@@ -154,7 +156,7 @@ func _input(event):
 			
 			selected_widget_part_initial_position_world = get_selected_widget_part().global_position
 			
-			#was_grabbed = true
+			controller.scene_camera.rig_enabled = false
 		else:
 			is_dragging = false
 			
@@ -168,13 +170,13 @@ func _input(event):
 			vertical_track.visible = false
 			
 			was_grabbed = false
+			
+			controller.scene_camera.rig_enabled = true
 	
 	# If the event is a mouse movement, and the mouse is being dragged, manipulate the widget
 	if (event is InputEventMouseMotion) and is_dragging and was_grabbed:
 		# If we are manipulating the widget we don't want the camera to rotate or move
 		#controller.scene_camera.do_move_in_frame = false
-		
-		print("hello, Input!")
 		
 		if selected_widget_part == 0:
 			handle_target_point(event.position)

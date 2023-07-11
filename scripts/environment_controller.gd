@@ -86,8 +86,7 @@ func begin_customizing_lights():
 	show_scene_lighting(selected_index)
 	
 func stop_customizing_lights():
-	select_light(null)
-	hide_scene_lighting(selected_index)
+	force_hide_lights()
 	
 	if not connected_customize_lighting_button == null:
 		connected_customize_lighting_button.override_stop_customizing()
@@ -96,6 +95,10 @@ func select_light(light : NewLightWidget):
 	if light == null:
 		if not connected_color_picker == null:
 			connected_color_picker.visible = false
+		
+		if not selected_light == null:
+			selected_light.unselect_widget()
+			
 		selected_light = null
 		return
 	
@@ -106,3 +109,7 @@ func select_light(light : NewLightWidget):
 func get_active_artifact_root() -> Node3D:
 	return loaded_scenes[selected_index].get_artifact_root()
 	pass
+
+func force_hide_lights():
+	select_light(null)
+	hide_scene_lighting(selected_index)

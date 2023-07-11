@@ -41,6 +41,9 @@ func display_artifact(index : int):
 
 
 func display_artifact_data(artifact: ArtifactData):
+	var artifact_index = artifacts.find(artifact)
+	current_index = artifact_index
+	
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
 	

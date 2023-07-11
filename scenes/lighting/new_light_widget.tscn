@@ -135,4 +135,5 @@ material = SubResource("StandardMaterial3D_8bm78")
 [node name="light" type="SpotLight3D" parent="target_point"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 light_energy = 10.0
+shadow_enabled = true
 spot_range = 25.0

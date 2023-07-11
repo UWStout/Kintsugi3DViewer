@@ -54,8 +54,6 @@ class_name CameraRig
 @export var raycast_distance : float = 1000
 @export_flags_2d_physics var raycast_collision_mask
 
-var do_move_in_frame = true
-
 #autopan
 var do_autopan : bool = false
 var autopan_target : Vector3
@@ -70,16 +68,19 @@ var target_fov: float
 var environment_controller : EnvironmentController
 
 func set_fov(new_fov: float):
-	target_fov = new_fov
+	if rig_enabled:
+		target_fov = new_fov
 
 func set_dolly(new_dolly: float):
-	target_dolly = new_dolly
+	if rig_enabled:
+		target_dolly = new_dolly
 
 func set_zoom(new_zoom: float):
 	set_dolly(new_zoom)
 
 func set_rig_transform(new_transform: Transform3D):
-	target_transform = new_transform
+	if rig_enabled:
+		target_transform = new_transform
 
 func set_rig_rotation(new_rotation: Vector3):
 	var new_transform = Transform3D(Basis.from_euler(new_rotation), target_transform.origin)
@@ -106,25 +107,20 @@ func apply_rotation(delta_rotation: Vector3):
 	target_transform.basis = Basis.from_euler(delta_rotation) * target_transform.basis
 
 func apply_yaw(delta_yaw: float):
-	if not do_move_in_frame:
-		return
-	target_transform.basis = target_transform.basis.rotated(Vector3.UP, delta_yaw).orthonormalized()
+	if rig_enabled:
+		target_transform.basis = target_transform.basis.rotated(Vector3.UP, delta_yaw).orthonormalized()
 
 func apply_pitch(delta_pitch: float):
-	if not do_move_in_frame:
-		return
-	target_transform.basis = target_transform.basis.rotated(target_transform.basis.x, delta_pitch).orthonormalized()
+	if rig_enabled:
+		target_transform.basis = target_transform.basis.rotated(target_transform.basis.x, delta_pitch).orthonormalized()
 
 func apply_drag(delta_drag: Vector2):
-	if not do_move_in_frame:
-		return
 	apply_translation(target_transform.basis * Vector3(delta_drag.x, delta_drag.y, 0))
 
 func apply_drag_direct(delta_drag: Vector2):
-	if not do_move_in_frame:
-		return
-	apply_drag(delta_drag)
-	rotationPoint.transform.origin = target_transform.origin
+	if rig_enabled:
+		apply_drag(delta_drag)
+		rotationPoint.transform.origin = target_transform.origin
 
 func _ready():
 	# Validate variables
@@ -146,9 +142,7 @@ func _ready():
 	camera.fov = target_fov
 	
 func _process(delta):
-	if not rig_enabled or not do_move_in_frame:
-		if not do_move_in_frame:
-			do_move_in_frame = true
+	if not rig_enabled:
 		return
 	
 	if fov_enabled:
@@ -205,8 +199,6 @@ func _process(delta):
 		if rotationPoint.global_position.distance_to(autopan_target) <= 0.1:
 			rotationPoint.global_position = autopan_target
 			do_autopan = false
-			
-	do_move_in_frame = true
 
 #autopan functions
 func begin_autopan(new_target, new_speed : float):
@@ -243,8 +235,10 @@ func cast_ray_to_world():
 			
 			if not environment_controller == null:
 				environment_controller.select_light(null)
-		if ray_result["collider"] is MovableLightWidgetAxis:
+		elif ray_result["collider"] is MovableLightWidgetAxis:
 			ray_result["collider"].parent_widget.select_widget(ray_result["collider"], ray_result["position"])
+		else:
+			environment_controller.select_light(null)
 	else:
 		if not environment_controller == null:
 			environment_controller.select_light(null)
