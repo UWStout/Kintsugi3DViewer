@@ -19,6 +19,7 @@ func open_dir(dir_name : String):
 		return
 	
 	var dir = DirAccess.open(_CACHE_ROOT_DIR)
+	print(dir.get_current_dir(false))
 	
 	if dir == null:
 		printerr("could not access the cache at directory " + _CACHE_ROOT_DIR)

@@ -65,7 +65,10 @@ func load_artifact():
 	# instead of just grabbing the first child node and hoping its a mesh!
 	var mesh = scene.get_child(0, true)
 	
-	aabb = mesh.get_aabb()
+	if mesh.get_aabb() != null:
+		aabb = mesh.get_aabb()
+	else:
+		aabb = AABB()
 	
 	mat_loader = RemoteGltfMaterial.new(fetcher, obj)
 	
