@@ -1,6 +1,7 @@
-[gd_scene load_steps=44 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=45 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
+[ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
 [ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
@@ -108,6 +109,10 @@ unicode = 71
 events = [SubResource("InputEventKey_awmku")]
 
 [node name="viewer_scene" type="Node3D"]
+
+[node name="graphics" type="Node" parent="." node_paths=PackedStringArray("world_environment")]
+script = ExtResource("1_7gla8")
+world_environment = NodePath("../WorldEnvironment")
 
 [node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -348,10 +353,10 @@ anchors_preset = -1
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.961
-offset_left = 121.0
-offset_top = 47.912
-offset_right = 119.928
-offset_bottom = 114.272
+offset_left = 137.0
+offset_top = 55.912
+offset_right = 127.928
+offset_bottom = 122.272
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -420,6 +425,7 @@ parent_window = NodePath("../../..")
 initial_position = 2
 size = Vector2i(1152, 648)
 access = 2
+show_hidden_files = true
 script = ExtResource("29_4k4a7")
 
 [connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]
