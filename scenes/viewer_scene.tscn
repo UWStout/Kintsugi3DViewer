@@ -1,12 +1,10 @@
-[gd_scene load_steps=46 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=44 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
-[ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_npweu"]
 [ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
 [ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="17_bden0"]
-[ext_resource type="Script" path="res://scripts/ui/turntable_toggle_button.gd" id="23_ejl6q"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
@@ -38,8 +36,7 @@ sky_custom_fov = 1.0
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.0
-ssao_enabled = true
-glow_map_strength = 0.31
+fog_enabled = true
 fog_light_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 fog_density = 0.05
 
@@ -112,21 +109,10 @@ events = [SubResource("InputEventKey_awmku")]
 
 [node name="viewer_scene" type="Node3D"]
 
-[node name="graphics_controller" type="Node" parent="." node_paths=PackedStringArray("world_environment")]
-script = ExtResource("1_npweu")
-world_environment = NodePath("../WorldEnvironment")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_7futl")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="." groups=["testgroup"]]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2, 0)
-visible = false
-
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller")]
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_6cwju")
 _loader = NodePath("../ui_root/LoaderContainer")
-_environment_controller = NodePath("../environment_controller")
 
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button", "connected_customize_lighting_button", "connected_color_picker")]
 script = ExtResource("12_acvmt")
@@ -135,6 +121,9 @@ environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("1
 connected_button = NodePath("../ui_root/select_environment_button")
 connected_customize_lighting_button = NodePath("../ui_root/customize_lighting_button")
 connected_color_picker = NodePath("../ui_root/light_widget_color_picker")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_7futl")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
@@ -285,7 +274,7 @@ icon = ExtResource("67_wwbkf")
 expand_icon = true
 script = ExtResource("68_iinhw")
 
-[node name="customize_lighting_button" type="Button" parent="ui_root" node_paths=PackedStringArray("connected_controller", "turntable_button")]
+[node name="customize_lighting_button" type="Button" parent="ui_root" node_paths=PackedStringArray("connected_controller")]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -303,7 +292,6 @@ pivot_offset = Vector2(75, 25)
 text = "Customize Lights"
 script = ExtResource("27_m6k8c")
 connected_controller = NodePath("../../environment_controller")
-turntable_button = NodePath("../turntable_toggle_button")
 
 [node name="world_lighting_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("main_light", "backlight", "world_environment")]
 visible = false
@@ -360,10 +348,10 @@ anchors_preset = -1
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.961
-offset_left = 409.0
-offset_top = 191.912
-offset_right = 263.928
-offset_bottom = 258.272
+offset_left = 121.0
+offset_top = 47.912
+offset_right = 119.928
+offset_bottom = 114.272
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -377,7 +365,7 @@ presets_visible = false
 script = ExtResource("28_bg4xr")
 environment_controller = NodePath("../../environment_controller")
 
-[node name="select_environment_button" type="OptionButton" parent="ui_root" node_paths=PackedStringArray("turntable_button")]
+[node name="select_environment_button" type="OptionButton" parent="ui_root"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -392,26 +380,6 @@ offset_bottom = -0.167999
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("33_ynflu")
-turntable_button = NodePath("../turntable_toggle_button")
-
-[node name="turntable_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("_scene_camera_rig", "_artifacts_controller", "_customize_lighting_button")]
-custom_minimum_size = Vector2(150, 50)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.435
-anchor_top = 0.039
-anchor_right = 0.565
-anchor_bottom = 0.116
-offset_left = -0.120026
-offset_top = -0.272001
-offset_right = 0.119995
-offset_bottom = -0.167999
-text = "Rotate Object: OFF"
-script = ExtResource("23_ejl6q")
-_lerp_speed = 2.0
-_scene_camera_rig = NodePath("../../Camera")
-_artifacts_controller = NodePath("../../artifacts_controller")
-_customize_lighting_button = NodePath("../customize_lighting_button")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
@@ -452,11 +420,7 @@ parent_window = NodePath("../../..")
 initial_position = 2
 size = Vector2i(1152, 648)
 access = 2
-show_hidden_files = true
 script = ExtResource("29_4k4a7")
-
-[node name="ReflectionProbe" type="ReflectionProbe" parent="."]
-update_mode = 1
 
 [connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]
 [connection signal="item_selected" from="ui_root/select_environment_button" to="ui_root/select_environment_button" method="_on_item_selected"]
