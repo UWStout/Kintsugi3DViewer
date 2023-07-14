@@ -1,8 +1,9 @@
-[gd_scene load_steps=45 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=46 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
+[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_8xtf8"]
 [ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
 [ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="17_bden0"]
@@ -114,10 +115,12 @@ events = [SubResource("InputEventKey_awmku")]
 script = ExtResource("1_7gla8")
 world_environment = NodePath("../WorldEnvironment")
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader")]
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_6cwju")
 _loader = NodePath("../ui_root/LoaderContainer")
+_ibr_shader = ExtResource("3_8xtf8")
+_environment_controller = NodePath("../environment_controller")
 
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button", "connected_customize_lighting_button", "connected_color_picker")]
 script = ExtResource("12_acvmt")
@@ -353,10 +356,10 @@ anchors_preset = -1
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.961
-offset_left = 137.0
-offset_top = 55.912
-offset_right = 127.928
-offset_bottom = 122.272
+offset_left = 169.0
+offset_top = 71.912
+offset_right = 143.928
+offset_bottom = 138.272
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)

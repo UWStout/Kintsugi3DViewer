@@ -47,8 +47,6 @@ func display_artifact_data(artifact: ArtifactData):
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
 	
-	CacheManager.open_dir(artifact.name)
-	
 	loaded_artifact = RemoteGltfModel.create(artifact)
 	add_child(loaded_artifact)
 	loaded_artifact.load_completed.connect(_on_model_load_complete)
@@ -89,6 +87,8 @@ func _on_model_load_complete():
 	target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
 	
 	loaded_artifact.global_position = target_pos
+	print("================== ARTIFACT LOAD COMPLETE =============================")
+	CacheManager.update_open_time(loaded_artifact.artifact.gltfUri.get_base_dir(), false)
 
 func _on_model_load_progress(progress: float):
 	if is_instance_valid(_loader):
