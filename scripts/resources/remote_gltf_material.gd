@@ -82,12 +82,17 @@ func _load_ibr_common_textures(material: Dictionary):
 		
 		if extras.has("basisFunctionsUri"):
 			_resources_loaded["basisFunctions"] = false
-			var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
-			_fetcher.fetch_csv_callback(uri, func(csv):
-				var img = _basis_csv_to_image(csv)
-				img = _process_image(img, Image.FORMAT_RGBF)
-				_load_shader_image(img, "basisFunctions")
-			)
+			
+			var imported = CacheManager.import_png(_gltf.sourceUri.get_base_dir(), "basisFunctions")
+			if not imported == null:
+				_load_shader_image(imported, "basisFunctions")
+			else:
+				var uri = _format_gltf_relative_uri(extras["basisFunctionsUri"])
+				_fetcher.fetch_csv_callback(uri, func(csv):
+					var img = _basis_csv_to_image(csv)
+					img = _process_image(img, Image.FORMAT_RGBF)
+					_load_shader_image(img, "basisFunctions")
+				)
 		
 		if extras.has("specularWeights"):
 			var weights = extras["specularWeights"]
@@ -171,6 +176,8 @@ func _load_shader_image(image: Image, shaderKey: String):
 	if _resources_loaded.has(shaderKey):
 		_resources_loaded[shaderKey] = true
 	
+	CacheManager.export_png(_gltf.sourceUri.get_base_dir(), shaderKey, image)
+	
 	var texture := ImageTexture.create_from_image(image)
 	set_shader_parameter(shaderKey, texture)
 	
@@ -180,6 +187,7 @@ func _load_shader_image(image: Image, shaderKey: String):
 func _update_progress():
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])
+	print(str(progress[0]) + ", " + str(progress[1]))
 	if progress[0] >= progress[1]:
 		load_complete.emit()
 

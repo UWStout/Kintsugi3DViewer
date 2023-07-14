@@ -33,7 +33,12 @@ func _ready():
 func load_artifact():
 	var imported = null
 	
-	imported = CacheManager.import_gltf(artifact.name, artifact.name)
+	var dir_name = artifact.gltfUri.get_base_dir()
+	var file_name = artifact.gltfUri.trim_prefix(dir_name + "/")
+	file_name = file_name.trim_suffix(".glb")
+	file_name = file_name.trim_suffix(".gltf")
+
+	imported = CacheManager.import_gltf(dir_name, file_name)
 	
 	if not imported == null:
 		obj = GLTFObject.new()
@@ -51,7 +56,8 @@ func load_artifact():
 	# if the import failed, then there isn't a GLTF file exported
 	# to the cache, so we should export this one
 	if imported == null:
-		CacheManager.export_gltf(artifact.name, artifact.name, obj.document, obj.state.duplicate())
+		print(obj.sourceUri)
+		CacheManager.export_gltf(dir_name, file_name, obj.document, obj.state.duplicate())
 	
 	var scene = obj.generate_scene()
 	
@@ -89,6 +95,7 @@ func _on_material_load_progress(complete: int, total: int):
 	if obj != null:
 		complete += 1
 	var progress = float(complete) / (total)
+	print("LOAD PROGRESS UPDATED! -> " + str(progress))
 	load_progress.emit(progress)
 
 
