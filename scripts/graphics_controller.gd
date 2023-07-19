@@ -1,4 +1,4 @@
-extends Node
+class_name GraphicsController extends Node
 
 enum ASPECT_RATIO {_4to3, _16to10, _16to9}
 
@@ -110,6 +110,14 @@ func change_subsurface_scattering(mode : SUBSURFACE):
 	ProjectSettings.set_setting("rendering/environment/subsurface_scattering/subsurface_scattering_quality", mode)
 
 func _ready():
+	shadows = Preferences.read_pref("shadows")
+	antialiasing = Preferences.read_pref("aa")
+	global_illumination = Preferences.read_pref("gi")
+	ssao = Preferences.read_pref("ssao")
+	ssil = Preferences.read_pref("ssil")
+	screen_space_reflections = Preferences.read_pref("ssr")
+	subsurface_scattering = Preferences.read_pref("subsurface scattering")
+	
 	change_resolution(Vector2i(1152, 648))
 	change_shadows(shadows)
 	change_global_illumination(global_illumination)

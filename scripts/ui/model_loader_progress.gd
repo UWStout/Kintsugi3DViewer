@@ -8,7 +8,8 @@ func _ready():
 
 
 func update_progress(progress: float):
-	progressBar.value = progress
+	if not progressBar == null:
+		progressBar.value = progress
 
 
 func start_loading():

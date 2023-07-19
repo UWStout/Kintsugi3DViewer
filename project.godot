@@ -17,9 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
-GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
+Preferences="*res://scripts/preferences.gd"
 CacheManager="*res://scripts/resources/cache_manager.gd"
+GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
+AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
 
 [editor_plugins]
 
