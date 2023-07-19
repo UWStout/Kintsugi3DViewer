@@ -13,6 +13,15 @@ var outsized_folders : Array[String] = []
 var cache_mode : REDUCE_CACHE_MODE = REDUCE_CACHE_MODE.OLDEST
 
 func _ready():
+	
+	var pref_cache_size = Preferences.read_pref("cache size")
+	if not pref_cache_size == null:
+		cache_size_limit = mb_to_bytes(pref_cache_size)
+	
+	var pref_cache_mode = Preferences.read_pref("cache mode")
+	if not pref_cache_mode == null:
+		cache_mode = pref_cache_mode
+	
 	create_cache_directory()
 	
 	show_cache_info()
@@ -217,6 +226,48 @@ func png_cached(dir_name: String, name: String) -> bool:
 	return dir.file_exists(file_name)
 
 
+func import_artifact_data(dir_name : String):
+	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
+	
+	if not dir:
+		return
+	
+	var lines = get_lines_in_file(dir.get_current_dir() + "/data.txt")
+	var data = ArtifactData.new()
+	
+	if lines.size() <= 0:
+		print("data.txt not located in directory " + dir.get_current_dir())
+		return data
+	
+	for line in lines:
+		var parts = line.split(":")
+		if parts.size() > 1:
+			if parts[0] == "name":
+				data.name = parts[1]
+			if parts[0] == "uri":
+				data.gltfUri = parts[1]
+	
+	print("imported data.txt from directory " + dir.get_current_dir())
+	
+	return data
+
+func export_artifact_data(dir_name : String, data : ArtifactData):
+	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
+	
+	if not dir:
+		return
+	
+	var file = FileAccess.open(dir.get_current_dir() + "/data.txt", FileAccess.WRITE)
+	
+	if not file:
+		return
+	
+	file.store_line("name:" + data.name)
+	file.store_line("uri:" + data.gltfUri)
+	
+	print("exported data.txt to directory " + dir.get_current_dir())
+
+
 func get_artifacts_in_cache(include_peristent : bool) -> Array[String]:
 	var dir = DirAccess.open(_CACHE_ROOT_DIR)
 	if dir == null:
@@ -282,6 +333,18 @@ func should_add_to_cache(file_size : int) -> bool:
 func show_cache_info():
 	print("<=====> (CACHE) <=====>")
 	print("\tdirectory: " + _CACHE_ROOT_DIR + "\n")
+	
+	var mode_var = ""
+	if cache_mode == REDUCE_CACHE_MODE.LARGEST:
+		mode_var = "largest"
+	if cache_mode == REDUCE_CACHE_MODE.SMALLEST:
+		mode_var = "smallest"
+	if cache_mode == REDUCE_CACHE_MODE.NEWEST:
+		mode_var = "newest"
+	if cache_mode == REDUCE_CACHE_MODE.OLDEST:
+		mode_var = "oldest"
+	
+	print("\tcache mode: " + mode_var + "\n")
 	
 	print("\tcache limit: " + str(bytes_to_mb(cache_size_limit)) + " mb\n")
 	
@@ -512,8 +575,9 @@ func get_lines_in_file(file_path : String) -> Array[String]:
 
 func bytes_to_mb(bytes : int):
 	return bytes / 1000000
-	pass
 
+func mb_to_bytes(mb : int):
+	return mb * 1000000
 
 func update_folder_date(artifact : String):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + artifact)
@@ -605,3 +669,13 @@ func get_open_time(artifact : String):
 				return line_parts[1] as int
 	
 	return -1
+
+func get_artifact_data() -> Array[ArtifactData]:
+	var artifacts = get_artifacts_in_cache(true)
+	
+	var artifacts_data : Array[ArtifactData] = []
+	
+	for artifact in artifacts:
+		artifacts_data.push_back(import_artifact_data(artifact))
+	
+	return artifacts_data

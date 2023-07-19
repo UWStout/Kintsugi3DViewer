@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=52 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
@@ -9,8 +9,14 @@
 [ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="17_bden0"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
+[ext_resource type="Script" path="res://scripts/ui/turntable_toggle_button.gd" id="25_gxste"]
+[ext_resource type="Script" path="res://scripts/new_ui/expand_sidebar_button.gd" id="27_fue01"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
+[ext_resource type="Script" path="res://scripts/new_ui/sidebar_selection_menu.gd" id="27_tvcma"]
+[ext_resource type="Script" path="res://scripts/new_ui/expanding_contextual_panel.gd" id="28_02qcj"]
 [ext_resource type="Script" path="res://scripts/ui/light_widget_color_picker.gd" id="28_bg4xr"]
+[ext_resource type="Script" path="res://scripts/new_ui/exclusive_toggle_group.gd" id="28_hi80n"]
+[ext_resource type="Script" path="res://scripts/new_ui/expand_context_panel_button.gd" id="28_oecnp"]
 [ext_resource type="Script" path="res://scripts/ui/save_screenshot_popup_window.gd" id="29_4k4a7"]
 [ext_resource type="PackedScene" uid="uid://c8tb8din2btal" path="res://scenes/environments/demo_environment.tscn" id="33_80o4d"]
 [ext_resource type="Script" path="res://scripts/ui/select_environment_button.gd" id="33_ynflu"]
@@ -23,8 +29,6 @@
 [ext_resource type="Script" path="res://scripts/ui/select_artifact_window.gd" id="56_oke6g"]
 [ext_resource type="Texture2D" uid="uid://triprnly8itd" path="res://assets/ui/flashlight_off.png" id="59_7wb36"]
 [ext_resource type="Script" path="res://scripts/ui/flashlight_toggle_button.gd" id="60_r0ptn"]
-[ext_resource type="Texture2D" uid="uid://18l112q6up3u" path="res://assets/ui/light_full.png" id="61_4qfjy"]
-[ext_resource type="Script" path="res://scripts/ui/world_lighting_toggle_button.gd" id="62_yowdy"]
 [ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/ui/toggle_annotations_on.png" id="67_wwbkf"]
 [ext_resource type="Script" path="res://scripts/ui/annotations_toggle_button.gd" id="68_iinhw"]
 
@@ -100,27 +104,30 @@ unicode = 73
 [sub_resource type="Shortcut" id="Shortcut_oup0k"]
 events = [SubResource("InputEventKey_yx0yo")]
 
-[sub_resource type="InputEventKey" id="InputEventKey_awmku"]
-device = -1
-shift_pressed = true
-keycode = 71
-unicode = 71
+[sub_resource type="Curve" id="Curve_palc5"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="Shortcut" id="Shortcut_m2pwi"]
-events = [SubResource("InputEventKey_awmku")]
+[sub_resource type="Curve" id="Curve_jj0bh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84frv"]
+bg_color = Color(0.137255, 0.137255, 0.137255, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.117647, 0.117647, 0.117647, 1)
+shadow_size = 20
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afcl7"]
 
 [node name="viewer_scene" type="Node3D"]
 
 [node name="graphics" type="Node" parent="." node_paths=PackedStringArray("world_environment")]
 script = ExtResource("1_7gla8")
 world_environment = NodePath("../WorldEnvironment")
-
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-script = ExtResource("1_6cwju")
-_loader = NodePath("../ui_root/LoaderContainer")
-_ibr_shader = ExtResource("3_8xtf8")
-_environment_controller = NodePath("../environment_controller")
 
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "connected_button", "connected_customize_lighting_button", "connected_color_picker")]
 script = ExtResource("12_acvmt")
@@ -129,6 +136,13 @@ environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("1
 connected_button = NodePath("../ui_root/select_environment_button")
 connected_customize_lighting_button = NodePath("../ui_root/customize_lighting_button")
 connected_color_picker = NodePath("../ui_root/light_widget_color_picker")
+
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+script = ExtResource("1_6cwju")
+_loader = NodePath("../ui_root/LoaderContainer")
+_ibr_shader = ExtResource("3_8xtf8")
+_environment_controller = NodePath("../environment_controller")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7futl")
@@ -218,14 +232,14 @@ move_forward = false
 [node name="select_object_button" type="Button" parent="ui_root" node_paths=PackedStringArray("select_window")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.022
-anchor_top = 0.039
-anchor_right = 0.135
-anchor_bottom = 0.1
-offset_left = -0.344002
-offset_top = -0.272001
-offset_right = -0.520004
-offset_bottom = 0.199997
+anchor_left = 0.29
+anchor_top = 0.048
+anchor_right = 0.403
+anchor_bottom = 0.11
+offset_left = -0.0800171
+offset_top = -0.104
+offset_right = -0.256042
+offset_bottom = -0.280006
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(65, 20)
@@ -282,7 +296,7 @@ icon = ExtResource("67_wwbkf")
 expand_icon = true
 script = ExtResource("68_iinhw")
 
-[node name="customize_lighting_button" type="Button" parent="ui_root" node_paths=PackedStringArray("connected_controller")]
+[node name="customize_lighting_button" type="Button" parent="ui_root" node_paths=PackedStringArray("connected_controller", "turntable_button")]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -300,30 +314,7 @@ pivot_offset = Vector2(75, 25)
 text = "Customize Lights"
 script = ExtResource("27_m6k8c")
 connected_controller = NodePath("../../environment_controller")
-
-[node name="world_lighting_toggle_button" type="Button" parent="ui_root" node_paths=PackedStringArray("main_light", "backlight", "world_environment")]
-visible = false
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.87
-anchor_top = 0.039
-anchor_right = 0.913
-anchor_bottom = 0.116
-offset_left = -0.240051
-offset_top = -0.272001
-offset_right = 0.223999
-offset_bottom = -0.167999
-grow_horizontal = 2
-grow_vertical = 2
-tooltip_text = "Toggle world lighting modes"
-shortcut = SubResource("Shortcut_m2pwi")
-icon = ExtResource("61_4qfjy")
-expand_icon = true
-script = ExtResource("62_yowdy")
-main_light = NodePath("")
-backlight = NodePath("")
-world_environment = NodePath("../../WorldEnvironment")
+turntable_button = NodePath("../turntable_button")
 
 [node name="screenshot_button" type="Button" parent="ui_root" node_paths=PackedStringArray("environment_controller", "save_window")]
 custom_minimum_size = Vector2(50, 50)
@@ -353,13 +344,14 @@ visible = false
 custom_minimum_size = Vector2(290, 264)
 layout_mode = 1
 anchors_preset = -1
+anchor_left = 0.021
 anchor_top = 0.656
 anchor_right = 0.211
-anchor_bottom = 0.961
-offset_left = 169.0
-offset_top = 71.912
-offset_right = 143.928
-offset_bottom = 138.272
+anchor_bottom = 0.963
+offset_left = 1003.81
+offset_top = -8.088
+offset_right = 1022.74
+offset_bottom = 58.8879
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -373,7 +365,7 @@ presets_visible = false
 script = ExtResource("28_bg4xr")
 environment_controller = NodePath("../../environment_controller")
 
-[node name="select_environment_button" type="OptionButton" parent="ui_root"]
+[node name="select_environment_button" type="OptionButton" parent="ui_root" node_paths=PackedStringArray("turntable_button")]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -388,6 +380,20 @@ offset_bottom = -0.167999
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("33_ynflu")
+turntable_button = NodePath("../turntable_button")
+
+[node name="turntable_button" type="Button" parent="ui_root" node_paths=PackedStringArray("_scene_camera_rig", "_artifacts_controller", "_customize_lighting_button")]
+layout_mode = 0
+offset_left = 476.0
+offset_top = 25.0
+offset_right = 676.0
+offset_bottom = 75.0
+pivot_offset = Vector2(100, 25)
+text = "Rotate Object: OFF"
+script = ExtResource("25_gxste")
+_scene_camera_rig = NodePath("../../Camera")
+_artifacts_controller = NodePath("../../artifacts_controller")
+_customize_lighting_button = NodePath("../customize_lighting_button")
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
@@ -430,6 +436,441 @@ size = Vector2i(1152, 648)
 access = 2
 show_hidden_files = true
 script = ExtResource("29_4k4a7")
+
+[node name="new_ui_root" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="top_dock" type="Panel" parent="new_ui_root/VBoxContainer"]
+custom_minimum_size = Vector2(0, 85)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/VBoxContainer/top_dock"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5/CenterContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="side_dock" type="HBoxContainer" parent="new_ui_root/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="sidebar_selection_menu" type="Panel" parent="new_ui_root/VBoxContainer/side_dock" node_paths=PackedStringArray("context_menu")]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("27_tvcma")
+context_menu = NodePath("../sidebar_context_menus")
+maximized_size = 85.0
+animation_speed = 0.1
+animation_curve = SubResource("Curve_palc5")
+
+[node name="buttons" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -323.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="toggle_group" type="Node" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
+script = ExtResource("28_hi80n")
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="artifact_catalog" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button1" type="Button" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer/artifact_catalog" node_paths=PackedStringArray("context_menu", "toggle_group")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("28_oecnp")
+context_name = "artifact_catalog"
+context_menu = NodePath("../../../../../sidebar_context_menus")
+toggle_group = NodePath("../../../toggle_group")
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="light_customization" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button2" type="Button" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer2/light_customization" node_paths=PackedStringArray("context_menu", "toggle_group")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("28_oecnp")
+context_name = "lights_selection"
+context_menu = NodePath("../../../../../sidebar_context_menus")
+toggle_group = NodePath("../../../toggle_group")
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="environment_selection" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer3"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button3" type="Button" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer3/environment_selection" node_paths=PackedStringArray("context_menu", "toggle_group")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("28_oecnp")
+context_name = "environment_selection"
+context_menu = NodePath("../../../../../sidebar_context_menus")
+toggle_group = NodePath("../../../toggle_group")
+
+[node name="sidebar_context_menus" type="Panel" parent="new_ui_root/VBoxContainer/side_dock"]
+clip_contents = true
+layout_mode = 2
+script = ExtResource("28_02qcj")
+contexts = Array[NodePath]([NodePath("artifact_catalog"), NodePath("environment_selection"), NodePath("lights_selection")])
+maximized_size = 200.0
+animation_speed = 0.1
+animation_curve = SubResource("Curve_jj0bh")
+
+[node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="header" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_84frv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = -13
+
+[node name="header_text" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="text" type="Label" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer/MarginContainer/header_text"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "ARTIFACT CATALOG"
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="artifact_searchbar" type="TextEdit" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+placeholder_text = "SEARCH FOR ARTIFACT"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="artifact_option" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_afcl7")
+
+[node name="lights_selection" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="header" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_84frv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="header_text" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/header/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="text" type="Label" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/header/VBoxContainer/header_text"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "LIGHT SETTINGS"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="artifact_option" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_afcl7")
+
+[node name="environment_selection" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="header" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_84frv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = -13
+
+[node name="header_text" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="text" type="Label" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer/MarginContainer/header_text"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "ENVIRONMENTS"
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="environment_searchbar" type="TextEdit" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+placeholder_text = "SEARCH FOR ENVIRONMENT"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="artifact_option" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_afcl7")
+
+[node name="VFlowContainer" type="VFlowContainer" parent="new_ui_root/VBoxContainer/side_dock"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/VFlowContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+
+[node name="expand_sidebar_button" type="Button" parent="new_ui_root/VBoxContainer/side_dock/VFlowContainer/MarginContainer" node_paths=PackedStringArray("sidebar_selection_menu")]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+script = ExtResource("27_fue01")
+sidebar_selection_menu = NodePath("../../../sidebar_selection_menu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+alignment = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="expand_bottom_bar_button" type="Button" parent="new_ui_root/VBoxContainer/side_dock/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(37.5, 37.5)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="left" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer/side_dock/VBoxContainer/HBoxContainer/left"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+
+[node name="right" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer/side_dock/VBoxContainer/HBoxContainer/right"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
 
 [connection signal="color_changed" from="ui_root/light_widget_color_picker" to="ui_root/light_widget_color_picker" method="_on_color_changed"]
 [connection signal="item_selected" from="ui_root/select_environment_button" to="ui_root/select_environment_button" method="_on_item_selected"]

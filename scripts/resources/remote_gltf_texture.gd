@@ -32,6 +32,17 @@ func load():
 	if loaded_resolution == max_resolution or (loaded_resolution != 0 and max_resolution == -1):
 		return
 	
+	#if Preferences.read_pref("low res only"):
+		#var lowest_res = str(_get_lods()[0])
+		#if _texture["extras"]["lods"].has(lowest_res):
+			#print("Loading %spx resolution for %s" % [lowest_res, _shader_key])
+			#_load_image(_image_at_index(_texture["extras"]["lods"][lowest_res]))
+			#return
+	var full_image = _image_at_index(_texture["source"])
+	if _image_needs_remote_load(full_image) and Preferences.read_pref("offline mode"):
+		return
+	
+	
 	if loaded_resolution != 0 and max_resolution != -1:
 		load_full_res()
 		return
@@ -44,23 +55,26 @@ func load():
 			load_full_res()
 			return
 		
-		# Check if the highest resolution texture needs to be transmitted
-		# i.e. not in the gltf (already loaded) or in the cache (if enabled)(quicker to load)
-		var full_image = _image_at_index(_texture["source"])
-		if not _image_needs_remote_load(full_image):
-			load_full_res()
-			return
-		
 		var lowest_res = str(_get_lods()[0])
 		if _texture["extras"]["lods"].has(lowest_res):
 			print("Loading %spx resolution for %s" % [lowest_res, _shader_key])
 			_load_image(_image_at_index(_texture["extras"]["lods"][lowest_res]))
+			
+		if not Preferences.read_pref("low res only"):
+			# Check if the highest resolution texture needs to be transmitted
+			# i.e. not in the gltf (already loaded) or in the cache (if enabled)(quicker to load)
+			
+			if not _image_needs_remote_load(full_image):
+				load_full_res()
 	else:
 		load_full_res()
 
 
 func load_full_res():
-	_load_image(_image_at_index(_texture["source"]))
+	if not Preferences.read_pref("low res only"):
+		_load_image(_image_at_index(_texture["source"]))
+	else:
+		texture_loaded.emit(_shader_key)
 
 
 func _get_lods() -> Array[int]:

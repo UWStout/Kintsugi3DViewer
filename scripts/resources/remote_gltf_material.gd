@@ -187,7 +187,7 @@ func _load_shader_image(image: Image, shaderKey: String):
 func _update_progress():
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])
-	print(str(progress[0]) + ", " + str(progress[1]))
+	#print(str(progress[0]) + ", " + str(progress[1]))
 	if progress[0] >= progress[1]:
 		load_complete.emit()
 

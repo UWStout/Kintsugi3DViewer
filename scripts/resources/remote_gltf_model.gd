@@ -58,6 +58,7 @@ func load_artifact():
 	if imported == null:
 		print(obj.sourceUri)
 		CacheManager.export_gltf(dir_name, file_name, obj.document, obj.state.duplicate())
+		CacheManager.export_artifact_data(dir_name, artifact)
 	
 	var scene = obj.generate_scene()
 	
@@ -95,7 +96,7 @@ func _on_material_load_progress(complete: int, total: int):
 	if obj != null:
 		complete += 1
 	var progress = float(complete) / (total)
-	print("LOAD PROGRESS UPDATED! -> " + str(progress))
+	#print("LOAD PROGRESS UPDATED! -> " + str(progress))
 	load_progress.emit(progress)
 
 

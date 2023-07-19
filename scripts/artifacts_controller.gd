@@ -29,8 +29,11 @@ func _ready():
 
 
 func refresh_artifacts():
-	artifacts = await _fetcher.fetch_artifacts()
-	artifacts_refreshed.emit(artifacts)
+	if(Preferences.read_pref("offline mode")):
+		artifacts = CacheManager.get_artifact_data()
+	else:
+		artifacts = await _fetcher.fetch_artifacts()
+		artifacts_refreshed.emit(artifacts)
 	return artifacts
 
 
@@ -83,11 +86,15 @@ func _on_model_load_complete():
 	if is_instance_valid(_loader):
 		_loader.end_loading()
 	
-	var target_pos = _environment_controller.get_active_artifact_root().global_position
-	target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
+	var artifact_root = _environment_controller.get_active_artifact_root()
 	
-	loaded_artifact.global_position = target_pos
-	print("================== ARTIFACT LOAD COMPLETE =============================")
+	if not artifact_root == null:
+		var target_pos = _environment_controller.get_active_artifact_root().global_position
+		target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
+		loaded_artifact.global_position = target_pos
+	
+	
+	#print("================== ARTIFACT LOAD COMPLETE =============================")
 	CacheManager.update_open_time(loaded_artifact.artifact.gltfUri.get_base_dir(), false)
 
 func _on_model_load_progress(progress: float):

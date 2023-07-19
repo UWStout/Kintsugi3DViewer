@@ -107,6 +107,8 @@ func select_light(light : NewLightWidget):
 		connected_color_picker.visible = true
 
 func get_active_artifact_root() -> Node3D:
+	if selected_index < 0 or selected_index >= loaded_scenes.size():
+		return null
 	return loaded_scenes[selected_index].get_artifact_root()
 	pass
 
