@@ -3,6 +3,7 @@ class_name RemoteGltfTexture
 
 signal load_complete
 signal texture_loaded(texture_name: String)
+signal partial_load
 
 var _material: RemoteGltfMaterial
 var _texture: Dictionary
@@ -166,7 +167,14 @@ func _process_image(image: Image) -> Image:
 func _load_shader_image(image: Image):
 	var texture := ImageTexture.create_from_image(image)
 	_material.set_shader_parameter(_shader_key, texture)
+	
+	if loaded_resolution <= 0:
+		partial_load.emit()
+	
 	loaded_resolution = image.get_height()
-	load_complete.emit()
-	texture_loaded.emit(_shader_key)
+	
+	if loaded_resolution == max_resolution:
+		load_complete.emit()
+		texture_loaded.emit(_shader_key)
+	
 	self.load()
