@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=57 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
@@ -10,15 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
 [ext_resource type="Script" path="res://scripts/ui/turntable_toggle_button.gd" id="25_gxste"]
-[ext_resource type="Script" path="res://scripts/new_ui/expand_sidebar_button.gd" id="27_fue01"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
-[ext_resource type="Script" path="res://scripts/new_ui/sidebar_selection_menu.gd" id="27_tvcma"]
-[ext_resource type="Script" path="res://scripts/new_ui/expanding_contextual_panel.gd" id="28_02qcj"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/sidebar_selection_menu.gd" id="27_veti7"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="28_7jo5e"]
 [ext_resource type="Script" path="res://scripts/ui/light_widget_color_picker.gd" id="28_bg4xr"]
-[ext_resource type="Script" path="res://scripts/new_ui/exclusive_toggle_group.gd" id="28_hi80n"]
-[ext_resource type="Script" path="res://scripts/new_ui/expand_context_panel_button.gd" id="28_oecnp"]
 [ext_resource type="Script" path="res://scripts/ui/save_screenshot_popup_window.gd" id="29_4k4a7"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/expand_context_panel_button.gd" id="29_nkxfq"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/expanding_contextual_panel.gd" id="30_j217o"]
+[ext_resource type="PackedScene" uid="uid://2kcde1sv8k6i" path="res://scenes/new_ui/artifact_selection_button.tscn" id="31_3etux"]
+[ext_resource type="Script" path="res://scripts/new_ui/artifact_catalog_ui.gd" id="31_8olmt"]
 [ext_resource type="PackedScene" uid="uid://c8tb8din2btal" path="res://scenes/environments/demo_environment.tscn" id="33_80o4d"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/expand_sidebar_button.gd" id="33_s0b57"]
 [ext_resource type="Script" path="res://scripts/ui/select_environment_button.gd" id="33_ynflu"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
@@ -104,6 +106,16 @@ unicode = 73
 [sub_resource type="Shortcut" id="Shortcut_oup0k"]
 events = [SubResource("InputEventKey_yx0yo")]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ty0p"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+border_width_bottom = 5
+border_color = Color(0.141176, 0.141176, 0.141176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cdamu"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+border_width_right = 5
+border_color = Color(0.141176, 0.141176, 0.141176, 1)
+
 [sub_resource type="Curve" id="Curve_palc5"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
@@ -113,13 +125,24 @@ _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84frv"]
-bg_color = Color(0.137255, 0.137255, 0.137255, 1)
-border_width_left = 5
-border_width_top = 5
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.117647, 0.117647, 0.117647, 1)
-shadow_size = 20
+border_color = Color(0.141176, 0.141176, 0.141176, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncy14"]
+content_margin_left = 10.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 11
+corner_radius_top_right = 11
+corner_radius_bottom_right = 11
+corner_radius_bottom_left = 11
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_afcl7"]
 
@@ -348,10 +371,10 @@ anchor_left = 0.021
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.963
-offset_left = 1003.81
-offset_top = -8.088
-offset_right = 1022.74
-offset_bottom = 58.8879
+offset_left = 1355.81
+offset_top = 167.912
+offset_right = 1198.74
+offset_bottom = 234.888
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -460,6 +483,7 @@ theme_override_constants/separation = 0
 [node name="top_dock" type="Panel" parent="new_ui_root/VBoxContainer"]
 custom_minimum_size = Vector2(0, 85)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7ty0p")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/VBoxContainer/top_dock"]
 layout_mode = 1
@@ -560,7 +584,8 @@ theme_override_constants/separation = 0
 [node name="sidebar_selection_menu" type="Panel" parent="new_ui_root/VBoxContainer/side_dock" node_paths=PackedStringArray("context_menu")]
 clip_contents = true
 layout_mode = 2
-script = ExtResource("27_tvcma")
+theme_override_styles/panel = SubResource("StyleBoxFlat_cdamu")
+script = ExtResource("27_veti7")
 context_menu = NodePath("../sidebar_context_menus")
 maximized_size = 85.0
 animation_speed = 0.1
@@ -578,7 +603,7 @@ mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="toggle_group" type="Node" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
-script = ExtResource("28_hi80n")
+script = ExtResource("28_7jo5e")
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
 layout_mode = 2
@@ -594,10 +619,11 @@ mouse_filter = 2
 [node name="Button1" type="Button" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer/artifact_catalog" node_paths=PackedStringArray("context_menu", "toggle_group")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-script = ExtResource("28_oecnp")
+script = ExtResource("29_nkxfq")
 context_name = "artifact_catalog"
 context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
+_start_toggled = null
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
 layout_mode = 2
@@ -613,10 +639,11 @@ mouse_filter = 2
 [node name="Button2" type="Button" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer2/light_customization" node_paths=PackedStringArray("context_menu", "toggle_group")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-script = ExtResource("28_oecnp")
+script = ExtResource("29_nkxfq")
 context_name = "lights_selection"
 context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
+_start_toggled = null
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
 layout_mode = 2
@@ -632,65 +659,81 @@ mouse_filter = 2
 [node name="Button3" type="Button" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer3/environment_selection" node_paths=PackedStringArray("context_menu", "toggle_group")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
-script = ExtResource("28_oecnp")
+script = ExtResource("29_nkxfq")
 context_name = "environment_selection"
 context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
+_start_toggled = null
 
 [node name="sidebar_context_menus" type="Panel" parent="new_ui_root/VBoxContainer/side_dock"]
 clip_contents = true
 layout_mode = 2
-script = ExtResource("28_02qcj")
+script = ExtResource("30_j217o")
 contexts = Array[NodePath]([NodePath("artifact_catalog"), NodePath("environment_selection"), NodePath("lights_selection")])
-maximized_size = 200.0
+maximized_size = 250.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_jj0bh")
 
-[node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus"]
-visible = false
+[node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifact_controller")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("31_8olmt")
+artifact_select_button = ExtResource("31_3etux")
+artifact_controller = NodePath("../../../../../artifacts_controller")
+
+[node name="button_group" type="Node" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
+script = ExtResource("28_7jo5e")
+can_toggle_off_all = false
 
 [node name="header" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
-custom_minimum_size = Vector2(0, 75)
+custom_minimum_size = Vector2(250, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_84frv")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
 layout_mode = 2
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_bottom = -13
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_bottom = 12
 
-[node name="header_text" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 
-[node name="text" type="Label" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer/MarginContainer/header_text"]
+[node name="Label" type="Label" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "ARTIFACT CATALOG"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
 layout_mode = 2
-size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 25
 
-[node name="artifact_searchbar" type="TextEdit" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer/CenterContainer"]
-custom_minimum_size = Vector2(150, 25)
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="searchbar" type="TextEdit" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer"]
+custom_minimum_size = Vector2(206, 24)
 layout_mode = 2
 theme_override_font_sizes/font_size = 9
-placeholder_text = "SEARCH FOR ARTIFACT"
+theme_override_styles/normal = SubResource("StyleBoxFlat_ncy14")
+placeholder_text = "Search..."
+wrap_mode = 1
+scroll_past_end_of_file = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
 layout_mode = 2
@@ -700,11 +743,6 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="artifact_option" type="Panel" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_afcl7")
 
 [node name="lights_selection" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus"]
 visible = false
@@ -829,7 +867,7 @@ theme_override_constants/margin_top = 40
 [node name="expand_sidebar_button" type="Button" parent="new_ui_root/VBoxContainer/side_dock/VFlowContainer/MarginContainer" node_paths=PackedStringArray("sidebar_selection_menu")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-script = ExtResource("27_fue01")
+script = ExtResource("33_s0b57")
 sidebar_selection_menu = NodePath("../../../sidebar_selection_menu")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/VBoxContainer/side_dock"]
@@ -876,3 +914,4 @@ layout_mode = 2
 [connection signal="item_selected" from="ui_root/select_environment_button" to="ui_root/select_environment_button" method="_on_item_selected"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]
+[connection signal="text_changed" from="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]

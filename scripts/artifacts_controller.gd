@@ -28,7 +28,7 @@ func _ready():
 		display_artifact(0)
 
 
-func refresh_artifacts():
+func refresh_artifacts() -> Array[ArtifactData]:
 	if(Preferences.read_pref("offline mode")):
 		artifacts = CacheManager.get_artifact_data()
 	else:
