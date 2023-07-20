@@ -15,16 +15,13 @@ func make_button_active(button : ExclusiveToggleButton):
 	
 	if active_button == null:
 		active_button = button
-		active_button.display_active()
-		active_button.toggle_on()
+		await active_button.toggle_on()
 		return
 	
 	await active_button.toggle_off()
-	active_button.display_inactive()
 
 	active_button = button
-	active_button.display_active()
-	active_button.toggle_on()
+	await active_button.toggle_on()
 
 func make_button_inactive(button : ExclusiveToggleButton):
 	if not connected_buttons.has(button) or not active_button == button:
@@ -32,6 +29,4 @@ func make_button_inactive(button : ExclusiveToggleButton):
 	
 	if can_toggle_off_all:
 		active_button = null
-		button.display_inactive()
 		button.toggle_off()
-

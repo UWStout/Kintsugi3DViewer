@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://2kcde1sv8k6i"]
+
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/artifact_selection_button.gd" id="1_em5rn"]
+[ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/ui/toggle_annotations_on.png" id="2_8m8pc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q2ihn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r1xo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ers81"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4j1w0"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pvtpl"]
+bg_color = Color(0.423529, 0.423529, 0.423529, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_moyju"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ljd0"]
+bg_color = Color(0.423529, 0.423529, 0.423529, 1)
+
+[node name="artifact_selection_button" type="Button"]
+custom_minimum_size = Vector2(250, 60)
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gp8r4")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_q2ihn")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7r1xo")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ers81")
+expand_icon = true
+script = ExtResource("1_em5rn")
+toggled_on_style = SubResource("StyleBoxFlat_4j1w0")
+toggled_on_hover_style = SubResource("StyleBoxFlat_pvtpl")
+toggled_off_style = SubResource("StyleBoxEmpty_moyju")
+toggled_off_hover_style = SubResource("StyleBoxFlat_4ljd0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="artifact_preview" type="TextureRect" parent="HBoxContainer/MarginContainer/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_8m8pc")
+expand_mode = 5
+
+[node name="artifact_label" type="Label" parent="HBoxContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+text = "ARTIFACT A"
