@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://cp06jdo5i3mj3"]
+
+[ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="1_dt6rb"]
+
+[node name="lighting_controllerlighting_preset_default" type="Node3D"]
+script = ExtResource("1_dt6rb")
+preset_name = "Default"
+is_customizable = true
+
+[node name="lighting_controllerlighting_preset_defaultmain_light" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.5, 0.5, -0.707107, 0.5, 0.5, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="lighting_controllerlighting_preset_defaultbacklight_1" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, -0.5, 0.5, -0.707107, -0.5, 0.5, 0, -0.707107, -0.707107, 0, 0, 0)
+
+[node name="lighting_controllerlighting_preset_defaultbacklight_2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0.707107, -0.707107, -8.47033e-22, 0, 0, 0)

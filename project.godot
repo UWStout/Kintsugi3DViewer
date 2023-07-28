@@ -21,6 +21,7 @@ Preferences="*res://scripts/preferences.gd"
 CacheManager="*res://scripts/resources/cache_manager.gd"
 GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
+JsonReader="*res://scripts/JsonReader.gd"
 
 [editor_plugins]
 
