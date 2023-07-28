@@ -1,0 +1,142 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 104561,
+      "max": [
+        892.265319824219,
+        971.390930175781,
+        2167.86743164063
+      ],
+      "min": [
+        -892.262084960938,
+        -971.392150878906,
+        -2167.86767578125
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 104561,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 104561,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5125,
+      "count": 449997,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "generator": "MeshSmith mesh conversion tool",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 1254732,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1254732,
+      "byteOffset": 1254732,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 836488,
+      "byteOffset": 2509464,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1799988,
+      "byteOffset": 3345952,
+      "target": 34963
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 5145940,
+      "uri": "eremotherium_laurillardi-150k-4096.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "eremotherium_laurillardi-150k-4096-diffuse.jpg"
+    },
+    {
+      "uri": "eremotherium_laurillardi-150k-4096-occlusion.jpg"
+    },
+    {
+      "uri": "eremotherium_laurillardi-150k-4096-normals.jpg"
+    }
+  ],
+  "materials": [
+    {
+      "name": "default",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.100000001490116,
+        "roughnessFactor": 0.800000011920929
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "source": 0
+    },
+    {
+      "source": 1
+    },
+    {
+      "source": 2
+    }
+  ]
+}
