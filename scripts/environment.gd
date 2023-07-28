@@ -5,6 +5,8 @@ class_name DisplayEnvironment
 
 @export var environment_name : String
 
+var light_widget_scene : PackedScene = ResourceLoader.load("res://scenes/lighting/new_light_widget.tscn")
+
 # Add required nodes whenever this tree is entered
 func _enter_tree():
 	
@@ -53,3 +55,17 @@ func get_dynamic_lighting():
 		return null
 		
 	return get_lighting().find_child("dynamics")
+
+func show_light(light_index : int):
+	if light_index < 0 or light_index >= get_dynamic_lighting().get_children().size():
+		return
+	
+	if get_dynamic_lighting().get_children()[light_index] is NewLightWidget:
+		get_dynamic_lighting().get_children()[light_index].make_material()
+
+func add_dynamic_light():
+	var new_light = light_widget_scene.instantiate()
+	get_dynamic_lighting().add_child(new_light)
+	new_light.init_widget()
+	new_light.make_immaterial()
+	return new_light

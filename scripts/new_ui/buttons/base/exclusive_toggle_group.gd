@@ -8,6 +8,7 @@ var active_button : ExclusiveToggleButton = null
 func register_button(new_button : ExclusiveToggleButton):
 	if not connected_buttons.has(new_button):
 		connected_buttons.push_back(new_button)
+		new_button.toggle_group = self
 
 func make_button_active(button : ExclusiveToggleButton):
 	if not connected_buttons.has(button):
@@ -30,3 +31,8 @@ func make_button_inactive(button : ExclusiveToggleButton):
 	if can_toggle_off_all:
 		active_button = null
 		button.toggle_off()
+
+func close_all_buttons():
+	if not active_button == null and can_toggle_off_all:
+		await active_button.toggle_off()
+		active_button = null

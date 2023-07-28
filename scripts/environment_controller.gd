@@ -12,6 +12,10 @@ var loaded_scenes : Array[DisplayEnvironment]
 
 @export var connected_color_picker : LightColorPicker
 
+@export var light_selection_ui : LightSelectionUI
+@export var environment_selection_ui : EnvironmentSelectionUI
+
+
 var selected_index : int = -1
 var selected_light : NewLightWidget
 
@@ -25,13 +29,13 @@ func _ready():
 	connected_button.connected_controller = self
 	
 	# Make the first scene current
-	open_scene(0)
-	connected_button.select(0)
+	#open_scene(0)
+	#connected_button.select(0)
 
 func preload_all_scenes():
 	for scene in environment_scenes:
 		# Load the scene in, and change it's type
-		var loaded_scene = scene.instantiate()
+		var loaded_scene = await scene.instantiate()
 		loaded_scene = loaded_scene as DisplayEnvironment
 		
 		# Add the scene as a child of this object, and add it to the array
@@ -51,6 +55,8 @@ func preload_all_scenes():
 			dynamic_light.controller = self
 			dynamic_light.make_immaterial()
 			dynamic_light.init_widget()
+		
+	environment_selection_ui.initialize_list(loaded_scenes)
 
 func open_scene(index : int):
 	# Hide the current scene
@@ -59,12 +65,17 @@ func open_scene(index : int):
 		select_light(null)
 		connected_customize_lighting_button.override_stop_customizing()
 		hide_scene_lighting(selected_index)
+		light_selection_ui.clear_buttons()
 	
 	# Show the new scene
 	if index >= 0 and index < loaded_scenes.size():
 		selected_index = index
 		
 		loaded_scenes[selected_index].visible = true
+		
+		for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
+			if dynamic_light is NewLightWidget:
+				light_selection_ui.create_button_for_light(dynamic_light as NewLightWidget)
 
 func show_scene_lighting(index : int):
 	if index < 0 or index >= loaded_scenes.size():
@@ -95,7 +106,7 @@ func select_light(light : NewLightWidget):
 	if light == null:
 		if not connected_color_picker == null:
 			connected_color_picker.visible = false
-		
+
 		if not selected_light == null:
 			selected_light.unselect_widget()
 			
@@ -115,3 +126,28 @@ func get_active_artifact_root() -> Node3D:
 func force_hide_lights():
 	select_light(null)
 	hide_scene_lighting(selected_index)
+
+func show_light(light_index : int):
+	var lights = loaded_scenes[selected_index].get_dynamic_lighting().get_children()
+	
+	for i in range(0, lights.size()):
+		if i == light_index:
+			lights[i].make_material()
+		pass
+	pass
+
+func get_current_environment():
+	if selected_index >= 0 and selected_index < loaded_scenes.size():
+		return loaded_scenes[selected_index]
+	
+	return null
+
+func add_light_to_scene():
+	var current_environment = get_current_environment()
+	
+	if not current_environment == null:
+		var light = current_environment.add_dynamic_light()
+		light.controller = self
+		return light
+	
+	return null
