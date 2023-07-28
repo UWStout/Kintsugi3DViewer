@@ -26,6 +26,8 @@ func expand():
 	
 	if _contexts_dict.has(_selected_context):
 		_contexts_dict[_selected_context].visible = true
+		if _contexts_dict[_selected_context] is ContextMenu:
+			_contexts_dict[_selected_context].on_context_expanded()
 	await super.expand()
 
 func shrink():
@@ -35,4 +37,6 @@ func shrink():
 	await super.shrink()
 	if _contexts_dict.has(_selected_context):
 		_contexts_dict[_selected_context].visible = false
+		if _contexts_dict[_selected_context] is ContextMenu:
+			_contexts_dict[_selected_context].on_context_shrunk()
 

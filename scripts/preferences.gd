@@ -19,6 +19,8 @@ func _create_pref_file():
 func _init_prefs():
 	write_pref("cache size", 2000)
 	write_pref("cache mode", CacheManager.REDUCE_CACHE_MODE.OLDEST)
+	write_pref("allow ip change", true)
+	write_pref("ip", "nil")
 	write_pref("offline mode", false)
 	write_pref("low res only", false)
 	write_pref("shadows", GraphicsController.SHADOWS.SOFT_MEDIUM)
@@ -63,9 +65,11 @@ func read_pref(name : String):
 	var lines = get_lines_in_file("user://" + _PREFERENCES_FILE)
 	
 	for line in lines:
-		var parts = line.split(":")
-		if parts[0] == formatted_name:
-			return str_to_var(parts[1].strip_edges())
+		var parts = line.split(":", false, 1)
+		if parts.size() > 1 and parts[0] == "ip":
+			print(parts[1].strip_edges())
+		if parts.size() > 1 and parts[0] == formatted_name:
+				return str_to_var(parts[1].strip_edges())
 	
 	return null
 

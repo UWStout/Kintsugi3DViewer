@@ -1,5 +1,7 @@
 extends Node
 
+signal cache_item_deleted
+
 const _CACHE_ROOT_DIR : String = "user://cache/"
 const _CACHE_META_FILE : String = "cache.manifest"
 
@@ -382,7 +384,7 @@ func remove_from_cache(folder_name : String):
 	if not dir:
 		return
 	
-	make_not_peristent(folder_name)
+	make_not_persistent(folder_name)
 	update_open_time(folder_name, true)
 	
 	for file in dir.get_files():
@@ -392,6 +394,7 @@ func remove_from_cache(folder_name : String):
 	dir.remove(folder_name)
 	
 	print("removed folder " + folder_name + " from the cache")
+	cache_item_deleted.emit()
 
 func remove_largest():
 	var artifact_size_pairs = get_artifacts_size_in_cache(false)
@@ -543,7 +546,7 @@ func make_persistent(artifact : String) -> bool:
 	
 	return true
 
-func make_not_peristent(artifact : String) -> bool:
+func make_not_persistent(artifact : String) -> bool:
 	if not is_in_cache(artifact):
 		return false
 	
@@ -679,3 +682,14 @@ func get_artifact_data() -> Array[ArtifactData]:
 		artifacts_data.push_back(import_artifact_data(artifact))
 	
 	return artifacts_data
+
+func get_size(artifact : String):
+	for artifact_size_pair in get_artifacts_size_in_cache(true):
+		if artifact_size_pair[0] == artifact:
+			return artifact_size_pair[1]
+	
+	return -1
+
+func get_size_in_mb(artifact : String):
+	var size_bytes = get_size(artifact)
+	return bytes_to_mb(size_bytes)

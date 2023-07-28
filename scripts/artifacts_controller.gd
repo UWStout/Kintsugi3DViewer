@@ -24,16 +24,20 @@ func _ready():
 			return
 	
 	await refresh_artifacts()
-	if not artifacts.is_empty():
-		display_artifact(0)
+	#if not artifacts.is_empty():
+		#display_artifact(0)
 
 
 func refresh_artifacts() -> Array[ArtifactData]:
 	if(Preferences.read_pref("offline mode")):
 		artifacts = CacheManager.get_artifact_data()
 	else:
+		print("trying to fetch artifacts from the web!")
 		artifacts = await _fetcher.fetch_artifacts()
 		artifacts_refreshed.emit(artifacts)
+		
+		if artifacts.size() == 0:
+			artifacts = CacheManager.get_artifact_data()
 	return artifacts
 
 
@@ -60,12 +64,18 @@ func display_artifact_data(artifact: ArtifactData):
 
 
 func display_next_artifact():
+	if loaded_artifact == null:
+		return
+	
 	current_index = (current_index + 1) % artifacts.size()
 	display_artifact(current_index)
 	pass
 
 
 func display_previous_artifact():
+	if loaded_artifact == null:
+		return
+	
 	current_index -= 1
 	if current_index < 0:
 		current_index = artifacts.size() - 1
@@ -90,11 +100,12 @@ func _on_model_load_complete():
 	
 	if not artifact_root == null:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
+		#print(loaded_artifact.aabb.size.y)
 		target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
 		loaded_artifact.global_position = target_pos
 	
-	
 	#print("================== ARTIFACT LOAD COMPLETE =============================")
+	#print("UPDATING OPEN TIME FOR ARTIFACT " + loaded_artifact.name)
 	CacheManager.update_open_time(loaded_artifact.artifact.gltfUri.get_base_dir(), false)
 
 func _on_model_load_progress(progress: float):

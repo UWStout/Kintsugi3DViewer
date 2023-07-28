@@ -1,7 +1,7 @@
 extends ResourceFetcher
 
 #TODO: Temporary; idealy this should be fetched at runtime from some sort of user preferences object
-var server_root: String = "https://chviewer.jbuelow.com/" # Test server
+#var server_root: String = "https://chviewer.jbuelow.com/" # Test server
 var index_filepath = "index.json"
 
 var raw_data_cache: Variant
@@ -11,6 +11,9 @@ var artifacts_cache: Array[ArtifactData]
 @onready var artifacts_cache_time: int = cache_timeout_ms * -1
 
 var cache_timeout_ms: int = 120000
+
+func get_server_root() -> String:
+	return Preferences.read_pref("ip")
 
 func fetch_artifacts() -> Array[ArtifactData]:
 	if artifacts_cache != null:
@@ -94,7 +97,7 @@ func force_fetch_json(uri: String) -> Dictionary:
 
 
 func _format_relative_url(url: String) -> String:
-	return server_root + url.simplify_path()
+	return get_server_root() + url.simplify_path()
 
 
 func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> Array:
