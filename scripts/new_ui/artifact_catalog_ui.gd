@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends ContextMenu
 
 @export var artifact_select_button : PackedScene
 @export var artifact_controller : ArtifactsController
@@ -8,8 +8,7 @@ extends VBoxContainer
 @onready var searchbar : TextEdit = $header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar
 
 func _ready():
-	if not artifact_controller == null:
-		initialize_list(await artifact_controller.refresh_artifacts())
+	refresh_list()
 
 func initialize_list(data : Array[ArtifactData]):
 	for artifact in data:
@@ -47,3 +46,16 @@ func _on_searchbar_text_changed():
 		show_all()
 	else:
 		hide_non_matching(text)
+
+func clear_buttons():
+	for child in v_box_container.get_children():
+		child.queue_free()
+
+func on_context_expanded():
+	refresh_list()
+
+func refresh_list():
+	clear_buttons()
+	
+	if not artifact_controller == null:
+		initialize_list(await artifact_controller.refresh_artifacts())

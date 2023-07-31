@@ -27,26 +27,26 @@
 [ext_resource type="PackedScene" uid="uid://c8tb8din2btal" path="res://scenes/environments/demo_environment.tscn" id="33_80o4d"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_selection_ui.gd" id="33_ae4yh"]
 [ext_resource type="PackedScene" uid="uid://ccsu2er238wo6" path="res://scenes/new_ui/light_config_button.tscn" id="33_p40ux"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/close_settings_menu_button.gd" id="33_rfcen"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/toggle_offline_mode_button.gd" id="33_rv3pu"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/expand_sidebar_button.gd" id="33_s0b57"]
 [ext_resource type="Script" path="res://scripts/new_ui/environment_selection_ui.gd" id="33_xl44j"]
 [ext_resource type="Script" path="res://scripts/ui/select_environment_button.gd" id="33_ynflu"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/toggle_low_res_button.gd" id="34_amfek"]
 [ext_resource type="PackedScene" uid="uid://cwgiophlqxk64" path="res://scenes/new_ui/environment_selection_button.tscn" id="34_xyh84"]
 [ext_resource type="PackedScene" uid="uid://x4dbnmx5mhsr" path="res://scenes/new_ui/cache_artifact_display.tscn" id="35_04bby"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/change_shadows_button.gd" id="35_16u1w"]
 [ext_resource type="Script" path="res://scripts/new_ui/cache_ui.gd" id="35_5863c"]
 [ext_resource type="PackedScene" uid="uid://bryvft6chb8m2" path="res://scenes/new_ui/load_progress_panel.tscn" id="35_r0wn5"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/change_gi_button.gd" id="36_ta5o3"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/change_cache_mode_button.gd" id="37_153da"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/change_subsurface_button.gd" id="37_a1p88"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/change_aa_button.gd" id="38_7tcw6"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/clear_cache_button.gd" id="38_eymw3"]
 [ext_resource type="Script" path="res://scripts/new_ui/change_cache_size_line_edit.gd" id="39_abqn4"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/change_ssao_button.gd" id="39_i6g4a"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/close_settings_menu_button.gd" id="39_bahyo"]
 [ext_resource type="PackedScene" uid="uid://b886wcwba86sq" path="res://scenes/new_ui/change_ip_address_option.tscn" id="40_th2ad"]
+[ext_resource type="PackedScene" uid="uid://cpdwl7akyrn37" path="res://scenes/new_ui/on_off_button.tscn" id="42_ggwxf"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/preference_on_off_button.gd" id="43_c6o60"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_shadows_button.gd" id="45_lplh0"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_gi_button.gd" id="46_gy2xc"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_subsurface_button.gd" id="47_ocjj1"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_ssao_button.gd" id="49_ulw4s"]
 [ext_resource type="Script" path="res://scripts/new_ui/mouse_capture_ui.gd" id="51_6lrbx"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_cache_mode_button.gd" id="52_off43"]
 [ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="54_30yx2"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/ui/next_button.png" id="54_85vjq"]
@@ -460,10 +460,10 @@ anchor_left = 0.021
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.963
-offset_left = 2395.81
-offset_top = 687.912
-offset_right = 1718.74
-offset_bottom = 754.888
+offset_left = 2683.81
+offset_top = 831.912
+offset_right = 1862.74
+offset_bottom = 898.888
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -1039,6 +1039,7 @@ theme_override_constants/margin_right = 15
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1088,7 +1089,7 @@ theme_override_constants/margin_bottom = 15
 [node name="Button" type="Button" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-script = ExtResource("33_rfcen")
+script = ExtResource("39_bahyo")
 settings_menu = NodePath("../../../../../..")
 
 [node name="TabContainer" type="TabContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer"]
@@ -1127,33 +1128,32 @@ theme_override_constants/separation = 0
 [node name="change_ip_option" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("40_th2ad")]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 text = "OFFLINE MODE:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="ToggleButton" type="Button" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/MarginContainer"]
-custom_minimum_size = Vector2(60, 40)
+[node name="on_off_button" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" instance=ExtResource("42_ggwxf")]
 layout_mode = 2
-text = "OFF"
-script = ExtResource("33_rv3pu")
+script = ExtResource("43_c6o60")
+preference_name = "offline mode"
 
 [node name="Panel" type="Panel" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(2, 0)
@@ -1187,11 +1187,10 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="ToggleButton" type="Button" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer"]
-custom_minimum_size = Vector2(60, 40)
+[node name="on_off_button" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" instance=ExtResource("42_ggwxf")]
 layout_mode = 2
-text = "OFF"
-script = ExtResource("34_amfek")
+script = ExtResource("43_c6o60")
+preference_name = "low res only"
 
 [node name="Rendering" type="Panel" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
 visible = false
@@ -1245,7 +1244,7 @@ theme_override_constants/margin_right = 20
 custom_minimum_size = Vector2(60, 40)
 layout_mode = 2
 text = "SOFT MEDIUM"
-script = ExtResource("35_16u1w")
+script = ExtResource("45_lplh0")
 graphics_controller = NodePath("../../../../../../../../../../../../../graphics")
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
@@ -1274,7 +1273,7 @@ theme_override_constants/margin_right = 20
 custom_minimum_size = Vector2(60, 40)
 layout_mode = 2
 text = "DISABLED"
-script = ExtResource("36_ta5o3")
+script = ExtResource("46_gy2xc")
 graphics_controller = NodePath("../../../../../../../../../../../../../graphics")
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
@@ -1303,7 +1302,7 @@ theme_override_constants/margin_right = 20
 custom_minimum_size = Vector2(60, 40)
 layout_mode = 2
 text = "MEDIUM"
-script = ExtResource("37_a1p88")
+script = ExtResource("47_ocjj1")
 graphics_controller = NodePath("../../../../../../../../../../../../../graphics")
 
 [node name="Panel" type="Panel" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer"]
@@ -1342,7 +1341,7 @@ theme_override_constants/margin_right = 20
 custom_minimum_size = Vector2(60, 40)
 layout_mode = 2
 text = "4x"
-script = ExtResource("38_7tcw6")
+script = ExtResource("48_r3bj8")
 graphics_controller = NodePath("../../../../../../../../../../../../../graphics")
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2"]
@@ -1371,7 +1370,7 @@ theme_override_constants/margin_right = 20
 custom_minimum_size = Vector2(60, 40)
 layout_mode = 2
 text = "MEDIUM"
-script = ExtResource("39_i6g4a")
+script = ExtResource("49_ulw4s")
 graphics_controller = NodePath("../../../../../../../../../../../../../graphics")
 
 [node name="Cache" type="Panel" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
@@ -1527,7 +1526,7 @@ theme_override_constants/margin_right = 15
 visible = false
 custom_minimum_size = Vector2(125, 40)
 layout_mode = 2
-script = ExtResource("37_153da")
+script = ExtResource("52_off43")
 
 [node name="LineEdit" type="LineEdit" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -1564,7 +1563,7 @@ theme_override_constants/margin_right = 15
 [node name="Button" type="Button" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer/HBoxContainer/HBoxContainer2/MarginContainer"]
 custom_minimum_size = Vector2(125, 40)
 layout_mode = 2
-script = ExtResource("37_153da")
+script = ExtResource("52_off43")
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2

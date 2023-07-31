@@ -186,8 +186,8 @@ func _load_shader_image(image: Image):
 		partial_load.emit()
 	
 	loaded_resolution = image.get_height()
-	
-	if loaded_resolution == max_resolution:
+	if loaded_resolution >= max_resolution:
+
 		load_complete.emit()
 		texture_loaded.emit(_shader_key)
 	

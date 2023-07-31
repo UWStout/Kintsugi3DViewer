@@ -32,7 +32,6 @@ func refresh_artifacts() -> Array[ArtifactData]:
 	if(Preferences.read_pref("offline mode")):
 		artifacts = CacheManager.get_artifact_data()
 	else:
-		print("trying to fetch artifacts from the web!")
 		artifacts = await _fetcher.fetch_artifacts()
 		artifacts_refreshed.emit(artifacts)
 		
@@ -53,14 +52,15 @@ func display_artifact_data(artifact: ArtifactData):
 	
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
-	
+
 	loaded_artifact = RemoteGltfModel.create(artifact)
 	add_child(loaded_artifact)
 	loaded_artifact.load_completed.connect(_on_model_load_complete)
 	loaded_artifact.load_progress.connect(_on_model_load_progress)
-	loaded_artifact.load_artifact()
-
-	_on_model_begin_load()
+	var result = await loaded_artifact.load_artifact()
+	
+	if result == 1:
+		_on_model_begin_load()
 
 
 func display_next_artifact():

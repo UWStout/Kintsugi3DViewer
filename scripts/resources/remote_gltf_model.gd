@@ -30,7 +30,7 @@ func _ready():
 		load_artifact()
 
 
-func load_artifact():
+func load_artifact() -> int:
 	var imported = null
 	
 	var dir_name = artifact.gltfUri.get_base_dir()
@@ -45,13 +45,13 @@ func load_artifact():
 		obj.document = imported.doc
 		obj.state = imported.state
 		obj.sourceUri = artifact.gltfUri
-	else:
+	elif not Preferences.read_pref("offline mode"):
 		obj = await fetcher.fetch_gltf(artifact)
 		print("fetched!")
 	
 	if obj == null:
-		push_error("Failed to fetch glTF!")
-		return
+		print("COULDN'T FETCH GLTF")
+		return -1
 	
 	# if the import failed, then there isn't a GLTF file exported
 	# to the cache, so we should export this one
@@ -64,7 +64,7 @@ func load_artifact():
 	
 	if scene == null:
 		push_error("Failed to load glTF into scene!")
-		return
+		return -1
 	
 	add_child(scene)
 	
@@ -84,6 +84,8 @@ func load_artifact():
 	
 	mesh.set_surface_override_material(0, mat_loader)
 	mat_loader.load(mesh)
+	
+	return 1
 
 
 func _on_material_load_complete():
@@ -96,7 +98,6 @@ func _on_material_load_progress(complete: int, total: int):
 	if obj != null:
 		complete += 1
 	var progress = float(complete) / (total)
-	#print("LOAD PROGRESS UPDATED! -> " + str(progress))
 	load_progress.emit(progress)
 
 

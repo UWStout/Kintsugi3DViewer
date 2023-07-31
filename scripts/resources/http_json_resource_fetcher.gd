@@ -136,7 +136,11 @@ func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> 
 
 func _fetch_url_raw(url: String, request_headers := PackedStringArray()) -> PackedByteArray:
 	var response = await _fetch_url_fullraw(url, request_headers)
-	return response[3]
+	
+	if response.size() >= 4:
+		return response[3]
+	
+	return PackedByteArray()
 
 
 # Fetches a url and attempts to parse JSON data from it.
