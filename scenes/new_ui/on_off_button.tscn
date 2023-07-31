@@ -1,0 +1,101 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpdwl7akyrn37"]
+
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/on_off_toggle_button.gd" id="1_3w4ry"]
+
+[sub_resource type="Curve" id="Curve_pnc1t"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eb0ly"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xncnv"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="button" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 50)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1052.0
+offset_bottom = -598.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3w4ry")
+animation_curve = SubResource("Curve_pnc1t")
+
+[node name="on_off_button" type="Panel" parent="."]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eb0ly")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="on_off_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="on_off_button/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="on_off_button/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+
+[node name="on_text" type="Label" parent="on_off_button/HBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ON"
+vertical_alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="on_off_button/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="on_off_button/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_right = 12
+
+[node name="off_text" type="Label" parent="on_off_button/HBoxContainer/HBoxContainer2/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.298039, 0.298039, 0.298039, 1)
+text = "OFF"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="sliding_circle" type="MarginContainer" parent="on_off_button"]
+modulate = Color(0.301961, 0.301961, 0.298039, 1)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="circle" type="Panel" parent="on_off_button/sliding_circle"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xncnv")

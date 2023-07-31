@@ -58,6 +58,9 @@ func write_pref(name : String, value):
 	
 	if not found_line:
 		pref.store_line(target_line)
+		found_line = true
+	
+	
 
 func read_pref(name : String):
 	var formatted_name = get_formatted_name(name)
@@ -66,8 +69,6 @@ func read_pref(name : String):
 	
 	for line in lines:
 		var parts = line.split(":", false, 1)
-		if parts.size() > 1 and parts[0] == "ip":
-			print(parts[1].strip_edges())
 		if parts.size() > 1 and parts[0] == formatted_name:
 				return str_to_var(parts[1].strip_edges())
 	

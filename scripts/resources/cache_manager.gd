@@ -104,8 +104,8 @@ func import_gltf(dir_name : String, name : String):
 	
 	state.json = JSON.parse_string(file.get_as_text())
 	
-	print("imported file " + name + ".glb from directory " + dir_path)
-	print("imported file " + name + ".json from directory " + dir_path)
+	#print("imported file " + name + ".glb from directory " + dir_path)
+	#print("imported file " + name + ".json from directory " + dir_path)
 	
 	return {"doc" : gltf, "state" : state}
 
@@ -142,7 +142,7 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 
 	# Export the .glb file
 	doc.write_to_filesystem(state, dir_path + file_name)
-	print("exported file " + file_name + " to directory " + dir_path)
+	#print("exported file " + file_name + " to directory " + dir_path)
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
@@ -177,7 +177,7 @@ func import_png(dir_name : String, name : String) -> Image:
 		#print(err_message)
 		return null
 	
-	print("imported file " + file_name + " from directory " + dir_path)
+	#print("imported file " + file_name + " from directory " + dir_path)
 	
 	return image
 
@@ -211,7 +211,7 @@ func export_png(dir_name : String, name : String, image : Image):
 		#printerr(err_message)
 		return
 	
-	print("exported file " + file_name + " to directory " + dir_path)
+	#print("exported file " + file_name + " to directory " + dir_path)
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
@@ -238,7 +238,7 @@ func import_artifact_data(dir_name : String):
 	var data = ArtifactData.new()
 	
 	if lines.size() <= 0:
-		print("data.txt not located in directory " + dir.get_current_dir())
+		#print("data.txt not located in directory " + dir.get_current_dir())
 		return data
 	
 	for line in lines:
@@ -249,7 +249,7 @@ func import_artifact_data(dir_name : String):
 			if parts[0] == "uri":
 				data.gltfUri = parts[1]
 	
-	print("imported data.txt from directory " + dir.get_current_dir())
+	#print("imported data.txt from directory " + dir.get_current_dir())
 	
 	return data
 
@@ -267,7 +267,7 @@ func export_artifact_data(dir_name : String, data : ArtifactData):
 	file.store_line("name:" + data.name)
 	file.store_line("uri:" + data.gltfUri)
 	
-	print("exported data.txt to directory " + dir.get_current_dir())
+	#print("exported data.txt to directory " + dir.get_current_dir())
 
 
 func get_artifacts_in_cache(include_peristent : bool) -> Array[String]:
@@ -586,27 +586,22 @@ func update_folder_date(artifact : String):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + artifact)
 	
 	if not dir:
-		print("1")
 		return false
 	
 	var err = dir.rename(_CACHE_ROOT_DIR + artifact, _CACHE_ROOT_DIR + artifact + "_old")
 	dir = DirAccess.open(_CACHE_ROOT_DIR + artifact + "_old")
 	if err:
-		print("2")
 		return false
 	if not dir:
-		print("3")
 		return false
 	
 	var dir2 = DirAccess.open(_CACHE_ROOT_DIR)
 	err = dir2.make_dir(artifact)
 	if err:
-		print("4")
 		return false
 	
 	dir2 = DirAccess.open(_CACHE_ROOT_DIR + artifact)
 	if not dir2:
-		print("5")
 		return false
 	
 	for file in dir.get_files():
