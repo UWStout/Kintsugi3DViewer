@@ -1,4 +1,4 @@
-class_name EnvironmentSelectionUI extends VBoxContainer
+class_name EnvironmentSelectionUI extends ContextMenu
 
 @export var environment_selection_button : PackedScene
 @export var environment_controller : EnvironmentController

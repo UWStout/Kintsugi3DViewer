@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 @export var artifact_display_ui : PackedScene
+@export var confirmation_panel : ConfirmationPanel
 
 func _ready():
 	for artifact in CacheManager.get_artifact_data():
@@ -16,6 +17,7 @@ func refresh_list():
 		var new_artifact_display = artifact_display_ui.instantiate()
 		add_child(new_artifact_display)
 		new_artifact_display.initialize_from_artifact(artifact)
+		new_artifact_display.confirmation_panel = confirmation_panel
 
 
 func _on_cache_visibility_changed():

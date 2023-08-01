@@ -52,6 +52,8 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [node name="light_config_button" type="MarginContainer"]
+offset_right = 260.0
+offset_bottom = 60.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 5
@@ -59,7 +61,7 @@ script = ExtResource("1_p3eq6")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(240, 45)
+custom_minimum_size = Vector2(250, 45)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0m86o")
 script = ExtResource("1_um2c1")
@@ -74,7 +76,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = 424.0
+offset_right = 9.0
+offset_bottom = 429.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -99,6 +102,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -9.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
@@ -131,7 +135,7 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2"]
 layout_mode = 2
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 25
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer"]
 layout_mode = 2
@@ -160,12 +164,17 @@ hex_visible = false
 presets_visible = false
 script = ExtResource("5_ycabp")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 250
+alignment = 2
 
-[node name="value_scroll_bar" type="VScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_right = 25
+
+[node name="value_scroll_bar" type="VScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 script = ExtResource("5_rfsx3")
 
@@ -200,17 +209,17 @@ theme_override_constants/margin_top = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4"]
 layout_mode = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer"]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer2"]
-layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 10
 
-[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer2/MarginContainer"]
+[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 max_value = 1000.0
 value = 335.0
 script = ExtResource("5_dxtfb")
@@ -218,7 +227,11 @@ script = ExtResource("5_dxtfb")
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer"]
 layout_mode = 2
 
-[node name="light_strength_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 25
+
+[node name="light_strength_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_sgqtv")
 text = ".335"
@@ -241,25 +254,28 @@ theme_override_constants/margin_top = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6"]
 layout_mode = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer"]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer2"]
-layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 10
 
-[node name="angle_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer2/MarginContainer"]
+[node name="angle_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
-max_value = 180.0
-value = 135.0
+max_value = 90.0
+value = 90.0
 script = ExtResource("6_e7rxa")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer"]
 layout_mode = 2
 
-[node name="light_angle_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 25
+
+[node name="light_angle_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_sgqtv")
 text = "135°

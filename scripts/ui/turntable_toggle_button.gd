@@ -22,6 +22,7 @@ func _pressed():
 		text = "Rotate Object: ON"
 		_scene_camera_rig.rig_enabled = false
 
+
 func _input(event):
 	if not _is_toggled or _artifacts_controller.loaded_artifact == null or not _artifacts_controller.loaded_artifact.load_finished:
 		return
@@ -43,9 +44,9 @@ func _input(event):
 		artifact.transform.basis = artifact.transform.basis.rotated(_scene_camera_rig.camera.global_transform.basis.x, pitch_val).orthonormalized()
 
 func _process(delta):
-	if not _is_toggled:
+	#if not _is_toggled:
 		#return_to_default_orientation()
-		lerp_to_default_orientation(delta * _lerp_speed)
+		#lerp_to_default_orientation(delta * _lerp_speed)
 	pass
 
 func return_to_default_orientation():

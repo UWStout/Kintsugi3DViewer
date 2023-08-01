@@ -40,3 +40,7 @@ func shrink():
 		if _contexts_dict[_selected_context] is ContextMenu:
 			_contexts_dict[_selected_context].on_context_shrunk()
 
+func is_context_expanded(context_name : String) -> bool:
+	if _contexts_dict.has(_selected_context):
+		return _contexts_dict[_selected_context].name == context_name
+	return false

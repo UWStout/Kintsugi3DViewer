@@ -1,4 +1,4 @@
-extends ContextMenu
+class_name ArtifactCatalogUI extends ContextMenu
 
 @export var artifact_select_button : PackedScene
 @export var artifact_controller : ArtifactsController
@@ -58,4 +58,17 @@ func refresh_list():
 	clear_buttons()
 	
 	if not artifact_controller == null:
-		initialize_list(await artifact_controller.refresh_artifacts())
+		await initialize_list(await artifact_controller.refresh_artifacts())
+	
+	if not artifact_controller.loaded_artifact == null:
+		var button = get_button_for_artifact(artifact_controller.loaded_artifact.artifact)
+		if not button == null:
+			button._pressed()
+
+func get_button_for_artifact(data : ArtifactData) -> ArtifactSelectionButton:
+	for button in v_box_container.get_children():
+		var artifact_button = button as ArtifactSelectionButton
+		if artifact_button.data.name == data.name:
+			return artifact_button
+	
+	return null
