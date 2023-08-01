@@ -688,3 +688,6 @@ func get_size(artifact : String):
 func get_size_in_mb(artifact : String):
 	var size_bytes = get_size(artifact)
 	return bytes_to_mb(size_bytes)
+
+func is_empty():
+	return get_cache_size() <= 0

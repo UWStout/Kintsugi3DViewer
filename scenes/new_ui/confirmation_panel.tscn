@@ -1,0 +1,141 @@
+[gd_scene load_steps=10 format=3 uid="uid://c8b616pdkad77"]
+
+[ext_resource type="Script" path="res://scripts/new_ui/confirmation_panel_ui.gd" id="1_8kc32"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/extended_button.gd" id="1_prncf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp6xv"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6pam"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj50i"]
+bg_color = Color(0.772549, 0.772549, 0.772549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgs7b"]
+bg_color = Color(0.694118, 0.694118, 0.694118, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yopi7"]
+bg_color = Color(0.145098, 0.145098, 0.145098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ttia"]
+bg_color = Color(0.105882, 0.105882, 0.105882, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1m1v"]
+bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="CenterContainer" type="CenterContainer"]
+custom_minimum_size = Vector2(1152, 648)
+script = ExtResource("1_8kc32")
+
+[node name="confirmation_panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(450, 250)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bp6xv")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="confirmation_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="confirmation_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="CenterContainer" type="CenterContainer" parent="confirmation_panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="header" type="Label" parent="confirmation_panel/VBoxContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "CLEAR CACHE?"
+
+[node name="MarginContainer2" type="MarginContainer" parent="confirmation_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+
+[node name="CenterContainer" type="CenterContainer" parent="confirmation_panel/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="description" type="Label" parent="confirmation_panel/VBoxContainer/MarginContainer2/CenterContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.615686, 0.615686, 0.615686, 1)
+theme_override_font_sizes/font_size = 16
+text = "You will not be able to recover it"
+
+[node name="MarginContainer3" type="MarginContainer" parent="confirmation_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 35
+
+[node name="HBoxContainer" type="HBoxContainer" parent="confirmation_panel/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="cancel_button" type="Button" parent="confirmation_panel/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_hover_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_focus_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_f6pam")
+theme_override_styles/hover = SubResource("StyleBoxFlat_uj50i")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xgs7b")
+text = "CANCEL"
+script = ExtResource("1_prncf")
+
+[node name="confirm_button" type="Button" parent="confirmation_panel/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_hover_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_focus_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_yopi7")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3ttia")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m1m1v")
+text = "CLEAR CACHE"
+script = ExtResource("1_prncf")
+
+[connection signal="pressed" from="confirmation_panel/VBoxContainer/MarginContainer3/HBoxContainer/cancel_button" to="." method="_on_canceled"]
+[connection signal="pressed" from="confirmation_panel/VBoxContainer/MarginContainer3/HBoxContainer/confirm_button" to="." method="_on_confirmed"]

@@ -1,6 +1,7 @@
 extends HScrollBar
 
-@onready var light_config_button = $"../../../../../../../.."
+@onready var light_config_button = $"../../../../../../.."
+
 
 func _value_changed(new_value):
 	new_value = new_value / 1000.0

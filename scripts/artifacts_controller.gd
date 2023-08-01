@@ -9,6 +9,7 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 @export var _ibr_shader : Shader
 
 @export var _environment_controller : EnvironmentController
+@export var _artifact_catalog_ui : ArtifactCatalogUI
 
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
@@ -47,6 +48,9 @@ func display_artifact(index : int):
 
 
 func display_artifact_data(artifact: ArtifactData):
+	if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
+		return
+	
 	var artifact_index = artifacts.find(artifact)
 	current_index = artifact_index
 	
@@ -61,6 +65,11 @@ func display_artifact_data(artifact: ArtifactData):
 	
 	if result == 1:
 		_on_model_begin_load()
+		
+		var button = _artifact_catalog_ui.get_button_for_artifact(artifact)
+		if not button == null:
+			button._pressed()
+			pass
 
 
 func display_next_artifact():

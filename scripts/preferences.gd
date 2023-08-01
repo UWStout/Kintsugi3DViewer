@@ -2,6 +2,10 @@ extends Node
 
 const _PREFERENCES_FILE : String = "preferences.pref"
 
+var signals_dict = {
+	"preference_name" : "signal"
+}
+
 func _ready():
 	if not _does_pref_exist():
 		_create_pref_file()
@@ -20,7 +24,7 @@ func _init_prefs():
 	write_pref("cache size", 2000)
 	write_pref("cache mode", CacheManager.REDUCE_CACHE_MODE.OLDEST)
 	write_pref("allow ip change", true)
-	write_pref("ip", "nil")
+	write_pref("ip", "https://chviewer.jbuelow.com/")
 	write_pref("offline mode", false)
 	write_pref("low res only", false)
 	write_pref("shadows", GraphicsController.SHADOWS.SOFT_MEDIUM)
@@ -59,8 +63,6 @@ func write_pref(name : String, value):
 	if not found_line:
 		pref.store_line(target_line)
 		found_line = true
-	
-	
 
 func read_pref(name : String):
 	var formatted_name = get_formatted_name(name)
@@ -90,3 +92,14 @@ func get_lines_in_file(file_path : String) -> Array[String]:
 		lines.push_back(file.get_line())
 	
 	return lines
+
+func has_pref(name : String) -> bool:
+	var formatted_name = get_formatted_name(name)
+	
+	var lines = get_lines_in_file("user://" + _PREFERENCES_FILE)
+	
+	for line in lines:
+		if line.begins_with(formatted_name):
+			return true
+	
+	return false

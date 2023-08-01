@@ -1,22 +1,24 @@
-extends ExtendedButton
+extends OptionButton
 
-var state : int = 0
+@onready var label = $"../../../../MarginContainer2/Label"
 
 func _ready():
-	state = Preferences.read_pref("cache mode")
-	change_button_text()
+	select(Preferences.read_pref("cache mode"))
+	change_text(Preferences.read_pref("cache mode"))
 
-func _pressed():
-	state = (state + 1) % 4
-	change_button_text()
-	Preferences.write_pref("cache mode", state)
+func _on_item_selected(index):
+	Preferences.write_pref("cache mode", index)
+	change_text(index)
 
-func change_button_text():
-	if state == 0:
-		text = "LARGEST"
-	elif state == 1:
-		text = "SMALLEST"
-	elif state == 2:
-		text = "MOST RECENT"
-	elif state == 3:
-		text = "LEAST RECENT"
+
+func change_text(index : int):
+	if index == 0:
+		label.text = "When the cache is oversized, the largest objects will be removed first."
+	elif index == 1:
+		label.text = "When the cache is oversized, the smallest objects will be removed first."
+	elif index == 2:
+		label.text = "When the cache is oversized, the most recently opened artifacts will be removed first."
+	elif index == 3:
+		label.text = "When the cache is oversized, the least recently opened artifacts will be removed first. [DEFAULT]"
+	else:
+		label.text = ""

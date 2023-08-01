@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfkyjpntkq3c3"]
+
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_cache_mode_button.gd" id="1_kr6fj"]
+
+[node name="MarginContainer" type="MarginContainer"]
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="cache_mode_button" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/cache_mode_button"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/cache_mode_button/HBoxContainer"]
+layout_mode = 2
+text = "CACHE MODE:"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/cache_mode_button"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_right = 15
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+item_count = 4
+selected = 0
+popup/item_0/text = "LARGEST"
+popup/item_0/id = 0
+popup/item_1/text = "SMALLEST"
+popup/item_1/id = 1
+popup/item_2/text = "MOST RECENT"
+popup/item_2/id = 2
+popup/item_3/text = "LEAST RECENT"
+popup/item_3/id = 3
+script = ExtResource("1_kr6fj")
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 30
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.694118, 0.694118, 0.694118, 1)
+theme_override_font_sizes/font_size = 10
+text = "When the cache is oversized, the largest objects will be removed first.
+"
+autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer2"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.694118, 0.694118, 0.694118, 1)
+theme_override_font_sizes/font_size = 10
+text = "LARGEST - When the cache is oversized, the largest
+objects will be removed first.
+SMALLEST - When the cache is oversized, the smallest
+objects will be removed first.
+MOST RECENT - When the cache is oversized, the most
+recently opened artifacts will be removed first.
+LEAST RECENT - When the cache is oversized, the least
+recently opened artifacts will be removed first. [DEFAULT]"
+
+[connection signal="item_selected" from="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/OptionButton" to="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/OptionButton" method="_on_item_selected"]
