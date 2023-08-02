@@ -52,6 +52,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -73,13 +74,13 @@ expand_mode = 5
 [node name="artifact_label" type="Label" parent="HBoxContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_font_sizes/font_size = 12
 text = "ARTIFACT A"
+autowrap_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 alignment = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/HBoxContainer"]
@@ -94,7 +95,7 @@ layout_mode = 2
 
 [node name="artifact_status" type="TextureRect" parent="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("2_8m8pc")
 expand_mode = 5

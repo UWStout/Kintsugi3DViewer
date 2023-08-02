@@ -14,7 +14,6 @@ func _on_toggle_on():
 	lights_selection.on_context_shrunk()
 	hide_nodes()
 
-
 func _on_toggle_off():
 	if animating:
 		_is_toggled = true
@@ -37,12 +36,16 @@ func hide_nodes():
 	for node_path in nodes_to_hide:
 		var node = get_node(node_path) as Control
 		node.modulate = Color(1,1,1,0)
+		node.visible = false
 	
 	animating = false
 
-
 func show_nodes():
 	animating = true
+	
+	for node_path in nodes_to_hide:
+		var node = get_node(node_path) as Control
+		node.visible = true
 	
 	var progress = 0
 	while progress < 1:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=99 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="17_bden0"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/cycle_artifact_button.gd" id="21_0nwoy"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/open_settings_menu_button.gd" id="21_lyejv"]
+[ext_resource type="Script" path="res://scenes/toggle_bottom_bar_button.gd" id="21_rbje3"]
 [ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="22_bcjqb"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/hide_ui_button.gd" id="23_li034"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
@@ -133,6 +134,12 @@ unicode = 73
 
 [sub_resource type="Shortcut" id="Shortcut_oup0k"]
 events = [SubResource("InputEventKey_yx0yo")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_66l2l"]
+
+[sub_resource type="Curve" id="Curve_xqgbw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ty0p"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -463,10 +470,10 @@ anchor_left = 0.021
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.963
-offset_left = 3083.81
-offset_top = 1031.91
-offset_right = 2062.74
-offset_bottom = 1098.89
+offset_left = 3323.81
+offset_top = 1151.91
+offset_right = 2182.74
+offset_bottom = 1218.89
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -520,6 +527,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="ExclusiveToggleGroup" type="Node" parent="new_ui_root"]
+script = ExtResource("28_7jo5e")
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root"]
 layout_mode = 1
 anchors_preset = 15
@@ -537,40 +547,59 @@ theme_override_constants/margin_bottom = 40
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer2/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/VBoxContainer2/MarginContainer/CenterContainer"]
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer2/MarginContainer/CenterContainer" node_paths=PackedStringArray("panel", "toggle_group")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+script = ExtResource("21_rbje3")
+panel = NodePath("../../../Panel")
+toggle_group = NodePath("../../../../ExclusiveToggleGroup")
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer2"]
+[node name="Panel" type="Panel" parent="new_ui_root/VBoxContainer2"]
+clip_contents = true
 layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_66l2l")
+script = ExtResource("22_bcjqb")
+expand_direction = 0
+maximized_size = 88.0
+animation_speed = 0.1
+animation_curve = SubResource("Curve_xqgbw")
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer2/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 250
 theme_override_constants/margin_right = 250
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/VBoxContainer2/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2"]
 layout_mode = 2
 alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="new_ui_root/VBoxContainer2/MarginContainer2/HBoxContainer/CenterContainer" node_paths=PackedStringArray("artifact_controller")]
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer/CenterContainer" node_paths=PackedStringArray("artifact_controller")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("21_0nwoy")
 mode = 1
-artifact_controller = NodePath("../../../../../../artifacts_controller")
+artifact_controller = NodePath("../../../../../../../artifacts_controller")
 
-[node name="CenterContainer2" type="CenterContainer" parent="new_ui_root/VBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="new_ui_root/VBoxContainer2/MarginContainer2/HBoxContainer/CenterContainer2" node_paths=PackedStringArray("artifact_controller")]
+[node name="Button" type="Button" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer/CenterContainer2" node_paths=PackedStringArray("artifact_controller")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("21_0nwoy")
-artifact_controller = NodePath("../../../../../../artifacts_controller")
+artifact_controller = NodePath("../../../../../../../artifacts_controller")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root"]
 layout_mode = 1
@@ -685,6 +714,7 @@ artifacts_controller = NodePath("../../../../../../../../../artifacts_controller
 scene_camera = NodePath("../../../../../../../../../Camera")
 sidebar_context_menu = NodePath("../../../../../../../side_dock/sidebar_context_menus")
 light_selection_ui = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
+_lerp_speed = 2.0
 
 [node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -1037,11 +1067,12 @@ mouse_filter = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 
-[node name="expand_sidebar_button" type="Button" parent="new_ui_root/VBoxContainer/side_dock/VFlowContainer/MarginContainer" node_paths=PackedStringArray("sidebar_selection_menu")]
+[node name="expand_sidebar_button" type="Button" parent="new_ui_root/VBoxContainer/side_dock/VFlowContainer/MarginContainer" node_paths=PackedStringArray("sidebar_selection_menu", "toggle_group")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("33_s0b57")
 sidebar_selection_menu = NodePath("../../../sidebar_selection_menu")
+toggle_group = NodePath("../../../../../ExclusiveToggleGroup")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="new_ui_root/VBoxContainer/side_dock"]
 layout_mode = 2
@@ -1208,8 +1239,7 @@ theme_override_constants/margin_right = 20
 [node name="on_off_button" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" instance=ExtResource("42_ggwxf")]
 layout_mode = 2
 script = ExtResource("43_c6o60")
-preference_name = ""
-animation_curve = null
+preference_name = "low res only"
 
 [node name="Rendering" type="Panel" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
 visible = false
@@ -1603,8 +1633,9 @@ layout_mode = 2
 alignment = 1
 script = ExtResource("39_abqn4")
 
-[node name="change_cache_mode" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("53_l45i1")]
+[node name="change_cache_mode" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("cache_ui") instance=ExtResource("53_l45i1")]
 layout_mode = 2
+cache_ui = NodePath("../../VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer")
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2

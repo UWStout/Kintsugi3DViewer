@@ -1,15 +1,13 @@
-extends OptionButton
+extends Control
 
-@onready var label = $"../../../../MarginContainer2/Label"
+@onready var label = $VBoxContainer/MarginContainer2/Label
+@onready var option_button = $VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/OptionButton
+
+@export var cache_ui : CacheUI
 
 func _ready():
-	select(Preferences.read_pref("cache mode"))
+	option_button.select(Preferences.read_pref("cache mode"))
 	change_text(Preferences.read_pref("cache mode"))
-
-func _on_item_selected(index):
-	Preferences.write_pref("cache mode", index)
-	change_text(index)
-
 
 func change_text(index : int):
 	if index == 0:
@@ -22,3 +20,13 @@ func change_text(index : int):
 		label.text = "When the cache is oversized, the least recently opened artifacts will be removed first. [DEFAULT]"
 	else:
 		label.text = ""
+
+
+func _on_option_button_item_selected(index):
+	Preferences.write_pref("cache mode", index)
+	change_text(index)
+	CacheManager.cache_mode = index
+	
+	if not cache_ui == null:
+		print("refreshing!")
+		cache_ui.refresh_list()
