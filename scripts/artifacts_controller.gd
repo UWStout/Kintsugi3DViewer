@@ -59,6 +59,7 @@ func display_artifact_data(artifact: ArtifactData):
 
 	loaded_artifact = RemoteGltfModel.create(artifact)
 	add_child(loaded_artifact)
+	_on_model_begin_load()
 	loaded_artifact.load_completed.connect(_on_model_load_complete)
 	loaded_artifact.load_progress.connect(_on_model_load_progress)
 	var result = await loaded_artifact.load_artifact()
@@ -70,6 +71,9 @@ func display_artifact_data(artifact: ArtifactData):
 		if not button == null:
 			button._pressed()
 			pass
+	else:
+		if is_instance_valid(_loader):
+			_loader.end_loading()
 
 
 func display_next_artifact():

@@ -5,7 +5,7 @@ signal cache_item_deleted
 const _CACHE_ROOT_DIR : String = "user://cache/"
 const _CACHE_META_FILE : String = "cache.manifest"
 
-enum REDUCE_CACHE_MODE {LARGEST, SMALLEST, NEWEST, OLDEST}
+enum REDUCE_CACHE_MODE {LARGEST = 0, SMALLEST = 1, NEWEST = 2, OLDEST = 3}
 
 # 2 gigs
 var cache_size_limit : int = 2000000000
@@ -301,20 +301,9 @@ func get_artifacts_size_in_cache(include_persistent : bool):
 	
 	var artifacts = get_artifacts_in_cache(include_persistent)
 	for artifact in artifacts:
-		dir = DirAccess.open(_CACHE_ROOT_DIR + "/" + artifact)
-		if dir:
-			var folder_size = 0
-			
-			var files = dir.get_files()
-			for file_name in files:
-				var file = FileAccess.open(dir.get_current_dir() + "/" + file_name, FileAccess.READ)
-				if not file == null:
-					folder_size += file.get_length()
-			
-			sizes.push_back([artifact, folder_size])
-			
-		dir = DirAccess.open(_CACHE_ROOT_DIR)
-	
+		var folder_size = get_size(artifact)
+		sizes.push_back([artifact, folder_size])
+
 	return sizes
 
 func get_cache_size() -> int:
@@ -679,11 +668,16 @@ func get_artifact_data() -> Array[ArtifactData]:
 	return artifacts_data
 
 func get_size(artifact : String):
-	for artifact_size_pair in get_artifacts_size_in_cache(true):
-		if artifact_size_pair[0] == artifact:
-			return artifact_size_pair[1]
-	
-	return -1
+	var dir = DirAccess.open(_CACHE_ROOT_DIR + "/" + artifact)
+	var folder_size = 0
+	if dir:
+		var files = dir.get_files()
+		for file_name in files:
+			var file = FileAccess.open(dir.get_current_dir() + "/" + file_name, FileAccess.READ)
+			if not file == null:
+				folder_size += file.get_length()
+
+	return folder_size
 
 func get_size_in_mb(artifact : String):
 	var size_bytes = get_size(artifact)
@@ -691,3 +685,70 @@ func get_size_in_mb(artifact : String):
 
 func is_empty():
 	return get_cache_size() <= 0
+
+
+func get_artifacts_in_cache_ordered():
+	var artifacts = get_artifacts_in_cache(true)
+	
+	var ordered : Array[String]
+	
+	while artifacts.size() > 0:
+		if cache_mode == REDUCE_CACHE_MODE.LARGEST:
+			var largest_size : int = -9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_size = get_size(artifacts[i])
+				if artifact_size >= largest_size:
+					largest_size = artifact_size
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+		
+		if cache_mode == REDUCE_CACHE_MODE.SMALLEST:
+			var smallest_size : int = 9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_size = get_size(artifacts[i])
+				if artifact_size <= smallest_size:
+					smallest_size = artifact_size
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+		
+		if cache_mode == REDUCE_CACHE_MODE.OLDEST:
+			var oldest_time : int = 9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_time = get_open_time(artifacts[i])
+				if artifact_time <= oldest_time:
+					oldest_time = artifact_time
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+		
+		if cache_mode == REDUCE_CACHE_MODE.NEWEST:
+			var newest_time : int = -9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_time = get_open_time(artifacts[i])
+				if artifact_time >= newest_time:
+					newest_time = artifact_time
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+	
+	return ordered
+
+func get_artifact_data_in_cache_ordered() -> Array[ArtifactData]:
+	var ordered_artifacts = get_artifacts_in_cache_ordered()
+	
+	var data : Array[ArtifactData] = []
+	
+	for artifact in ordered_artifacts:
+		data.push_back(import_artifact_data(artifact))
+	
+	return data

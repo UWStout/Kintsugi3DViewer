@@ -2,7 +2,7 @@ class_name ExpandingContextPanel extends ExpandingPanel
 
 @export var contexts : Array[NodePath] = []
 
-var _contexts_dict = { "context_name" : "context_object" }
+var _contexts_dict = {}
 var _selected_context : String = "NULL"
 
 func _ready():
@@ -23,6 +23,8 @@ func expand_context(new_context : String):
 func expand():
 	if is_expanded or _expanding:
 		return
+
+	hide_all_contexts()
 	
 	if _contexts_dict.has(_selected_context):
 		_contexts_dict[_selected_context].visible = true
@@ -44,3 +46,9 @@ func is_context_expanded(context_name : String) -> bool:
 	if _contexts_dict.has(_selected_context):
 		return _contexts_dict[_selected_context].name == context_name
 	return false
+
+func hide_all_contexts():
+	for context in _contexts_dict:
+		if not _contexts_dict[context] == null:
+			_contexts_dict[context].visible = false
+	pass

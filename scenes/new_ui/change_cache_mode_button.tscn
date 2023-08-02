@@ -5,6 +5,7 @@
 [node name="MarginContainer" type="MarginContainer"]
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
+script = ExtResource("1_kr6fj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -42,7 +43,6 @@ popup/item_2/text = "MOST RECENT"
 popup/item_2/id = 2
 popup/item_3/text = "LEAST RECENT"
 popup/item_3/id = 3
-script = ExtResource("1_kr6fj")
 
 [node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -72,4 +72,4 @@ recently opened artifacts will be removed first.
 LEAST RECENT - When the cache is oversized, the least
 recently opened artifacts will be removed first. [DEFAULT]"
 
-[connection signal="item_selected" from="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/OptionButton" to="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/OptionButton" method="_on_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/OptionButton" to="." method="_on_option_button_item_selected"]
