@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0uknfbjiwhfm"]
+
+[ext_resource type="PackedScene" uid="uid://cdoqpoh4wckrs" path="res://assets/Environments/Walls/Environment_StoneWall_WornGrey.glb" id="1_2h1s1"]
+[ext_resource type="PackedScene" uid="uid://dyhjcwp8nqkp8" path="res://assets/Light 3D UI/Spotlight_Angle.glb" id="2_h7im4"]
+
+[node name="WornBrickRoom" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.30461, 0)
+
+[node name="Environment_StoneWall_WornGrey" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3862, 10.2441, 1.77508)
+
+[node name="Environment_StoneWall_WornGrey3" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.18024, 10.2441, 1.77508)
+
+[node name="Environment_StoneWall_WornGrey2" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.6198, 10.2441, 1.77508)
+
+[node name="Environment_StoneWall_WornGrey10" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.999974, 0, 0.0072256, 0, 1, 0, -0.0072256, 0, -0.999974, 6.05158, 10.2441, 10.4167)
+
+[node name="Environment_StoneWall_WornGrey11" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.999974, 0, 0.0072256, 0, 1, 0, -0.0072256, 0, -0.999974, 37.4903, 10.2441, 10.6439)
+
+[node name="Environment_StoneWall_WornGrey7" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.00951185, 0, 0.999955, 0, 1, 0, -0.999955, 0, -0.00951185, -2.9012, 10.2441, 25.572)
+
+[node name="Environment_StoneWall_WornGrey8" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.00951185, 0, 0.999955, 0, 1, 0, -0.999955, 0, -0.00951185, -3.03632, 10.2441, 11.3667)
+
+[node name="Environment_StoneWall_WornGrey9" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.00951185, 0, 0.999955, 0, 1, 0, -0.999955, 0, -0.00951185, -2.73727, 10.2441, 42.8048)
+
+[node name="Environment_StoneWall_WornGrey4" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.00420621, 0, -0.999991, 0, 1, 0, 0.999991, 0, -0.00420621, 6.12456, 10.2441, -11.8738)
+
+[node name="Environment_StoneWall_WornGrey5" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.00420621, 0, -0.999991, 0, 1, 0, 0.999991, 0, -0.00420621, 6.06481, 10.2441, 2.33195)
+
+[node name="Environment_StoneWall_WornGrey6" parent="." instance=ExtResource("1_2h1s1")]
+transform = Transform3D(-0.00420621, 0, -0.999991, 0, 1, 0, 0.999991, 0, -0.00420621, 6.19705, 10.2441, -29.1073)
+
+[node name="Spotlight_Angle" parent="." instance=ExtResource("2_h7im4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.3247, 95.4969, 126.904)
