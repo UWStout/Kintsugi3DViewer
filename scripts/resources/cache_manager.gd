@@ -15,7 +15,6 @@ var outsized_folders : Array[String] = []
 var cache_mode : REDUCE_CACHE_MODE = REDUCE_CACHE_MODE.OLDEST
 
 func _ready():
-	
 	var pref_cache_size = Preferences.read_pref("cache size")
 	if not pref_cache_size == null:
 		cache_size_limit = mb_to_bytes(pref_cache_size)
@@ -110,19 +109,21 @@ func import_gltf(dir_name : String, name : String):
 	return {"doc" : gltf, "state" : state}
 
 func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : GLTFState):
-	if outsized_folders.has(dir_name):
-		return
+	#if outsized_folders.has(dir_name):
+		#return
 	
 	var buffer = doc.generate_buffer(state.duplicate())
 	var file_size = buffer.size()
 	if not should_add_to_cache(file_size):
+		reduce_cache_for_size(file_size, cache_mode)
 		#print("could not export " + name + ".glb to directory " + _CACHE_ROOT_DIR + dir_name + "/ because it would overflow the cache")
 		#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 		#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
-		if not outsized_folders.has(dir_name):
-			outsized_folders.push_back(dir_name)
-			remove_from_cache(dir_name)
-		return
+#	if not should_add_to_cache(file_size):
+#		if not outsized_folders.has(dir_name):
+#			outsized_folders.push_back(dir_name)
+#			remove_from_cache(dir_name)
+#		return
 	
 	open_dir(dir_name)
 	
@@ -142,7 +143,7 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 
 	# Export the .glb file
 	doc.write_to_filesystem(state, dir_path + file_name)
-	#print("exported file " + file_name + " to directory " + dir_path)
+	print("exported file " + file_name + " to directory " + dir_path)
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
@@ -182,18 +183,20 @@ func import_png(dir_name : String, name : String) -> Image:
 	return image
 
 func export_png(dir_name : String, name : String, image : Image):
-	if outsized_folders.has(dir_name):
-		return
+#	if outsized_folders.has(dir_name):
+#		return
 	
 	var file_size = image.save_png_to_buffer().size()
 	if not should_add_to_cache(file_size):
+		reduce_cache_for_size(file_size, cache_mode)
 		#print("could not export " + name + ".png to directory " + _CACHE_ROOT_DIR + dir_name + "/ because it would overflow the cache")
 		#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 		#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
-		if not outsized_folders.has(dir_name):
-			outsized_folders.push_back(dir_name)
-			remove_from_cache(dir_name)
-		return
+#	if not should_add_to_cache(file_size):
+#		if not outsized_folders.has(dir_name):
+#			outsized_folders.push_back(dir_name)
+#			remove_from_cache(dir_name)
+#		return
 	
 	open_dir(dir_name)
 	
@@ -211,7 +214,7 @@ func export_png(dir_name : String, name : String, image : Image):
 		#printerr(err_message)
 		return
 	
-	#print("exported file " + file_name + " to directory " + dir_path)
+	print("exported file " + file_name + " to directory " + dir_path)
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
@@ -267,7 +270,7 @@ func export_artifact_data(dir_name : String, data : ArtifactData):
 	file.store_line("name:" + data.name)
 	file.store_line("uri:" + data.gltfUri)
 	
-	#print("exported data.txt to directory " + dir.get_current_dir())
+	print("exported data.txt to directory " + dir.get_current_dir())
 
 
 func get_artifacts_in_cache(include_peristent : bool) -> Array[String]:
@@ -359,7 +362,7 @@ func clear_cache():
 	if dir == null:
 		return
 	
-	for artifact in get_artifacts_in_cache(false):
+	for artifact in get_artifacts_in_cache(true):
 		remove_from_cache(artifact)
 	
 	outsized_folders.clear()
@@ -465,6 +468,31 @@ func reduce_cache(mode : REDUCE_CACHE_MODE):
 	var tries = 0
 	var max_tries = 5
 	while is_cache_oversized():
+		if mode == REDUCE_CACHE_MODE.LARGEST:
+			if not remove_largest():
+				tries += 1
+		elif mode == REDUCE_CACHE_MODE.SMALLEST:
+			if not remove_smallest():
+				tries += 1
+		elif mode == REDUCE_CACHE_MODE.NEWEST:
+			if not remove_newest():
+				tries += 1
+		elif mode == REDUCE_CACHE_MODE.OLDEST:
+			if not remove_oldest():
+				tries += 1
+		
+		if tries >= max_tries:
+			break
+	
+	outsized_folders.clear()
+
+func reduce_cache_for_size(size : int, mode : REDUCE_CACHE_MODE):
+	if get_cache_size() - size > cache_size_limit:
+		return
+	
+	var tries = 0
+	var max_tries = 5
+	while get_cache_size() + size >= cache_size_limit:
 		if mode == REDUCE_CACHE_MODE.LARGEST:
 			if not remove_largest():
 				tries += 1
@@ -752,3 +780,21 @@ func get_artifact_data_in_cache_ordered() -> Array[ArtifactData]:
 		data.push_back(import_artifact_data(artifact))
 	
 	return data
+
+func set_cache_size_bytes(bytes : int):
+	var mb = bytes_to_mb(bytes)
+	cache_size_limit = bytes
+	Preferences.write_pref("cache size", mb)
+
+func set_cache_size_mb(mb : int):
+	var bytes = mb_to_bytes(mb)
+	cache_size_limit = bytes
+	Preferences.write_pref("cache size", mb)
+
+func set_cache_mode(mode : REDUCE_CACHE_MODE):
+	cache_mode = mode
+	Preferences.write_pref("cache mode", cache_mode)
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		reduce_cache(cache_mode)

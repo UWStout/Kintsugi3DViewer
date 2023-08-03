@@ -45,10 +45,12 @@ func animate_button():
 		direction = 1
 		start_col = off_color
 		end_col = on_color
+		start_pos = 0
 	else:
 		direction = -1
 		start_col = on_color
 		end_col = off_color
+		start_pos = 50
 	
 	var progress = 0
 	while progress < 1:

@@ -370,16 +370,19 @@ func update_vertical_track():
 func change_color(new_color : Color):
 	$target_point/light.light_color = new_color
 	
-	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 0.75)
+	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 1)
+	
+	adjusted_color.v = max(adjusted_color.v, 0.5)
 	
 	var new_material = StandardMaterial3D.new()
 	new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	new_material.albedo_color = adjusted_color
 	new_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	
-	var target_mat = new_material.duplicate()
+	var target_mat = new_material.duplicate() as BaseMaterial3D
 	target_mat.no_depth_test = true
-	target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
+	#target_mat.emission_enabled = false
+	#target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_ADD
 	
 	$target_point/mesh.material = target_mat
 	

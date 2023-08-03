@@ -58,7 +58,10 @@ func update_light_angle(new_angle : float):
 func update_light_color(new_color : Color):
 	light_color = new_color
 	
-	miniature_color_display.self_modulate = light_color
+	var adjusted_light_color = Color(new_color.r, new_color.g, new_color.b, 1)
+	adjusted_light_color.v = max(adjusted_light_color.v, 0.5)
+	
+	miniature_color_display.self_modulate = adjusted_light_color
 	
 	if not connected_light == null:
 		connected_light._set_color_UTIL(light_color)

@@ -31,9 +31,6 @@ func _init_prefs():
 	write_pref("aa", Viewport.MSAA_4X)
 	write_pref("gi", GraphicsController.GLOBAL_ILLUMINATION.DISABLED)
 	write_pref("ssao", GraphicsController.SSAO.MEDIUM)
-	write_pref("ssil", GraphicsController.SSIL.DISABLED)
-	write_pref("ssr", GraphicsController.SSR.DISABLED)
-	write_pref("subsurface scattering", GraphicsController.SUBSURFACE.MEDIUM)
 
 func write_pref(name : String, value):
 	var formatted_name = get_formatted_name(name)
