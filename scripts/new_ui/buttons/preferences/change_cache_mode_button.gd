@@ -6,8 +6,8 @@ extends Control
 @export var cache_ui : CacheUI
 
 func _ready():
-	option_button.select(Preferences.read_pref("cache mode"))
-	change_text(Preferences.read_pref("cache mode"))
+	option_button.select(CacheManager.cache_mode)
+	change_text(CacheManager.cache_mode)
 
 func change_text(index : int):
 	if index == 0:
@@ -23,10 +23,8 @@ func change_text(index : int):
 
 
 func _on_option_button_item_selected(index):
-	Preferences.write_pref("cache mode", index)
+	CacheManager.set_cache_mode(index)
 	change_text(index)
-	CacheManager.cache_mode = index
 	
 	if not cache_ui == null:
-		print("refreshing!")
 		cache_ui.refresh_list()

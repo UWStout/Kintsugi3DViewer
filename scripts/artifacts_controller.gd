@@ -117,8 +117,9 @@ func _on_model_load_complete():
 		target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
 		loaded_artifact.global_position = target_pos
 	
-	#print("================== ARTIFACT LOAD COMPLETE =============================")
+	print("================== ARTIFACT LOAD COMPLETE =============================")
 	#print("UPDATING OPEN TIME FOR ARTIFACT " + loaded_artifact.name)
+	
 	CacheManager.update_open_time(loaded_artifact.artifact.gltfUri.get_base_dir(), false)
 
 func _on_model_load_progress(progress: float):

@@ -21,5 +21,4 @@ func _on_text_changed(new_text):
 	insert_text_at_caret(txt)
 	
 	if not txt.is_empty():
-		Preferences.write_pref("cache size", str_to_var(txt))
-		CacheManager.cache_size_limit = CacheManager.mb_to_bytes(str_to_var(txt))
+		CacheManager.set_cache_size_mb(str_to_var(txt))

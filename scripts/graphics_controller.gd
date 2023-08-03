@@ -69,6 +69,8 @@ func change_shadows(mode : SHADOWS):
 	
 	ProjectSettings.set_setting("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality", mode)
 	ProjectSettings.set_setting("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality.mobile", mode)
+	
+	Preferences.write_pref("shadows", mode)
 
 func change_global_illumination(mode : GLOBAL_ILLUMINATION):
 	if mode > 0:
@@ -81,14 +83,19 @@ func change_global_illumination(mode : GLOBAL_ILLUMINATION):
 	
 	ProjectSettings.set_setting("rendering/global_illumination/voxel_gi/quality", quality)
 	ProjectSettings.set_setting("rendering/global_illumination/sdfgi/probe_ray_count", ray_count)
+	
+	Preferences.write_pref("gi", mode)
 
 func change_antialiasing(mode : Viewport.MSAA):
 	get_viewport().msaa_3d = mode
+	
+	Preferences.write_pref("aa", mode)
 
 func change_ssao(mode : SSAO):
 	world_environment.environment.ssao_enabled = true
 	ProjectSettings.set_setting("rendering/environment/ssao/quality", mode)
-	pass
+	
+	Preferences.write_pref("ssao", mode)
 
 func change_ssil(mode : SSIL):
 	if mode < 0:
@@ -97,6 +104,8 @@ func change_ssil(mode : SSIL):
 		world_environment.environment.ssil_enabled = true
 	
 	ProjectSettings.set_setting("rendering/environment/ssil/quality", mode)
+	
+	Preferences.write_pref("ssil", mode)
 
 func change_ssr(mode : SSR):
 	if mode == 0:
@@ -105,24 +114,28 @@ func change_ssr(mode : SSR):
 		world_environment.environment.ssr_enabled = true
 	
 	ProjectSettings.set_setting("rendering/environment/screen_space_reflection/roughness_quality", mode)
+	
+	Preferences.write_pref("ssr", mode)
 
 func change_subsurface_scattering(mode : SUBSURFACE):
 	ProjectSettings.set_setting("rendering/environment/subsurface_scattering/subsurface_scattering_quality", mode)
+	
+	Preferences.write_pref("subsurface scattering", mode)
 
 func _ready():
 	shadows = Preferences.read_pref("shadows")
 	antialiasing = Preferences.read_pref("aa")
 	global_illumination = Preferences.read_pref("gi")
 	ssao = Preferences.read_pref("ssao")
-	ssil = Preferences.read_pref("ssil")
-	screen_space_reflections = Preferences.read_pref("ssr")
-	subsurface_scattering = Preferences.read_pref("subsurface scattering")
+	#ssil = Preferences.read_pref("ssil")
+	#screen_space_reflections = Preferences.read_pref("ssr")
+	#subsurface_scattering = Preferences.read_pref("subsurface scattering")
 	
 	change_resolution(Vector2i(1152, 648))
 	change_shadows(shadows)
 	change_global_illumination(global_illumination)
 	change_antialiasing(antialiasing)
 	change_ssao(ssao)
-	change_ssil(ssil)
-	change_ssr(screen_space_reflections)
-	change_subsurface_scattering(subsurface_scattering)
+	#change_ssil(ssil)
+	#change_ssr(screen_space_reflections)
+	#change_subsurface_scattering(subsurface_scattering)
