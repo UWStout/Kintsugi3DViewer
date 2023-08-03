@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://x281vauyw5re"]
+
+[ext_resource type="PackedScene" uid="uid://dp03q6k2ly1xl" path="res://assets/Environments/Floor/Environment_TileFloor_Tan.glb" id="1_udipt"]
+[ext_resource type="PackedScene" uid="uid://dymjas1hlbkrs" path="res://assets/Environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb" id="3_rn63f"]
+
+[node name="CircularTanRoom" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.30461, 0)
+
+[node name="Environment_TileFloor_Tan" parent="." instance=ExtResource("1_udipt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95069, 3.59239, -0.569228)
+
+[node name="Object_Pedestal_TanModern2" parent="." instance=ExtResource("3_rn63f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.358249, 4.56436, -5.33307)

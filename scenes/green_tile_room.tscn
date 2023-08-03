@@ -1,0 +1,106 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk1scqv0c6f0x"]
+
+[ext_resource type="PackedScene" uid="uid://dbmcoh6d6iy17" path="res://assets/Environments/Floor/Environment_CementFloor_Tan.glb" id="1_hk1oe"]
+[ext_resource type="PackedScene" uid="uid://bsgwy7qgmj4up" path="res://assets/Environments/Floor/Environment_TileFloor_Green.glb" id="4_h5dlj"]
+[ext_resource type="PackedScene" uid="uid://dymjas1hlbkrs" path="res://assets/Environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb" id="5_sd3is"]
+
+[node name="GreenTileRoom" type="Node3D"]
+
+[node name="Environment_CementFloor_Tan" parent="." instance=ExtResource("1_hk1oe")]
+transform = Transform3D(-0.004311, 0.999991, 0, -0.999991, -0.004311, 0, 0, 0, 1, -16.7221, 4.37323, -1.54553)
+
+[node name="Environment_CementFloor_Tan7" parent="." instance=ExtResource("1_hk1oe")]
+transform = Transform3D(-0.004311, 0.999991, 0, -0.999991, -0.004311, 0, 0, 0, 1, 35.8719, 4.37323, -1.54553)
+
+[node name="Environment_CementFloor_Tan6" parent="." instance=ExtResource("1_hk1oe")]
+transform = Transform3D(-1.18337, -0.00178082, 0, 0.00210669, -1.00032, 0, 0, 0, 1, 8.43248, 27.827, -1.54553)
+
+[node name="Environment_CementFloor_Tan4" parent="." instance=ExtResource("1_hk1oe")]
+transform = Transform3D(-0.004311, 0.999991, 0, -0.999991, -0.004311, 0, 0, 0, 1, 18.3759, 4.37323, -30.7884)
+
+[node name="Environment_CementFloor_Tan5" parent="." instance=ExtResource("1_hk1oe")]
+transform = Transform3D(-0.004311, 0.999991, 0, -0.999991, -0.004311, 0, 0, 0, 1, 18.3759, 4.37323, 30.5019)
+
+[node name="Environment_CementFloor_Tan2" parent="." instance=ExtResource("1_hk1oe")]
+transform = Transform3D(1.8844e-10, -4.3711e-08, 1, -0.999991, -0.004311, 0, 0.004311, -0.999991, -4.37114e-08, 6.27792, 4.37323, 19.4792)
+
+[node name="Environment_CementFloor_Tan3" parent="." instance=ExtResource("1_hk1oe")]
+transform = Transform3D(1.8844e-10, -4.3711e-08, 1, -0.999991, -0.004311, 0, 0.004311, -0.999991, -4.37114e-08, 6.27792, 4.37323, -20.9607)
+
+[node name="Environment_TileFloor_Green" parent="." instance=ExtResource("4_h5dlj")]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1, 9.57328, 4.13653, -1.42667)
+
+[node name="Object_Pedestal_TanModern2" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(2.66539, 0, 0, 0, 1, 0, 0, 0, 2.63284, 0.381935, 5.44878, -12.0914)
+
+[node name="Object_Pedestal_TanModern21" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(3.53349, 0, 0, 0, 0.0967736, 0, 0, 0, 3.31853, 0.391403, 4.22267, -15.213)
+
+[node name="Object_Pedestal_TanModern22" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(3.1363, 0, 0, 0, 0.0967736, 0, 0, 0, 3.0098, 0.391403, 4.41206, -13.8507)
+
+[node name="Object_Pedestal_TanModern3" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, 10.0698, 0, 0, 0, 1, -16.0816, 10.5554, -24.8879)
+
+[node name="Object_Pedestal_TanModern5" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, -0.0112364, -0.999547, 0, 16.9425, -0.000662905, -16.3265, 32.1719, -6.5556)
+
+[node name="Object_Pedestal_TanModern25" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, -0.0112364, -0.999547, 0, 16.9425, -0.000662905, -4.80952, 32.1719, -6.5556)
+
+[node name="Object_Pedestal_TanModern26" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, -0.0112364, -0.999547, 0, 16.9425, -0.000662905, 7.18996, 32.1719, -6.5556)
+
+[node name="Object_Pedestal_TanModern11" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(0.382859, 0, 0, 0, -0.0112335, -0.224633, 0, 16.9382, -0.000148977, -16.6386, 5.33662, -6.5556)
+
+[node name="Object_Pedestal_TanModern20" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(0.382859, 0, 0, 0, -0.0112335, -0.224633, 0, 16.9382, -0.000148977, 35.7876, 5.33662, -6.5556)
+
+[node name="Object_Pedestal_TanModern15" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(0.382859, 0, 0, 0, -0.00363276, -0.224733, 0, 5.47758, -0.000149044, 18.3332, 5.33662, 11.8089)
+
+[node name="Object_Pedestal_TanModern16" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(0.382859, 0, 0, 0, -0.00363276, -0.224733, 0, 5.47758, -0.000149044, 18.3332, 5.33662, -17.4421)
+
+[node name="Object_Pedestal_TanModern13" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(-0.000173704, -12.6603, 0.000149002, 0, -0.00839636, -0.22467, 0.382815, -0.00574466, 6.76105e-08, 4.53123, 5.33662, -21.2282)
+
+[node name="Object_Pedestal_TanModern14" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(-0.000173704, -12.6603, 0.000149002, 0, -0.00839636, -0.22467, 0.382815, -0.00574466, 6.76105e-08, 4.53123, 5.33662, 19.5453)
+
+[node name="Object_Pedestal_TanModern12" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(0.382859, 0, 0, 0, -0.0112335, -0.224633, 0, 16.9382, -0.000148977, -16.6386, 5.33662, -6.5556)
+
+[node name="Object_Pedestal_TanModern6" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, -0.0112364, -0.999547, 0, 16.9425, -0.000662905, 18.2646, 32.1719, -6.5556)
+
+[node name="Object_Pedestal_TanModern19" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, -0.0112364, -0.999547, 0, 16.9425, -0.000662905, 36.1321, 32.1719, -6.5556)
+
+[node name="Object_Pedestal_TanModern17" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(-0.00165801, -16.9425, 0.000662904, 0, -0.0112364, -0.999547, 0.999999, -0.0280908, 1.09904e-06, 1.37771, 32.1719, -20.4888)
+
+[node name="Object_Pedestal_TanModern23" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(-0.00165801, -16.9425, 0.000662904, 0, -0.0112364, -0.999547, 0.999999, -0.0280908, 1.09904e-06, 1.37771, 32.1719, -7.60821)
+
+[node name="Object_Pedestal_TanModern24" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(-0.00165801, -16.9425, 0.000662904, 0, -0.0112364, -0.999547, 0.999999, -0.0280908, 1.09904e-06, 1.37771, 32.1719, 6.17614)
+
+[node name="Object_Pedestal_TanModern18" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(-0.00165801, -16.9425, 0.000662904, 0, -0.0112364, -0.999547, 0.999999, -0.0280908, 1.09904e-06, 1.35248, 32.1719, 19.0448)
+
+[node name="Object_Pedestal_TanModern4" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, 10.0698, 0, 0, 0, 1, -16.0816, 10.5554, 13.9272)
+
+[node name="Object_Pedestal_TanModern7" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, 10.0698, 0, 0, 0, 1, 18.1124, 10.5554, -24.8879)
+
+[node name="Object_Pedestal_TanModern8" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, 10.0698, 0, 0, 0, 1, 18.1124, 10.5554, 13.9272)
+
+[node name="Object_Pedestal_TanModern9" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, 10.0698, 0, 0, 0, 1, 18.1124, 10.5554, -13.0533)
+
+[node name="Object_Pedestal_TanModern10" parent="." instance=ExtResource("5_sd3is")]
+transform = Transform3D(1, 0, 0, 0, 10.0698, 0, 0, 0, 1, 18.1124, 10.5554, 1.95215)

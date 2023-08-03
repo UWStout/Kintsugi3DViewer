@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://met3eisx0vpb"]
+
+[ext_resource type="PackedScene" uid="uid://br0mg8kyvtblo" path="res://assets/Environments/Floor/Environment_ConcreteFloor_LightGrey.glb" id="1_kkmiw"]
+[ext_resource type="PackedScene" uid="uid://0xdsh6kiie8k" path="res://assets/Environments/Walls/Environment_PlainWall_White.glb" id="2_jpb0y"]
+[ext_resource type="PackedScene" uid="uid://ba4ibeulyci4r" path="res://assets/Environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain.glb" id="3_r2hwh"]
+[ext_resource type="PackedScene" uid="uid://vmdtxtkh4o73" path="res://assets/Environments/Objects/BlankFrames/Object_BlankFrame_LightBlue.glb" id="4_b5bwb"]
+
+[node name="WhiteGalleryRoom" type="Node3D"]
+
+[node name="Environment_ConcreteFloor_LightGrey" parent="." instance=ExtResource("1_kkmiw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.165844, 0.161839, 6.61207)
+
+[node name="Environment_PlainWall_White" parent="." instance=ExtResource("2_jpb0y")]
+transform = Transform3D(-0.00432625, 0, -1.01065, 0, 1.01182, 0, 1.40042, 0, -0.00312214, 11.8935, -0.0274982, 0.224766)
+
+[node name="Environment_PlainWall_White3" parent="." instance=ExtResource("2_jpb0y")]
+transform = Transform3D(0.764359, 0, 0, 0, 1, 0, 0, 0, 1, 0.120932, 0, 0.471164)
+
+[node name="Environment_PlainWall_White5" parent="." instance=ExtResource("2_jpb0y")]
+transform = Transform3D(0.33079, 0, 0, 0, 1, 0, 0, 0, 1, -1.29603, 0, -12.6739)
+
+[node name="Environment_PlainWall_White6" parent="." instance=ExtResource("2_jpb0y")]
+transform = Transform3D(-0.330789, 0, 0.00267044, 0, 1, 0, -0.000883354, 0, -0.999996, -0.750675, 0.0335541, 8.17871)
+
+[node name="Environment_PlainWall_White4" parent="." instance=ExtResource("2_jpb0y")]
+transform = Transform3D(-0.742942, 0, -0.00292984, 0, 1, 0, 0.00217848, 0, -0.999186, -1.26315, 7.62939e-06, -3.29396)
+
+[node name="Environment_PlainWall_White2" parent="." instance=ExtResource("2_jpb0y")]
+transform = Transform3D(0.0278362, 0, 1.00415, 0, 1.01182, 0, -1.40008, 0, 0.0199645, -12.2056, -0.0274982, -1.96728)
+
+[node name="Object_Pedestal_WhitePlain" parent="." instance=ExtResource("3_r2hwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.283774, -0.68843, 0.0674767)
+
+[node name="Object_BlankFrame_LightBlue" parent="." instance=ExtResource("4_b5bwb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.56647, 0, 30.8971)
+
+[node name="Object_BlankFrame_LightBlue2" parent="." instance=ExtResource("4_b5bwb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.479482, 0, -2.54245)
+
+[node name="Object_BlankFrame_LightBlue3" parent="." instance=ExtResource("4_b5bwb")]
+transform = Transform3D(-0.0165674, 0, -0.992778, 0, 1.23328, 0, 1.76433, 0, -0.00932238, -31.7246, 0, -2.54245)
+
+[node name="Object_BlankFrame_LightBlue4" parent="." instance=ExtResource("4_b5bwb")]
+transform = Transform3D(-0.0165674, 0, -0.992778, 0, 1.23328, 0, 1.76433, 0, -0.00932238, -1.40085, 0, -2.54245)
