@@ -5,8 +5,8 @@ class_name ArtifactSelectionButton extends ExclusiveToggleButton
 @onready var artifact_status = $HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/artifact_status
 
 var not_downloaded_icon = preload("res://assets/ui/light_none.png")
-var downloaded_icon = preload("res://assets/ui/light_ambient.png")
-var favorited_icon = preload("res://assets/ui/light_full.png")
+var downloaded_icon = preload("res://assets/ui/UI_V2/CacheFavorites_V2/Unfavorited_Light_V2.svg")
+var favorited_icon = preload("res://assets/ui/UI_V2/CacheFavorites_V2/Favorited_Light_V2.svg")
 
 
 

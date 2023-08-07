@@ -1,9 +1,78 @@
-<svg width="51" height="47" viewBox="0 0 51 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M16 0.599609H4C1.79086 0.599609 0 2.39047 0 4.59961V14H3V4.59961C3 4.04732 3.44772 3.59961 4 3.59961H16V0.599609ZM35 3.59961V0.599609H46.4C48.6091 0.599609 50.4 2.39047 50.4 4.59961V14H47.4V4.59961C47.4 4.04732 46.9523 3.59961 46.4 3.59961H35ZM35 43.7996H46.4C46.9523 43.7996 47.4 43.3519 47.4 42.7996V33H50.4V42.7996C50.4 45.0087 48.6091 46.7996 46.4 46.7996H35V43.7996ZM3 33V42.7996C3 43.3519 3.44772 43.7996 4 43.7996H16V46.7996H4C1.79086 46.7996 0 45.0088 0 42.7996V33H3Z" fill="#D9D9D9"/>
-<path d="M9.60033 17.7004C9.60033 20.5171 16.8353 29.4004 25.7601 29.4004C34.6849 29.4004 41.9199 20.5171 41.9199 17.7004" stroke="#D9D9D9" stroke-width="3"/>
-<path d="M42.6006 29.4004L37.9263 23.7303" stroke="#D9D9D9" stroke-width="3"/>
-<path d="M34.8887 33.9707L31.9194 27.1672" stroke="#D9D9D9" stroke-width="3"/>
-<path d="M20.2012 27.168L17.2313 33.9712" stroke="#D9D9D9" stroke-width="3"/>
-<path d="M25.4775 28.1992L25.4775 35.9992" stroke="#D9D9D9" stroke-width="3"/>
-<path d="M14.3252 24.0938L9.65093 29.7638" stroke="#D9D9D9" stroke-width="3"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="128"
+   height="128"
+   viewBox="0 0 128 128"
+   fill="none"
+   version="1.1"
+   id="svg16"
+   sodipodi:docname="UIVisability_Hidden_V2.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs20" />
+  <sodipodi:namedview
+     id="namedview18"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     showgrid="false"
+     inkscape:zoom="4.2340425"
+     inkscape:cx="50.896986"
+     inkscape:cy="50.542714"
+     inkscape:window-width="1920"
+     inkscape:window-height="1000"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg16" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M 40.90986,6.0235 H 10.792216 C 5.247708,6.0235 0.753,10.51821 0.753,16.062718 V 39.655854 H 8.282412 V 16.062718 c 0,-1.386139 1.123689,-2.509804 2.509804,-2.509804 H 40.90986 Z m 47.68628,7.529414 V 6.0235 h 28.61176 c 5.54441,0 10.03922,4.49471 10.03922,10.039218 v 23.593136 h -7.52941 V 16.062718 c 0,-1.386139 -1.12364,-2.509804 -2.50981,-2.509804 z m 0,100.894096 h 28.61176 c 1.38617,0 2.50981,-1.12364 2.50981,-2.50981 V 87.34213 h 7.52941 v 24.59507 c 0,5.54441 -4.49481,10.03922 -10.03922,10.03922 H 88.59614 Z M 8.282412,87.34213 v 24.59507 c 0,1.38617 1.123689,2.50981 2.509804,2.50981 H 40.90986 v 7.52941 H 10.792216 C 5.247708,121.97642 0.753,117.48186 0.753,111.9372 V 87.34213 Z"
+     fill="#D9D9D9"
+     id="path2"
+     style="fill:#ffffff;stroke-width:2.5098" />
+  <path
+     d="m 24.847946,48.94313 c 0,7.06937 18.158354,29.36471 40.557854,29.36471 22.3995,0 40.55793,-22.29534 40.55793,-29.36471"
+     stroke="#D9D9D9"
+     stroke-width="7.52941"
+     id="path4"
+     style="stroke:#ffffff" />
+  <path
+     d="M 107.67215,78.30784 95.94058,64.077"
+     stroke="#D9D9D9"
+     stroke-width="7.52941"
+     id="path6"
+     style="stroke:#ffffff" />
+  <path
+     d="M 88.3168,89.77839 80.86444,72.70294"
+     stroke="#D9D9D9"
+     stroke-width="7.52941"
+     id="path8"
+     style="stroke:#ffffff" />
+  <path
+     d="m 51.45405,72.70495 -7.45387,17.0747"
+     stroke="#D9D9D9"
+     stroke-width="7.52941"
+     id="path10"
+     style="stroke:#ffffff" />
+  <path
+     d="M 64.69653,75.29306 V 94.86953"
+     stroke="#D9D9D9"
+     stroke-width="7.52941"
+     id="path12"
+     style="stroke:#ffffff" />
+  <path
+     d="M 36.706443,64.98931 24.974942,79.2199"
+     stroke="#D9D9D9"
+     stroke-width="7.52941"
+     id="path14"
+     style="stroke:#ffffff" />
 </svg>

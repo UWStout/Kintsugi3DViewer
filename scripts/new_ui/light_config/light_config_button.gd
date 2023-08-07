@@ -13,9 +13,11 @@ var light_color : Color
 
 @onready var light_strength_label = $Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer/MarginContainer/light_strength_label
 @onready var light_angle_label = $Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer/MarginContainer/light_angle_label
-@onready var miniature_color_display = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/miniature_color_display
+@onready var miniature_color_display = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/inner
 @onready var label = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/Label
 @onready var button = $Panel/VBoxContainer/VBoxContainer/Button
+@onready var texture_rect = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect
+
 
 #@onready var color_picker = $Panel/VBoxContainer/VBoxContainer/MarginContainer/ColorPicker
 #@onready var text_edit = $Panel/VBoxContainer/VBoxContainer/MarginContainer2/TextEdit
@@ -28,7 +30,8 @@ var light_color : Color
 @onready var angle_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer/angle_scroll_bar
 @onready var value_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/value_scroll_bar
 
-
+var expand_icon = preload("res://assets/ui/UI_V2/LightCustomizingOptions_V2/ExpandLightCustom_Decrease_V2.svg")
+var shrunk_icon = preload("res://assets/ui/UI_V2/LightCustomizingOptions_V2/ExpandLightCustom_Increase_V2.svg")
 
 var connected_light : NewLightWidget
 
@@ -87,15 +90,17 @@ func set_connected_light(light : NewLightWidget):
 	connected_light = light
 
 func on_button_open():
-	print("light made material")
+	#print("light made material")
 	connected_light.make_material()
+	texture_rect.texture = expand_icon
 	#connected_light.controller.select_light(null)
 	pass
 
 func on_button_close():
-	print("light made immaterial")
+	#print("light made immaterial")
 	connected_light.make_immaterial()
 	connected_light.controller.force_hide_lights()
+	texture_rect.texture = shrunk_icon
 	pass
 
 func delete_light():

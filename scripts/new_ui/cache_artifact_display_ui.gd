@@ -24,7 +24,7 @@ func initialize_from_artifact(data : ArtifactData):
 	CacheManager.cache_item_deleted.connect(check_if_valid)
 
 func _on_delete_button_pressed():
-	confirmation_panel.prompt_confirmation("DELETE OBJECT", "You will not be able to recover it", canceled, delete_artifact) 
+	confirmation_panel.prompt_confirmation("REMOVE FROM CACHE", "You will need to download it if you want to view it again.", canceled, delete_artifact) 
 	#self.queue_free()
 
 func check_if_valid():

@@ -5,7 +5,7 @@ class_name ArtifactCatalogUI extends ContextMenu
 
 @onready var button_group : ExclusiveToggleGroup = $button_group
 @onready var v_box_container : VBoxContainer = $ScrollContainer/VBoxContainer
-@onready var searchbar : TextEdit = $header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar
+@onready var searchbar : LineEdit = $header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar
 
 func _ready():
 	refresh_list()
@@ -39,8 +39,8 @@ func show_all():
 		var button = child as ArtifactSelectionButton
 		button.visible = true
 
-func _on_searchbar_text_changed():
-	var text = searchbar.text
+func _on_searchbar_text_changed(new_text : String):
+	var text = new_text
 	
 	if text.is_empty():
 		show_all()

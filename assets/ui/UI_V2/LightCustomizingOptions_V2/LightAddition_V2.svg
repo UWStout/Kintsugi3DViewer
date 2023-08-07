@@ -1,3 +1,42 @@
-<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M7.76804 13.688L7.7683 20.4937L13.6879 20.4939L13.6876 13.6882L20.4958 13.6885L20.4956 7.76889L13.6874 7.76863L13.6871 0.959235L7.76755 0.95901L7.76781 7.7684L0.960945 7.76814L0.961172 13.6877L7.76804 13.688Z" fill="#242424"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="128"
+   height="128"
+   viewBox="0 0 128 128"
+   fill="none"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="LightAddition_V2.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs8" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     showgrid="false"
+     inkscape:zoom="3.3503393"
+     inkscape:cx="54.173618"
+     inkscape:cy="52.531993"
+     inkscape:window-width="1920"
+     inkscape:window-height="1000"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="m 45.95587,82.05142 0.002,41.4826 36.08163,0.001 -0.002,-41.4826 41.49791,0.002 -0.001,-36.08163 -41.4979,-0.002 -0.002,-41.505119 -36.08134,-0.00117 0.002,41.50509 -41.49017,-0.002 0.0014,36.08133 z"
+     fill="#242424"
+     id="path2"
+     style="fill:#ffffff;stroke-width:6.09527" />
 </svg>
