@@ -1,5 +1,10 @@
 class_name HideUIButton extends ToggleButton
 
+@onready var texture_rect = $CenterContainer/TextureRect
+
+var shown_icon = preload("res://assets/ui/UI_V2/TopDock_V2/UIVisability_Shown_V2.svg")
+var hidden_icon = preload("res://assets/ui/UI_V2/TopDock_V2/UIVisability_Hidden_V2.svg")
+
 @export var nodes_to_hide : Array[NodePath]
 @export var lights_selection : LightSelectionUI
 @export var speed : float = 0.1
@@ -13,6 +18,7 @@ func _on_toggle_on():
 
 	lights_selection.on_context_shrunk()
 	hide_nodes()
+	super._on_toggle_on()
 
 func _on_toggle_off():
 	if animating:
@@ -20,6 +26,16 @@ func _on_toggle_off():
 		return
 	
 	show_nodes()
+	super._on_toggle_off()
+
+func _display_toggled_on():
+	texture_rect.texture = hidden_icon
+	super._display_toggled_on()
+
+func _display_toggled_off():
+	texture_rect.texture = shown_icon
+	super._display_toggled_off()
+
 
 func hide_nodes():
 	animating = true

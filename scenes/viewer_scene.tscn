@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=111 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
@@ -11,11 +11,15 @@
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/open_settings_menu_button.gd" id="21_lyejv"]
 [ext_resource type="Script" path="res://scenes/toggle_bottom_bar_button.gd" id="21_rbje3"]
 [ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="22_bcjqb"]
+[ext_resource type="Texture2D" uid="uid://cv27734kjvuwb" path="res://assets/ui/UI_V2/FlyoutBottom_V2/FlyoutBot_Out_V2.svg" id="23_ixqpy"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/hide_ui_button.gd" id="23_li034"]
 [ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="24_xbw2p"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
 [ext_resource type="Script" path="res://scripts/ui/turntable_toggle_button.gd" id="25_gxste"]
+[ext_resource type="Texture2D" uid="uid://2xgalgquiplp" path="res://assets/ui/UI_V2/TopDock_V2/Settings_V2.svg" id="26_5qtof"]
+[ext_resource type="Texture2D" uid="uid://d266buqmo4mjr" path="res://assets/ui/UI_V2/ChangeArtifacts_V2/ChangeArtifacts_L_V2.svg" id="26_dumix"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/rotate_artifact_button.gd" id="26_ebyjk"]
+[ext_resource type="Texture2D" uid="uid://b8q1grue4chnp" path="res://assets/ui/UI_V2/ChangeArtifacts_V2/ChangeArtifacts_R_V2.svg" id="27_al2v1"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="27_m6k8c"]
 [ext_resource type="Script" path="res://scripts/new_ui/panels/sidebar_selection_menu.gd" id="27_veti7"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="28_7jo5e"]
@@ -23,6 +27,7 @@
 [ext_resource type="Script" path="res://scripts/ui/save_screenshot_popup_window.gd" id="29_4k4a7"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/expand_context_panel_button.gd" id="29_nkxfq"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/add_light_button.gd" id="29_ujmju"]
+[ext_resource type="Texture2D" uid="uid://bbnr6vhdlvcew" path="res://assets/ui/UI_V2/TopDock_V2/UIVisability_Shown_V2.svg" id="29_v30bh"]
 [ext_resource type="Script" path="res://scripts/new_ui/panels/expanding_contextual_panel.gd" id="30_j217o"]
 [ext_resource type="PackedScene" uid="uid://2kcde1sv8k6i" path="res://scenes/new_ui/artifact_selection_button.tscn" id="31_3etux"]
 [ext_resource type="Script" path="res://scripts/new_ui/artifact_catalog_ui.gd" id="31_8olmt"]
@@ -36,13 +41,18 @@
 [ext_resource type="PackedScene" uid="uid://x4dbnmx5mhsr" path="res://scenes/new_ui/cache_artifact_display.tscn" id="35_04bby"]
 [ext_resource type="Script" path="res://scripts/new_ui/cache_ui.gd" id="35_5863c"]
 [ext_resource type="PackedScene" uid="uid://bryvft6chb8m2" path="res://scenes/new_ui/load_progress_panel.tscn" id="35_r0wn5"]
+[ext_resource type="Texture2D" uid="uid://dgju31xjeert6" path="res://assets/ui/UI_V2/SideDock_V2/ArtifactCatalog_V2.svg" id="36_gacl3"]
+[ext_resource type="Texture2D" uid="uid://crir0b1hse8fm" path="res://assets/ui/UI_V2/SideDock_V2/LightsCustomization_V2.svg" id="37_epocs"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/clear_cache_button.gd" id="38_eymw3"]
+[ext_resource type="Texture2D" uid="uid://d363etjjqyrqw" path="res://assets/ui/UI_V2/SideDock_V2/EnvironmentCustomization_V2.svg" id="38_j66fm"]
 [ext_resource type="Script" path="res://scripts/new_ui/change_cache_size_line_edit.gd" id="39_abqn4"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/close_settings_menu_button.gd" id="39_bahyo"]
 [ext_resource type="PackedScene" uid="uid://b886wcwba86sq" path="res://scenes/new_ui/change_ip_address_option.tscn" id="40_th2ad"]
 [ext_resource type="PackedScene" uid="uid://b3uf4vkq1s5qa" path="res://scenes/new_ui/offline_mode_button.tscn" id="41_w7qw0"]
 [ext_resource type="PackedScene" uid="uid://cpdwl7akyrn37" path="res://scenes/new_ui/on_off_button.tscn" id="42_ggwxf"]
+[ext_resource type="Texture2D" uid="uid://bb27xiiv5nf40" path="res://assets/ui/UI_V2/FlyoutSide_V2/FlyoutSide_Out_V2.svg" id="42_ktn2a"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/preference_on_off_button.gd" id="43_c6o60"]
+[ext_resource type="Texture2D" uid="uid://gb1buvhhky8d" path="res://assets/ui/UI_V2/LightCustomizingOptions_V2/LightAddition_V2.svg" id="45_170t8"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_shadows_button.gd" id="45_lplh0"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_gi_button.gd" id="46_gy2xc"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
@@ -191,6 +201,12 @@ border_color = Color(0.141176, 0.141176, 0.141176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
+bg_color = Color(0.733333, 0.733333, 0.733333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3beys"]
+bg_color = Color(0.654902, 0.654902, 0.654902, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_116h6"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -470,10 +486,10 @@ anchor_left = 0.021
 anchor_top = 0.656
 anchor_right = 0.211
 anchor_bottom = 0.963
-offset_left = 3483.81
-offset_top = 1231.91
-offset_right = 2262.74
-offset_bottom = 1298.89
+offset_left = 3675.81
+offset_top = 1327.91
+offset_right = 2358.74
+offset_bottom = 1394.89
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.75, 0.75)
@@ -554,6 +570,21 @@ script = ExtResource("21_rbje3")
 panel = NodePath("../../../Panel")
 toggle_group = NodePath("../../../../ExclusiveToggleGroup")
 
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer2/MarginContainer/CenterContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer2/MarginContainer/CenterContainer/Button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("23_ixqpy")
+expand_mode = 5
+
 [node name="Panel" type="Panel" parent="new_ui_root/VBoxContainer2"]
 clip_contents = true
 layout_mode = 2
@@ -591,6 +622,21 @@ script = ExtResource("21_0nwoy")
 mode = 1
 artifact_controller = NodePath("../../../../../../../artifacts_controller")
 
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer/CenterContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer/CenterContainer/Button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+texture = ExtResource("26_dumix")
+expand_mode = 5
+
 [node name="CenterContainer2" type="CenterContainer" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -600,6 +646,21 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("21_0nwoy")
 artifact_controller = NodePath("../../../../../../../artifacts_controller")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer/CenterContainer2/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer2/Panel/MarginContainer2/HBoxContainer/CenterContainer2/Button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+texture = ExtResource("27_al2v1")
+expand_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root"]
 layout_mode = 1
@@ -656,8 +717,24 @@ layout_mode = 2
 [node name="Button" type="Button" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer" node_paths=PackedStringArray("settings_menu")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
+icon_alignment = 1
 script = ExtResource("21_lyejv")
 settings_menu = NodePath("../../../../../../../../CenterContainer")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer/Button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("26_5qtof")
+expand_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -695,6 +772,21 @@ layout_mode = 2
 script = ExtResource("23_li034")
 nodes_to_hide = Array[NodePath]([NodePath("../../../../../../../side_dock"), NodePath("../../../../../../../../VBoxContainer2")])
 lights_selection = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer/hide_ui_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer/hide_ui_button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("29_v30bh")
+expand_mode = 5
 
 [node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -784,6 +876,21 @@ context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
 _start_toggled = null
 
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer/artifact_catalog/Button1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer/artifact_catalog/Button1/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("36_gacl3")
+expand_mode = 5
+
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -804,6 +911,21 @@ context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
 _start_toggled = null
 
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer2/light_customization/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer2/light_customization/Button2/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("37_epocs")
+expand_mode = 5
+
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -823,6 +945,21 @@ context_name = "environment_selection"
 context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
 _start_toggled = null
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer3/environment_selection/Button3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer3/environment_selection/Button3/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("38_j66fm")
+expand_mode = 5
 
 [node name="sidebar_context_menus" type="Panel" parent="new_ui_root/VBoxContainer/side_dock"]
 clip_contents = true
@@ -887,14 +1024,12 @@ theme_override_constants/margin_right = 25
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2"]
 layout_mode = 2
 
-[node name="searchbar" type="TextEdit" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer"]
+[node name="searchbar" type="LineEdit" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer"]
 custom_minimum_size = Vector2(206, 24)
 layout_mode = 2
 theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_ncy14")
 placeholder_text = "Search..."
-wrap_mode = 1
-scroll_past_end_of_file = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
 layout_mode = 2
@@ -962,6 +1097,8 @@ theme_override_constants/margin_right = 5
 custom_minimum_size = Vector2(240, 45)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_u8r5e")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ahlbe")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
 script = ExtResource("29_ujmju")
 environment_controller = NodePath("../../../../../../../../../environment_controller")
 light_selection_ui = NodePath("../../../..")
@@ -974,6 +1111,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button/new_light_button/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 5
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button/new_light_button/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button/new_light_button/HBoxContainer/MarginContainer/CenterContainer"]
+self_modulate = Color(0.141176, 0.141176, 0.141176, 1)
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+texture = ExtResource("45_170t8")
+expand_mode = 5
 
 [node name="Label" type="Label" parent="new_ui_root/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button/new_light_button/HBoxContainer"]
 layout_mode = 2
@@ -1073,6 +1224,21 @@ layout_mode = 2
 script = ExtResource("33_s0b57")
 sidebar_selection_menu = NodePath("../../../sidebar_selection_menu")
 toggle_group = NodePath("../../../../../ExclusiveToggleGroup")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/VBoxContainer/side_dock/VFlowContainer/MarginContainer/expand_sidebar_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/VBoxContainer/side_dock/VFlowContainer/MarginContainer/expand_sidebar_button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("42_ktn2a")
+expand_mode = 5
 
 [node name="HFlowContainer" type="HFlowContainer" parent="new_ui_root/VBoxContainer/side_dock"]
 layout_mode = 2
@@ -1557,7 +1723,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer2"]
 layout_mode = 2
-text = "DELETE"
+text = "REMOVE"
 
 [node name="Panel2" type="Panel" parent="new_ui_root/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
