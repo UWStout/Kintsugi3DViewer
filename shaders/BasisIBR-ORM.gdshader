@@ -4,6 +4,7 @@ uniform sampler2D diffuseMap : source_color, filter_linear_mipmap;
 uniform sampler2D normalMap : hint_normal, filter_linear_mipmap;
 uniform sampler2D albedoMap : source_color, filter_linear_mipmap;
 uniform sampler2D ormMap : hint_default_white, filter_linear_mipmap;
+uniform sampler2D constantMap : hint_default_black, filter_linear_mipmap;
 
 uniform sampler2D weights0123 : hint_default_black, filter_linear_mipmap;
 uniform sampler2D weights4567 : hint_default_black, filter_linear_mipmap;
