@@ -116,6 +116,9 @@ func _load_ibr_material(extras: Dictionary):
 	
 	if extras.has("roughnessTexture") and _shader_wants("roughnessMap"):
 		_start_tex_load(_info_to_tex(extras["roughnessTexture"]), "roughnessMap")
+	
+	if extras.has("diffuseConstantTexture") and _shader_wants("constantMap"):
+		_start_tex_load(_info_to_tex(extras["diffuseConstantTexture"]), "constantMap")
 
 
 func _load_specular_weights(weights: Dictionary):
