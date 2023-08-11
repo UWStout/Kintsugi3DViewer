@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://13jorje6jbmq"]
+[gd_scene load_steps=35 format=3 uid="uid://13jorje6jbmq"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_a50l3"]
 [ext_resource type="Script" path="res://scripts/lighting/lighting_preset.gd" id="2_fwj16"]
@@ -11,7 +11,6 @@
 [ext_resource type="Script" path="res://scripts/ui/world_lighting_toggle_button.gd" id="9_a2asu"]
 [ext_resource type="Script" path="res://scripts/ui/annotations_toggle_button.gd" id="10_hlexp"]
 [ext_resource type="Script" path="res://scripts/ui/select_lighting_preset_option_ button.gd" id="11_7y8ja"]
-[ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/ui/screenshot.png" id="12_7udnu"]
 [ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="13_s60f5"]
 [ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="14_de1e1"]
 [ext_resource type="Script" path="res://scripts/ui/select_artifact_window.gd" id="15_8kkvs"]
@@ -454,7 +453,6 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(25, 25)
 tooltip_text = "Toggle annotations on/off"
-icon = ExtResource("12_7udnu")
 expand_icon = true
 script = ExtResource("13_s60f5")
 
