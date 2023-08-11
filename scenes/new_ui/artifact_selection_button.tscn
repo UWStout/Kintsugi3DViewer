@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://2kcde1sv8k6i"]
 
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/artifact_selection_button.gd" id="1_em5rn"]
-[ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/ui/toggle_annotations_on.png" id="2_8m8pc"]
+[ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/UI 2D/toggle_annotations_on.png" id="2_8m8pc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]
 
