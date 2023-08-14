@@ -50,6 +50,10 @@ func load():
 	if _texture.has("extras") and _texture["extras"].has("lods"):
 		if _texture["extras"].has("baseRes"):
 			max_resolution = _texture["extras"]["baseRes"]
+			
+			if UrlReader.parameters.has("res"):
+				max_resolution = min(max_resolution, str_to_var(UrlReader.parameters["res"]))
+				max_resolution = max(_get_lods()[0], max_resolution)
 		
 		if _texture["extras"]["lods"].size() <= 0:
 			load_full_res()
@@ -71,7 +75,11 @@ func load():
 
 
 func load_full_res():
+	if loaded_resolution >= max_resolution:
+		return
+	
 	if not Preferences.read_pref("low res only"):
+		print("Loading full resolution for " + _shader_key)
 		_load_image(_image_at_index(_texture["source"]))
 	else:
 		texture_loaded.emit(_shader_key)
@@ -179,6 +187,9 @@ func _process_image(image: Image) -> Image:
 
 
 func _load_shader_image(image: Image):
+	if loaded_resolution >= max_resolution:
+		return
+	
 	var texture := ImageTexture.create_from_image(image)
 	_material.set_shader_parameter(_shader_key, texture)
 	
@@ -187,8 +198,7 @@ func _load_shader_image(image: Image):
 	
 	loaded_resolution = image.get_height()
 	if loaded_resolution >= max_resolution:
-
 		load_complete.emit()
 		texture_loaded.emit(_shader_key)
-	
-	self.load()
+	else:
+		self.load()

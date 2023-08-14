@@ -48,14 +48,18 @@ func _on_searchbar_text_changed(new_text : String):
 		hide_non_matching(text)
 
 func clear_buttons():
+	
 	for child in v_box_container.get_children():
-		child.queue_free()
+		if button_group.connected_buttons.has(child):
+			button_group.connected_buttons.remove_at(button_group.connected_buttons.find(child))
+		v_box_container.remove_child(child)
+		child.free()
 
 func on_context_expanded():
 	refresh_list()
 
 func refresh_list():
-	clear_buttons()
+	await clear_buttons()
 	
 	if not artifact_controller == null:
 		await initialize_list(await artifact_controller.refresh_artifacts())
@@ -63,7 +67,7 @@ func refresh_list():
 	if not artifact_controller.loaded_artifact == null:
 		var button = get_button_for_artifact(artifact_controller.loaded_artifact.artifact)
 		if not button == null:
-			button._pressed()
+			button.toggle_group.make_button_active(button)
 
 func get_button_for_artifact(data : ArtifactData) -> ArtifactSelectionButton:
 	for button in v_box_container.get_children():
@@ -72,3 +76,6 @@ func get_button_for_artifact(data : ArtifactData) -> ArtifactSelectionButton:
 			return artifact_button
 	
 	return null
+
+func get_buttons():
+	return v_box_container.get_children()

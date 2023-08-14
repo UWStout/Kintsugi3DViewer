@@ -19,12 +19,19 @@ func set_data(new_data : ArtifactData, new_controller : ArtifactsController):
 	artifact_label.text = data.name
 
 func _pressed():
-	#print(data.name + " was pressed!")
+	if not controller == null and not controller.loaded_artifact == null:
+		if not controller.loaded_artifact.load_finished:
+			return
+	
 	super._pressed()
 
 func _on_toggle_on():
 	if not controller == null:
 		controller.display_artifact_data(data)
+		
+		for button in toggle_group.connected_buttons:
+			if not button == self:
+				button.make_inactive()
 	
 	super._on_toggle_on()
 
@@ -43,6 +50,12 @@ func _display_toggled_off():
 	artifact_status.self_modulate = Color8(217, 217, 217, 255)
 	super._display_toggled_off()
 
+func make_inactive():
+	if controller.loaded_artifact.load_finished:
+		return
+	
+	artifact_label.self_modulate = Color8(167, 167, 167, 255)
+	artifact_preview.self_modulate = Color8(167, 167, 167, 255)
 
 func _on_favorite_artifact_button_pressed():
 	if not CacheManager.is_in_cache(data.gltfUri.get_base_dir()):

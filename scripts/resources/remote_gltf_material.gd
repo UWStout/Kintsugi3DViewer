@@ -22,7 +22,7 @@ func _init(p_fetcher: ResourceFetcher, p_gltf: GLTFObject):
 func load(parent: Node):
 	_parent = parent
 	_resources_loaded = {}
-	
+
 	if not _gltf.state.json.has("materials"):
 		return
 	
@@ -43,6 +43,8 @@ func load(parent: Node):
 			shader = SHADER_ORM_IBR
 	else:
 		shader = SHADER_STANDARD
+	
+	request_texture_keys(material)
 	
 	if material.has("pbrMetallicRoughness"):
 		_load_pbr_material(material["pbrMetallicRoughness"])
@@ -67,6 +69,7 @@ func _start_tex_load(texture: Dictionary, key: String):
 	_parent.add_child(texture_loader)
 	texture_loader.texture_loaded.connect(_texture_loader_completion)
 	texture_loader.load()
+
 
 
 func _texture_loader_completion(key: String):
@@ -199,7 +202,6 @@ func _get_load_progress() -> Array[int]:
 	for key in _resources_loaded.keys():
 		if _resources_loaded[key]:
 			items += 1
-	
 	return [items, _resources_loaded.size()]
 
 
@@ -231,3 +233,22 @@ func _shader_wants(key: String) -> bool:
 		if uniform.name == key:
 			return true
 	return false
+
+
+func request_texture_keys(material : Dictionary):
+	if material.has("pbrMetallicRoughness"):
+		_resources_loaded["albedoMap"] = false
+	if material.has("normalTexture"):
+		_resources_loaded["normalMap"] = false
+	if material.has("extras"):
+		if material["extras"].has("diffuseTexture") and _shader_wants("diffuseMap"):
+			_resources_loaded["diffuseMap"] = false
+		if material["extras"].has("specularTexture") and _shader_wants("specularMap"):
+			_resources_loaded["specularMap"] = false
+		if material["extras"].has("roughnessTexture") and _shader_wants("roughnessMap"):
+			_resources_loaded["roughnessMap"] = false
+		if material["extras"].has("basisFunctionsUri"):
+			_resources_loaded["basisFunctions"] = false
+		if material["extras"].has("specularWeights"):
+			_resources_loaded["weights0123"] = false
+			_resources_loaded["weights4567"] = false

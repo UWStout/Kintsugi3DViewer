@@ -25,8 +25,13 @@ func _ready():
 			return
 	
 	await refresh_artifacts()
-	#if not artifacts.is_empty():
-		#display_artifact(0)
+	
+	if UrlReader.parameters.has("artifact"):
+		for artifact in artifacts:
+			if UrlReader.parameters["artifact"] == artifact.gltfUri.get_base_dir():
+				display_artifact_data(artifact)
+	
+	print(OS.get_cmdline_args())
 
 
 func refresh_artifacts() -> Array[ArtifactData]:
@@ -55,6 +60,9 @@ func display_artifact_data(artifact: ArtifactData):
 	current_index = artifact_index
 	
 	if is_instance_valid(loaded_artifact):
+		if not loaded_artifact.load_finished:
+			loaded_artifact.stop_loading()
+		
 		loaded_artifact.queue_free()
 
 	loaded_artifact = RemoteGltfModel.create(artifact)
@@ -69,15 +77,15 @@ func display_artifact_data(artifact: ArtifactData):
 		
 		var button = _artifact_catalog_ui.get_button_for_artifact(artifact)
 		if not button == null:
-			button._pressed()
-			pass
+			if not button._is_toggled:
+				button._pressed()
 	else:
 		if is_instance_valid(_loader):
 			_loader.end_loading()
 
 
 func display_next_artifact():
-	if loaded_artifact == null:
+	if loaded_artifact == null or not loaded_artifact.load_finished:
 		return
 	
 	current_index = (current_index + 1) % artifacts.size()
@@ -86,7 +94,7 @@ func display_next_artifact():
 
 
 func display_previous_artifact():
-	if loaded_artifact == null:
+	if loaded_artifact == null or not loaded_artifact.load_finished:
 		return
 	
 	current_index -= 1
@@ -119,8 +127,13 @@ func _on_model_load_complete():
 	
 	print("================== ARTIFACT LOAD COMPLETE =============================")
 	#print("UPDATING OPEN TIME FOR ARTIFACT " + loaded_artifact.name)
-	
 	CacheManager.update_open_time(loaded_artifact.artifact.gltfUri.get_base_dir(), false)
+	
+	for button in _artifact_catalog_ui.get_buttons():
+		if button.data.gltfUri == loaded_artifact.artifact.gltfUri:
+			button._display_toggled_on()
+		else:
+			button._display_toggled_off()
 
 func _on_model_load_progress(progress: float):
 	if is_instance_valid(_loader):

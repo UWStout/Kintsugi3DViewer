@@ -10,6 +10,9 @@ func _ready():
 	if not _does_pref_exist():
 		_create_pref_file()
 		_init_prefs()
+
+	if OS.get_name() == "Android" or OS.get_name() == "iOS":
+		get_tree().root.content_scale_mode = Window.CONTENT_SCALE_MODE_VIEWPORT
 	
 	#write_pref("cache size", 1000)
 
@@ -23,7 +26,7 @@ func _create_pref_file():
 func _init_prefs():
 	write_pref("cache size", 2000)
 	write_pref("cache mode", CacheManager.REDUCE_CACHE_MODE.OLDEST)
-	write_pref("allow ip change", true)
+	write_pref("allow ip change", false)
 	write_pref("ip", "https://chviewer.jbuelow.com/")
 	write_pref("offline mode", false)
 	write_pref("low res only", false)
