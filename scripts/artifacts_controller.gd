@@ -13,7 +13,7 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
-var loaded_artifact: RemoteGltfModel
+var loaded_artifact: RemoteArtifact
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,7 +50,7 @@ func display_artifact_data(artifact: ArtifactData):
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
 	
-	loaded_artifact = RemoteGltfModel.create(artifact)
+	loaded_artifact = RemoteArtifact.new(artifact)
 	add_child(loaded_artifact)
 	loaded_artifact.load_completed.connect(_on_model_load_complete)
 	loaded_artifact.load_progress.connect(_on_model_load_progress)
@@ -90,10 +90,10 @@ func _on_model_load_complete():
 	
 	if not artifact_root == null:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
-		target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
+		target_pos += Vector3.UP * (loaded_artifact.get_aabb().size.y / 2)
 		loaded_artifact.global_position = target_pos
 	
-	
+	# TODO: loaded_artifact.artifact.gltfUri May not exist with a voyager story!
 	#print("================== ARTIFACT LOAD COMPLETE =============================")
 	CacheManager.update_open_time(loaded_artifact.artifact.gltfUri.get_base_dir(), false)
 
