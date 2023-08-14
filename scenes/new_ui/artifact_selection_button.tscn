@@ -95,13 +95,13 @@ layout_mode = 2
 
 [node name="artifact_status" type="TextureRect" parent="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("2_8m8pc")
 expand_mode = 5
 
 [node name="favorite_artifact_button" type="Button" parent="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer"]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_gdb5w")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_whwcx")

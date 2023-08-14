@@ -1,7 +1,7 @@
 extends MarginContainer
 
 func _ready():
-	if not OS.get_name() == "Android" or not OS.get_name() == "iOS":
+	if not OS.get_name() == "Android" and not OS.get_name() == "iOS":
 		return
 	
 	var safe_area = DisplayServer.get_display_safe_area()

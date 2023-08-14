@@ -21,8 +21,8 @@ enum side_enum {LEFT, RIGHT}
 @onready var button_group = $VFlowContainer/button_group
 @onready var icon = $VBoxContainer/HBoxContainer/HBoxContainer3/MarginContainer/CenterContainer/icon
 
-var expanded_icon = preload("res://assets/ui/Icons/Old Colored Icons/UI_V2_ColoredVersion/LightCustomizingOptions_V2/ExpandLightCustom_Decrease_V2.svg")
-var shrunk_icon = preload("res://assets/ui/Icons/Old Colored Icons/UI_V2_ColoredVersion/LightCustomizingOptions_V2/ExpandLightCustom_Increase_V2.svg")
+var expanded_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_In_White_V1.svg")
+var shrunk_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_Out_White_V1.svg")
 
 var dropdown_selection_button : PackedScene = preload("res://scenes/new_ui/dropdown_selection_button.tscn")
 
