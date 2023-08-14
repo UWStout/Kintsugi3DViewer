@@ -113,7 +113,6 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 		#return
 	
 	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
-		print("LOCKED MODE IN WEB!")
 		return
 	
 	var buffer = doc.generate_buffer(state.duplicate())
@@ -191,7 +190,6 @@ func export_png(dir_name : String, name : String, image : Image):
 #		return
 	
 	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
-		print("LOCKED MODE IN WEB!")
 		return
 	
 	var file_size = image.save_png_to_buffer().size()
@@ -268,7 +266,6 @@ func export_artifact_data(dir_name : String, data : ArtifactData):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
 	
 	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
-		print("LOCKED MODE IN WEB!")
 		return
 	
 	if not dir:

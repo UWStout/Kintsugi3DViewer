@@ -2,8 +2,8 @@ extends ToggleButton
 
 @onready var cache_artifact_display = $"../../../.."
 
-var favorited_icon = preload("res://assets/ui/UI_V2/CacheFavorites_V2/Favorited_Light_V2.svg")
-var not_favorited_icon = preload("res://assets/ui/UI_V2/CacheFavorites_V2/Unfavorited_Light_V2.svg")
+var favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg")
+var not_favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg")
 
 @onready var texture_rect = $CenterContainer/TextureRect
 

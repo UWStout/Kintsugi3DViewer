@@ -2,8 +2,8 @@ class_name HideUIButton extends ToggleButton
 
 @onready var texture_rect = $CenterContainer/TextureRect
 
-var shown_icon = preload("res://assets/ui/UI_V2/TopDock_V2/UIVisability_Shown_V2.svg")
-var hidden_icon = preload("res://assets/ui/UI_V2/TopDock_V2/UIVisability_Hidden_V2.svg")
+var shown_icon = preload("res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Shown_White_V2.svg")
+var hidden_icon = preload("res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Hidden_White_V2.svg")
 
 @export var nodes_to_hide : Array[NodePath]
 @export var lights_selection : LightSelectionUI

@@ -7,11 +7,6 @@ class_name EnvironmentController
 @export var environment_scenes : Array[PackedScene]
 var loaded_scenes : Array[DisplayEnvironment]
 
-@export var connected_button : SelectEnvironmentButton
-@export var connected_customize_lighting_button : CustomizeLightingButton
-
-@export var connected_color_picker : LightColorPicker
-
 @export var light_selection_ui : LightSelectionUI
 @export var environment_selection_ui : EnvironmentSelectionUI
 
@@ -26,7 +21,7 @@ func _ready():
 		scene_camera.environment_controller = self
 	
 	preload_all_scenes()
-	connected_button.connected_controller = self
+	#connected_button.connected_controller = self
 	
 	# Make the first scene current
 	#open_scene(0)
@@ -46,7 +41,7 @@ func preload_all_scenes():
 		loaded_scene.visible = false
 		
 		# Add the scene to the button's dropdown list
-		connected_button.add_item(loaded_scene.environment_name, loaded_scenes.find(loaded_scene))
+		#connected_button.add_item(loaded_scene.environment_name, loaded_scenes.find(loaded_scene))
 		
 		# Let all the dynamic lights in the scene know that this object is their controller,
 		# and hide them all
@@ -63,7 +58,7 @@ func open_scene(index : int):
 	if selected_index >= 0 and selected_index < loaded_scenes.size():
 		loaded_scenes[selected_index].visible = false
 		select_light(null)
-		connected_customize_lighting_button.override_stop_customizing()
+		#connected_customize_lighting_button.override_stop_customizing()
 		hide_scene_lighting(selected_index)
 		light_selection_ui.clear_buttons()
 	
@@ -99,13 +94,13 @@ func begin_customizing_lights():
 func stop_customizing_lights():
 	force_hide_lights()
 	
-	if not connected_customize_lighting_button == null:
-		connected_customize_lighting_button.override_stop_customizing()
+	#if not connected_customize_lighting_button == null:
+		#connected_customize_lighting_button.override_stop_customizing()
 
 func select_light(light : NewLightWidget):
 	if light == null:
-		if not connected_color_picker == null:
-			connected_color_picker.visible = false
+		#if not connected_color_picker == null:
+			#connected_color_picker.visible = false
 
 		if not selected_light == null:
 			selected_light.unselect_widget()
@@ -114,8 +109,8 @@ func select_light(light : NewLightWidget):
 		return
 	
 	selected_light = light
-	if not connected_color_picker == null:
-		connected_color_picker.visible = true
+	#if not connected_color_picker == null:
+		#connected_color_picker.visible = true
 
 func get_active_artifact_root() -> Node3D:
 	if selected_index < 0 or selected_index >= loaded_scenes.size():

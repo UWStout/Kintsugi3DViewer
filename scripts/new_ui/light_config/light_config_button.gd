@@ -30,8 +30,8 @@ var light_color : Color
 @onready var angle_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer/angle_scroll_bar
 @onready var value_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/value_scroll_bar
 
-var expand_icon = preload("res://assets/ui/UI_V2/LightCustomizingOptions_V2/ExpandLightCustom_Decrease_V2.svg")
-var shrunk_icon = preload("res://assets/ui/UI_V2/LightCustomizingOptions_V2/ExpandLightCustom_Increase_V2.svg")
+var expand_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg")
+var shrunk_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg")
 
 var connected_light : NewLightWidget
 

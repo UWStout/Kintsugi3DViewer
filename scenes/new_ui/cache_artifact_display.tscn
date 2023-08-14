@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://x4dbnmx5mhsr"]
+[gd_scene load_steps=8 format=3 uid="uid://x4dbnmx5mhsr"]
 
 [ext_resource type="Script" path="res://scripts/new_ui/cache_artifact_display_ui.gd" id="1_53qvj"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/favorite_artifact_button.gd" id="2_ayr4j"]
-[ext_resource type="Texture2D" uid="uid://0eux7xop44ht" path="res://assets/ui/Icons/Old Colored Icons/UI_V2_ColoredVersion/CacheFavorites_V2/Unfavorited_Light_V2.svg" id="3_knru4"]
+[ext_resource type="Texture2D" uid="uid://10j3vlxtldb5" path="res://assets/UI 2D/Icons/Expanded Light Customization/Trash/Trash_White_V2.svg" id="2_yrw4x"]
+[ext_resource type="Texture2D" uid="uid://wdxfsqy4011o" path="res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg" id="3_62d3o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfp1k"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -75,8 +76,23 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="delete_button" type="Button" parent="Panel/HBoxContainer/CenterContainer2"]
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/CenterContainer2/delete_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/CenterContainer2/delete_button/CenterContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+texture = ExtResource("2_yrw4x")
+expand_mode = 5
 
 [node name="CenterContainer3" type="CenterContainer" parent="Panel/HBoxContainer"]
 layout_mode = 2
@@ -99,9 +115,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/CenterContainer3/favorite_button/CenterContainer"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-texture = ExtResource("3_knru4")
+texture = ExtResource("3_62d3o")
 expand_mode = 5
 
 [connection signal="pressed" from="Panel/HBoxContainer/CenterContainer2/delete_button" to="." method="_on_delete_button_pressed"]

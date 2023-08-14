@@ -2,8 +2,8 @@ extends Button
 
 @export var camera : CameraRig
 
-@onready var flashlight_off_icon = preload("res://assets/ui/flashlight_off.png")
-@onready var flashlight_on_icon = preload("res://assets/ui/flashlight_on.png")
+@onready var flashlight_off_icon = preload("res://assets/UI 2D/flashlight_off.png")
+@onready var flashlight_on_icon = preload("res://assets/UI 2D/flashlight_on.png")
 
 var is_on : bool = false
 

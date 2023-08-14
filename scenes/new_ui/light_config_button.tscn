@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/light_config_button.gd" id="1_p3eq6"]
 [ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="1_um2c1"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/expand_light_config_button.gd" id="3_ecn13"]
-[ext_resource type="Texture2D" uid="uid://cctkvwmq7le4y" path="res://assets/ui/UI_V2/LightCustomizingOptions_V2/ExpandLightCustom_Increase_V2.svg" id="4_8xpwk"]
+[ext_resource type="Texture2D" uid="uid://bsbp1i4e881g4" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg" id="4_lxyto"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/light_strength_scrollbar.gd" id="5_dxtfb"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/light_value_scrollbar.gd" id="5_rfsx3"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/light_config_color_picker.gd" id="5_ycabp"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/light_angle_scrollbar.gd" id="6_e7rxa"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/light_hex_text_edit.gd" id="6_o78tx"]
 [ext_resource type="Script" path="res://scripts/new_ui/light_config/delete_light_button.gd" id="10_albex"]
-[ext_resource type="Texture2D" uid="uid://w8fmra64ldff" path="res://assets/ui/UI_V2/LightCustomizingOptions_V2/Trash_V2.svg" id="11_lo2ca"]
+[ext_resource type="Texture2D" uid="uid://v5ktf2y250s4" path="res://assets/UI 2D/Icons/Expanded Light Customization/Trash/Trash_White_V1.svg" id="11_dq7r0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m86o"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -81,7 +81,7 @@ script = ExtResource("1_p3eq6")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(250, 45)
+custom_minimum_size = Vector2(250, 490)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0m86o")
 script = ExtResource("1_um2c1")
@@ -165,9 +165,9 @@ theme_override_constants/margin_right = 25
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer"]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-texture = ExtResource("4_8xpwk")
+texture = ExtResource("4_lxyto")
 expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
@@ -337,9 +337,9 @@ theme_override_constants/margin_left = 1
 theme_override_constants/margin_top = 1
 
 [node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/VBoxContainer2/MarginContainer/HBoxContainer/delete_light_button/CenterContainer/MarginContainer"]
-custom_minimum_size = Vector2(22, 0)
+custom_minimum_size = Vector2(26, 0)
 layout_mode = 2
-texture = ExtResource("11_lo2ca")
+texture = ExtResource("11_dq7r0")
 expand_mode = 5
 
 [connection signal="color_changed" from="Panel/VBoxContainer/VBoxContainer/MarginContainer/ColorPicker" to="Panel/VBoxContainer/VBoxContainer/MarginContainer/ColorPicker" method="_on_color_changed"]

@@ -1,7 +1,7 @@
 extends Button
 
-@onready var annotations_on_icon = preload("res://assets/ui/toggle_annotations_on.png")
-@onready var annotations_off_icon = preload("res://assets/ui/toggle_annotations_off.png")
+@onready var annotations_on_icon = preload("res://assets/UI 2D/toggle_annotations_on.png")
+@onready var annotations_off_icon = preload("res://assets/UI 2D/toggle_annotations_off.png")
 
 var is_on : bool = true
 

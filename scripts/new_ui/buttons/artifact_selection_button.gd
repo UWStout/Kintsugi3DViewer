@@ -3,12 +3,11 @@ class_name ArtifactSelectionButton extends ExclusiveToggleButton
 @onready var artifact_label = $HBoxContainer/artifact_label
 @onready var artifact_preview = $HBoxContainer/MarginContainer/CenterContainer/artifact_preview
 @onready var artifact_status = $HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/artifact_status
+@onready var favorite_artifact_button = $HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/favorite_artifact_button
 
-var not_downloaded_icon = preload("res://assets/ui/light_none.png")
-var downloaded_icon = preload("res://assets/ui/UI_V2/CacheFavorites_V2/Unfavorited_Light_V2.svg")
-var favorited_icon = preload("res://assets/ui/UI_V2/CacheFavorites_V2/Favorited_Light_V2.svg")
-
-
+var not_downloaded_icon = preload("res://assets/UI 2D/Icons/Favorites/Favorites Download/FavoritesDownload_White_V1.svg")
+var downloaded_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg")
+var favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg")
 
 var data : ArtifactData
 var controller : ArtifactsController
@@ -68,10 +67,12 @@ func _on_favorite_artifact_button_pressed():
 
 func _process(delta):
 	if CacheManager.is_in_cache(data.gltfUri.get_base_dir()):
+		favorite_artifact_button.show()
 		artifact_status.texture = downloaded_icon
 		
 		if CacheManager.is_persistent(data.gltfUri.get_base_dir()):
 			artifact_status.texture = favorited_icon
 	else:
 		artifact_status.texture = not_downloaded_icon
+		favorite_artifact_button.hide()
 	pass
