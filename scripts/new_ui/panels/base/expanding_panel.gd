@@ -31,12 +31,21 @@ func expand():
 		x += animation_speed
 		await get_tree().create_timer(0.01).timeout
 		var panel_size = lerpf(minimized_size, maximized_size, animation_curve.sample(x))
-		custom_minimum_size = _get_direction_vector() * panel_size
+		
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = panel_size
+		else:
+			custom_minimum_size.y = panel_size
+		#custom_minimum_size = _get_direction_vector() * panel_size
 	
 	if _expanding:
 		_expanding = false
 		is_expanded = true
-		custom_minimum_size = _get_direction_vector() * maximized_size
+		#custom_minimum_size = _get_direction_vector() * maximized_size
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = maximized_size
+		else:
+			custom_minimum_size.y = maximized_size
 
 func shrink():
 	if not is_expanded or _shrinking:
@@ -50,12 +59,20 @@ func shrink():
 		x += animation_speed
 		await get_tree().create_timer(0.01).timeout
 		var panel_size = lerpf(maximized_size, minimized_size, animation_curve.sample(x))
-		custom_minimum_size = _get_direction_vector() * panel_size
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = panel_size
+		else:
+			custom_minimum_size.y = panel_size
+		#custom_minimum_size = _get_direction_vector() * panel_size
 	
 	if _shrinking:
 		_shrinking = false
 		is_expanded = false
-		custom_minimum_size = _get_direction_vector() * minimized_size
+		#custom_minimum_size = _get_direction_vector() * minimized_size
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = minimized_size
+		else:
+			custom_minimum_size.y = minimized_size
 
 func is_animating():
 	return _expanding or _shrinking

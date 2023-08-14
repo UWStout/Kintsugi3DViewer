@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Cultural Heritage 3D Viewer"
+config/name="Kinstugi 3D Viewer"
 run/main_scene="res://scenes/viewer_scene.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -21,6 +21,11 @@ Preferences="*res://scripts/preferences.gd"
 CacheManager="*res://scripts/resources/cache_manager.gd"
 GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
+UrlReader="*res://scripts/url_reader.gd"
+
+[display]
+
+window/stretch/aspect="expand"
 
 [editor_plugins]
 

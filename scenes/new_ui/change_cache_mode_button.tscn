@@ -1,11 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfkyjpntkq3c3"]
+[gd_scene load_steps=9 format=3 uid="uid://dfkyjpntkq3c3"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_cache_mode_button.gd" id="1_kr6fj"]
+[ext_resource type="Texture2D" uid="uid://dl6gijgu8s4rd" path="res://assets/ui/UI_V2/LightCustomizingOptions_V2/ExpandLightCustom_Increase_V2.svg" id="2_083bt"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_cache_mode_dropdown_button.gd" id="2_rrnlg"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="3_sen01"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="4_l626g"]
+[ext_resource type="PackedScene" uid="uid://b63y0dy1jau8" path="res://scenes/new_ui/dropdown_selection_button.tscn" id="5_ukyyc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skft0"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yaq40"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Curve" id="Curve_uepu4"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="MarginContainer" type="MarginContainer"]
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
-script = ExtResource("1_kr6fj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -29,47 +60,123 @@ alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2"]
 layout_mode = 2
-theme_override_constants/margin_right = 15
+theme_override_constants/margin_right = 10
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer"]
+[node name="custom_dropdown_button" type="Panel" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer"]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-item_count = 4
-selected = 0
-popup/item_0/text = "LARGEST"
-popup/item_0/id = 0
-popup/item_1/text = "SMALLEST"
-popup/item_1/id = 1
-popup/item_2/text = "MOST RECENT"
-popup/item_2/id = 2
-popup/item_3/text = "LEAST RECENT"
-popup/item_3/id = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_skft0")
+script = ExtResource("2_rrnlg")
+options = Array[String](["LARGEST", "SMALLEST", "MOST RECENT", "LEAST RECENT"])
+option_descriptions = Array[String](["largest files removed first", "smallest files removed first", "recent files removed first", "least recent files removed first"])
+option_width = 450
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 30
+mouse_filter = 2
+theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.694118, 0.694118, 0.694118, 1)
-theme_override_font_sizes/font_size = 10
-text = "When the cache is oversized, the largest objects will be removed first.
-"
-autowrap_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 0
 
-[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+
+[node name="selected_option_label" type="Label" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer/HBoxContainer/HBoxContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer/HBoxContainer/HBoxContainer3"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer/HBoxContainer/HBoxContainer3/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="icon" type="TextureRect" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VBoxContainer/HBoxContainer/HBoxContainer3/MarginContainer/CenterContainer"]
+self_modulate = Color(0.654902, 0.654902, 0.654902, 1)
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_083bt")
+expand_mode = 5
+
+[node name="VFlowContainer" type="VFlowContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button"]
+custom_minimum_size = Vector2(0, 1000)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 2.0
+offset_left = -250.0
+offset_right = -250.0
+offset_bottom = 950.0
+mouse_filter = 2
+
+[node name="button_group" type="Node" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VFlowContainer"]
+script = ExtResource("3_sen01")
+can_toggle_off_all = false
+
+[node name="expanding_panel" type="Panel" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VFlowContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yaq40")
+script = ExtResource("4_l626g")
+expand_direction = 0
+maximized_size = 200
+animation_speed = 0.35
+animation_curve = SubResource("Curve_uepu4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VFlowContainer/expanding_panel"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Button" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VFlowContainer/expanding_panel/VBoxContainer" instance=ExtResource("5_ukyyc")]
 visible = false
 layout_mode = 2
-theme_override_colors/font_color = Color(0.694118, 0.694118, 0.694118, 1)
-theme_override_font_sizes/font_size = 10
-text = "LARGEST - When the cache is oversized, the largest
-objects will be removed first.
-SMALLEST - When the cache is oversized, the smallest
-objects will be removed first.
-MOST RECENT - When the cache is oversized, the most
-recently opened artifacts will be removed first.
-LEAST RECENT - When the cache is oversized, the least
-recently opened artifacts will be removed first. [DEFAULT]"
 
-[connection signal="item_selected" from="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/Button" to="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button" method="_on_button_pressed" flags=18]

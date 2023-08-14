@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/new_ui/cache_artifact_display_ui.gd" id="1_53qvj"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/favorite_artifact_button.gd" id="2_ayr4j"]
-[ext_resource type="Texture2D" uid="uid://0eux7xop44ht" path="res://assets/ui/UI_V2/CacheFavorites_V2/Unfavorited_Light_V2.svg" id="3_knru4"]
+[ext_resource type="Texture2D" uid="uid://0eux7xop44ht" path="res://assets/ui/Icons/Old Colored Icons/UI_V2_ColoredVersion/CacheFavorites_V2/Unfavorited_Light_V2.svg" id="3_knru4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfp1k"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -32,7 +32,7 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
 [node name="cache_artifact_display" type="MarginContainer"]
-custom_minimum_size = Vector2(620, 50)
+custom_minimum_size = Vector2(520, 50)
 theme_override_constants/margin_top = 5
 script = ExtResource("1_53qvj")
 

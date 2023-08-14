@@ -112,6 +112,10 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 	#if outsized_folders.has(dir_name):
 		#return
 	
+	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
+		print("LOCKED MODE IN WEB!")
+		return
+	
 	var buffer = doc.generate_buffer(state.duplicate())
 	var file_size = buffer.size()
 	if not should_add_to_cache(file_size):
@@ -186,6 +190,10 @@ func export_png(dir_name : String, name : String, image : Image):
 #	if outsized_folders.has(dir_name):
 #		return
 	
+	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
+		print("LOCKED MODE IN WEB!")
+		return
+	
 	var file_size = image.save_png_to_buffer().size()
 	if not should_add_to_cache(file_size):
 		reduce_cache_for_size(file_size, cache_mode)
@@ -258,6 +266,10 @@ func import_artifact_data(dir_name : String):
 
 func export_artifact_data(dir_name : String, data : ArtifactData):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
+	
+	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
+		print("LOCKED MODE IN WEB!")
+		return
 	
 	if not dir:
 		return
@@ -798,3 +810,29 @@ func set_cache_mode(mode : REDUCE_CACHE_MODE):
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
 		reduce_cache(cache_mode)
+
+func get_number_images_in_artifact(artifact : String) -> int:
+	var dir  = DirAccess.open(_CACHE_ROOT_DIR + artifact)
+	
+	if dir == null:
+		return -1
+	
+	var count = 0
+	for file in dir.get_files():
+		if file.ends_with(".png"):
+			count += 1
+	
+	return count
+
+func get_image_names(artifact : String) -> Array[String]:
+	var dir = DirAccess.open(_CACHE_ROOT_DIR + artifact)
+	
+	if dir == null:
+		return []
+	
+	var arr : Array[String] = []
+	for file in dir.get_files():
+		if file.ends_with(".png"):
+			arr.append(file.trim_suffix(".png"))
+	
+	return arr
