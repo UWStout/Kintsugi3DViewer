@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cdrgqpkk2rybh"
-path="res://.godot/imported/Spotlight_BlueArrow_Lat.glb-a29ba6b9dec0479dc589745ad7804fdf.scn"
+uid="uid://cckghpfl4q7d1"
+path="res://.godot/imported/Spotlight_BlueArrow_Straight.glb-9adc78ce96f5c002842a610e4da24d9c.scn"
 
 [deps]
 
-source_file="res://assets/Light 3D UI/Spotlight_BlueArrow_Lat.glb"
-dest_files=["res://.godot/imported/Spotlight_BlueArrow_Lat.glb-a29ba6b9dec0479dc589745ad7804fdf.scn"]
+source_file="res://assets/Light 3D UI/Spotlight_BlueArrow_Straight.glb"
+dest_files=["res://.godot/imported/Spotlight_BlueArrow_Straight.glb-9adc78ce96f5c002842a610e4da24d9c.scn"]
 
 [params]
 
