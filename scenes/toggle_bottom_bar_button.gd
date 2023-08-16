@@ -10,8 +10,8 @@ extends ExclusiveToggleButton
 
 @onready var texture_rect = $CenterContainer/TextureRect
 
-var toggled_on_icon = preload("res://assets/ui/UI_V2/FlyoutBottom_V2/FlyoutSide_In_V2.svg")
-var toggled_off_icon = preload("res://assets/ui/UI_V2/FlyoutBottom_V2/FlyoutBot_Out_V2.svg")
+var toggled_on_icon = preload("res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_In_White_V2.svg")
+var toggled_off_icon = preload("res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_Out_White_V2.svg")
 
 @export var panel : ExpandingPanel
 

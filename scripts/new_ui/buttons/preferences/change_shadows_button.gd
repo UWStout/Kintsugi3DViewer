@@ -6,18 +6,17 @@
 # This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 # This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-extends OptionButton
+extends DropdownButton
 
 @export var graphics_controller : GraphicsController
 
 func _ready():
-	var state = graphics_controller.shadows
-	if state > 0:
-		state = state - 1
-	select(state)
+	selected_index = graphics_controller.shadows
+	super._ready()
 
-func _on_item_selected(index):
-	var state = index
-	if index > 0:
-		state = state + 1
-	graphics_controller.change_shadows(state)
+func select_option(index : int):
+	super.select_option(index)
+
+func on_select_option(index : int):
+	graphics_controller.change_shadows(selected_index)
+	super.on_select_option(index)

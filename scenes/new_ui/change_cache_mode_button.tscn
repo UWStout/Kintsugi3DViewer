@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfkyjpntkq3c3"]
+[gd_scene load_steps=8 format=3 uid="uid://dfkyjpntkq3c3"]
 
 [ext_resource type="Texture2D" uid="uid://cirwvvesqpths" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_Out_White_V1.svg" id="2_rd21l"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_cache_mode_dropdown_button.gd" id="2_rrnlg"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="3_sen01"]
 [ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="4_l626g"]
-[ext_resource type="PackedScene" uid="uid://b63y0dy1jau8" path="res://scenes/new_ui/dropdown_selection_button.tscn" id="5_ukyyc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_skft0"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 1)
@@ -174,9 +173,5 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
-
-[node name="Button" parent="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/VFlowContainer/expanding_panel/VBoxContainer" instance=ExtResource("5_ukyyc")]
-visible = false
-layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button/Button" to="VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer/custom_dropdown_button" method="_on_button_pressed" flags=18]
