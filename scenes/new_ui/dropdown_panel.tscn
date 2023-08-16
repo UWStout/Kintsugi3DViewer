@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://yyfi7jx4yddi"]
+
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/dropdown/dropdown_panel.gd" id="1_566j1"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="2_pgqca"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="2_snxii"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_do05a"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.145098, 0.145098, 0.145098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="Curve" id="Curve_e381p"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="dropdown_panel" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 100)
+mouse_filter = 2
+script = ExtResource("1_566j1")
+
+[node name="ExclusiveToggleGroup" type="Node" parent="."]
+script = ExtResource("2_snxii")
+can_toggle_off_all = false
+
+[node name="ExpandingPanel" type="Panel" parent="."]
+clip_contents = true
+layout_mode = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_do05a")
+script = ExtResource("2_pgqca")
+expand_direction = 0
+animation_speed = 0.3
+animation_curve = SubResource("Curve_e381p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExpandingPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 0

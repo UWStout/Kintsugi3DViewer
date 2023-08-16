@@ -65,6 +65,7 @@ func clear_buttons():
 
 func on_context_expanded():
 	refresh_list()
+	super.on_context_expanded()
 
 func refresh_list():
 	await clear_buttons()
