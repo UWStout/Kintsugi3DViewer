@@ -69,7 +69,6 @@ func on_context_expanded():
 	super.on_context_expanded()
 
 func refresh_list():
-	print("REFRESHING LIST!")
 	await clear_buttons()
 	
 	if not artifact_controller == null:
