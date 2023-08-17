@@ -1087,7 +1087,6 @@ theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5e1kc")
 
 [node name="General" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
 
@@ -1179,6 +1178,7 @@ script = ExtResource("43_c6o60")
 preference_name = "low res only"
 
 [node name="Rendering" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
 
@@ -1593,7 +1593,7 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 10
 
-[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" instance=ExtResource("59_m1q5b")]
+[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("panel_root") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("60_abk66")
 options = Array[String](["LARGEST", "SMALLEST", "MOST RECENT", "LEAST RECENT"])
@@ -1601,6 +1601,7 @@ descriptions = Array[String](["removes the largest files from the cache first", 
 panel_side = null
 panel_width = 450
 option_height = null
+panel_root = NodePath("../../../../../../../../../../../../../../../dropdown_layer")
 selected_index = null
 _start_toggled = null
 
@@ -1639,6 +1640,20 @@ script = ExtResource("28_7jo5e")
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="new_ui_root/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "SYSTEM ARGS:"
 
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui")]
 script = ExtResource("12_acvmt")

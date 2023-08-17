@@ -22,7 +22,7 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
-var loaded_artifact: RemoteGltfModel
+var loaded_artifact: GltfModel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,8 +41,12 @@ func _ready():
 	
 	print(OS.get_cmdline_args())
 	
-	_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu-one\\model.glb")
-
+	var args = OS.get_cmdline_args()
+	for arg in args:
+		_open_artifact_through_file(arg)
+		#$"../new_ui_root/CenterContainer/Label".text += "\n" + arg
+	
+	#_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu\\model.glb")
 
 func refresh_artifacts() -> Array[ArtifactData]:
 	if(Preferences.read_pref("offline mode")):
@@ -93,9 +97,14 @@ func display_artifact_data(artifact: ArtifactData):
 		if is_instance_valid(_loader):
 			_loader.end_loading()
 
+func display_remote_artifact_data(artifact : ArtifactData):
+	pass
+
+func display_local_artifact_data(artifact : ArtifactData):
+	pass
 
 func display_next_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished:
+	if loaded_artifact == null or not loaded_artifact.load_finished or loaded_artifact.is_local:
 		return
 	
 	current_index = (current_index + 1) % artifacts.size()
@@ -104,7 +113,7 @@ func display_next_artifact():
 
 
 func display_previous_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished:
+	if loaded_artifact == null or not loaded_artifact.load_finished or loaded_artifact.is_local:
 		return
 	
 	current_index -= 1
@@ -170,7 +179,14 @@ func _look_for_mesh(node : Node3D):
 
 
 func _open_artifact_through_file(gltf_file_path : String):
+	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
+		return
+	
 	print("opening " + gltf_file_path)
+	
+	var file_name = gltf_file_path.trim_prefix(gltf_file_path.get_base_dir() + "\\")
+	file_name = file_name.trim_suffix(".gltf")
+	file_name = file_name.trim_suffix(".glb")
 	
 	var file = FileAccess.open(gltf_file_path, FileAccess.READ)
 	if not file:
@@ -187,6 +203,34 @@ func _open_artifact_through_file(gltf_file_path : String):
 	if error:
 		print(error_string(error))
 	
-	#print(gltf_state.json)
+	loaded_artifact = LocalGltfModel.create(GLTFObject.from(gltf, gltf_state))
+	loaded_artifact.obj.sourceUri = gltf_file_path
+	loaded_artifact.artifact = ArtifactData.new()
+	loaded_artifact.artifact.name = file_name
+	loaded_artifact.artifact.gltfUri = gltf_file_path
+	add_child(loaded_artifact)
+	
+	loaded_artifact._load_artifact()
+	loaded_artifact.load_completed.connect(func():
+		print("HELLO!"))
+	loaded_artifact.load_completed.connect(_on_model_load_complete)
+	loaded_artifact.load_progress.connect(_on_model_load_progress)
+	
+	#var gltf_obj = GLTFObject.from(gltf, gltf_state)
+	
+	#var scene = gltf_obj.generate_scene()
+	
+	#add_child(scene)
+	
+	#var folder_name = gltf_file_path.get_base_dir().get_slice("\\", gltf_file_path.get_base_dir().get_slice_count("\\") - 1)
+	
+	#var data = ArtifactData.new()
+	#data.name = folder_name
+	#data.gltfUri = folder_name + "/" + file_name + ".glb"
+	
+	#CacheManager.export_gltf(data.name, file_name, gltf, gltf_state.duplicate())
+	#CacheManager.export_artifact_data(data.name, data)
+	
+	#display_artifact_data(data)
 	
 	pass
