@@ -9,12 +9,9 @@ Name "Kintsugi 3D Viewer"
 RequestExecutionLevel admin
 Unicode True
 ManifestDPIAware True
-SetCompress off
 OutFile "export/Kintsugi3DViewer-setup.exe"
 
-InstallDir $PROGRAMFILES\Kintsugi3DViewer
-
-InstallDirRegKey HKLM "Software\Kintsugi3DViewer" "Install_Dir"
+InstallDir $PROGRAMFILES64\Kintsugi3DViewer
 
 ; MUI Settings
 !define MUI_ICON "Kintsugi3DViewer.ico"
@@ -49,6 +46,7 @@ InstallDirRegKey HKLM "Software\Kintsugi3DViewer" "Install_Dir"
 Section "Kintsugi 3D Viewer (required)" SectionApp
 
     SectionIn RO
+    SetRegView 64
 
     SetOutPath $INSTDIR
     File "export\Kintsugi3DViewer.exe"
@@ -61,6 +59,7 @@ Section "Kintsugi 3D Viewer (required)" SectionApp
 
     ; Write uninstall keys to registry
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Kintsugi3DViewer" "DisplayName" "Kintsugi 3D Viewer"
+    WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Kintsugi3DViewer" "DefaultIcon" "$INSTDIR\Kintsugi3DViewer.exe,0"
     WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Kintsugi3DViewer" "UninstallString" '"$INSTDIR\uninstall.exe"'
     WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Kintsugi3DViewer" "NoModify" 1
     WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\Kintsugi3DViewer" "NoRepair" 1
@@ -70,6 +69,8 @@ SectionEnd
 
 ; Optional File Type associations
 Section "File Type Associations" SectionAssociation
+
+	SetRegView 64
 
     ; Associate .ibr files as Kintsugi 3D Viewer Projects
     WriteRegStr HKCR ".glb\OpenWithProgids" "Kintsugi3DViewer.glb" ""
@@ -109,6 +110,8 @@ SectionEnd
 ; Uninstaller
 Section "Uninstall"
 
+	SetRegView 64
+
     ; Remove directories
     RMDir /r "$SMPROGRAMS\Kintsugi3DViewer"
     RMDir /r "$INSTDIR"
@@ -133,6 +136,20 @@ SectionEnd
 Function LaunchLink
 
   ExecShell "" "$INSTDIR\Kintsugi3DViewer.exe"
+
+FunctionEnd
+
+; Init function, read previous installation directory
+Function .onInit
+
+	SetRegView 64
+	ClearErrors
+	ReadRegStr $0 HKLM "Software\Kintsugi3DViewer" "Install_Dir"
+
+	${If} ${Errors}
+    ${Else}
+         StrCpy $INSTDIR $0
+    ${EndIf}
 
 FunctionEnd
 

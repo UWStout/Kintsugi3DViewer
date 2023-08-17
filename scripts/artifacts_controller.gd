@@ -182,6 +182,9 @@ func _open_artifact_through_file(gltf_file_path : String):
 	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
 		return
 	
+	if is_instance_valid(loaded_artifact):
+		loaded_artifact.queue_free()
+	
 	print("opening " + gltf_file_path)
 	
 	var file_name = gltf_file_path.trim_prefix(gltf_file_path.get_base_dir() + "\\")
