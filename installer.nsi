@@ -72,20 +72,21 @@ SectionEnd
 Section "File Type Associations" SectionAssociation
 
     ; Associate .ibr files as Kintsugi 3D Viewer Projects
-    ;Use QtPro... to maintain compatibility with other glTF software (Gestaltor)
-    WriteRegStr HKCR ".glb" "" "QtProject.QtInstallerFramework.glb"
-    WriteRegStr HKCR ".glb" "Content Type" "model/gltf+binary"
-    WriteRegStr HKCR ".glb" "OpenWithList" "Kintsugi3DViewer.exe"
+    WriteRegStr HKCR ".glb\OpenWithProgids" "Kintsugi3DViewer.glb" ""
+    WriteRegStr HKCR ".gltf\OpenWithProgids" "Kintsugi3DViewer.gltf" ""
     
-    WriteRegStr HKCR ".gltf" "" "QtProject.QtInstallerFramework.gltf"
-    WriteRegStr HKCR ".gltf" "Content Type" "model/gltf+json"
-    WriteRegStr HKCR ".gltf" "OpenWithList" "Kintsugi3DViewer.exe"
-
-    WriteRegStr HKCR "QtProject.QtInstallerFramework.glb" "" "glb file"
-    WriteRegStr HKCR "QtProject.QtInstallerFramework.gltf" "" "glTF file"
+    WriteRegStr HKCR "Kintsugi3DViewer.glb" "" "Kintsugi 3D Viewer"
+    WriteRegStr HKCR "Kintsugi3DViewer.gltf" "" "Kintsugi 3D Viewer"
+   
+    WriteRegStr HKCR "Kintsugi3DViewer.glb\DefaultIcon" "" "$INSTDIR\Kintsugi3DViewer.exe,0"
+    WriteRegStr HKCR "Kintsugi3DViewer.glb\Shell\Open\Command" "" '"$INSTDIR\Kintsugi3DViewer.exe" "%1"'
+    WriteRegStr HKCR "Kintsugi3DViewer.gltf\DefaultIcon" "" "$INSTDIR\Kintsugi3DViewer.exe,0"
+    WriteRegStr HKCR "Kintsugi3DViewer.gltf\Shell\Open\Command" "" '"$INSTDIR\Kintsugi3DViewer.exe" "%1"'
     
-    ;WriteRegStr HKCR "Applications\Kintsugi3DViewer.exe\DefaultIcon" "" "$INSTDIR\Kintsugi3DViewer.exe,0"
+    WriteRegStr HKCR "Applications\Kintsugi3DViewer.exe\DefaultIcon" "" "$INSTDIR\Kintsugi3DViewer.exe,0"
     WriteRegStr HKCR "Applications\Kintsugi3DViewer.exe\Shell\Open\Command" "" '"$INSTDIR\Kintsugi3DViewer.exe" "%1"'
+    WriteRegStr HKCR "Applications\Kintsugi3DViewer.exe\SupportedTypes" ".gltf" ""
+    WriteRegStr HKCR "Applications\Kintsugi3DViewer.exe\SupportedTypes" ".glb" ""
 
 SectionEnd
 
@@ -120,7 +121,11 @@ Section "Uninstall"
     DeleteRegKey HKLM "SOFTWARE\Kintsugi3DViewer"
 
     ; Remove file type associations
-    DeleteRegKey HKCR "Kintsugi3DViewer.Model"
+    DeleteRegKey HKCR "Applications\Kintsugi3DViewer.exe"
+    DeleteRegKey HKCR "Kintsugi3DViewer.glb"
+    DeleteRegKey HKCR "Kintsugi3DViewer.gltf"
+    DeleteRegValue HKCR ".glb\OpenWithProgids" "Kintsugi3DViewer.glb"
+    DeleteRegValue HKCR ".gltf\OpenWithProgids" "Kintsugi3DViewer.gltf"
 
 SectionEnd
 
