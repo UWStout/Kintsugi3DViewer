@@ -40,6 +40,8 @@ func _ready():
 				display_artifact_data(artifact)
 	
 	print(OS.get_cmdline_args())
+	
+	_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu-one\\model.glb")
 
 
 func refresh_artifacts() -> Array[ArtifactData]:
@@ -165,3 +167,26 @@ func _look_for_mesh(node : Node3D):
 		return null
 	else:
 		return results.pop_front()
+
+
+func _open_artifact_through_file(gltf_file_path : String):
+	print("opening " + gltf_file_path)
+	
+	var file = FileAccess.open(gltf_file_path, FileAccess.READ)
+	if not file:
+		print("could not access file " + gltf_file_path)
+		return
+	
+	var buffer = file.get_buffer(file.get_length())
+	
+	var gltf = GLTFDocument.new()
+	var gltf_state = GLTFState.new()
+	
+	var error = gltf.append_from_file(gltf_file_path, gltf_state, 0x20)
+	
+	if error:
+		print(error_string(error))
+	
+	#print(gltf_state.json)
+	
+	pass
