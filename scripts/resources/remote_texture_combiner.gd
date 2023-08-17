@@ -42,6 +42,15 @@ func combine():
 			_load_image(img, idx)
 		)
 
+func combine_local(images : Array[Image]):
+	if in_progress:
+		return
+	
+	in_progress = true
+	fetched_images = images
+	
+	worker_thread = Thread.new()
+	worker_thread.start(_perform_conversion)
 
 func _load_image(img: Image, index: int):
 	img.convert(input_format)

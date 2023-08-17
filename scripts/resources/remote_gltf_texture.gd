@@ -50,12 +50,12 @@ func load():
 	if _image_needs_remote_load(full_image) and Preferences.read_pref("offline mode"):
 		return
 	
-	
 	if loaded_resolution != 0 and max_resolution != -1:
 		load_full_res()
 		return
 	
 	if _texture.has("extras") and _texture["extras"].has("lods"):
+		print("has lods")
 		if _texture["extras"].has("baseRes"):
 			max_resolution = _texture["extras"]["baseRes"]
 			
@@ -83,7 +83,7 @@ func load():
 
 
 func load_full_res():
-	if loaded_resolution >= max_resolution:
+	if loaded_resolution >= max_resolution and not loaded_resolution == 0:
 		return
 	
 	if not Preferences.read_pref("low res only"):
@@ -195,7 +195,7 @@ func _process_image(image: Image) -> Image:
 
 
 func _load_shader_image(image: Image):
-	if loaded_resolution >= max_resolution:
+	if loaded_resolution >= max_resolution and not loaded_resolution == 0:
 		return
 	
 	var texture := ImageTexture.create_from_image(image)
