@@ -15,3 +15,5 @@ data_*/
 .vscode/
 .idea/
 
+# Built exports
+/export
