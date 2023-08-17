@@ -9,7 +9,6 @@ Name "Kintsugi 3D Viewer"
 RequestExecutionLevel admin
 Unicode True
 ManifestDPIAware True
-SetCompress off
 OutFile "export/Kintsugi3DViewer-setup.exe"
 
 InstallDir $PROGRAMFILES64\Kintsugi3DViewer
