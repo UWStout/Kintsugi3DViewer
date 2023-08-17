@@ -16,11 +16,13 @@ var toggled_off_icon = preload("res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_
 @export var panel : ExpandingPanel
 
 func _on_toggle_on():
+	print("TOGGLED ON!")
 	panel.expand()
 	
 	super._on_toggle_on()
 
 func _on_toggle_off():
+	print("TOGGLED OFF!")
 	panel.shrink()
 	
 	super._on_toggle_off()

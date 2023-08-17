@@ -17,6 +17,7 @@ class_name LightSelectionUI extends ContextMenu
 
 func on_context_expanded():
 	rotate_artifact_button.toggle_off()
+	super.on_context_expanded()
 
 func on_context_shrunk():
 	button_group.close_all_buttons()

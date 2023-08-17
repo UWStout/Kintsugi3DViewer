@@ -21,9 +21,17 @@ func initialize_button(title : String, description : String, option_index : int,
 	button_group.register_button(self)
 	connected_button = dropdown_button
 	index = option_index
+	
+	if index == connected_button.selected_index:
+		_pressed()
+
+func _pressed():
+	print("you pressed me!")
+	super._pressed()
 
 func _on_toggle_on():
 	connected_button.select_option(index)
+	get_viewport().set_input_as_handled()
 	
 	super._on_toggle_on()
 

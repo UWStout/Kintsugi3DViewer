@@ -72,6 +72,7 @@ func _info_to_tex(texture_info: Dictionary) -> Dictionary:
 
 
 func _start_tex_load(texture: Dictionary, key: String):
+	print("Starting texture load for " + key)
 	_resources_loaded[key] = false
 	var texture_loader = RemoteGltfTexture.new(self, texture, key)
 	_parent.add_child(texture_loader)
@@ -246,17 +247,25 @@ func _shader_wants(key: String) -> bool:
 func request_texture_keys(material : Dictionary):
 	if material.has("pbrMetallicRoughness"):
 		_resources_loaded["albedoMap"] = false
+		print("wants albedoMap")
 	if material.has("normalTexture"):
 		_resources_loaded["normalMap"] = false
+		print("wants normalMap")
 	if material.has("extras"):
 		if material["extras"].has("diffuseTexture") and _shader_wants("diffuseMap"):
 			_resources_loaded["diffuseMap"] = false
+			print("wants diffuseMao")
 		if material["extras"].has("specularTexture") and _shader_wants("specularMap"):
 			_resources_loaded["specularMap"] = false
+			print("wants specularMap")
 		if material["extras"].has("roughnessTexture") and _shader_wants("roughnessMap"):
 			_resources_loaded["roughnessMap"] = false
+			print("wants roughnessMap")
 		if material["extras"].has("basisFunctionsUri"):
 			_resources_loaded["basisFunctions"] = false
+			print("wants basisFunctions")
 		if material["extras"].has("specularWeights"):
 			_resources_loaded["weights0123"] = false
+			print("wants weights0123")
 			_resources_loaded["weights4567"] = false
+			print("wants weights4567")
