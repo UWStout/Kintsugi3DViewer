@@ -19,9 +19,10 @@ func _ready():
 	refresh_list()
 
 func initialize_list(data : Array[ArtifactData]):
+	clear_buttons()
 	for artifact in data:
 		create_button(artifact)
-	
+
 	#if v_box_container.get_child_count() >= 1:
 		#v_box_container.get_child(0)._pressed()
 
@@ -81,6 +82,9 @@ func refresh_list():
 func get_button_for_artifact(data : ArtifactData) -> ArtifactSelectionButton:
 	for button in v_box_container.get_children():
 		var artifact_button = button as ArtifactSelectionButton
+		if artifact_button.data == null:
+			continue
+		
 		if artifact_button.data.name == data.name:
 			return artifact_button
 	

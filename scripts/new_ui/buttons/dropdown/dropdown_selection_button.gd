@@ -25,13 +25,13 @@ func initialize_button(title : String, description : String, option_index : int,
 	if index == connected_button.selected_index:
 		_pressed()
 
-func _pressed():
-	print("you pressed me!")
-	super._pressed()
+func _input(event):
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if get_global_rect().has_point(event.position):
+			_pressed()
 
 func _on_toggle_on():
 	connected_button.select_option(index)
-	get_viewport().set_input_as_handled()
 	
 	super._on_toggle_on()
 
