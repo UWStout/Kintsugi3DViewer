@@ -12,13 +12,11 @@ uniform sampler2D diffuseMap : source_color, filter_linear_mipmap;
 uniform sampler2D normalMap : hint_normal, filter_linear_mipmap;
 uniform sampler2D albedoMap : source_color, filter_linear_mipmap;
 uniform sampler2D ormMap : hint_default_white, filter_linear_mipmap;
-uniform sampler2D constantMap : hint_default_black, filter_linear_mipmap;
+uniform sampler2D constantMap : source_color, hint_default_black, filter_linear_mipmap;
 
 uniform sampler2D weights0123 : hint_default_black, filter_linear_mipmap;
 uniform sampler2D weights4567 : hint_default_black, filter_linear_mipmap;
 uniform sampler2D basisFunctions : hint_default_black;
-
-const int BASIS_COUNT = 8;
 
 vec3 evaluateBasisFunction(float w, int b)
 {
@@ -68,7 +66,7 @@ void fragment()
 	
 	ALBEDO = texture(albedoMap, UV).rgb;
 	NORMAL_MAP = texture(normalMap, UV).xyz;
-	
+
 	vec3 orm = texture(ormMap, UV).xyz;
 	AO = orm[0];
 	ROUGHNESS = orm[1];
@@ -79,10 +77,13 @@ void fragment()
 //	RADIANCE = vec4(0, 0, 0, 1);
 }
 
+const vec3 LUMINANCE_WEIGHTS = vec3(0.2126729, 0.7151522, 0.0721750);
+
 void light()
 {
 	// All calculations in view space, acc. to Godot shader docs
-	float nDotL = max(0.0, dot(NORMAL, LIGHT));
+	float nDotLUnclamped = dot(NORMAL, LIGHT);
+	float nDotL = max(0.0, nDotLUnclamped);
 	float nDotV = max(0.0, dot(NORMAL, VIEW));
 	vec3 halfway = normalize(LIGHT + VIEW);
 	float nDotH = max(0.0, dot(NORMAL, halfway));
@@ -97,22 +98,30 @@ void light()
 	// Get more accurate diffuse estimate that isn't combined with specular, for discrete lights
 	vec3 diffuse = texture(diffuseMap, UV).rgb;
 	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
-
-	// Godot appears to divide by PI for normalized Lambertian
-	DIFFUSE_LIGHT += diffuseLinear * irradiance / (PI * ALBEDO * (1.0 - METALLIC) + step(1.0, METALLIC));
-
+	
 	// Fresnel effect
 	vec3 f0 = mix(vec3(0.04), ALBEDO, METALLIC);
 	float oneMinusHDotV = 1.0 - hDotV;
 	float oneMinusHDotVSq = oneMinusHDotV * oneMinusHDotV;	
-
+	
 //	// Debugging
 //	float nDotHSq = nDotH * nDotH;
 //	float sqrtDen = mix(1.0, mSq, nDotHSq);
 //	mfdTimesFresnel = f0 * mSq / (PI * sqrtDen * sqrtDen);
 
+	// Pseudo-translucency
+	vec3 constant = texture(constantMap, UV).rgb;
+	vec3 constantLinear = pow(constant, vec3(2.2));
+	vec3 backLighting = LIGHT_COLOR * ATTENUATION 
+		* clamp(1.0 + nDotLUnclamped * dot(ALBEDO, LUMINANCE_WEIGHTS) / dot(constant, LUMINANCE_WEIGHTS),
+			0.0, 1.0);
+
 	// Godot does not automatically / implicitly divide by pi, so no multiplication by PI is necessary.
 	SPECULAR_LIGHT += 
+		// Godot automaticallly multiplies DIFFUSE_LIGHT by albedo; 
+		// we put diffuse conribution in SPECULAR_LIGHT so that doesn't happen
+		diffuseLinear * irradiance / PI + 
+//		constantLinear * backLighting / PI + 
 	  	mix(mfdTimesFresnel, vec3(dot(mfdTimesFresnel / f0, vec3(1.0/3.0))), oneMinusHDotVSq * oneMinusHDotVSq * oneMinusHDotV)
 			* geomRatio * irradiance;
 }
