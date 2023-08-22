@@ -15,6 +15,7 @@ run/main_scene="res://scenes/viewer_scene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Kintsugi 3D Viewer"
 config/features=PackedStringArray("4.0", "GL Compatibility")
+boot_splash/show_image=false
 config/icon="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.svg"
 config/macos_native_icon="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.icns"
 config/windows_native_icon="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.ico"

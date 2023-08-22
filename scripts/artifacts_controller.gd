@@ -39,7 +39,7 @@ func _ready():
 			if UrlReader.parameters["artifact"] == artifact.gltfUri.get_base_dir():
 				display_artifact_data(artifact)
 	
-	print(OS.get_cmdline_args())
+	#print(OS.get_cmdline_args())
 	
 	var args = OS.get_cmdline_args()
 	for arg in args:

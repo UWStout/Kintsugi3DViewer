@@ -19,7 +19,6 @@ func _ready():
 	
 	var scale_factor = DisplayServer.window_get_size().x / (screen_width as float)
 	
-	
 	add_theme_constant_override("margin_top", safe_area.position.y * scale_factor)
 	add_theme_constant_override("margin_left", safe_area.position.x * scale_factor)
 	add_theme_constant_override("margin_bottom", DisplayServer.window_get_size().y - safe_area.size.y * scale_factor)

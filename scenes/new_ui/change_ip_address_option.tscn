@@ -13,6 +13,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "IP ADDRESS:"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
