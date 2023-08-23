@@ -32,7 +32,7 @@ func _load_artifact() -> int:
 	# Connect Material Load Complete
 	
 	mesh.set_surface_override_material(0, mat_loader)
-	mat_loader.load_mat(mesh)
+	mat_loader.load(mesh)
 	
 	load_completed.emit()
 	load_finished = true
