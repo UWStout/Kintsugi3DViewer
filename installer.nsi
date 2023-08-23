@@ -51,7 +51,7 @@ Section "Kintsugi 3D Viewer (required)" SectionApp
     SetOutPath $INSTDIR
     File "export\Kintsugi3DViewer.exe"
     File "export\Kintsugi3DViewer.console.exe"
-    File "export\Kintsugi3DViewer.pck"
+    ;File "export\Kintsugi3DViewer.pck"
     File "README.md"
 
     ; Write install directory registry key
