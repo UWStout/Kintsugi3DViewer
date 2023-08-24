@@ -86,7 +86,7 @@ func display_artifact_data(artifact: ArtifactData):
 	loaded_artifact.load_progress.connect(_on_model_load_progress)
 	var result = await loaded_artifact.load_artifact()
 	
-	if result == 1:
+	if result == 0:
 		_on_model_begin_load()
 		
 		var button = _artifact_catalog_ui.get_button_for_artifact(artifact)
@@ -185,55 +185,9 @@ func _open_artifact_through_file(gltf_file_path : String):
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
 	
-	print("opening " + gltf_file_path)
+	var data = ArtifactData.new()
+	data.gltfUri = gltf_file_path
 	
-	var file_name = gltf_file_path.trim_prefix(gltf_file_path.get_base_dir() + "\\")
-	file_name = file_name.trim_suffix(".gltf")
-	file_name = file_name.trim_suffix(".glb")
-	
-	var file = FileAccess.open(gltf_file_path, FileAccess.READ)
-	if not file:
-		print("could not access file " + gltf_file_path)
-		return
-	
-	var buffer = file.get_buffer(file.get_length())
-	
-	var gltf = GLTFDocument.new()
-	var gltf_state = GLTFState.new()
-	
-	var error = gltf.append_from_file(gltf_file_path, gltf_state, 0x20)
-	
-	if error:
-		print(error_string(error))
-	
-	loaded_artifact = LocalGltfModel.create(GLTFObject.from(gltf, gltf_state))
-	loaded_artifact.obj.sourceUri = gltf_file_path
-	loaded_artifact.artifact = ArtifactData.new()
-	loaded_artifact.artifact.name = file_name
-	loaded_artifact.artifact.gltfUri = gltf_file_path
-	add_child(loaded_artifact)
-	
-	loaded_artifact._load_artifact()
-	loaded_artifact.load_completed.connect(func():
-		print("HELLO!"))
-	loaded_artifact.load_completed.connect(_on_model_load_complete)
-	loaded_artifact.load_progress.connect(_on_model_load_progress)
-	
-	#var gltf_obj = GLTFObject.from(gltf, gltf_state)
-	
-	#var scene = gltf_obj.generate_scene()
-	
-	#add_child(scene)
-	
-	#var folder_name = gltf_file_path.get_base_dir().get_slice("\\", gltf_file_path.get_base_dir().get_slice_count("\\") - 1)
-	
-	#var data = ArtifactData.new()
-	#data.name = folder_name
-	#data.gltfUri = folder_name + "/" + file_name + ".glb"
-	
-	#CacheManager.export_gltf(data.name, file_name, gltf, gltf_state.duplicate())
-	#CacheManager.export_artifact_data(data.name, data)
-	
-	#display_artifact_data(data)
-	
-	pass
+	var model = LocalGltfModel.create(data)
+	add_child(model)
+	model.load_artifact()
