@@ -8,38 +8,35 @@
 
 class_name LocalGltfModel extends GltfModel
 
-var mat_loader : LocalGltfMaterial
-var obj : GLTFObject
-var aabb: AABB
+func _load_gltf() -> GLTFObject:
+	if not artifact.gltfUri.ends_with(".gltf") and not artifact.gltfUri.ends_with(".glb"):
+		return null
+	
+	var file = FileAccess.open(artifact.gltfUri, FileAccess.READ)
+	if not file:
+		return null
+	
+	var buffer = file.get_buffer(file.get_length())
+	
+	var gltf = GLTFDocument.new()
+	var gltf_state = GLTFState.new()
+	
+	var error = gltf.append_from_file(artifact.gltfUri, gltf_state, 0x20)
+	if error:
+		return null
+	
+	var gltf_obj = GLTFObject.new()
+	gltf_obj.document = gltf
+	gltf_obj.state = gltf_state
+	gltf_obj.sourceUri = artifact.gltfUri
+	return gltf_obj
 
-func _load_artifact() -> int:
-	if obj == null:
-		return -1
-	
-	var scene = obj.generate_scene()
-	add_child(scene)
-	
-	var mesh = scene.get_child(0, true)
-	
-	if mesh.get_aabb() != null:
-		aabb = mesh.get_aabb()
-	else:
-		aabb = AABB()
-	
-	mat_loader = LocalGltfMaterial.new(obj)
-	
-	# Connect Material Load Progress
-	# Connect Material Load Complete
-	
-	mesh.set_surface_override_material(0, mat_loader)
-	mat_loader.load(mesh)
-	
-	load_completed.emit()
-	load_finished = true
-	return 0
+func _create_material() -> GltfMaterial:
+	return LocalGltfMaterial.new(obj)
 
-static func create(p_obj : GLTFObject):
+static func create(p_artifact : ArtifactData):
 	var model = LocalGltfModel.new()
-	model.obj = p_obj
+	model.artifact = p_artifact
 	model.is_local = true
 	return model
+
