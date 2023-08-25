@@ -1,3 +1,11 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 class_name GraphicsController extends Node
 
 enum ASPECT_RATIO {_4to3, _16to10, _16to9}
@@ -32,7 +40,7 @@ const _16x9_RESOLUTIONS = [
 	Vector2i(7680, 4320) ]
 const RESOLUTIONS = [_16x9_RESOLUTIONS, _16x10_RESOLUTIONS, _4x3_RESOULATIONS]
 
-enum SHADOWS {HARD = 0, SOFT_LOW = 2, SOFT_MEDIUM = 3, SOFT_HIGH = 4, SOFT_ULTRA = 5}
+enum SHADOWS {HARD = 0, SOFT_VERY_LOW = 1, SOFT_LOW = 2, SOFT_MEDIUM = 3, SOFT_HIGH = 4, SOFT_ULTRA = 5}
 
 enum GLOBAL_ILLUMINATION {DISABLED, LOW, MEDIUM, HIGH, ULTRA}
 const GLOBAL_ILLUMINATION_SETTINGS = {
@@ -69,6 +77,8 @@ func change_shadows(mode : SHADOWS):
 	
 	ProjectSettings.set_setting("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality", mode)
 	ProjectSettings.set_setting("rendering/lights_and_shadows/positional_shadow/soft_shadow_filter_quality.mobile", mode)
+	
+	Preferences.write_pref("shadows", mode)
 
 func change_global_illumination(mode : GLOBAL_ILLUMINATION):
 	if mode > 0:
@@ -81,14 +91,19 @@ func change_global_illumination(mode : GLOBAL_ILLUMINATION):
 	
 	ProjectSettings.set_setting("rendering/global_illumination/voxel_gi/quality", quality)
 	ProjectSettings.set_setting("rendering/global_illumination/sdfgi/probe_ray_count", ray_count)
+	
+	Preferences.write_pref("gi", mode)
 
 func change_antialiasing(mode : Viewport.MSAA):
 	get_viewport().msaa_3d = mode
+	
+	Preferences.write_pref("aa", mode)
 
 func change_ssao(mode : SSAO):
 	world_environment.environment.ssao_enabled = true
 	ProjectSettings.set_setting("rendering/environment/ssao/quality", mode)
-	pass
+	
+	Preferences.write_pref("ssao", mode)
 
 func change_ssil(mode : SSIL):
 	if mode < 0:
@@ -97,6 +112,8 @@ func change_ssil(mode : SSIL):
 		world_environment.environment.ssil_enabled = true
 	
 	ProjectSettings.set_setting("rendering/environment/ssil/quality", mode)
+	
+	Preferences.write_pref("ssil", mode)
 
 func change_ssr(mode : SSR):
 	if mode == 0:
@@ -105,24 +122,28 @@ func change_ssr(mode : SSR):
 		world_environment.environment.ssr_enabled = true
 	
 	ProjectSettings.set_setting("rendering/environment/screen_space_reflection/roughness_quality", mode)
+	
+	Preferences.write_pref("ssr", mode)
 
 func change_subsurface_scattering(mode : SUBSURFACE):
 	ProjectSettings.set_setting("rendering/environment/subsurface_scattering/subsurface_scattering_quality", mode)
+	
+	Preferences.write_pref("subsurface scattering", mode)
 
 func _ready():
 	shadows = Preferences.read_pref("shadows")
 	antialiasing = Preferences.read_pref("aa")
 	global_illumination = Preferences.read_pref("gi")
 	ssao = Preferences.read_pref("ssao")
-	ssil = Preferences.read_pref("ssil")
-	screen_space_reflections = Preferences.read_pref("ssr")
-	subsurface_scattering = Preferences.read_pref("subsurface scattering")
+	#ssil = Preferences.read_pref("ssil")
+	#screen_space_reflections = Preferences.read_pref("ssr")
+	#subsurface_scattering = Preferences.read_pref("subsurface scattering")
 	
 	change_resolution(Vector2i(1152, 648))
 	change_shadows(shadows)
 	change_global_illumination(global_illumination)
 	change_antialiasing(antialiasing)
 	change_ssao(ssao)
-	change_ssil(ssil)
-	change_ssr(screen_space_reflections)
-	change_subsurface_scattering(subsurface_scattering)
+	#change_ssil(ssil)
+	#change_ssr(screen_space_reflections)
+	#change_subsurface_scattering(subsurface_scattering)

@@ -1,8 +1,16 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 extends Button
 
 @export var ui_root : NodePath
 @export var environment_controller : EnvironmentController
-@export var save_window : ScreenshotFileDialog
+@export var light_selection_ui : LightSelectionUI
 
 func _pressed():
 	hide_screen_distractions()
@@ -29,16 +37,13 @@ func take_screenshot():
 		"Web":
 			save_on_web(img)
 		_:
-			# if nothing else matches, use
-			# a filedialog to save the image
-			save_window.give_image(img)
-			save_window.visible = true
+			print("could not save screenshot on this device!")
 
 func hide_screen_distractions():
 	if not ui_root == null:
 		get_node(ui_root).visible = false
-	if not environment_controller == null:
-		environment_controller.stop_customizing_lights()
+	if not light_selection_ui == null:
+		light_selection_ui.button_group.close_all_buttons()
 	
 func show_screen_distractions():
 	if not ui_root == null:

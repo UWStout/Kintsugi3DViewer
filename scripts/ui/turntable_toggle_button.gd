@@ -1,3 +1,11 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 class_name TurntableButton extends Button
 
 var _is_toggled : bool = false
@@ -22,6 +30,7 @@ func _pressed():
 		text = "Rotate Object: ON"
 		_scene_camera_rig.rig_enabled = false
 
+
 func _input(event):
 	if not _is_toggled or _artifacts_controller.loaded_artifact == null or not _artifacts_controller.loaded_artifact.load_finished:
 		return
@@ -43,9 +52,9 @@ func _input(event):
 		artifact.transform.basis = artifact.transform.basis.rotated(_scene_camera_rig.camera.global_transform.basis.x, pitch_val).orthonormalized()
 
 func _process(delta):
-	if not _is_toggled:
+	#if not _is_toggled:
 		#return_to_default_orientation()
-		lerp_to_default_orientation(delta * _lerp_speed)
+		#lerp_to_default_orientation(delta * _lerp_speed)
 	pass
 
 func return_to_default_orientation():

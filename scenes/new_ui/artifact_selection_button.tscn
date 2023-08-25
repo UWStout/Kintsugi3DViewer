@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://2kcde1sv8k6i"]
+[gd_scene load_steps=16 format=3 uid="uid://2kcde1sv8k6i"]
 
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/artifact_selection_button.gd" id="1_em5rn"]
-[ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/ui/toggle_annotations_on.png" id="2_8m8pc"]
+[ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/UI 2D/toggle_annotations_on.png" id="2_8m8pc"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]
 
@@ -21,6 +21,16 @@ bg_color = Color(0.423529, 0.423529, 0.423529, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ljd0"]
 bg_color = Color(0.423529, 0.423529, 0.423529, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdb5w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_whwcx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ca6en"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8tqim"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5204q"]
 
 [node name="artifact_selection_button" type="Button"]
 custom_minimum_size = Vector2(250, 60)
@@ -42,6 +52,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -54,6 +65,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="artifact_preview" type="TextureRect" parent="HBoxContainer/MarginContainer/CenterContainer"]
+visible = false
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -63,5 +75,38 @@ expand_mode = 5
 [node name="artifact_label" type="Label" parent="HBoxContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+size_flags_horizontal = 3
 text = "ARTIFACT A"
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="artifact_status" type="TextureRect" parent="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("2_8m8pc")
+expand_mode = 5
+
+[node name="favorite_artifact_button" type="Button" parent="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gdb5w")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_whwcx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ca6en")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8tqim")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5204q")
+
+[connection signal="pressed" from="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/favorite_artifact_button" to="." method="_on_favorite_artifact_button_pressed"]

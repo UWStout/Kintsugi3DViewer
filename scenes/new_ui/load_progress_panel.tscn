@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://bryvft6chb8m2"]
+
+[ext_resource type="Script" path="res://scripts/ui/model_loader_progress.gd" id="1_3bsdp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_32aks"]
+bg_color = Color(0.219608, 0.219608, 0.219608, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.141176, 0.141176, 0.141176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6klbe"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Panel" type="Panel" node_paths=PackedStringArray("progressBar", "text_label")]
+custom_minimum_size = Vector2(250, 50)
+theme_override_styles/panel = SubResource("StyleBoxFlat_32aks")
+script = ExtResource("1_3bsdp")
+progressBar = NodePath("VBoxContainer/HBoxContainer/MarginContainer/ProgressBar")
+text_label = NodePath("VBoxContainer/CenterContainer/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/CenterContainer"]
+layout_mode = 2
+text = "LOADING (00%)"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/fill = SubResource("StyleBoxFlat_6klbe")
+max_value = 1.0
+step = 0.001
+show_percentage = false

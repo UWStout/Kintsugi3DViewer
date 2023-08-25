@@ -1,3 +1,11 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 extends Node
 class_name RemoteGltfTexture
 
@@ -42,14 +50,18 @@ func load():
 	if _image_needs_remote_load(full_image) and Preferences.read_pref("offline mode"):
 		return
 	
-	
 	if loaded_resolution != 0 and max_resolution != -1:
 		load_full_res()
 		return
 	
 	if _texture.has("extras") and _texture["extras"].has("lods"):
+		print("has lods")
 		if _texture["extras"].has("baseRes"):
 			max_resolution = _texture["extras"]["baseRes"]
+			
+			if UrlReader.parameters.has("res"):
+				max_resolution = min(max_resolution, str_to_var(UrlReader.parameters["res"]))
+				max_resolution = max(_get_lods()[0], max_resolution)
 		
 		if _texture["extras"]["lods"].size() <= 0:
 			load_full_res()
@@ -71,7 +83,11 @@ func load():
 
 
 func load_full_res():
+	if loaded_resolution >= max_resolution and not loaded_resolution == 0:
+		return
+	
 	if not Preferences.read_pref("low res only"):
+		print("Loading full resolution for " + _shader_key)
 		_load_image(_image_at_index(_texture["source"]))
 	else:
 		texture_loaded.emit(_shader_key)
@@ -180,6 +196,9 @@ func _process_image(image: Image) -> Image:
 
 
 func _load_shader_image(image: Image):
+	if loaded_resolution >= max_resolution and not loaded_resolution == 0:
+		return
+	
 	var texture := ImageTexture.create_from_image(image)
 	_material.set_shader_parameter(_shader_key, texture)
 	
@@ -187,9 +206,8 @@ func _load_shader_image(image: Image):
 		partial_load.emit()
 	
 	loaded_resolution = image.get_height()
-	
-	if loaded_resolution == max_resolution:
+	if loaded_resolution >= max_resolution:
 		load_complete.emit()
 		texture_loaded.emit(_shader_key)
-	
-	self.load()
+	else:
+		self.load()

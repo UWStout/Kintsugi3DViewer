@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://cum2pa85altu4"]
+
+[ext_resource type="PackedScene" uid="uid://2j64r5w75xq" path="res://assets/Environments/Walls/Environment_PlainWall_Beige.glb" id="1_4cqs4"]
+[ext_resource type="PackedScene" uid="uid://c8owvseqk5dyg" path="res://assets/Environments/Walls/Environment_PlainEnteranceWall_Beige.glb" id="2_bcq2w"]
+[ext_resource type="PackedScene" uid="uid://mlwyw6qnrdut" path="res://assets/Environments/Floor/Environment_WoodenFloor_DarkBrown.glb" id="3_4sjcf"]
+[ext_resource type="PackedScene" uid="uid://kpqra8aqrgni" path="res://assets/Environments/Objects/Pedestals/Modern1/Object_Pedestal_BrownModern1.glb" id="4_v3sa6"]
+[ext_resource type="PackedScene" uid="uid://bucbvke7el4el" path="res://assets/Environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain.glb" id="5_ipv5d"]
+
+[node name="BeigeRoom" type="Node3D"]
+
+[node name="Environment_PlainWall_Beige3" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(-0.000837791, 0, -1, 0, 1, 0, 1, 0, -0.000837791, 0.0596156, 0.865107, -1.90765)
+
+[node name="Environment_PlainWall_Beige2" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(0.000279264, 0, 1, 0, 1, 0, -1, 0, 0.000279264, -0.0115681, 0.966112, -1.2995)
+
+[node name="Environment_PlainWall_Beige4" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(0.794807, 0, -0.606863, 0, 1, 0, 0.606863, 0, 0.794807, -1.94229, 0.846395, -1.55474)
+
+[node name="Environment_PlainWall_Beige5" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(0.741648, 0, 0.670789, 0, 1, 0, -0.670789, 0, 0.741648, -0.0771155, 0.846395, 0.235822)
+
+[node name="Environment_PlainWall_Beige6" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(-0.715156, 0, 0.698965, 0, 1, 0, -0.698965, 0, -0.715156, 4.45651, 0.846395, 1.86369)
+
+[node name="Environment_PlainWall_Beige7" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(-0.675693, 0, -0.737183, 0, 1, 0, 0.737183, 0, -0.675693, -1.66494, 0.846395, 0.556532)
+
+[node name="Environment_PlainWall_Beige" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0274916, 0.859139, -1.42684)
+
+[node name="Environment_PlainWall_Beige8" parent="." instance=ExtResource("1_4cqs4")]
+transform = Transform3D(-2.8728, 0, -0.00227858, 0, 1, 0, 0.00651823, 0, -1.00425, 2.56388, 0.0665274, -11.759)
+
+[node name="Environment_PlainEnteranceWall_Beige" parent="." instance=ExtResource("2_bcq2w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0756192, 0.83221, -2.05023)
+
+[node name="Environment_WoodenFloor_DarkBrown2" parent="." instance=ExtResource("3_4sjcf")]
+transform = Transform3D(1.68151, 0, 0, 0, 1, 0, 0, 0, 1.59289, 0.00525761, 0.887757, -6.79107)
+
+[node name="Object_Pedestal_BrownModern1" parent="." instance=ExtResource("4_v3sa6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250567, 0.914727, -0.0447378)
+
+[node name="Object_Bench_DarkBrownWoodPlain" parent="." instance=ExtResource("5_ipv5d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.80937, 0.885006, -2.04542)
+
+[node name="Object_Bench_DarkBrownWoodPlain2" parent="." instance=ExtResource("5_ipv5d")]
+transform = Transform3D(-0.999892, 0, -0.014695, 0, 1, 0, 0.014695, 0, -0.999892, 1.07518, 0.885006, 1.76659)

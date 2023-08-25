@@ -1,9 +1,19 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 @tool
 extends Node3D
 
 class_name DisplayEnvironment
 
 @export var environment_name : String
+
+var light_widget_scene : PackedScene = ResourceLoader.load("res://scenes/lighting/new_light_widget.tscn")
 
 # Add required nodes whenever this tree is entered
 func _enter_tree():
@@ -53,5 +63,17 @@ func get_dynamic_lighting():
 		return null
 		
 	return get_lighting().find_child("dynamics")
-	
 
+func show_light(light_index : int):
+	if light_index < 0 or light_index >= get_dynamic_lighting().get_children().size():
+		return
+	
+	if get_dynamic_lighting().get_children()[light_index] is NewLightWidget:
+		get_dynamic_lighting().get_children()[light_index].make_material()
+
+func add_dynamic_light():
+	var new_light = light_widget_scene.instantiate()
+	get_dynamic_lighting().add_child(new_light)
+	new_light.init_widget()
+	new_light.make_immaterial()
+	return new_light

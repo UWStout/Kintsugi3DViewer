@@ -1,9 +1,19 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 extends Node
+
+signal cache_item_deleted
 
 const _CACHE_ROOT_DIR : String = "user://cache/"
 const _CACHE_META_FILE : String = "cache.manifest"
 
-enum REDUCE_CACHE_MODE {LARGEST, SMALLEST, NEWEST, OLDEST}
+enum REDUCE_CACHE_MODE {LARGEST = 0, SMALLEST = 1, NEWEST = 2, OLDEST = 3}
 
 # 2 gigs
 var cache_size_limit : int = 2000000000
@@ -13,7 +23,6 @@ var outsized_folders : Array[String] = []
 var cache_mode : REDUCE_CACHE_MODE = REDUCE_CACHE_MODE.OLDEST
 
 func _ready():
-	
 	var pref_cache_size = Preferences.read_pref("cache size")
 	if not pref_cache_size == null:
 		cache_size_limit = mb_to_bytes(pref_cache_size)
@@ -102,25 +111,30 @@ func import_gltf(dir_name : String, name : String):
 	
 	state.json = JSON.parse_string(file.get_as_text())
 	
-	print("imported file " + name + ".glb from directory " + dir_path)
-	print("imported file " + name + ".json from directory " + dir_path)
+	#print("imported file " + name + ".glb from directory " + dir_path)
+	#print("imported file " + name + ".json from directory " + dir_path)
 	
 	return {"doc" : gltf, "state" : state}
 
 func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : GLTFState):
-	if outsized_folders.has(dir_name):
+	#if outsized_folders.has(dir_name):
+		#return
+	
+	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
 		return
 	
 	var buffer = doc.generate_buffer(state.duplicate())
 	var file_size = buffer.size()
 	if not should_add_to_cache(file_size):
+		reduce_cache_for_size(file_size, cache_mode)
 		#print("could not export " + name + ".glb to directory " + _CACHE_ROOT_DIR + dir_name + "/ because it would overflow the cache")
 		#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 		#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
-		if not outsized_folders.has(dir_name):
-			outsized_folders.push_back(dir_name)
-			remove_from_cache(dir_name)
-		return
+#	if not should_add_to_cache(file_size):
+#		if not outsized_folders.has(dir_name):
+#			outsized_folders.push_back(dir_name)
+#			remove_from_cache(dir_name)
+#		return
 	
 	open_dir(dir_name)
 	
@@ -175,23 +189,28 @@ func import_png(dir_name : String, name : String) -> Image:
 		#print(err_message)
 		return null
 	
-	print("imported file " + file_name + " from directory " + dir_path)
+	#print("imported file " + file_name + " from directory " + dir_path)
 	
 	return image
 
 func export_png(dir_name : String, name : String, image : Image):
-	if outsized_folders.has(dir_name):
+#	if outsized_folders.has(dir_name):
+#		return
+	
+	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
 		return
 	
 	var file_size = image.save_png_to_buffer().size()
 	if not should_add_to_cache(file_size):
+		reduce_cache_for_size(file_size, cache_mode)
 		#print("could not export " + name + ".png to directory " + _CACHE_ROOT_DIR + dir_name + "/ because it would overflow the cache")
 		#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 		#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
-		if not outsized_folders.has(dir_name):
-			outsized_folders.push_back(dir_name)
-			remove_from_cache(dir_name)
-		return
+#	if not should_add_to_cache(file_size):
+#		if not outsized_folders.has(dir_name):
+#			outsized_folders.push_back(dir_name)
+#			remove_from_cache(dir_name)
+#		return
 	
 	open_dir(dir_name)
 	
@@ -236,7 +255,7 @@ func import_artifact_data(dir_name : String):
 	var data = ArtifactData.new()
 	
 	if lines.size() <= 0:
-		print("data.txt not located in directory " + dir.get_current_dir())
+		#print("data.txt not located in directory " + dir.get_current_dir())
 		return data
 	
 	for line in lines:
@@ -247,12 +266,15 @@ func import_artifact_data(dir_name : String):
 			if parts[0] == "uri":
 				data.gltfUri = parts[1]
 	
-	print("imported data.txt from directory " + dir.get_current_dir())
+	#print("imported data.txt from directory " + dir.get_current_dir())
 	
 	return data
 
 func export_artifact_data(dir_name : String, data : ArtifactData):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
+	
+	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
+		return
 	
 	if not dir:
 		return
@@ -299,20 +321,9 @@ func get_artifacts_size_in_cache(include_persistent : bool):
 	
 	var artifacts = get_artifacts_in_cache(include_persistent)
 	for artifact in artifacts:
-		dir = DirAccess.open(_CACHE_ROOT_DIR + "/" + artifact)
-		if dir:
-			var folder_size = 0
-			
-			var files = dir.get_files()
-			for file_name in files:
-				var file = FileAccess.open(dir.get_current_dir() + "/" + file_name, FileAccess.READ)
-				if not file == null:
-					folder_size += file.get_length()
-			
-			sizes.push_back([artifact, folder_size])
-			
-		dir = DirAccess.open(_CACHE_ROOT_DIR)
-	
+		var folder_size = get_size(artifact)
+		sizes.push_back([artifact, folder_size])
+
 	return sizes
 
 func get_cache_size() -> int:
@@ -368,7 +379,7 @@ func clear_cache():
 	if dir == null:
 		return
 	
-	for artifact in get_artifacts_in_cache(false):
+	for artifact in get_artifacts_in_cache(true):
 		remove_from_cache(artifact)
 	
 	outsized_folders.clear()
@@ -382,7 +393,7 @@ func remove_from_cache(folder_name : String):
 	if not dir:
 		return
 	
-	make_not_peristent(folder_name)
+	make_not_persistent(folder_name)
 	update_open_time(folder_name, true)
 	
 	for file in dir.get_files():
@@ -392,6 +403,7 @@ func remove_from_cache(folder_name : String):
 	dir.remove(folder_name)
 	
 	print("removed folder " + folder_name + " from the cache")
+	cache_item_deleted.emit()
 
 func remove_largest():
 	var artifact_size_pairs = get_artifacts_size_in_cache(false)
@@ -491,6 +503,31 @@ func reduce_cache(mode : REDUCE_CACHE_MODE):
 	
 	outsized_folders.clear()
 
+func reduce_cache_for_size(size : int, mode : REDUCE_CACHE_MODE):
+	if get_cache_size() - size > cache_size_limit:
+		return
+	
+	var tries = 0
+	var max_tries = 5
+	while get_cache_size() + size >= cache_size_limit:
+		if mode == REDUCE_CACHE_MODE.LARGEST:
+			if not remove_largest():
+				tries += 1
+		elif mode == REDUCE_CACHE_MODE.SMALLEST:
+			if not remove_smallest():
+				tries += 1
+		elif mode == REDUCE_CACHE_MODE.NEWEST:
+			if not remove_newest():
+				tries += 1
+		elif mode == REDUCE_CACHE_MODE.OLDEST:
+			if not remove_oldest():
+				tries += 1
+		
+		if tries >= max_tries:
+			break
+	
+	outsized_folders.clear()
+
 func is_in_cache(artifact : String) -> bool:
 	for folder in get_artifacts_in_cache(true):
 		if folder == artifact:
@@ -543,7 +580,7 @@ func make_persistent(artifact : String) -> bool:
 	
 	return true
 
-func make_not_peristent(artifact : String) -> bool:
+func make_not_persistent(artifact : String) -> bool:
 	if not is_in_cache(artifact):
 		return false
 	
@@ -583,27 +620,22 @@ func update_folder_date(artifact : String):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + artifact)
 	
 	if not dir:
-		print("1")
 		return false
 	
 	var err = dir.rename(_CACHE_ROOT_DIR + artifact, _CACHE_ROOT_DIR + artifact + "_old")
 	dir = DirAccess.open(_CACHE_ROOT_DIR + artifact + "_old")
 	if err:
-		print("2")
 		return false
 	if not dir:
-		print("3")
 		return false
 	
 	var dir2 = DirAccess.open(_CACHE_ROOT_DIR)
 	err = dir2.make_dir(artifact)
 	if err:
-		print("4")
 		return false
 	
 	dir2 = DirAccess.open(_CACHE_ROOT_DIR + artifact)
 	if not dir2:
-		print("5")
 		return false
 	
 	for file in dir.get_files():
@@ -679,3 +711,133 @@ func get_artifact_data() -> Array[ArtifactData]:
 		artifacts_data.push_back(import_artifact_data(artifact))
 	
 	return artifacts_data
+
+func get_size(artifact : String):
+	var dir = DirAccess.open(_CACHE_ROOT_DIR + "/" + artifact)
+	var folder_size = 0
+	if dir:
+		var files = dir.get_files()
+		for file_name in files:
+			var file = FileAccess.open(dir.get_current_dir() + "/" + file_name, FileAccess.READ)
+			if not file == null:
+				folder_size += file.get_length()
+
+	return folder_size
+
+func get_size_in_mb(artifact : String):
+	var size_bytes = get_size(artifact)
+	return bytes_to_mb(size_bytes)
+
+func is_empty():
+	return get_cache_size() <= 0
+
+
+func get_artifacts_in_cache_ordered():
+	var artifacts = get_artifacts_in_cache(true)
+	
+	var ordered : Array[String]
+	
+	while artifacts.size() > 0:
+		if cache_mode == REDUCE_CACHE_MODE.LARGEST:
+			var largest_size : int = -9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_size = get_size(artifacts[i])
+				if artifact_size >= largest_size:
+					largest_size = artifact_size
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+		
+		if cache_mode == REDUCE_CACHE_MODE.SMALLEST:
+			var smallest_size : int = 9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_size = get_size(artifacts[i])
+				if artifact_size <= smallest_size:
+					smallest_size = artifact_size
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+		
+		if cache_mode == REDUCE_CACHE_MODE.OLDEST:
+			var oldest_time : int = 9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_time = get_open_time(artifacts[i])
+				if artifact_time <= oldest_time:
+					oldest_time = artifact_time
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+		
+		if cache_mode == REDUCE_CACHE_MODE.NEWEST:
+			var newest_time : int = -9223372036854775807
+			var target_index : int = -1
+			for i in range(0, artifacts.size()):
+				var artifact_time = get_open_time(artifacts[i])
+				if artifact_time >= newest_time:
+					newest_time = artifact_time
+					target_index = i
+			
+			ordered.push_back(artifacts[target_index])
+			artifacts.remove_at(target_index)
+	
+	return ordered
+
+func get_artifact_data_in_cache_ordered() -> Array[ArtifactData]:
+	var ordered_artifacts = get_artifacts_in_cache_ordered()
+	
+	var data : Array[ArtifactData] = []
+	
+	for artifact in ordered_artifacts:
+		data.push_back(import_artifact_data(artifact))
+	
+	return data
+
+func set_cache_size_bytes(bytes : int):
+	var mb = bytes_to_mb(bytes)
+	cache_size_limit = bytes
+	Preferences.write_pref("cache size", mb)
+
+func set_cache_size_mb(mb : int):
+	var bytes = mb_to_bytes(mb)
+	cache_size_limit = bytes
+	Preferences.write_pref("cache size", mb)
+
+func set_cache_mode(mode : REDUCE_CACHE_MODE):
+	cache_mode = mode
+	Preferences.write_pref("cache mode", cache_mode)
+
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST or what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		reduce_cache(cache_mode)
+
+func get_number_images_in_artifact(artifact : String) -> int:
+	var dir  = DirAccess.open(_CACHE_ROOT_DIR + artifact)
+	
+	if dir == null:
+		return -1
+	
+	var count = 0
+	for file in dir.get_files():
+		if file.ends_with(".png"):
+			count += 1
+	
+	return count
+
+func get_image_names(artifact : String) -> Array[String]:
+	var dir = DirAccess.open(_CACHE_ROOT_DIR + artifact)
+	
+	if dir == null:
+		return []
+	
+	var arr : Array[String] = []
+	for file in dir.get_files():
+		if file.ends_with(".png"):
+			arr.append(file.trim_suffix(".png"))
+	
+	return arr
