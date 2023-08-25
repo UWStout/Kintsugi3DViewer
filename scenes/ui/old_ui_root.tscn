@@ -1,0 +1,304 @@
+[gd_scene load_steps=28 format=3 uid="uid://w1ffx4qqwuv2"]
+
+[ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="1_87ink"]
+[ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/UI 2D/next_button.png" id="2_7ir5o"]
+[ext_resource type="Script" path="res://scripts/ui/cycle_artifacts_button.gd" id="3_s1xmb"]
+[ext_resource type="Texture2D" uid="uid://oqumf0ifuv1m" path="res://assets/UI 2D/prev_button.png" id="4_5k3ef"]
+[ext_resource type="Script" path="res://scripts/ui/open_select_object_window_button.gd" id="5_h4bni"]
+[ext_resource type="Texture2D" uid="uid://triprnly8itd" path="res://assets/UI 2D/flashlight_off.png" id="6_8207x"]
+[ext_resource type="Script" path="res://scripts/ui/flashlight_toggle_button.gd" id="7_c2nrv"]
+[ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/UI 2D/toggle_annotations_on.png" id="8_e62ry"]
+[ext_resource type="Script" path="res://scripts/ui/annotations_toggle_button.gd" id="9_jolgt"]
+[ext_resource type="Script" path="res://scripts/ui/customize_lighting_button.gd" id="10_i4r8o"]
+[ext_resource type="Texture2D" uid="uid://djjhqesqgcey6" path="res://assets/UI 2D/screenshot.png" id="11_jvvrc"]
+[ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="12_rsf0s"]
+[ext_resource type="Script" path="res://scripts/ui/light_widget_color_picker.gd" id="13_6phuo"]
+[ext_resource type="Script" path="res://scripts/ui/select_environment_button.gd" id="14_tsggc"]
+[ext_resource type="Script" path="res://scripts/ui/turntable_toggle_button.gd" id="15_mx5uv"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_klwue"]
+device = -1
+shift_pressed = true
+keycode = 77
+unicode = 77
+
+[sub_resource type="Shortcut" id="Shortcut_qss7a"]
+events = [SubResource("InputEventKey_klwue")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_gj1rb"]
+device = -1
+shift_pressed = true
+keycode = 78
+unicode = 78
+
+[sub_resource type="Shortcut" id="Shortcut_rc08y"]
+events = [SubResource("InputEventKey_gj1rb")]
+
+[sub_resource type="SystemFont" id="SystemFont_gbd4e"]
+font_names = PackedStringArray("Cascadia Code")
+
+[sub_resource type="InputEventKey" id="InputEventKey_ytv0s"]
+device = -1
+shift_pressed = true
+keycode = 66
+unicode = 66
+
+[sub_resource type="Shortcut" id="Shortcut_5853c"]
+events = [SubResource("InputEventKey_ytv0s")]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_eq23d"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_0kej4"]
+device = -1
+shift_pressed = true
+keycode = 70
+unicode = 70
+
+[sub_resource type="Shortcut" id="Shortcut_uddkm"]
+events = [SubResource("InputEventKey_0kej4")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_yx0yo"]
+device = -1
+shift_pressed = true
+keycode = 73
+unicode = 73
+
+[sub_resource type="Shortcut" id="Shortcut_oup0k"]
+events = [SubResource("InputEventKey_yx0yo")]
+
+[node name="ui_root" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LoaderContainer" parent="." instance=ExtResource("1_87ink")]
+custom_minimum_size = Vector2(256, 90)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.389
+anchor_top = 0.431
+anchor_right = 0.611
+anchor_bottom = 0.569
+offset_left = -0.128021
+offset_top = -0.288025
+offset_right = 0.127991
+offset_bottom = 0.287994
+
+[node name="next_object_button" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.935
+anchor_top = 0.884
+anchor_right = 0.978
+anchor_bottom = 0.961
+offset_left = -0.120117
+offset_top = 0.167969
+offset_right = 0.343994
+offset_bottom = 0.271973
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "View the next object"
+shortcut = SubResource("Shortcut_qss7a")
+text = "
+"
+icon = ExtResource("2_7ir5o")
+expand_icon = true
+script = ExtResource("3_s1xmb")
+
+[node name="previous_object_button" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.87
+anchor_top = 0.884
+anchor_right = 0.913
+anchor_bottom = 0.961
+offset_left = -0.240051
+offset_top = 0.167969
+offset_right = 0.223999
+offset_bottom = 0.271973
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "View the previous object"
+shortcut = SubResource("Shortcut_rc08y")
+icon = ExtResource("4_5k3ef")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("3_s1xmb")
+move_forward = false
+
+[node name="select_object_button" type="Button" parent="." node_paths=PackedStringArray("select_window")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.024
+anchor_top = 0.048
+anchor_right = 0.137
+anchor_bottom = 0.099
+offset_left = 0.351999
+offset_top = -7.104
+offset_right = 0.175995
+offset_bottom = -0.152016
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(65, 20)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "Select another object to view"
+theme_override_fonts/font = SubResource("SystemFont_gbd4e")
+shortcut = SubResource("Shortcut_5853c")
+text = "Select Object"
+script = ExtResource("5_h4bni")
+select_window = NodePath("../../Window")
+
+[node name="flashlight_toggle_button" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.935
+anchor_top = 0.039
+anchor_right = 0.978
+anchor_bottom = 0.116
+offset_left = -0.120117
+offset_top = -0.272001
+offset_right = 0.343994
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "Toggle flashlight on/off"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_eq23d")
+shortcut = SubResource("Shortcut_uddkm")
+icon = ExtResource("6_8207x")
+expand_icon = true
+script = ExtResource("7_c2nrv")
+
+[node name="annotations_toggle_button" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.718
+anchor_top = 0.039
+anchor_right = 0.761
+anchor_bottom = 0.116
+offset_left = -0.136169
+offset_top = -0.272001
+offset_right = 0.327942
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "Toggle annotations on/off"
+shortcut = SubResource("Shortcut_oup0k")
+icon = ExtResource("8_e62ry")
+expand_icon = true
+script = ExtResource("9_jolgt")
+
+[node name="customize_lighting_button" type="Button" parent="." node_paths=PackedStringArray("connected_controller", "turntable_button")]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.783
+anchor_top = 0.154
+anchor_right = 0.913
+anchor_bottom = 0.231
+offset_left = -0.0161133
+offset_top = 0.207993
+offset_right = 0.223999
+offset_bottom = 0.311996
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(75, 25)
+text = "Customize Lights"
+script = ExtResource("10_i4r8o")
+connected_controller = NodePath("../../environment_controller")
+turntable_button = NodePath("../turntable_button")
+
+[node name="screenshot_button" type="Button" parent="." node_paths=PackedStringArray("environment_controller")]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.653
+anchor_top = 0.039
+anchor_right = 0.696
+anchor_bottom = 0.116
+offset_left = -0.256042
+offset_top = -0.272001
+offset_right = 0.208069
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(25, 25)
+tooltip_text = "Toggle annotations on/off"
+icon = ExtResource("11_jvvrc")
+expand_icon = true
+script = ExtResource("12_rsf0s")
+ui_root = NodePath("..")
+environment_controller = NodePath("../../environment_controller")
+
+[node name="light_widget_color_picker" type="ColorPicker" parent="." node_paths=PackedStringArray("environment_controller")]
+visible = false
+custom_minimum_size = Vector2(290, 264)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021
+anchor_top = 0.656
+anchor_right = 0.211
+anchor_bottom = 0.963
+offset_left = 4683.81
+offset_top = 1831.91
+offset_right = 2862.74
+offset_bottom = 1898.89
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.75, 0.75)
+picker_shape = 2
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+sliders_visible = false
+hex_visible = false
+presets_visible = false
+script = ExtResource("13_6phuo")
+environment_controller = NodePath("../../environment_controller")
+
+[node name="select_environment_button" type="OptionButton" parent="." node_paths=PackedStringArray("turntable_button")]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.783
+anchor_top = 0.039
+anchor_right = 0.913
+anchor_bottom = 0.116
+offset_left = -0.0160522
+offset_top = -0.272001
+offset_right = 0.223999
+offset_bottom = -0.167999
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_tsggc")
+turntable_button = NodePath("../turntable_button")
+
+[node name="turntable_button" type="Button" parent="." node_paths=PackedStringArray("_scene_camera_rig", "_artifacts_controller", "_customize_lighting_button")]
+layout_mode = 0
+offset_left = 476.0
+offset_top = 25.0
+offset_right = 676.0
+offset_bottom = 75.0
+pivot_offset = Vector2(100, 25)
+text = "Rotate Object: OFF"
+script = ExtResource("15_mx5uv")
+_return_to_default_orientation = false
+_scene_camera_rig = NodePath("../../Camera")
+_artifacts_controller = NodePath("../../artifacts_controller")
+_customize_lighting_button = NodePath("../customize_lighting_button")
+
+[connection signal="color_changed" from="light_widget_color_picker" to="light_widget_color_picker" method="_on_color_changed"]
+[connection signal="item_selected" from="select_environment_button" to="select_environment_button" method="_on_item_selected"]

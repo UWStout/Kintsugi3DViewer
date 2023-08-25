@@ -10,10 +10,15 @@ config_version=5
 
 [application]
 
-config/name="Cultural Heritage 3D Viewer"
+config/name="Kintsugi 3D Viewer"
 run/main_scene="res://scenes/viewer_scene.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="Kintsugi 3D Viewer"
 config/features=PackedStringArray("4.0", "GL Compatibility")
-config/icon="res://icon.svg"
+boot_splash/show_image=false
+config/icon="res://assets/Logo SVGs/Logo V1/LogoV1_Transparent.svg"
+config/macos_native_icon="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.icns"
+config/windows_native_icon="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.ico"
 
 [autoload]
 
@@ -22,6 +27,11 @@ CacheManager="*res://scripts/resources/cache_manager.gd"
 GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
 JsonReader="*res://scripts/JsonReader.gd"
+UrlReader="*res://scripts/url_reader.gd"
+
+[display]
+
+window/stretch/aspect="expand"
 
 [editor_plugins]
 

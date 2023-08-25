@@ -1,3 +1,11 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 class_name ExpandingPanel extends Panel
 
 enum DIRECTION {VERTICAL, HORIZONTAL}
@@ -31,12 +39,21 @@ func expand():
 		x += animation_speed
 		await get_tree().create_timer(0.01).timeout
 		var panel_size = lerpf(minimized_size, maximized_size, animation_curve.sample(x))
-		custom_minimum_size = _get_direction_vector() * panel_size
+		
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = panel_size
+		else:
+			custom_minimum_size.y = panel_size
+		#custom_minimum_size = _get_direction_vector() * panel_size
 	
 	if _expanding:
 		_expanding = false
 		is_expanded = true
-		custom_minimum_size = _get_direction_vector() * maximized_size
+		#custom_minimum_size = _get_direction_vector() * maximized_size
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = maximized_size
+		else:
+			custom_minimum_size.y = maximized_size
 
 func shrink():
 	if not is_expanded or _shrinking:
@@ -50,12 +67,21 @@ func shrink():
 		x += animation_speed
 		await get_tree().create_timer(0.01).timeout
 		var panel_size = lerpf(maximized_size, minimized_size, animation_curve.sample(x))
-		custom_minimum_size = _get_direction_vector() * panel_size
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = panel_size
+		else:
+			custom_minimum_size.y = panel_size
+		#custom_minimum_size = _get_direction_vector() * panel_size
 	
 	if _shrinking:
 		_shrinking = false
 		is_expanded = false
-		custom_minimum_size = _get_direction_vector() * minimized_size
+		#custom_minimum_size = _get_direction_vector() * minimized_size
+		if expand_direction == DIRECTION.HORIZONTAL:
+			custom_minimum_size.x = minimized_size
+		else:
+			custom_minimum_size.y = minimized_size
 
 func is_animating():
 	return _expanding or _shrinking
+

@@ -1,7 +1,15 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 extends ResourceFetcher
 
 #TODO: Temporary; idealy this should be fetched at runtime from some sort of user preferences object
-var server_root: String = "https://chviewer.jbuelow.com/" # Test server
+#var server_root: String = "https://chviewer.jbuelow.com/" # Test server
 var index_filepath = "index.json"
 
 var raw_data_cache: Variant
@@ -11,6 +19,9 @@ var artifacts_cache: Array[ArtifactData]
 @onready var artifacts_cache_time: int = cache_timeout_ms * -1
 
 var cache_timeout_ms: int = 120000
+
+func get_server_root() -> String:
+	return Preferences.read_pref("ip")
 
 func fetch_artifacts() -> Array[ArtifactData]:
 	if artifacts_cache != null:
@@ -97,7 +108,7 @@ func force_fetch_voyager(uri: String) -> Dictionary:
 
 
 func _format_relative_url(url: String) -> String:
-	return server_root + url.simplify_path()
+	return get_server_root() + url.simplify_path()
 
 
 func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> Array:
@@ -136,7 +147,11 @@ func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> 
 
 func _fetch_url_raw(url: String, request_headers := PackedStringArray()) -> PackedByteArray:
 	var response = await _fetch_url_fullraw(url, request_headers)
-	return response[3]
+	
+	if response.size() >= 4:
+		return response[3]
+	
+	return PackedByteArray()
 
 
 # Fetches a url and attempts to parse JSON data from it.

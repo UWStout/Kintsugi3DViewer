@@ -1,0 +1,357 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmio3hqlb4in5"]
+
+[ext_resource type="PackedScene" uid="uid://dymjas1hlbkrs" path="res://assets/Environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb" id="3_35vub"]
+[ext_resource type="PackedScene" uid="uid://mlwyw6qnrdut" path="res://assets/Environments/Floor/Environment_WoodenFloor_DarkBrown.glb" id="3_k7j0g"]
+[ext_resource type="PackedScene" uid="uid://b57g2n3t8snnx" path="res://assets/Environments/Walls/Environment_TileWall_Tan.glb" id="4_51ipu"]
+[ext_resource type="PackedScene" uid="uid://bucbvke7el4el" path="res://assets/Environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain.glb" id="4_jvnve"]
+
+[node name="TanTileRoom" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.30461, 0)
+
+[node name="Object_Pedestal_TanModern2" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(2.96052, 0, 0, 0, 1.37625, 0, 0, 0, 3.29373, 0.458676, 8.19244, -15.0574)
+
+[node name="Object_Pedestal_TanModern3" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(1.23308, 0, 0, 0, 1.37625, 0, 0, 0, 1.26713, 19.4051, 7.5509, -26.2817)
+
+[node name="Object_Pedestal_TanModern4" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(1.23308, 0, 0, 0, 1.37625, 0, 0, 0, 1.26713, 20.1113, 7.5509, 14.2507)
+
+[node name="Object_Pedestal_TanModern5" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(1.23308, 0, 0, 0, 1.37625, 0, 0, 0, 1.26713, -21.4971, 7.5509, -26.2817)
+
+[node name="Object_Pedestal_TanModern6" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(1.23308, 0, 0, 0, 1.37625, 0, 0, 0, 1.26713, -20.7909, 7.5509, 14.2507)
+
+[node name="Object_Pedestal_TanModern49" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-37.5241, 0, -0.0344233, 0, 0.329481, 0, 0.16242, 0, -7.95283, 1.85019, 30.0396, 6.86332)
+
+[node name="Object_Pedestal_TanModern53" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-37.5241, 0, -0.0344233, 0, 0.329481, 0, 0.16242, 0, -7.95283, 1.85019, 62.752, 6.86332)
+
+[node name="Object_Pedestal_TanModern60" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-37.4095, 0, -0.00328162, 0, 0.329481, 0, 0.161924, 0, -0.758155, 2.2585, 39.7473, -20.009)
+
+[node name="Object_Pedestal_TanModern61" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-7.64579, 0, -0.00698605, 0, 0.329481, 0, 0.0330942, 0, -1.61399, -16.232, 6.74633, -17.2092)
+
+[node name="Object_Pedestal_TanModern62" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-7.64579, 0, -0.00698605, 0, 0.329481, 0, 0.0330942, 0, -1.61399, 17.7683, 6.74632, -17.196)
+
+[node name="Object_Pedestal_TanModern63" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-27.5656, 0, -0.00722353, 0, 0.336998, 0, 0.119315, 0, -1.66885, 1.50471, 6.74632, -31.0115)
+
+[node name="Object_Pedestal_TanModern13" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-0.000173704, -12.6603, 0.000149002, 0, -0.00839636, -0.22467, 0.382815, -0.00574466, 6.76105e-08, 4.53123, 5.33662, -23.813)
+
+[node name="Environment_TileWall_Tan2" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -15.2972, 16.2499, -5.93725)
+
+[node name="Environment_TileWall_Tan6" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 1.24687, 16.2499, -19.7193)
+
+[node name="Environment_TileWall_Tan11" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 15.0373, 16.2499, -19.7193)
+
+[node name="Environment_TileWall_Tan10" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -12.7727, 16.2499, -19.7193)
+
+[node name="Environment_TileWall_Tan12" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 1.24687, 48.9758, -19.7193)
+
+[node name="Environment_TileWall_Tan13" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 15.0373, 48.9758, -19.7193)
+
+[node name="Environment_TileWall_Tan14" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -12.7727, 48.9758, -19.7193)
+
+[node name="Environment_TileWall_Tan4" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -15.2972, 48.7354, -5.93725)
+
+[node name="Environment_TileWall_Tan3" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 18.5666, 16.2499, -5.93725)
+
+[node name="Environment_TileWall_Tan5" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 18.5666, 48.7354, -5.93725)
+
+[node name="Environment_TileWall_Tan7" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.854819, 0, 0, 0, 0.738729, 0, 0, 0, 1.0061, -13.6395, 34.1408, -4.77728)
+
+[node name="Environment_TileWall_Tan8" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.854819, 0, 0, 0, 0.738729, 0, 0, 0, 1.0061, 1.32686, 34.1408, -4.77728)
+
+[node name="Environment_TileWall_Tan9" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.854819, 0, 0, 0, 0.738729, 0, 0, 0, 1.0061, 17.5437, 34.1408, -4.78252)
+
+[node name="Object_Pedestal_TanModern50" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-37.5241, 0, -0.0344233, 0, 0.329481, 0, 0.16242, 0, -7.95283, 1.85019, 30.0396, 6.86332)
+
+[node name="Object_Pedestal_TanModern54" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-37.5241, 0, -0.0344233, 0, 0.329481, 0, 0.16242, 0, -7.95283, 1.85019, 62.752, 6.86332)
+
+[node name="Object_Pedestal_TanModern64" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-37.4095, 0, -0.00328162, 0, 0.329481, 0, 0.161924, 0, -0.758155, 2.2585, 39.7473, -20.009)
+
+[node name="Object_Pedestal_TanModern65" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-7.64579, 0, -0.00698605, 0, 0.329481, 0, 0.0330942, 0, -1.61399, -16.232, 6.74633, -17.2092)
+
+[node name="Object_Pedestal_TanModern66" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-7.64579, 0, -0.00698605, 0, 0.329481, 0, 0.0330942, 0, -1.61399, 17.7683, 6.74632, -17.196)
+
+[node name="Object_Pedestal_TanModern67" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-27.5656, 0, -0.00722353, 0, 0.336998, 0, 0.119315, 0, -1.66885, 1.50471, 6.74632, -31.0115)
+
+[node name="Environment_TileWall_Tan15" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -15.2972, 16.2499, -5.93725)
+
+[node name="Environment_TileWall_Tan16" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 1.24687, 16.2499, -19.7193)
+
+[node name="Environment_TileWall_Tan17" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 15.0373, 16.2499, -19.7193)
+
+[node name="Environment_TileWall_Tan70" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 26.3934, 16.2499, -19.7193)
+
+[node name="Environment_TileWall_Tan18" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -12.7727, 16.2499, -19.7193)
+
+[node name="Environment_TileWall_Tan19" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 1.24687, 48.9758, -19.7193)
+
+[node name="Environment_TileWall_Tan20" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 15.0373, 48.9758, -19.7193)
+
+[node name="Environment_TileWall_Tan21" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -12.7727, 48.9758, -19.7193)
+
+[node name="Environment_TileWall_Tan22" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, -15.2972, 48.7354, -5.93725)
+
+[node name="Environment_TileWall_Tan23" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 18.5666, 16.2499, -5.93725)
+
+[node name="Environment_TileWall_Tan24" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.724791, 0, 0, 0, 2.00785, 0, 0, 0, 1.0061, 18.5666, 48.7354, -5.93725)
+
+[node name="Environment_TileWall_Tan25" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.854819, 0, 0, 0, 0.738729, 0, 0, 0, 1.0061, -13.6395, 34.1408, -4.77728)
+
+[node name="Environment_TileWall_Tan26" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.854819, 0, 0, 0, 0.738729, 0, 0, 0, 1.0061, 1.32686, 34.1408, -4.77728)
+
+[node name="Object_Pedestal_TanModern68" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(0.0731266, 0, -1.61393, 0, 0.329481, 0, 7.64552, 0, 0.0154367, -16.2228, 6.74633, 16.7503)
+
+[node name="Object_Pedestal_TanModern69" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(0.263645, 0, -1.66879, 0, 0.336998, 0, 27.5646, 0, 0.0159614, -30.1178, 6.74632, -0.913839)
+
+[node name="Environment_TileWall_Tan28" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -4.95588, 16.2499, 15.7566)
+
+[node name="Environment_TileWall_Tan29" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.751, 16.2499, 13.3042)
+
+[node name="Environment_TileWall_Tan72" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.751, 16.2499, 29.9107)
+
+[node name="Environment_TileWall_Tan30" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.8244, 48.9758, -0.715137)
+
+[node name="Environment_TileWall_Tan31" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -4.95588, 48.7354, 15.7566)
+
+[node name="Environment_TileWall_Tan32" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -5.13319, 48.7354, -18.1068)
+
+[node name="Environment_TileWall_Tan33" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00447577, 0, 1.00608, 0, 0.738729, 0, -0.854807, 0, -0.00526785, -3.80461, 34.1408, 14.0928)
+
+[node name="Environment_TileWall_Tan34" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00447577, 0, 1.00608, 0, 0.738729, 0, -0.854807, 0, -0.00526785, -3.97313, 34.1408, -17.09)
+
+[node name="Object_Pedestal_TanModern51" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(0.358891, 0, -7.95254, 0, 0.329481, 0, 37.5227, 0, 0.0760633, 7.75473, 30.0396, -1.45763)
+
+[node name="Object_Pedestal_TanModern55" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(0.358891, 0, -7.95254, 0, 0.329481, 0, 37.5227, 0, 0.0760633, 7.75473, 62.752, -1.45763)
+
+[node name="Object_Pedestal_TanModern70" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(0.357795, 0, -0.758127, 0, 0.329481, 0, 37.4081, 0, 0.00725122, -19.1194, 39.7473, -1.72524)
+
+[node name="Object_Pedestal_TanModern71" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(0.0731266, 0, -1.61393, 0, 0.329481, 0, 7.64552, 0, 0.0154367, -16.3877, 6.74632, -17.2496)
+
+[node name="Environment_TileWall_Tan35" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.8244, 16.2499, -0.715137)
+
+[node name="Environment_TileWall_Tan36" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.8966, 16.2499, -14.5054)
+
+[node name="Environment_TileWall_Tan71" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.8966, 16.2499, -25.5572)
+
+[node name="Environment_TileWall_Tan37" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.8966, 48.9758, -14.5054)
+
+[node name="Environment_TileWall_Tan75" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.8966, 48.9758, -26.5952)
+
+[node name="Environment_TileWall_Tan38" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.751, 48.9758, 13.3042)
+
+[node name="Environment_TileWall_Tan76" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -18.751, 48.9758, 20.3576)
+
+[node name="Environment_TileWall_Tan39" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -5.13319, 16.2499, -18.1068)
+
+[node name="Environment_TileWall_Tan40" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00379496, 0, 1.00608, 0, 2.00785, 0, -0.724781, 0, -0.00526785, -5.13319, 48.7354, -18.1068)
+
+[node name="Environment_TileWall_Tan41" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.00447577, 0, 1.00608, 0, 0.738729, 0, -0.854807, 0, -0.00526785, -3.88297, 34.1408, -0.873363)
+
+[node name="Object_Pedestal_TanModern72" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(7.64534, 0, 0.0190141, 0, 0.329481, 0, -0.0900736, 0, 1.61389, 17.9516, 6.74633, 16.3521)
+
+[node name="Object_Pedestal_TanModern73" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(27.5639, 0, 0.0196605, 0, 0.336998, 0, -0.324745, 0, 1.66875, 0.318274, 6.74632, 30.2862)
+
+[node name="Environment_TileWall_Tan42" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, 16.9329, 16.2499, 5.08746)
+
+[node name="Environment_TileWall_Tan43" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, 14.5111, 16.2499, 18.888)
+
+[node name="Environment_TileWall_Tan74" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, 25.9156, 16.2499, 18.888)
+
+[node name="Environment_TileWall_Tan44" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, 0.491943, 48.9758, 18.9924)
+
+[node name="Environment_TileWall_Tan45" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, 16.9329, 48.7354, 5.08746)
+
+[node name="Environment_TileWall_Tan46" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, -16.9301, 48.7354, 5.33983)
+
+[node name="Environment_TileWall_Tan67" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, -16.9301, 16.2007, 5.33983)
+
+[node name="Environment_TileWall_Tan47" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.854795, 0, -0.00749794, 0, 0.738729, 0, 0.00637054, 0, -1.00607, 15.2665, 34.1408, 3.93987)
+
+[node name="Environment_TileWall_Tan48" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.854795, 0, -0.00749794, 0, 0.738729, 0, 0.00637054, 0, -1.00607, -15.9158, 34.1408, 4.17751)
+
+[node name="Object_Pedestal_TanModern52" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(37.5218, 0, 0.0936909, 0, 0.329481, 0, -0.442064, 0, 7.95235, -0.309461, 30.0396, -7.58496)
+
+[node name="Object_Pedestal_TanModern56" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(37.5218, 0, 0.0936909, 0, 0.329481, 0, -0.442064, 0, 7.95235, -0.309461, 62.752, -7.58496)
+
+[node name="Object_Pedestal_TanModern74" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(37.4072, 0, 0.00893168, 0, 0.329481, 0, -0.440714, 0, 0.758109, -0.5175, 39.7473, 19.2897)
+
+[node name="Object_Pedestal_TanModern75" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(7.64534, 0, 0.0190141, 0, 0.329481, 0, -0.0900736, 0, 1.61389, -16.0479, 6.74632, 16.5924)
+
+[node name="Environment_TileWall_Tan49" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, 0.491943, 16.2499, 18.9924)
+
+[node name="Environment_TileWall_Tan50" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, -13.2981, 16.2499, 19.0952)
+
+[node name="Environment_TileWall_Tan73" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, -22.9371, 16.2499, 19.0952)
+
+[node name="Environment_TileWall_Tan51" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, -13.2981, 48.9758, 19.0952)
+
+[node name="Environment_TileWall_Tan52" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.724771, 0, -0.00749794, 0, 2.00785, 0, 0.00540151, 0, -1.00607, 14.5111, 48.9758, 18.888)
+
+[node name="Environment_TileWall_Tan53" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(-0.854795, 0, -0.00749794, 0, 0.738729, 0, 0.00637054, 0, -1.00607, 0.300598, 34.1408, 4.05141)
+
+[node name="Object_Pedestal_TanModern76" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-0.178133, 0, 1.61357, 0, 0.329481, 0, -7.64379, 0, -0.0376031, 15.9029, 6.74633, -18.8591)
+
+[node name="Object_Pedestal_TanModern77" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-0.642228, 0, 1.66842, 0, 0.336998, 0, -27.5583, 0, -0.0388813, 30.0392, 6.74632, -1.3874)
+
+[node name="Environment_TileWall_Tan54" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 4.65074, 16.2499, -17.7106)
+
+[node name="Environment_TileWall_Tan55" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 18.4782, 16.2499, -15.448)
+
+[node name="Environment_TileWall_Tan69" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 18.4782, 16.2499, -24.2063)
+
+[node name="Environment_TileWall_Tan56" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 18.7442, 48.9758, -1.43097)
+
+[node name="Environment_TileWall_Tan57" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 4.65074, 48.7354, -17.7106)
+
+[node name="Environment_TileWall_Tan58" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 5.29316, 48.7354, 16.9434)
+
+[node name="Environment_TileWall_Tan66" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 5.29316, 16.4085, 16.9434)
+
+[node name="Environment_TileWall_Tan59" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0162164, 0, -1.00592, 0, 0.738729, 0, 0.854665, 0, 0.0190862, 3.52243, 34.1408, -16.0312)
+
+[node name="Environment_TileWall_Tan60" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0162164, 0, -1.00592, 0, 0.738729, 0, 0.854665, 0, 0.0190862, 4.11923, 34.1408, 15.1463)
+
+[node name="Object_Pedestal_TanModern57" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-0.874244, 0, 7.95075, 0, 0.329481, 0, -37.5143, 0, -0.185287, -7.82223, 30.0396, -0.323477)
+
+[node name="Object_Pedestal_TanModern58" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-0.874244, 0, 7.95075, 0, 0.329481, 0, -37.5143, 0, -0.185287, -7.82223, 62.752, -0.323477)
+
+[node name="Object_Pedestal_TanModern78" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-0.871573, 0, 0.757956, 0, 0.329481, 0, -37.3997, 0, -0.0176636, 19.053, 39.7473, -0.425016)
+
+[node name="Object_Pedestal_TanModern79" parent="." instance=ExtResource("3_35vub")]
+transform = Transform3D(-0.178133, 0, 1.61357, 0, 0.329481, 0, -7.64379, 0, -0.0376031, 16.5348, 6.74632, 15.1354)
+
+[node name="Environment_TileWall_Tan61" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 18.7442, 16.2499, -1.43097)
+
+[node name="Environment_TileWall_Tan62" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 19.0058, 16.2499, 12.357)
+
+[node name="Environment_TileWall_Tan68" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 19.0058, 16.2499, 26.3887)
+
+[node name="Environment_TileWall_Tan63" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 19.0058, 48.9758, 12.357)
+
+[node name="Environment_TileWall_Tan64" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0137497, 0, -1.00592, 0, 2.00785, 0, 0.724661, 0, 0.0190862, 18.4782, 48.9758, -15.448)
+
+[node name="Environment_TileWall_Tan65" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.0162164, 0, -1.00592, 0, 0.738729, 0, 0.854665, 0, 0.0190862, 3.80635, 34.1408, -1.06753)
+
+[node name="Environment_TileWall_Tan27" parent="." instance=ExtResource("4_51ipu")]
+transform = Transform3D(0.854819, 0, 0, 0, 0.738729, 0, 0, 0, 1.0061, 17.5437, 34.1408, -4.78252)
+
+[node name="Environment_WoodenFloor_DarkBrown" parent="." instance=ExtResource("3_k7j0g")]
+transform = Transform3D(2.40233, 0, 0, 0, 1, 0, 0, 0, 2.76939, -2.54653, 7.64169, -6.05354)
+
+[node name="Object_Bench_DarkBrownWoodPlain" parent="." instance=ExtResource("4_jvnve")]
+transform = Transform3D(1.50793, 0, 0, 0, 1.39717, 0, 0, 0, 1.47698, 4.2707, 7.86443, -18.3113)
+
+[node name="Object_Bench_DarkBrownWoodPlain2" parent="." instance=ExtResource("4_jvnve")]
+transform = Transform3D(1.50793, 0, 0, 0, 1.39717, 0, 0, 0, 1.47698, 4.2707, 7.86443, 10.9035)
+
+[node name="Object_Bench_DarkBrownWoodPlain3" parent="." instance=ExtResource("4_jvnve")]
+transform = Transform3D(1.50793, 0, 0, 0, 1.39717, 0, 0, 0, 1.47698, -36.0633, 7.86443, -17.2866)
+
+[node name="Object_Bench_DarkBrownWoodPlain4" parent="." instance=ExtResource("4_jvnve")]
+transform = Transform3D(1.50793, 0, 0, 0, 1.39717, 0, 0, 0, 1.47698, -35.4775, 7.86443, 10.901)

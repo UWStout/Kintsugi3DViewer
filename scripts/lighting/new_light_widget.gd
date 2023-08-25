@@ -1,3 +1,11 @@
+# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 @tool
 extends Node3D
 
@@ -58,14 +66,14 @@ var selected_initial_position_screen : Vector2 = Vector2(-1, -1)
 func select_widget(clicked_object : Object, clicked_position : Vector3):
 	controller.select_light(self)
 	
+	update_direction_track()
+	update_horizontal_track()
+	update_vertical_track()
+	
 	select_widget_part(clicked_object)
 	
 	was_grabbed = true
 	is_dragging = true
-	
-	update_direction_track()
-	update_horizontal_track()
-	update_vertical_track()
 	
 	controller.scene_camera.rig_enabled = false
 	
@@ -99,6 +107,7 @@ func select_widget_part(selected_object : Object):
 		selected_widget_part = 1
 		selected_widget_part_initial_position_world = distance_axis.global_position
 		
+		distance_axis.visible = true
 		distance_track.visible = true
 		horizontal_axis.visible = false
 		vertical_axis.visible = false
@@ -106,6 +115,7 @@ func select_widget_part(selected_object : Object):
 		selected_widget_part = 2
 		selected_widget_part_initial_position_world = horizontal_axis.global_position
 		
+		horizontal_axis.visible = true
 		horizontal_track.visible = true
 		distance_axis.visible = false
 		vertical_axis.visible = false
@@ -113,6 +123,7 @@ func select_widget_part(selected_object : Object):
 		selected_widget_part = 3
 		selected_widget_part_initial_position_world = vertical_axis.global_position
 		
+		vertical_axis.visible = true
 		vertical_track.visible = true
 		distance_axis.visible = false
 		horizontal_axis.visible = false
@@ -155,11 +166,9 @@ func _input(event):
 			selected_initial_position_screen = event.position
 			
 			selected_widget_part_initial_position_world = get_selected_widget_part().global_position
-			
 			controller.scene_camera.rig_enabled = false
 		else:
 			is_dragging = false
-			
 			target_point_mesh.visible = true
 			distance_axis.visible = true
 			horizontal_axis.visible = true
@@ -188,6 +197,7 @@ func _input(event):
 			handle_vertical_axis(event.position)
 
 func handle_target_point(event_pos : Vector2):
+	
 	# The vector pointing from the initial selected position to the mouse cursor
 	var delta_vec = event_pos - selected_initial_position_screen
 	
@@ -368,16 +378,19 @@ func update_vertical_track():
 func change_color(new_color : Color):
 	$target_point/light.light_color = new_color
 	
-	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 0.75)
+	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 1)
+	
+	adjusted_color.v = max(adjusted_color.v, 0.5)
 	
 	var new_material = StandardMaterial3D.new()
 	new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	new_material.albedo_color = adjusted_color
 	new_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	
-	var target_mat = new_material.duplicate()
+	var target_mat = new_material.duplicate() as BaseMaterial3D
 	target_mat.no_depth_test = true
-	target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_MULTIPLY
+	#target_mat.emission_enabled = false
+	#target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_ADD
 	
 	$target_point/mesh.material = target_mat
 	
@@ -457,3 +470,15 @@ func init_widget():
 	_set_horizontal_angle_UTIL(horizontal_angle)
 	_set_vertical_angle_UTIL(vertical_angle)
 	_set_color_UTIL(color)
+
+func get_color_strength():
+	return light.light_energy / 10.0
+
+func get_light_angle():
+	return light.spot_angle
+
+func set_color_strength(new_strength : float):
+	light.light_energy = new_strength * 10.0
+
+func set_light_angle(new_angle : float):
+	light.spot_angle = new_angle
