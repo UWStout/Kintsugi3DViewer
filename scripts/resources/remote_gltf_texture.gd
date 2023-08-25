@@ -111,8 +111,9 @@ func _load_image(image: Dictionary, callback: Callable = _load_shader_image):
 		ImageSource.BASE64:
 			callback.call(_decode_b64_image(image["uri"]))
 		ImageSource.BUFFER:
-			var image_data = _decode_buffer_image(_material._gltf.state.json["bufferViews"][image["bufferView"]], image)
-			callback.call(image_data)
+			#var image_data = _decode_buffer_image(_material._gltf.state.json["bufferViews"][image["bufferView"]], image)
+			#callback.call(image_data)
+			pass
 		_:
 			push_error("Image could not be decoded: No uri or bufferView!\n%s" % image)
 

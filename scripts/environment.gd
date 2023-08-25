@@ -53,3 +53,5 @@ func get_dynamic_lighting():
 		return null
 		
 	return get_lighting().find_child("dynamics")
+	
+
