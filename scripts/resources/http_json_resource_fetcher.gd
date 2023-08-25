@@ -91,6 +91,9 @@ func force_fetch_csv(uri: String) -> Array:
 
 func force_fetch_json(uri: String) -> Dictionary:
 	return await _fetch_url_json(_format_relative_url(uri))
+	
+func force_fetch_voyager(uri: String) -> Dictionary:
+	return await force_fetch_json(uri)
 
 
 func _format_relative_url(url: String) -> String:

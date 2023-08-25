@@ -1,4 +1,4 @@
-﻿extends Node3D
+extends Node3D
 class_name RemoteVoyagerStory
 
 signal load_completed
@@ -24,4 +24,10 @@ func _ready():
 func load_scene():
 	# TODO: Implement loading voyager story artifact
 	var voyager_data = await fetcher.fetch_voyager(artifact.voyagerUri)
+	print(voyager_data.keys())
+	var voyagergltfdata = ArtifactData.new()
+	voyagergltfdata.gltfUri = artifact.gltfUri.get_base_dir() +"/"+ voyager_data["models"][0]["derivatives"][0]["assets"][0]["uri"]
+	var model = RemoteGltfModel.create(voyagergltfdata)
+	add_child(model)
+	model.load_artifact()
 	pass

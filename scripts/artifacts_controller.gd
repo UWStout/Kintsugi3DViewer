@@ -40,6 +40,9 @@ func refresh_artifacts() -> Array[ArtifactData]:
 func display_artifact(index : int):
 	if index < artifacts.size():
 		display_artifact_data(artifacts[index])
+	
+	if(index == 0):
+		change_scale()
 	pass
 
 
@@ -119,3 +122,10 @@ func _look_for_mesh(node : Node3D):
 		return null
 	else:
 		return results.pop_front()
+
+
+func change_scale():
+	
+	print("HELLO THERE")
+	self.get_child(0, false).get_child(0, false).scale = get_node("/root/JsonReader").get_model_scale()
+	

@@ -109,9 +109,19 @@ func select_light(light : NewLightWidget):
 func get_active_artifact_root() -> Node3D:
 	if selected_index < 0 or selected_index >= loaded_scenes.size():
 		return null
+	if selected_index == 0:
+		set_environment_lights()
+		
 	return loaded_scenes[selected_index].get_artifact_root()
 	pass
 
 func force_hide_lights():
 	select_light(null)
 	hide_scene_lighting(selected_index)
+	
+func set_environment_lights():
+	print("Hello There Again")
+	self.get_node("demo_environment").get_dynamic_lighting().get_child(0).change_color(get_node("/root/JsonReader").get_light_color(1))
+	self.get_node("demo_environment").get_dynamic_lighting().get_child(1).change_color(get_node("/root/JsonReader").get_light_color(2))
+	self.get_node("demo_environment").get_static_lighting().get_child(0).set_color(get_node("/root/JsonReader").get_light_color(2))
+
