@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=99 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
@@ -68,6 +68,7 @@
 [ext_resource type="Texture2D" uid="uid://dx7avrcprh331" path="res://assets/UI 2D/Icons/Side Dock/Environment Selection/EnvironmentSelection_White_V1.svg" id="60_d70fm"]
 [ext_resource type="Texture2D" uid="uid://dr8j5m6vi4ldi" path="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.svg" id="61_ywghh"]
 [ext_resource type="Texture2D" uid="uid://dp7md5bqtxlvy" path="res://assets/UI 2D/Icons/Expanded Light Customization/Add Light/AddLight_White_V2.svg" id="67_63m5u"]
+[ext_resource type="PackedScene" uid="uid://bxukdqyc2f3j2" path="res://artifacts/guan-yu-test-voyager/model.glb" id="70_wftgc"]
 [ext_resource type="Texture2D" uid="uid://cito2sce6dag" path="res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_Out_White_V2.svg" id="71_muvog"]
 
 [sub_resource type="Sky" id="Sky_vfwqk"]
@@ -1890,6 +1891,10 @@ size = Vector2i(1152, 648)
 access = 2
 show_hidden_files = true
 script = ExtResource("29_4k4a7")
+
+[node name="guan_model" parent="." instance=ExtResource("70_wftgc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0971553, 2.46434, 0.0374031)
+visible = false
 
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection" method="_on_searchbar_text_changed"]

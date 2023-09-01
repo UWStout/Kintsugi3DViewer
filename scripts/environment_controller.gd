@@ -18,6 +18,8 @@ var loaded_scenes : Array[DisplayEnvironment]
 @export var light_selection_ui : LightSelectionUI
 @export var environment_selection_ui : EnvironmentSelectionUI
 
+#OLD CODE @export var artifact_controller : ArtifactsController
+
 
 var selected_index : int = -1
 var selected_light : NewLightWidget
@@ -123,8 +125,8 @@ func select_light(light : NewLightWidget):
 func get_active_artifact_root() -> Node3D:
 	if selected_index < 0 or selected_index >= loaded_scenes.size():
 		return null
-	if selected_index == 0:
-		set_environment_lights()
+	#if selected_index == 0: #OLD CODE
+		#set_environment_lights()
 		
 	return loaded_scenes[selected_index].get_artifact_root()
 	pass
@@ -134,11 +136,10 @@ func force_hide_lights():
 	hide_scene_lighting(selected_index)
 	
 func set_environment_lights():
-	print("Hello There Again")
+	#print("Hello There Again")
 	self.get_node("demo_environment").get_dynamic_lighting().get_child(0).change_color(get_node("/root/JsonReader").get_light_color(1))
 	self.get_node("demo_environment").get_dynamic_lighting().get_child(1).change_color(get_node("/root/JsonReader").get_light_color(2))
-	self.get_node("demo_environment").get_static_lighting().get_child(0).set_color(get_node("/root/JsonReader").get_light_color(2))
-
+	self.get_node("demo_environment").get_dynamic_lighting().get_child(2).change_color(get_node("/root/JsonReader").get_light_color(3))
 
 func show_light(light_index : int):
 	var lights = loaded_scenes[selected_index].get_dynamic_lighting().get_children()

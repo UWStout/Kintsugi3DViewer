@@ -24,6 +24,9 @@ var artifacts: Array[ArtifactData]
 
 var loaded_artifact: GltfModel
 
+# TESTING MODEL
+var example_guan: Node3D
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if not is_instance_valid(_fetcher):
@@ -47,6 +50,9 @@ func _ready():
 		#$"../new_ui_root/CenterContainer/Label".text += "\n" + arg
 	
 	#_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu\\model.glb")
+	
+	# TESTING MODEL
+	example_guan = get_parent().get_node("guan_model")
 
 func refresh_artifacts() -> Array[ArtifactData]:
 	if(Preferences.read_pref("offline mode")):
@@ -64,8 +70,8 @@ func display_artifact(index : int):
 	if index < artifacts.size():
 		display_artifact_data(artifacts[index])
 	
-	if(index == 0):
-		change_scale()
+	#if(index == 9):
+		#change_scale()
 	pass
 
 
@@ -99,6 +105,17 @@ func display_artifact_data(artifact: ArtifactData):
 	else:
 		if is_instance_valid(_loader):
 			_loader.end_loading()
+			
+	# Code for loading from Voyager JSON
+	if current_index == 9:
+		#print(example_guan)
+		example_guan.visible = true
+		example_guan.scale = get_node("/root/JsonReader").get_model_scale()
+		change_scale()
+		_environment_controller.set_environment_lights()
+	else:
+		example_guan.visible = false
+
 
 func display_remote_artifact_data(artifact : ArtifactData):
 	pass
@@ -182,8 +199,7 @@ func _look_for_mesh(node : Node3D):
 
 
 func change_scale():
-	
-	print("HELLO THERE")
+	#print("HELLO THERE")
 	self.get_child(0, false).get_child(0, false).scale = get_node("/root/JsonReader").get_model_scale()
 	
 func _open_artifact_through_file(gltf_file_path : String):
