@@ -6,14 +6,21 @@ var light_color2
 var light_color3
 var annotation_title
 var annotation_text
+var artifact_list
+var voyager_json_uri
+var voyager_json
+
 
 # File path used to find specific JSON file to read from
 var data_file_path = "res://artifacts/guan-yu-test-voyager/scene.svx.json"
 
+@onready var data_file_path2 = get_node("/root/GlobalFetcher/HTTP Fetcher")
+
 
 func _ready():
 	# Loads dictionary object so that it could be accessed
-	sceneData = load_json_file(data_file_path)
+	#sceneData = load_json_file(data_file_path)
+	sceneData = await get_server_json()
 	
 	# Assigns colors from each light in Voyager Story scene to new light
 	light_color1 = Color(sceneData["lights"][0]["color"][0], sceneData["lights"][0]["color"][1], sceneData["lights"][0]["color"][2], 1)
@@ -21,16 +28,23 @@ func _ready():
 	light_color3 = Color(sceneData["lights"][2]["color"][0], sceneData["lights"][2]["color"][1], sceneData["lights"][2]["color"][2], 1)
 
 	# Assigns annotation title and text in Voyager Story scene to new text objects
-	annotation_title = Label.new()
-	annotation_text = Label.new()
+	#annotation_title = Label.new()
+	#annotation_text = Label.new()
 	
-	annotation_title.text = sceneData["models"][0]["annotations"][0]["titles"]["EN"]
-	annotation_text.text = sceneData["models"][0]["annotations"][0]["leads"]["EN"]
+	#annotation_title.text = sceneData["models"][0]["annotations"][0]["titles"]["EN"]
+	#annotation_text.text = sceneData["models"][0]["annotations"][0]["leads"]["EN"]
 	
 	# Test to make sure items were properly grabbed
-	print(annotation_text.text)
-	print(annotation_title.text)
+	#print(annotation_text.text)
+	#print(annotation_title.text)
 	
+func get_server_json() -> Dictionary:
+	artifact_list = await data_file_path2.force_fetch_artifacts()
+	voyager_json_uri = artifact_list[9].voyagerUri
+	voyager_json = await data_file_path2.force_fetch_json(voyager_json_uri)
+	return voyager_json
+	#return data_file_path2.artifacts_cache
+
 
 func get_light_color(light : int):
 	if light == 1:
