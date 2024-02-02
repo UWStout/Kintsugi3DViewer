@@ -271,6 +271,8 @@ func import_artifact_data(dir_name : String):
 	return data
 
 func export_artifact_data(dir_name : String, data : ArtifactData):
+	
+	open_dir(dir_name) # directory might not exist yet
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
 	
 	if UrlReader.parameters.has("locked") and UrlReader["locked"]:
