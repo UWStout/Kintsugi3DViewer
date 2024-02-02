@@ -227,6 +227,9 @@ func get_snapped_world_position(event_pos : Vector2):
 	var ray_query = PhysicsRayQueryParameters3D.create(mouse_pos_world, ray_end, 1)
 	var ray_result = space_state.intersect_ray(ray_query)
 	
+	# TODO: for this to actually work, we need to replace collider based picking
+	# with depth buffer picking (according to ChatGPT, requires a 2nd viewport and custom shader)
+	
 	if(ray_result):
 		return ray_result["position"]
 	else:
