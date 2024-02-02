@@ -377,26 +377,32 @@ func update_vertical_track():
 
 func change_color(new_color : Color):
 	$target_point/light.light_color = new_color
-	
-	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 1)
-	
-	adjusted_color.v = max(adjusted_color.v, 0.5)
-	
-	var new_material = StandardMaterial3D.new()
-	new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	new_material.albedo_color = adjusted_color
-	new_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	
-	var target_mat = new_material.duplicate() as BaseMaterial3D
-	target_mat.no_depth_test = true
-	#target_mat.emission_enabled = false
-	#target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_ADD
-	
-	$target_point/mesh.material = target_mat
-	
-	$target_point/distance/mesh.set_surface_override_material(0, new_material)
-	$target_point/horizontal/mesh.set_surface_override_material(0, new_material)
-	$target_point/vertical/mesh.set_surface_override_material(0, new_material)
+	#
+	#var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 1)
+	#
+	#adjusted_color.v = max(adjusted_color.v, 0.5)
+	#
+	#var new_material = StandardMaterial3D.new()
+	#new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	#new_material.albedo_color = adjusted_color
+	#new_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	#
+	#var target_mat = new_material.duplicate() as BaseMaterial3D
+	#target_mat.no_depth_test = true
+	##target_mat.emission_enabled = false
+	##target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_ADD
+	#
+	#$target_point/mesh.material = target_mat
+	#
+	#var distance = $target_point/distance/mesh
+	#var horizontal = $target_point/horizontal/mesh
+	#var vertical = $target_point/horizontal/mesh
+	#if distance != null:
+		#distance.set_surface_override_material(0, new_material)
+	#if horizontal != null:
+		#horizontal.set_surface_override_material(0, new_material)
+	#if vertical != null:
+		#vertical.set_surface_override_material(0, new_material)
 
 func hide_widget():
 	target_point_mesh.visible = false
