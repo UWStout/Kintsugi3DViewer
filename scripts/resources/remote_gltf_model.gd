@@ -102,8 +102,8 @@ func _load_gltf() -> GLTFObject:
 	elif not Preferences.read_pref("offline mode"):
 		var gltf_obj = await fetcher.fetch_gltf(artifact)
 		
-		CacheManager.export_gltf(dir_name, file_name, gltf_obj.document, gltf_obj.state.duplicate())
 		CacheManager.export_artifact_data(dir_name, artifact)
+		Thread.new().start(CacheManager.export_gltf.bind(dir_name, file_name, gltf_obj.document, gltf_obj.state.duplicate()))
 		
 		return gltf_obj
 	
