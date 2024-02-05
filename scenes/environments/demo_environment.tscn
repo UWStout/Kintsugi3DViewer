@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8tb8din2btal"]
+[gd_scene load_steps=6 format=3 uid="uid://c8tb8din2btal"]
 
 [ext_resource type="Script" path="res://scripts/environment.gd" id="1_jk51f"]
+[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="2_dt1q0"]
 [ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="2_r13xv"]
+[ext_resource type="Script" path="res://scenes/environments/responsive_lighting_root.gd" id="3_yixsw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qx4w"]
 albedo_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
 
 [node name="demo_environment" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00547707, 0)
 script = ExtResource("1_jk51f")
 environment_name = "Demo Environment"
 
@@ -20,14 +23,18 @@ material = SubResource("StandardMaterial3D_2qx4w")
 [node name="podium" type="CSGCylinder3D" parent="world_geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 use_collision = true
+radius = 0.75
 height = 1.0
-sides = 16
+sides = 64
 material = SubResource("StandardMaterial3D_2qx4w")
+script = ExtResource("2_dt1q0")
 
 [node name="artifact_root" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="lighting" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("3_yixsw")
 
 [node name="statics" type="Node3D" parent="lighting"]
 visible = false
@@ -42,18 +49,18 @@ light_energy = 0.25
 [node name="dynamics" type="Node3D" parent="lighting"]
 
 [node name="widget_one" parent="lighting/dynamics" instance=ExtResource("2_r13xv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-distance = 5.0
+distance = 1.0
 vertical_angle = -30.0
 
 [node name="widget_two" parent="lighting/dynamics" instance=ExtResource("2_r13xv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-distance = 5.0
+distance = 1.0
 horizontal_angle = 120.0
 vertical_angle = -30.0
 
 [node name="widget_three" parent="lighting/dynamics" instance=ExtResource("2_r13xv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-distance = 5.0
+distance = 1.0
 horizontal_angle = 240.0
 vertical_angle = -30.0
+
+[connection signal="artifact_bounds_changed" from="." to="world_geometry/podium" method="_on_artifact_bounds_changed"]
+[connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]
