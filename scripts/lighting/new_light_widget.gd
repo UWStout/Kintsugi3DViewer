@@ -213,7 +213,8 @@ func handle_target_point(event_pos : Vector2):
 	
 	var world_offset = ((controller.scene_camera.camera.global_transform.basis.x * delta_vec.x) + (controller.scene_camera.camera.global_transform.basis.y * -delta_vec.y)) / scale_factor
 	
-	var snapped_world_pos = get_snapped_world_position(event_pos)
+	# commented out since snapping is broken
+	var snapped_world_pos = null;  # get_snapped_world_position(event_pos)
 	
 	if snapped_world_pos != null:
 		target_point.global_position = snapped_world_pos
