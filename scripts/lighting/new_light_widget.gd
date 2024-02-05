@@ -11,7 +11,7 @@ extends Node3D
 
 class_name NewLightWidget
 
-@export_range(0, 10) var distance : float = 3 : set = _set_distance_UTIL
+@export_range(0, 10) var distance : float = 2 : set = _set_distance_UTIL
 @export_range(0, 360) var horizontal_angle : float = 0 : set = _set_horizontal_angle_UTIL
 @export_range(-90, 90) var vertical_angle : float = 0 : set = _set_vertical_angle_UTIL
 @export var color : Color = Color(1,1,1,1) : set = _set_color_UTIL
@@ -38,6 +38,9 @@ var was_grabbed : bool = false
 @onready var vertical_track = $target_point/vertical/track
 
 @onready var light = $target_point/light
+
+signal environment_scale_changed(range : float, old_scale : float)
+var _environment_scale : float = 1
 
 var max_distance : float = 20
 
@@ -492,3 +495,9 @@ func set_color_strength(new_strength : float):
 
 func set_light_angle(new_angle : float):
 	light.spot_angle = new_angle
+
+func set_environment_scale(scale : float):
+	var old_scale = _environment_scale
+	_environment_scale = scale
+	self.distance *= scale / old_scale
+	environment_scale_changed.emit(scale, old_scale)

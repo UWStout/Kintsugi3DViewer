@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://c72ra7k2av6rs"]
+[gd_scene load_steps=15 format=3 uid="uid://c72ra7k2av6rs"]
 
 [ext_resource type="Script" path="res://scripts/lighting/new_light_widget.gd" id="1_tjvct"]
 [ext_resource type="Script" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_jqfgj"]
 [ext_resource type="ArrayMesh" uid="uid://b1g57rjtc2nhj" path="res://assets/mesh/light_widget_axis.res" id="3_2tqa1"]
+[ext_resource type="Script" path="res://scenes/lighting/responsive_light_range.gd" id="4_qcydt"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_t5ior"]
 radius = 0.15
@@ -55,9 +56,11 @@ emission_enabled = true
 emission = Color(0.129412, 0.905882, 0.227451, 1)
 
 [node name="new_light_widget" type="Node3D"]
+top_level = true
 script = ExtResource("1_tjvct")
 
 [node name="target_point" type="StaticBody3D" parent="." node_paths=PackedStringArray("parent_widget")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_jqfgj")
@@ -71,7 +74,7 @@ material = SubResource("StandardMaterial3D_6y0r7")
 shape = SubResource("SphereShape3D_6lhmp")
 
 [node name="distance" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_jqfgj")
@@ -93,7 +96,7 @@ mesh = SubResource("BoxMesh_8vuwc")
 material = SubResource("StandardMaterial3D_tsv0n")
 
 [node name="horizontal" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 3)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 2)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_jqfgj")
@@ -119,7 +122,7 @@ ring_sides = 64
 material = SubResource("StandardMaterial3D_8bm78")
 
 [node name="vertical" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
-transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 0, 0, 3)
+transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 0, 0, 2)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("2_jqfgj")
@@ -145,7 +148,11 @@ ring_sides = 64
 material = SubResource("StandardMaterial3D_8bm78")
 
 [node name="light" type="SpotLight3D" parent="target_point"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 light_energy = 10.0
 shadow_enabled = true
 spot_range = 25.0
+script = ExtResource("4_qcydt")
+
+[connection signal="environment_scale_changed" from="." to="target_point" method="_on_environment_scale_changed"]
+[connection signal="environment_scale_changed" from="." to="target_point/light" method="_on_environment_scale_changed"]

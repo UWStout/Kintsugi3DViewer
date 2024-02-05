@@ -15,6 +15,12 @@ class_name DisplayEnvironment
 
 var light_widget_scene : PackedScene = ResourceLoader.load("res://scenes/lighting/new_light_widget.tscn")
 
+signal artifact_bounds_changed(aabb : AABB)
+
+func set_artifact_bounds(aabb : AABB):
+	# responsive objects
+	artifact_bounds_changed.emit(aabb)
+
 # Add required nodes whenever this tree is entered
 func _enter_tree():
 	
