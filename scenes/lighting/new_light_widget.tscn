@@ -149,9 +149,9 @@ material = SubResource("StandardMaterial3D_8bm78")
 
 [node name="light" type="SpotLight3D" parent="target_point"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-light_energy = 10.0
+light_energy = 3.0
 shadow_enabled = true
-spot_range = 25.0
+spot_range = 4.0
 script = ExtResource("4_qcydt")
 
 [connection signal="environment_scale_changed" from="." to="target_point" method="_on_environment_scale_changed"]
