@@ -1,11 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://nhadmfkkkpi"]
+[gd_scene load_steps=6 format=3 uid="uid://nhadmfkkkpi"]
 
-[ext_resource type="Script" path="res://scripts/environment.gd" id="1_koh4i"]
+[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_koh4i"]
+[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="2_n88l8"]
 [ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="2_wbbdy"]
+
+[sub_resource type="Sky" id="Sky_vfwqk"]
+
+[sub_resource type="Environment" id="Environment_cgq03"]
+background_mode = 1
+background_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+sky = SubResource("Sky_vfwqk")
+sky_custom_fov = 1.0
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.0
+fog_enabled = true
+fog_light_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+fog_density = 0.05
 
 [node name="test_environment" type="Node3D"]
 script = ExtResource("1_koh4i")
 environment_name = "Test Environment"
+environment_graphics = SubResource("Environment_cgq03")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cgq03")
+script = ExtResource("2_n88l8")
+
+[node name="artifact_root" type="Node3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="world_geometry" type="Node3D" parent="."]
 
@@ -16,9 +39,6 @@ size = Vector3(15, 0.001, 15)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 height = 1.0
 sides = 16
-
-[node name="artifact_root" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="lighting" type="Node3D" parent="."]
 

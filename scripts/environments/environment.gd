@@ -12,6 +12,7 @@ extends Node3D
 class_name DisplayEnvironment
 
 @export var environment_name : String
+@export var environment_graphics : Environment
 
 var light_widget_scene : PackedScene = ResourceLoader.load("res://scenes/lighting/new_light_widget.tscn")
 
