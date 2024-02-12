@@ -132,16 +132,22 @@ func _on_model_begin_load():
 	#if loaded_artifact.load_finished:
 		#_loader.end_loading()
 
-func _on_model_preview_load_complete():
+func _place_artifact():
 	var artifact_root = _environment_controller.get_active_artifact_root()
-	
-	_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
-	
 	if not artifact_root == null:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
 		#print(loaded_artifact.aabb.size.y)
 		target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
 		loaded_artifact.global_position = target_pos
+		
+func _on_model_preview_load_complete():
+	_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
+	_place_artifact()
+
+func _on_environment_changed(new_environment):
+	if loaded_artifact != null:
+		new_environment.set_artifact_bounds(loaded_artifact.aabb)
+		_place_artifact()
 		
 func _on_model_load_complete():
 	if is_instance_valid(_loader):

@@ -18,6 +18,7 @@ var loaded_scenes : Array[DisplayEnvironment]
 @export var light_selection_ui : LightSelectionUI
 @export var environment_selection_ui : EnvironmentSelectionUI
 
+signal environment_changed(new_environment : DisplayEnvironment)
 
 var selected_index : int = -1
 var selected_light : NewLightWidget
@@ -79,6 +80,9 @@ func open_scene(index : int):
 		for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
 			if dynamic_light is NewLightWidget:
 				light_selection_ui.create_button_for_light(dynamic_light as NewLightWidget)
+		
+		# Fire signal
+		environment_changed.emit(loaded_scenes[selected_index])
 
 func show_scene_lighting(index : int):
 	if index < 0 or index >= loaded_scenes.size():

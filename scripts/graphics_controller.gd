@@ -59,7 +59,8 @@ enum SSR {DISABLED, LOW, MEDIUM, HIGH}
 
 enum SUBSURFACE {DISABLED, LOW, MEDIUM, HIGH}
 
-@export var world_environment : WorldEnvironment
+#@export var world_environment : WorldEnvironment
+@export var viewer_environment : ViewerEnvironnment
 @export var shadows : SHADOWS = SHADOWS.SOFT_MEDIUM
 @export var antialiasing : Viewport.MSAA = Viewport.MSAA_4X
 @export var global_illumination : GLOBAL_ILLUMINATION = GLOBAL_ILLUMINATION.DISABLED
@@ -81,10 +82,7 @@ func change_shadows(mode : SHADOWS):
 	Preferences.write_pref("shadows", mode)
 
 func change_global_illumination(mode : GLOBAL_ILLUMINATION):
-	if mode > 0:
-		world_environment.environment.sdfgi_enabled = true
-	else:
-		world_environment.environment.sdfgi_enabled = false
+	viewer_environment.change_global_illumination(mode)
 	
 	var quality = GLOBAL_ILLUMINATION_SETTINGS.get(mode)[0]
 	var ray_count = GLOBAL_ILLUMINATION_SETTINGS.get(mode)[1]
@@ -100,34 +98,22 @@ func change_antialiasing(mode : Viewport.MSAA):
 	Preferences.write_pref("aa", mode)
 
 func change_ssao(mode : SSAO):
-	world_environment.environment.ssao_enabled = true
+	viewer_environment.change_ssao(mode)
 	ProjectSettings.set_setting("rendering/environment/ssao/quality", mode)
-	
 	Preferences.write_pref("ssao", mode)
 
 func change_ssil(mode : SSIL):
-	if mode < 0:
-		world_environment.environment.ssil_enabled = false
-	else:
-		world_environment.environment.ssil_enabled = true
-	
+	viewer_environment.change_ssil(mode)
 	ProjectSettings.set_setting("rendering/environment/ssil/quality", mode)
-	
 	Preferences.write_pref("ssil", mode)
 
 func change_ssr(mode : SSR):
-	if mode == 0:
-		world_environment.environment.ssr_enabled = false
-	elif mode > 0:
-		world_environment.environment.ssr_enabled = true
-	
+	viewer_environment.change_ssr(mode)
 	ProjectSettings.set_setting("rendering/environment/screen_space_reflection/roughness_quality", mode)
-	
 	Preferences.write_pref("ssr", mode)
 
 func change_subsurface_scattering(mode : SUBSURFACE):
 	ProjectSettings.set_setting("rendering/environment/subsurface_scattering/subsurface_scattering_quality", mode)
-	
 	Preferences.write_pref("subsurface scattering", mode)
 
 func _ready():
