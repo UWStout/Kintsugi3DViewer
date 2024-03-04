@@ -45,9 +45,9 @@ func load_artifact() -> int:
 		return -1
 	
 	if not mesh.get_aabb() == null:
-		aabb = mesh.get_aabb()
+		aabb = mesh.get_aabb() * mesh.global_transform
 	else:
-		aabb = AABB()
+		aabb = AABB() * mesh.global_transform
 		
 	preview_load_completed.emit();
 	
