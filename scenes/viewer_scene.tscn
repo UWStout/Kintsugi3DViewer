@@ -250,7 +250,6 @@ script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
 [node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_6cwju")
 _loader = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
 _ibr_shader = ExtResource("3_8xtf8")
@@ -1899,7 +1898,7 @@ script = ExtResource("29_4k4a7")
 [connection signal="item_selected" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" method="_on_item_selected"]
 [connection signal="visibility_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" method="_on_cache_visibility_changed"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" method="_on_text_changed"]
-[connection signal="environment_changed" from="environment_controller" to="artifacts_controller" method="_on_environment_changed"]
 [connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
+[connection signal="environment_changed" from="environment_controller" to="artifacts_controller" method="_on_environment_changed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]

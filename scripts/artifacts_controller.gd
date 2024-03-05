@@ -137,7 +137,10 @@ func _place_artifact():
 	if not artifact_root == null:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
 		#print(loaded_artifact.aabb.size.y)
-		target_pos += Vector3.UP * (loaded_artifact.aabb.size.y / 2)
+		target_pos -= loaded_artifact.aabb.position # position relative to bounding box
+		target_pos -= self.position # account for arbitrary position of artifacts controller node
+		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
+		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
 		loaded_artifact.global_position = target_pos
 		
 func _on_model_preview_load_complete():
