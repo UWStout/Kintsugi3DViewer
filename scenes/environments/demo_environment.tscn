@@ -25,7 +25,7 @@ albedo_color = Color(0.0605303, 0.0605303, 0.0605303, 1)
 [node name="demo_environment" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00547707, 0)
 script = ExtResource("1_jk51f")
-environment_name = "Demo Environment"
+environment_name = "Dark Studio"
 environment_graphics = SubResource("Environment_ckgdg")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
