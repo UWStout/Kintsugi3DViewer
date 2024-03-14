@@ -22,7 +22,12 @@ var outsized_folders : Array[String] = []
 
 var cache_mode : REDUCE_CACHE_MODE = REDUCE_CACHE_MODE.OLDEST
 
+var worker_threads : Array[Thread] = []
+var worker_thread_mutex : Mutex
+
 func _ready():
+	worker_thread_mutex = Mutex.new()
+	
 	var pref_cache_size = Preferences.read_pref("cache size")
 	if not pref_cache_size == null:
 		cache_size_limit = mb_to_bytes(pref_cache_size)
@@ -37,6 +42,16 @@ func _ready():
 	
 	reduce_cache(cache_mode)
 
+func _process(delta):
+	worker_thread_mutex.lock()
+	# Need to explicitly close threads on web
+	for i in range(0, worker_threads.size()):
+		var thread = worker_threads[i]
+		if thread.is_started() and !thread.is_alive():
+			thread.wait_to_finish()
+			worker_threads.remove_at(i)
+			break # catch any other threads that need to be closed on the next _update()
+	worker_thread_mutex.unlock()
 
 func create_cache_directory():
 	var dir = DirAccess.open("user://")
@@ -158,6 +173,13 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
+func export_gltf_async(dir_name : String, name : String, doc : GLTFDocument, state : GLTFState):
+	var thread = Thread.new()
+	thread.start(self.export_gltf.bind(dir_name, name, doc, state))
+	
+	worker_thread_mutex.lock()
+	worker_threads.append(thread)
+	worker_thread_mutex.unlock()
 
 func import_png(dir_name : String, name : String) -> Image:
 	var file_name = name + ".png"
@@ -231,6 +253,14 @@ func export_png(dir_name : String, name : String, image : Image):
 	print("exported file " + file_name + " to directory " + dir_path)
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
+
+func export_png_async(dir_name : String, name : String, image : Image):
+	var thread = Thread.new()
+	thread.start(self.export_png.bind(dir_name, name, image))
+	
+	worker_thread_mutex.lock()
+	worker_threads.append(thread)
+	worker_thread_mutex.unlock()
 
 func png_cached(dir_name: String, name: String) -> bool:
 	var file_name = name + ".png"

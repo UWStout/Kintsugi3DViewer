@@ -103,7 +103,7 @@ func _load_gltf() -> GLTFObject:
 		var gltf_obj = await fetcher.fetch_gltf(artifact)
 		
 		CacheManager.export_artifact_data(dir_name, artifact)
-		Thread.new().start(CacheManager.export_gltf.bind(dir_name, file_name, gltf_obj.document, gltf_obj.state.duplicate()))
+		CacheManager.export_gltf_async(dir_name, file_name, gltf_obj.document, gltf_obj.state.duplicate())
 		
 		return gltf_obj
 	
