@@ -42,9 +42,8 @@ func _ready():
 	#print(OS.get_cmdline_args())
 	
 	var args = OS.get_cmdline_args()
-	for arg in args:
-		_open_artifact_through_file(arg)
-		#$"../new_ui_root/CenterContainer/Label".text += "\n" + arg
+	_open_artifact_through_file(args[0])
+	#$"../new_ui_root/CenterContainer/Label".text += "\n" + arg
 	
 	#_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu\\model.glb")
 
@@ -202,4 +201,11 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	var model = LocalGltfModel.create(data)
 	add_child(model)
+	
+	model.preview_load_completed.connect(_on_model_preview_load_complete)
+	model.load_completed.connect(_on_model_load_complete)
+	model.load_progress.connect(_on_model_load_progress)
+	
+	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
+	
