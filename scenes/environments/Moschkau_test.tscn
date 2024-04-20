@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://ycd1jpnwivxl"]
+
+[ext_resource type="ArrayMesh" uid="uid://w480dhs3j2yc" path="res://assets/Environments/storytellingprops/charcoal.obj" id="1_whrcd"]
+[ext_resource type="Texture2D" uid="uid://k6yr4r48abbd" path="res://assets/Environments/storytellingprops/charcoal_Base_color.png" id="2_q8dh5"]
+[ext_resource type="Texture2D" uid="uid://hcs8bjtajqbd" path="res://assets/Environments/storytellingprops/charcoal_Mixed_AO.png" id="3_sqsd0"]
+[ext_resource type="Texture2D" uid="uid://dw6polg80jcu" path="res://assets/Environments/storytellingprops/charcoal_Height.png" id="4_a15ga"]
+[ext_resource type="Texture2D" uid="uid://nc03b6uwc15w" path="res://assets/Environments/storytellingprops/charcoal_Metallic.png" id="5_u4up4"]
+[ext_resource type="Texture2D" uid="uid://bahviuklcncpb" path="res://assets/Environments/storytellingprops/charcoal_Normal.png" id="6_vapl7"]
+
+[sub_resource type="Environment" id="Environment_n6xp2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pys8e"]
+albedo_texture = ExtResource("2_q8dh5")
+metallic = 1.0
+metallic_texture = ExtResource("5_u4up4")
+emission = Color(0.545098, 0.329412, 0, 1)
+emission_energy_multiplier = 0.0
+normal_enabled = true
+normal_texture = ExtResource("6_vapl7")
+ao_enabled = true
+ao_texture = ExtResource("3_sqsd0")
+ao_texture_channel = 3
+heightmap_enabled = true
+heightmap_texture = ExtResource("4_a15ga")
+
+[sub_resource type="QuadMesh" id="QuadMesh_rqgjl"]
+
+[node name="MoschkauTest" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_n6xp2")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(-0.243099, -0.096252, -0.965214, 0.480698, -0.876239, -0.0336894, -0.842515, -0.472166, 0.259281, -231.857, 81.3371, -382.472)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldEnvironment"]
+transform = Transform3D(45.9179, 0, 0, 0, 17.6247, 0, 0, 0, 36.295, 97.1857, -55.6592, -111.169)
+mesh = ExtResource("1_whrcd")
+surface_material_override/0 = SubResource("StandardMaterial3D_pys8e")
+
+[node name="CPUParticles3D" type="CPUParticles3D" parent="."]
+transform = Transform3D(16.7852, 0, 0, 0, 164.016, 0, 0, 0, 196.85, 130.208, 0, -35.2025)
+mesh = SubResource("QuadMesh_rqgjl")
+emission_shape = 2
+emission_sphere_radius = 4.95
+flatness = 0.75
