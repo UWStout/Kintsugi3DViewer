@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=111 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
@@ -81,6 +81,7 @@
 [ext_resource type="PackedScene" uid="uid://bk3g1aihs6y1q" path="res://scenes/environments/industrial_sunset_hdri.tscn" id="76_hkfn5"]
 [ext_resource type="PackedScene" uid="uid://c0330c6wvvubh" path="res://scenes/environments/thatch_chapel_hdri.tscn" id="77_1xop2"]
 [ext_resource type="PackedScene" uid="uid://diiijjog58f0c" path="res://scenes/environments/zhengyang_gate_hdri.tscn" id="78_f28kr"]
+[ext_resource type="PackedScene" uid="uid://dknemfurs5vg1" path="res://scenes/environments/PhotoStudioWhite.tscn" id="79_hseew"]
 
 [sub_resource type="Sky" id="Sky_ug4vp"]
 
@@ -1857,7 +1858,7 @@ offset_bottom = 40.0
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
-environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 
