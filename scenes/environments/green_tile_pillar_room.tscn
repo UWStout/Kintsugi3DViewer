@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cq08g6is3yd0q"]
+[gd_scene load_steps=12 format=3 uid="uid://cq08g6is3yd0q"]
 
 [ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_2g17x"]
 [ext_resource type="PackedScene" uid="uid://dbmcoh6d6iy17" path="res://assets/Environments/Floor/Environment_CementFloor_Tan.glb" id="1_qaa6f"]
@@ -18,17 +18,13 @@ sky_material = SubResource("ProceduralSkyMaterial_oqij1")
 background_mode = 2
 sky = SubResource("Sky_fbvfj")
 
-[sub_resource type="Environment" id="Environment_exe73"]
-background_mode = 2
-sky = SubResource("Sky_fbvfj")
-
 [node name="GreenTilePillarRoom" type="Node3D"]
 script = ExtResource("1_2g17x")
 environment_name = "Green Tile Pillar Room"
 environment_graphics = SubResource("Environment_4jilq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_exe73")
+environment = SubResource("Environment_4jilq")
 script = ExtResource("2_7gjnh")
 
 [node name="Environment_CementFloor_Tan" parent="." instance=ExtResource("1_qaa6f")]
