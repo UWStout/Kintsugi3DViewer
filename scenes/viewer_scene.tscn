@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=103 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
@@ -71,6 +71,7 @@
 [ext_resource type="Texture2D" uid="uid://dp7md5bqtxlvy" path="res://assets/UI 2D/Icons/Expanded Light Customization/Add Light/AddLight_White_V2.svg" id="67_63m5u"]
 [ext_resource type="PackedScene" uid="uid://b0ifr0bsst2vi" path="res://scenes/environments/Green_Square_Room.tscn" id="68_gxb4g"]
 [ext_resource type="PackedScene" uid="uid://cq08g6is3yd0q" path="res://scenes/environments/green_tile_pillar_room.tscn" id="69_3p8jk"]
+[ext_resource type="PackedScene" uid="uid://dmio3hqlb4in5" path="res://scenes/environments/tan_tile_room.tscn" id="71_04ghq"]
 [ext_resource type="Texture2D" uid="uid://cito2sce6dag" path="res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_Out_White_V2.svg" id="71_muvog"]
 [ext_resource type="PackedScene" uid="uid://dax8cqqxulwsk" path="res://scenes/environments/round_classical_room_Environment.tscn" id="71_ns1n6"]
 
@@ -1849,7 +1850,7 @@ offset_bottom = 40.0
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
-environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6")])
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq")])
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 
