@@ -17,15 +17,16 @@ var data_file_path = "res://artifacts/guan-yu-test-voyager/scene.svx.json"
 @onready var data_file_path2 = get_node("/root/GlobalFetcher/HTTP Fetcher")
 
 
-func _ready():
+func load_for_artifact(artifactIndex : int):
 	# Loads dictionary object so that it could be accessed
 	#sceneData = load_json_file(data_file_path)
-	sceneData = await get_server_json()
+	sceneData = await get_server_json(artifactIndex)
 	
-	# Assigns colors from each light in Voyager Story scene to new light
-	light_color1 = Color(sceneData["lights"][0]["color"][0], sceneData["lights"][0]["color"][1], sceneData["lights"][0]["color"][2], 1)
-	light_color2 = Color(sceneData["lights"][1]["color"][0], sceneData["lights"][1]["color"][1], sceneData["lights"][1]["color"][2], 1)
-	light_color3 = Color(sceneData["lights"][2]["color"][0], sceneData["lights"][2]["color"][1], sceneData["lights"][2]["color"][2], 1)
+	if sceneData["lights"] != null:
+		# Assigns colors from each light in Voyager Story scene to new light
+		light_color1 = Color(sceneData["lights"][0]["color"][0], sceneData["lights"][0]["color"][1], sceneData["lights"][0]["color"][2], 1)
+		light_color2 = Color(sceneData["lights"][1]["color"][0], sceneData["lights"][1]["color"][1], sceneData["lights"][1]["color"][2], 1)
+		light_color3 = Color(sceneData["lights"][2]["color"][0], sceneData["lights"][2]["color"][1], sceneData["lights"][2]["color"][2], 1)
 
 	# Assigns annotation title and text in Voyager Story scene to new text objects
 	#annotation_title = Label.new()
@@ -38,11 +39,18 @@ func _ready():
 	#print(annotation_text.text)
 	#print(annotation_title.text)
 	
-func get_server_json() -> Dictionary:
+func get_server_json(artifactIndex : int) -> Dictionary:
 	artifact_list = await data_file_path2.force_fetch_artifacts()
-	voyager_json_uri = artifact_list[9].voyagerUri
-	voyager_json = await data_file_path2.force_fetch_json(voyager_json_uri)
-	return voyager_json
+	
+	if artifactIndex < artifact_list.length:
+		voyager_json_uri = artifact_list[artifactIndex].voyagerUri
+		
+		if voyager_json_uri != null:
+			voyager_json = await data_file_path2.force_fetch_json(voyager_json_uri)
+			return voyager_json
+			
+	return {} # if invalid index or no Voyager URI
+	
 	#return data_file_path2.artifacts_cache
 
 
@@ -58,17 +66,21 @@ func get_light_color(light : int):
 		
 		
 func get_model_scale():
-	var x = sceneData["nodes"][6]["scale"][0]
-	var y = sceneData["nodes"][6]["scale"][1]
-	var z = sceneData["nodes"][6]["scale"][2]
+	if sceneData["nodes"] != null:
+		var x = sceneData["nodes"][6]["scale"][0]
+		var y = sceneData["nodes"][6]["scale"][1]
+		var z = sceneData["nodes"][6]["scale"][2]
+		
+		#print(x)
+		#print(y)
+		#print(z)
+		
+		var model_scale = Vector3(x, y, z)
 	
-	#print(x)
-	#print(y)
-	#print(z)
+		return model_scale
 	
-	var model_scale = Vector3(x, y, z)
-	
-	return model_scale
+	else:
+		return Vector3(1, 1, 1)
 
 
 func load_json_file(filePath : String):
