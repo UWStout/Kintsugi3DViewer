@@ -16,14 +16,15 @@ sky_material = SubResource("PanoramaSkyMaterial_2wxs1")
 [sub_resource type="Environment" id="Environment_mswbn"]
 background_mode = 2
 sky = SubResource("Sky_tyhac")
+reflected_light_source = 1
 
 [node name="ClassicalRoom" type="Node3D"]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mswbn")
+
 [node name="Environment_ClassicalFloor_Dark" parent="." instance=ExtResource("1_hrs25")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0354846, -2.31492, -0.0142782)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment_ClassicalFloor_Dark"]
-environment = SubResource("Environment_mswbn")
 
 [node name="Object_Pedestal_BlackModern1" parent="." instance=ExtResource("3_qbr3r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0962203, -2.27442, 0.00362349)
