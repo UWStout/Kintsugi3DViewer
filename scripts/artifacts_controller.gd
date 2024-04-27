@@ -24,8 +24,8 @@ var artifacts: Array[ArtifactData]
 
 var loaded_artifact: GltfModel
 
-# TESTING MODEL
-var example_guan: Node3D
+## TESTING MODEL
+#var example_guan: Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,8 +50,8 @@ func _ready():
 	
 	#_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu\\model.glb")
 	
-	# TESTING MODEL
-	example_guan = get_parent().get_node("guan_model")
+	## TESTING MODEL
+	#example_guan = get_parent().get_node("guan_model")
 
 func refresh_artifacts() -> Array[ArtifactData]:
 	if(Preferences.read_pref("offline mode")):
@@ -68,6 +68,7 @@ func refresh_artifacts() -> Array[ArtifactData]:
 func display_artifact(index : int):
 	if index < artifacts.size():
 		display_artifact_data(artifacts[index])
+		JsonReader.load_for_artifact(index) # for Voyager Story
 	
 	#if(index == 9):
 		#change_scale()
@@ -106,15 +107,15 @@ func display_artifact_data(artifact: ArtifactData):
 		if is_instance_valid(_loader):
 			_loader.end_loading()
 			
-	# Code for loading from Voyager JSON
-	if current_index == 9:
-		#print(example_guan)
-		example_guan.visible = true
-		example_guan.scale = get_node("/root/JsonReader").get_model_scale()
-		change_scale()
-		_environment_controller.set_environment_lights()
-	else:
-		example_guan.visible = false
+	## Code for loading from Voyager JSON
+	#if current_index == 9:
+		##print(example_guan)
+		#example_guan.visible = true
+		#example_guan.scale = JsonReader.get_model_scale()
+		#change_scale()
+		#_environment_controller.set_environment_lights()
+	#else:
+		#example_guan.visible = false
 
 
 func display_remote_artifact_data(artifact : ArtifactData):
@@ -211,7 +212,8 @@ func _look_for_mesh(node : Node3D):
 
 func change_scale():
 	#print("HELLO THERE")
-	self.get_child(0, false).get_child(0, false).scale = get_node("/root/JsonReader").get_model_scale()
+	#self.get_child(0, false).get_child(0, false).scale = JsonReader.get_model_scale()
+	loaded_artifact.scale = JsonReader.get_model_scale()
 	
 func _open_artifact_through_file(gltf_file_path : String):
 	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
