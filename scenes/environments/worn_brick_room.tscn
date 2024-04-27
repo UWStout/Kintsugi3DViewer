@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0uknfbjiwhfm"]
 
 [ext_resource type="PackedScene" uid="uid://cdoqpoh4wckrs" path="res://assets/Environments/Walls/Environment_StoneWall_WornGrey.glb" id="1_2h1s1"]
-[ext_resource type="PackedScene" uid="uid://dyhjcwp8nqkp8" path="res://assets/Light 3D UI/Spotlight_Angle.glb" id="2_h7im4"]
+[ext_resource type="PackedScene" uid="uid://dtowvh7yeo4ib" path="res://assets/Light 3D UI/Spotlight_Angle.glb" id="2_h7im4"]
 
 [node name="WornBrickRoom" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.30461, 0)

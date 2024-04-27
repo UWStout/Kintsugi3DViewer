@@ -1,12 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://b38c38f5nmuf3"]
+[gd_scene load_steps=13 format=3 uid="uid://b38c38f5nmuf3"]
 
 [ext_resource type="PackedScene" uid="uid://d2hhg688o5g3o" path="res://assets/Environments/Walls/Environment_RoundEnteranceWall_Black.glb" id="1_6dsdk"]
+[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_oglhx"]
 [ext_resource type="PackedScene" uid="uid://ckdtmfuxmqgav" path="res://assets/Environments/Walls/Environment_RoundWall_Black.glb" id="2_dc37l"]
+[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="2_yhyp0"]
 [ext_resource type="PackedScene" uid="uid://mlwyw6qnrdut" path="res://assets/Environments/Floor/Environment_WoodenFloor_DarkBrown.glb" id="3_rg2ls"]
 [ext_resource type="PackedScene" uid="uid://dt48off7d7v17" path="res://assets/Environments/Objects/Pedestals/Object_Pedestal_BlackRoundModern.glb" id="4_onoxh"]
 [ext_resource type="PackedScene" uid="uid://bmpkl6tnxycus" path="res://assets/Environments/Objects/Benches/Object_Bench_BlackPlain.glb" id="5_miqs1"]
+[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="7_5uvam"]
+[ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="9_epl7m"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7ryrn"]
+
+[sub_resource type="Sky" id="Sky_fex53"]
+sky_material = SubResource("ProceduralSkyMaterial_7ryrn")
+
+[sub_resource type="Environment" id="Environment_lexgf"]
+background_mode = 2
+sky = SubResource("Sky_fex53")
 
 [node name="RoundBlackRoom" type="Node3D"]
+script = ExtResource("1_oglhx")
+environment_name = "Round BLack Room"
+environment_graphics = SubResource("Environment_lexgf")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lexgf")
+script = ExtResource("2_yhyp0")
 
 [node name="Environment_RoundEnteranceWall_Black" parent="." instance=ExtResource("1_6dsdk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0626534, 1.02042, 0.0596688)
@@ -18,10 +38,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.713025, 1.02042, -1.58364)
 transform = Transform3D(1.68151, 0, 0, 0, 1, 0, 0, 0, 1.59289, 0.00525761, 0.887757, -4.79374)
 
 [node name="Object_Pedestal_BlackRoundModern" parent="." instance=ExtResource("4_onoxh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000294447, 0.861501, -0.373375)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.862, 0)
+script = ExtResource("7_5uvam")
 
 [node name="Object_Bench_BlackPlain" parent="." instance=ExtResource("5_miqs1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.248833, 0.908033, 0.241518)
 
 [node name="Object_Bench_BlackPlain2" parent="." instance=ExtResource("5_miqs1")]
 transform = Transform3D(-0.999746, 0, -0.0225302, 0, 1, 0, 0.0225302, 0, -0.999746, 0.248833, 0.908033, 0.241518)
+
+[node name="lighting" parent="." instance=ExtResource("9_epl7m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.58622, 0)
+
+[node name="statics" type="Node3D" parent="lighting"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting/statics"]
+transform = Transform3D(0.833861, 0.545927, -0.0814829, -0.0211744, 0.17915, 0.983594, 0.551568, -0.818456, 0.160946, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
+
+[node name="artifact_root" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.53576, 0)
+
+[connection signal="artifact_bounds_changed" from="." to="Object_Pedestal_BlackRoundModern" method="_on_artifact_bounds_changed"]
+[connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]
