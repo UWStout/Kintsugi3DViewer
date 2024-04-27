@@ -1,19 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0ifr0bsst2vi"]
+[gd_scene load_steps=14 format=3 uid="uid://b0ifr0bsst2vi"]
 
 [ext_resource type="PackedScene" uid="uid://mlwyw6qnrdut" path="res://assets/Environments/Floor/Environment_WoodenFloor_DarkBrown.glb" id="1_5453j"]
-[ext_resource type="PackedScene" uid="uid://duabw6oksmq5l" path="res://assets/Environments/Objects/Pedestals/Classic/Object_Pedestal_DarkWoodClassic.glb" id="2_t5evc"]
+[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_sysmk"]
+[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="1_yj0ce"]
 [ext_resource type="PackedScene" uid="uid://bdjxpyk3ncn17" path="res://assets/Environments/Walls/Environment_WallpaperEnteranceWall_Green.glb" id="3_jhur0"]
 [ext_resource type="PackedScene" uid="uid://nv6a83a84b11" path="res://assets/Environments/Walls/Environment_WallpaperWall_Green.glb" id="4_cs8xj"]
+[ext_resource type="PackedScene" uid="uid://d21ox41wlfa1o" path="res://assets/Environments/Objects/Pedestals/Classic/object_pedestal_dark_wood_classic_recentered.tscn" id="4_lwiok"]
+[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="5_3iyri"]
 [ext_resource type="PackedScene" uid="uid://blyfu4duxrv0v" path="res://assets/Environments/Ceiling/Environment_CeilingSquares_DarkBrownWood.glb" id="5_4mhdl"]
 [ext_resource type="PackedScene" uid="uid://bucbvke7el4el" path="res://assets/Environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain.glb" id="6_m8gff"]
+[ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="8_wtowx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_sjtwu"]
+
+[sub_resource type="Sky" id="Sky_eblgk"]
+sky_material = SubResource("ProceduralSkyMaterial_sjtwu")
+
+[sub_resource type="Environment" id="Environment_k76l8"]
+background_mode = 2
+sky = SubResource("Sky_eblgk")
+ambient_light_source = 2
+ambient_light_color = Color(0.864675, 0.864675, 0.864675, 1)
 
 [node name="GreenSquareRoom" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15082, -1.89051, -1.04515)
+script = ExtResource("1_sysmk")
+environment_name = "Green Square Room"
+environment_graphics = SubResource("Environment_k76l8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k76l8")
+script = ExtResource("1_yj0ce")
 
 [node name="Environment_WoodenFloor_DarkBrown3" parent="." instance=ExtResource("1_5453j")]
 transform = Transform3D(1.68151, 0, 0, 0, 1, 0, 0, 0, 2.06003, 0.00525761, -0.160096, -4.79374)
 
-[node name="Object_Pedestal_DarkWoodClassic" parent="." instance=ExtResource("2_t5evc")]
-transform = Transform3D(2.1047, 0, 0, 0, 1, 0, 0, 0, 2.15682, 0.202092, -0.166072, -5.16879)
+[node name="Object_Pedestal_DarkWoodClassic" parent="." instance=ExtResource("4_lwiok")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.14592, 0)
+script = ExtResource("5_3iyri")
 
 [node name="Environment_WallpaperEnteranceWall_Green" parent="." instance=ExtResource("3_jhur0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0621223, 0, -1.31481)
@@ -38,3 +62,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.198884, 0, -1.25359)
 
 [node name="Object_Bench_DarkBrownWoodPlain2" parent="." instance=ExtResource("6_m8gff")]
 transform = Transform3D(-0.999879, 0, 0.0155504, 0, 1, 0, -0.0155504, 0, -0.999879, -0.198884, 0, 1.94426)
+
+[node name="artifact_root" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59426, 0)
+
+[node name="lighting" parent="." instance=ExtResource("8_wtowx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.594, 0)
+
+[node name="statics" type="Node3D" parent="lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lighting/statics"]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 18.193, 9.294)
+light_energy = 100.0
+spot_range = 29.624
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="lighting/statics"]
+transform = Transform3D(-1, 7.57103e-08, 4.37114e-08, 0, -0.5, 0.866025, 8.74228e-08, 0.866025, 0.5, 0, 18.193, -9.294)
+light_energy = 100.0
+spot_range = 29.624
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="lighting/statics"]
+transform = Transform3D(-4.37114e-08, -0.866025, -0.5, 0, -0.5, 0.866025, -1, 3.78552e-08, 2.18557e-08, 9.294, 18.193, 0)
+light_energy = 100.0
+spot_range = 29.624
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="lighting/statics"]
+transform = Transform3D(-4.37114e-08, -0.866025, 0.5, 0, 0.5, 0.866025, -1, 3.78552e-08, -2.18557e-08, -9.294, 18.193, 0)
+light_energy = 100.0
+spot_range = 29.624
+
+[connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]
+[connection signal="artifact_bounds_changed" from="." to="Object_Pedestal_DarkWoodClassic" method="_on_artifact_bounds_changed"]
