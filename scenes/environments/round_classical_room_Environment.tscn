@@ -1,5 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://dax8cqqxulwsk"]
+[gd_scene load_steps=15 format=3 uid="uid://dax8cqqxulwsk"]
 
+[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_8wd86"]
 [ext_resource type="PackedScene" uid="uid://c4awtm1lmpwgi" path="res://assets/Environments/Objects/Columns/Object_ClassicColumn_White.glb" id="1_43hdl"]
 [ext_resource type="PackedScene" uid="uid://dp4glovwmtg7o" path="res://assets/Environments/Floor/Environment_RoundFloor_Checkered.glb" id="2_w51kg"]
 [ext_resource type="PackedScene" uid="uid://cfo6ijs8hdcgp" path="res://assets/Environments/Walls/Environment_MarbleLoop_White.glb" id="3_gr4n4"]
@@ -7,8 +8,24 @@
 [ext_resource type="PackedScene" uid="uid://d2b1130k7nu4j" path="res://assets/Environments/Ceiling/Environment_MarbleLoopCeiling_White.glb" id="5_50g2v"]
 [ext_resource type="PackedScene" uid="uid://ffbujfy87xwx" path="res://assets/Environments/Ceiling/Environment_MarbleDome_White.glb" id="6_rsjjy"]
 [ext_resource type="PackedScene" uid="uid://cmsi73eoam8mp" path="res://assets/Environments/Objects/Columns/Object_Pedestal_Marble.glb" id="7_4q54w"]
+[ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="7_iqnhb"]
+[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="9_7bjqh"]
+[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="10_m5yxo"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8uo0a"]
+
+[sub_resource type="Sky" id="Sky_b1wmi"]
+sky_material = SubResource("ProceduralSkyMaterial_8uo0a")
+
+[sub_resource type="Environment" id="Environment_8csd6"]
+background_mode = 2
+sky = SubResource("Sky_b1wmi")
+reflected_light_source = 2
 
 [node name="RoundClassicalRoom" type="Node3D"]
+script = ExtResource("1_8wd86")
+environment_name = "Round Classical Room"
+environment_graphics = SubResource("Environment_8csd6")
 
 [node name="Object_ClassicColumn_White5" parent="." instance=ExtResource("1_43hdl")]
 transform = Transform3D(0.667638, 0, 0.744486, 0, 1.26332, 0, -0.744486, 0, 0.667638, -17.6867, 0.902152, 16.2713)
@@ -157,17 +174,39 @@ transform = Transform3D(-0.483267, 0, 0.875473, 0, 0.575923, 0, -0.875473, 0, -0
 [node name="Environment_MarbleWall_White32" parent="." instance=ExtResource("4_f2tj2")]
 transform = Transform3D(0.489976, 0, -0.871736, 0, 0.575923, 0, 0.871736, 0, 0.489976, 8.54978, 19.3279, 12.9693)
 
-[node name="Object_Pedestal_Marble" parent="." instance=ExtResource("7_4q54w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.709007, 0, -0.12898)
+[node name="lighting" parent="." instance=ExtResource("7_iqnhb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.26369, 0)
 
-[node name="Object_Pedestal_Marble2" parent="." instance=ExtResource("7_4q54w")]
-transform = Transform3D(1.1251, 0, 0, 0, 0.101862, 0, 0, 0, 1.08122, -0.709007, 1.87104, -0.12898)
+[node name="statics" type="Node3D" parent="lighting"]
 
-[node name="Object_Pedestal_Marble5" parent="." instance=ExtResource("7_4q54w")]
-transform = Transform3D(1.08122, 0, 0, 0, 0.101862, 0, 0, 0, 1.08122, -0.709007, -0.34164, -0.12898)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting/statics"]
+transform = Transform3D(-0.345864, 0.479727, -0.806375, 0.789864, 0.612742, 0.0257497, 0.506452, -0.62802, -0.590844, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_mode = 0
 
-[node name="Object_Pedestal_Marble3" parent="." instance=ExtResource("7_4q54w")]
-transform = Transform3D(1.20128, 0, 0, 0, 0.043073, 0, 0, 0, 1.16183, -0.709007, 1.9006, -0.12898)
+[node name="pedestal" type="Node3D" parent="."]
+script = ExtResource("9_7bjqh")
 
-[node name="Object_Pedestal_Marble4" parent="." instance=ExtResource("7_4q54w")]
-transform = Transform3D(1.18381, 0, 0, 0, 0.0424407, 0, 0, 0, 1.20663, -0.709007, -0.347243, -0.12898)
+[node name="Object_Pedestal_Marble" parent="pedestal" instance=ExtResource("7_4q54w")]
+
+[node name="Object_Pedestal_Marble2" parent="pedestal" instance=ExtResource("7_4q54w")]
+transform = Transform3D(1.1251, 0, 0, 0, 0.101862, 0, 0, 0, 1.08122, 0, 1.871, 0)
+
+[node name="Object_Pedestal_Marble5" parent="pedestal" instance=ExtResource("7_4q54w")]
+transform = Transform3D(1.08122, 0, 0, 0, 0.101862, 0, 0, 0, 1.08122, 0, -0.342, 0)
+
+[node name="Object_Pedestal_Marble3" parent="pedestal" instance=ExtResource("7_4q54w")]
+transform = Transform3D(1.20128, 0, 0, 0, 0.043073, 0, 0, 0, 1.16183, 0, 1.901, 0)
+
+[node name="Object_Pedestal_Marble4" parent="pedestal" instance=ExtResource("7_4q54w")]
+transform = Transform3D(1.18381, 0, 0, 0, 0.0424407, 0, 0, 0, 1.20663, 0, -0.347, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8csd6")
+script = ExtResource("10_m5yxo")
+
+[node name="artifact_root" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.23141, 0)
+
+[connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]
+[connection signal="artifact_bounds_changed" from="." to="pedestal" method="_on_artifact_bounds_changed"]
