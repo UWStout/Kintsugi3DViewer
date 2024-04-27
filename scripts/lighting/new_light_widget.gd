@@ -11,7 +11,7 @@ extends Node3D
 
 class_name NewLightWidget
 
-@export_range(0, 10) var distance : float = 3 : set = _set_distance_UTIL
+@export_range(0, 10) var distance : float = 2 : set = _set_distance_UTIL
 @export_range(0, 360) var horizontal_angle : float = 0 : set = _set_horizontal_angle_UTIL
 @export_range(-90, 90) var vertical_angle : float = 0 : set = _set_vertical_angle_UTIL
 @export var color : Color = Color(1,1,1,1) : set = _set_color_UTIL
@@ -38,6 +38,9 @@ var was_grabbed : bool = false
 @onready var vertical_track = $target_point/vertical/track
 
 @onready var light = $target_point/light
+
+signal environment_scale_changed(range : float, old_scale : float)
+var _environment_scale : float = 1
 
 var max_distance : float = 20
 
@@ -213,7 +216,8 @@ func handle_target_point(event_pos : Vector2):
 	
 	var world_offset = ((controller.scene_camera.camera.global_transform.basis.x * delta_vec.x) + (controller.scene_camera.camera.global_transform.basis.y * -delta_vec.y)) / scale_factor
 	
-	var snapped_world_pos = get_snapped_world_position(event_pos)
+	# commented out since snapping is broken
+	var snapped_world_pos = null;  # get_snapped_world_position(event_pos)
 	
 	if snapped_world_pos != null:
 		target_point.global_position = snapped_world_pos
@@ -226,6 +230,9 @@ func get_snapped_world_position(event_pos : Vector2):
 	var ray_end = mouse_pos_world + controller.scene_camera.camera.project_ray_normal(event_pos) * 30
 	var ray_query = PhysicsRayQueryParameters3D.create(mouse_pos_world, ray_end, 1)
 	var ray_result = space_state.intersect_ray(ray_query)
+	
+	# TODO: for this to actually work, we need to replace collider based picking
+	# with depth buffer picking (according to ChatGPT, requires a 2nd viewport and custom shader)
 	
 	if(ray_result):
 		return ray_result["position"]
@@ -377,26 +384,32 @@ func update_vertical_track():
 
 func change_color(new_color : Color):
 	$target_point/light.light_color = new_color
-	
-	var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 1)
-	
-	adjusted_color.v = max(adjusted_color.v, 0.5)
-	
-	var new_material = StandardMaterial3D.new()
-	new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	new_material.albedo_color = adjusted_color
-	new_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	
-	var target_mat = new_material.duplicate() as BaseMaterial3D
-	target_mat.no_depth_test = true
-	#target_mat.emission_enabled = false
-	#target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_ADD
-	
-	$target_point/mesh.material = target_mat
-	
-	$target_point/distance/mesh.set_surface_override_material(0, new_material)
-	$target_point/horizontal/mesh.set_surface_override_material(0, new_material)
-	$target_point/vertical/mesh.set_surface_override_material(0, new_material)
+	#
+	#var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 1)
+	#
+	#adjusted_color.v = max(adjusted_color.v, 0.5)
+	#
+	#var new_material = StandardMaterial3D.new()
+	#new_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	#new_material.albedo_color = adjusted_color
+	#new_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	#
+	#var target_mat = new_material.duplicate() as BaseMaterial3D
+	#target_mat.no_depth_test = true
+	##target_mat.emission_enabled = false
+	##target_mat.emission_operator = BaseMaterial3D.EMISSION_OP_ADD
+	#
+	#$target_point/mesh.material = target_mat
+	#
+	#var distance = $target_point/distance/mesh
+	#var horizontal = $target_point/horizontal/mesh
+	#var vertical = $target_point/horizontal/mesh
+	#if distance != null:
+		#distance.set_surface_override_material(0, new_material)
+	#if horizontal != null:
+		#horizontal.set_surface_override_material(0, new_material)
+	#if vertical != null:
+		#vertical.set_surface_override_material(0, new_material)
 
 func hide_widget():
 	target_point_mesh.visible = false
@@ -482,3 +495,9 @@ func set_color_strength(new_strength : float):
 
 func set_light_angle(new_angle : float):
 	light.spot_angle = new_angle
+
+func set_environment_scale(scale : float):
+	var old_scale = _environment_scale
+	_environment_scale = scale
+	self.distance *= scale / old_scale
+	environment_scale_changed.emit(scale, old_scale)

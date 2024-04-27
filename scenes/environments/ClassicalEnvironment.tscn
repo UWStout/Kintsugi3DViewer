@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://bi82pgkq6pkah"]
+
+[ext_resource type="PackedScene" uid="uid://cdaxneaem2hir" path="res://assets/Environments/Floor/Environment_ClassicalFloor_Dark.glb" id="1_hrs25"]
+[ext_resource type="Texture2D" uid="uid://donsdmnk8lc23" path="res://assets/Environments/HDRIs/industrial_sunset_puresky_4k.exr" id="2_mtqfc"]
+[ext_resource type="PackedScene" uid="uid://de7wi0ird61bt" path="res://assets/Environments/Objects/Pedestals/Modern1/Object_Pedestal_BlackModern1.glb" id="3_qbr3r"]
+[ext_resource type="PackedScene" uid="uid://2dhi6b72rtcp" path="res://assets/Environments/Objects/Columns/Object_ClassicCollumn_White.glb" id="4_tvyi2"]
+[ext_resource type="PackedScene" uid="uid://j7upe6q0r33k" path="res://assets/Environments/Walls/Environment_ClassicalWalls_Marbleglb.glb" id="6_45sao"]
+[ext_resource type="PackedScene" uid="uid://cmsi73eoam8mp" path="res://assets/Environments/Objects/Columns/Object_Pedestal_Marble.glb" id="6_qsekl"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_2wxs1"]
+panorama = ExtResource("2_mtqfc")
+
+[sub_resource type="Sky" id="Sky_tyhac"]
+sky_material = SubResource("PanoramaSkyMaterial_2wxs1")
+
+[sub_resource type="Environment" id="Environment_mswbn"]
+background_mode = 2
+sky = SubResource("Sky_tyhac")
+reflected_light_source = 1
+
+[node name="ClassicalRoom" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mswbn")
+
+[node name="Environment_ClassicalFloor_Dark" parent="." instance=ExtResource("1_hrs25")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0354846, -2.31492, -0.0142782)
+
+[node name="Object_Pedestal_BlackModern1" parent="." instance=ExtResource("3_qbr3r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0962203, -2.27442, 0.00362349)
+
+[node name="Object_ClassicCollumn_White2" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8004, -2.29595, -0.2186)
+
+[node name="Object_ClassicCollumn_White3" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8336, -2.3072, -0.2186)
+
+[node name="Object_ClassicCollumn_White4" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(0.00392688, 0, 0.999992, 0, 1, 0, -0.999992, 0, 0.00392688, -0.101032, -2.4394, -13.8191)
+
+[node name="Object_ClassicCollumn_White5" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(0.00392688, 0, 0.999992, 0, 1, 0, -0.999992, 0, 0.00392688, -0.186792, -2.32867, 13.0595)
+
+[node name="Object_ClassicCollumn_White6" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(0.00392688, 0, 0.999992, 0, 1, 0, -0.999992, 0, 0.00392688, -0.0325852, -2.40084, 0.344073)
+
+[node name="Object_ClassicCollumn_White7" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(-0.00130896, 0, -0.999999, 0, 1, 0, 0.999999, 0, -0.00130896, 0.182496, -2.46969, 13.7372)
+
+[node name="Object_ClassicCollumn_White8" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(-0.00130896, 0, -0.999999, 0, 1, 0, 0.999999, 0, -0.00130896, 0.217359, -2.48094, -12.8968)
+
+[node name="Object_ClassicCollumn_White10" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(-0.999997, 0, 0.00261792, 0, 1, 0, -0.00261792, 0, -0.999997, -13.774, -2.36949, 0.10064)
+
+[node name="Object_ClassicCollumn_White11" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(-0.999997, 0, 0.00261792, 0, 1, 0, -0.00261792, 0, -0.999997, 12.8785, -2.36322, 0.170723)
+
+[node name="Object_ClassicCollumn_White12" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(-0.999997, 0, 0.00261792, 0, 1, 0, -0.00261792, 0, -0.999997, 0.144278, -2.4529, 0.0328035)
+
+[node name="Object_ClassicCollumn_White9" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(-0.00130896, 0, -0.999999, 0, 1, 0, 0.999999, 0, -0.00130896, 0.0964414, -2.5531, -0.181)
+
+[node name="Object_ClassicCollumn_White" parent="." instance=ExtResource("4_tvyi2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.117633, -2.37937, -0.114327)
+
+[node name="Environment_ClassicalWalls_Marbleglb" parent="." instance=ExtResource("6_45sao")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+
+[node name="Object_Pedestal_Marble2" parent="." instance=ExtResource("6_qsekl")]
+transform = Transform3D(0.62479, 0, 0, 0, 4.15243, 0, 0, 0, 0.62479, 27.5797, 0.278291, -4.70498)
+
+[node name="Object_Pedestal_Marble3" parent="." instance=ExtResource("6_qsekl")]
+transform = Transform3D(0.62479, 0, 0, 0, 4.15243, 0, 0, 0, 0.62479, 27.5797, 0.278291, 4.8892)
+
+[node name="Object_Pedestal_Marble4" parent="." instance=ExtResource("6_qsekl")]
+transform = Transform3D(0.626073, 0, 0, 0, -1.20029e-07, -0.626073, 0, 2.74595, -2.73665e-08, 27.5797, 8.75381, -1.61936)
+
+[node name="Object_Pedestal_Marble5" parent="." instance=ExtResource("6_qsekl")]
+transform = Transform3D(0.62479, 0, 0, 0, 4.15243, 0, 0, 0, 0.62479, -27.5885, 0.278291, -4.70498)
+
+[node name="Object_Pedestal_Marble6" parent="." instance=ExtResource("6_qsekl")]
+transform = Transform3D(0.62479, 0, 0, 0, 4.15243, 0, 0, 0, 0.62479, -27.5885, 0.278291, 4.8892)
+
+[node name="Object_Pedestal_Marble7" parent="." instance=ExtResource("6_qsekl")]
+transform = Transform3D(0.626073, 0, 0, 0, -1.20029e-07, -0.626073, 0, 2.74595, -2.73665e-08, -27.5885, 8.75381, -1.61936)

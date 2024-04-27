@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cm13tevt5epos"]
+
+[ext_resource type="PackedScene" uid="uid://dymjas1hlbkrs" path="res://assets/Environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb" id="1_bcb0p"]
+
+[node name="Object_Pedestal_TanModern2" instance=ExtResource("1_bcb0p")]
+
+[node name="Cube_004" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1.38758, 0, 0, 0, 1, 0, 0.331, 0)

@@ -1,0 +1,127 @@
+[gd_scene load_steps=13 format=3 uid="uid://bkfr1bxktloy3"]
+
+[ext_resource type="Script" path="res://scripts/lighting/new_light_widget.gd" id="1_t0h8u"]
+[ext_resource type="Script" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_82s74"]
+[ext_resource type="PackedScene" uid="uid://52bjih531usx" path="res://assets/Light 3D UI/Spotlight_BlueArrow_Straight.glb" id="3_kradj"]
+[ext_resource type="PackedScene" uid="uid://dom43b4ijacdi" path="res://assets/Light 3D UI/Spotlight_RedArrow_Lat.glb" id="4_qgu54"]
+[ext_resource type="PackedScene" uid="uid://1uh8y3fwb58y" path="res://assets/Light 3D UI/Spotlight_GreenArrow_Long.glb" id="5_rs5o2"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_t5ior"]
+radius = 0.15
+height = 0.3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6y0r7"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(1, 1, 1, 0.75)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6lhmp"]
+radius = 0.15
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rw2so"]
+radius = 0.15
+
+[sub_resource type="BoxMesh" id="BoxMesh_8vuwc"]
+size = Vector3(0.005, 0.005, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tsv0n"]
+transparency = 1
+no_depth_test = true
+albedo_color = Color(1, 1, 1, 0.501961)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8bm78"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.501961)
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
+[node name="new_light_widget" type="Node3D"]
+script = ExtResource("1_t0h8u")
+
+[node name="target_point" type="StaticBody3D" parent="." node_paths=PackedStringArray("parent_widget")]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_82s74")
+parent_widget = NodePath("..")
+
+[node name="mesh" type="CSGMesh3D" parent="target_point"]
+mesh = SubResource("SphereMesh_t5ior")
+material = SubResource("StandardMaterial3D_6y0r7")
+
+[node name="collider" type="CollisionShape3D" parent="target_point"]
+shape = SubResource("SphereShape3D_6lhmp")
+
+[node name="distance" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_82s74")
+parent_widget = NodePath("../..")
+
+[node name="Spotlight_BlueArrow_Straight" parent="target_point/distance" instance=ExtResource("3_kradj")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="collider" type="CollisionShape3D" parent="target_point/distance"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_rw2so")
+
+[node name="track" type="CSGMesh3D" parent="target_point/distance"]
+visible = false
+mesh = SubResource("BoxMesh_8vuwc")
+material = SubResource("StandardMaterial3D_tsv0n")
+
+[node name="horizontal" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 3)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_82s74")
+parent_widget = NodePath("../..")
+
+[node name="Spotlight_RedArrow_Lat" parent="target_point/horizontal" instance=ExtResource("4_qgu54")]
+
+[node name="collider" type="CollisionShape3D" parent="target_point/horizontal"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0930316, 0, 4.06655e-09)
+shape = SubResource("CapsuleShape3D_rw2so")
+
+[node name="track" type="CSGTorus3D" parent="target_point/horizontal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 1.31134e-07)
+visible = false
+inner_radius = 2.995
+outer_radius = 3.0
+sides = 64
+ring_sides = 64
+material = SubResource("StandardMaterial3D_8bm78")
+
+[node name="vertical" type="StaticBody3D" parent="target_point" node_paths=PackedStringArray("parent_widget")]
+transform = Transform3D(1.91069e-15, 1, 4.37114e-08, 4.37114e-08, -4.37114e-08, 1, 1, 0, -4.37114e-08, 0, 0, 3)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("2_82s74")
+parent_widget = NodePath("../..")
+
+[node name="Spotlight_GreenArrow_Long" parent="target_point/vertical" instance=ExtResource("5_rs5o2")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="collider" type="CollisionShape3D" parent="target_point/vertical"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.099901, 3.72867e-22, 4.36681e-09)
+shape = SubResource("CapsuleShape3D_rw2so")
+
+[node name="track" type="CSGTorus3D" parent="target_point/vertical"]
+transform = Transform3D(1, 3.55271e-15, 0, -1.91069e-15, 1, -3.55271e-15, 0, 7.10543e-15, 1, -3, 1.07997e-20, 1.31134e-07)
+visible = false
+inner_radius = 2.995
+outer_radius = 3.0
+sides = 64
+ring_sides = 64
+material = SubResource("StandardMaterial3D_8bm78")
+
+[node name="light" type="SpotLight3D" parent="target_point"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+light_energy = 10.0
+shadow_enabled = true
+spot_range = 25.0
