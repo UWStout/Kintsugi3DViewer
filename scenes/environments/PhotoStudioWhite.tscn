@@ -1,12 +1,53 @@
-[gd_scene load_steps=3 format=3 uid="uid://dknemfurs5vg1"]
+[gd_scene load_steps=10 format=3 uid="uid://dknemfurs5vg1"]
 
+[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_fgp6x"]
 [ext_resource type="PackedScene" uid="uid://ba4ibeulyci4r" path="res://assets/Environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain.glb" id="1_gjy87"]
+[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="1_nttac"]
 [ext_resource type="PackedScene" uid="uid://dbnhnbpsu4u0a" path="res://assets/Environments/PhotoStudio/Bowls/Environment_PhotoStudio_WhiteBowl.glb" id="2_4udnm"]
+[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="4_4gdia"]
+[ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="4_nlvfg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wdfuc"]
+sky_top_color = Color(0.55, 0.55, 0.55, 1)
+sky_horizon_color = Color(0.67, 0.67, 0.67, 1)
+ground_bottom_color = Color(0.2, 0.2, 0.2, 1)
+ground_horizon_color = Color(0.67, 0.67, 0.67, 1)
+
+[sub_resource type="Sky" id="Sky_1yqgd"]
+sky_material = SubResource("ProceduralSkyMaterial_wdfuc")
+
+[sub_resource type="Environment" id="Environment_rn7ny"]
+background_mode = 2
+sky = SubResource("Sky_1yqgd")
+ambient_light_source = 3
+reflected_light_source = 2
 
 [node name="PhotoStudio_White" type="Node3D"]
+script = ExtResource("1_fgp6x")
+environment_name = "White Studio"
+environment_graphics = SubResource("Environment_rn7ny")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rn7ny")
+script = ExtResource("1_nttac")
 
 [node name="Object_Pedestal_WhitePlain" parent="." instance=ExtResource("1_gjy87")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.427637, -9.53674e-07, 0.127267)
+script = ExtResource("4_4gdia")
 
 [node name="Environment_PhotoStudio_WhiteBowl" parent="." instance=ExtResource("2_4udnm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0367966, 0)
+
+[node name="lighting" parent="." instance=ExtResource("4_nlvfg")]
+transform = Transform3D(1, 4.40923e-09, 0, 6.98492e-10, 1, 0, 2.32831e-10, 0, 1, 0, 3.39254, 0)
+
+[node name="statics" type="Node3D" parent="lighting"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting/statics"]
+transform = Transform3D(1, -5.10772e-09, -2.32831e-10, 0, 1, 1.18924e-18, 0, -1.03398e-25, 1, -9.2951e-10, 0.21081, 2.16418e-19)
+visible = false
+
+[node name="artifact_root" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35866, 0)
+
+[connection signal="artifact_bounds_changed" from="." to="Object_Pedestal_WhitePlain" method="_on_artifact_bounds_changed"]
+[connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]

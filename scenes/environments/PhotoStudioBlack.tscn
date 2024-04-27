@@ -1,12 +1,43 @@
-[gd_scene load_steps=3 format=3 uid="uid://388n7esf2jgd"]
+[gd_scene load_steps=8 format=3 uid="uid://388n7esf2jgd"]
 
 [ext_resource type="PackedScene" uid="uid://cnsia0146mpa3" path="res://assets/Environments/Objects/Pedestals/Plain/Object_Pedestal_BlackPlain.glb" id="1_2f6ju"]
+[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_ksv7v"]
 [ext_resource type="PackedScene" uid="uid://on3rqk3hdh7u" path="res://assets/Environments/PhotoStudio/Bowls/Environment_PhotoStudio_BlackBowl.glb" id="2_2yruq"]
+[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="2_bo5lj"]
+[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="4_0vdko"]
+[ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="5_6xftw"]
+
+[sub_resource type="Environment" id="Environment_02eti"]
+background_mode = 1
+background_color = Color(0.122252, 0.122252, 0.122252, 1)
 
 [node name="Node3D" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_ksv7v")
+environment_name = "Black Studio"
+environment_graphics = SubResource("Environment_02eti")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_02eti")
+script = ExtResource("2_bo5lj")
 
 [node name="Object_Pedestal_BlackPlain" parent="." instance=ExtResource("1_2f6ju")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0170202, -0.631064, 0.0644116)
+script = ExtResource("4_0vdko")
 
 [node name="Environment_PhotoStudio_BlackBowl" parent="." instance=ExtResource("2_2yruq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.69218, -0.480465, 0.209198)
+
+[node name="lighting" parent="." instance=ExtResource("5_6xftw")]
+transform = Transform3D(1, 4.40923e-09, 0, 6.98492e-10, 1, 0, 2.32831e-10, 0, 1, 0, 3.1199, 0)
+
+[node name="statics" type="Node3D" parent="lighting"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting/statics"]
+visible = false
+
+[node name="artifact_root" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.10613, 0)
+
+[connection signal="artifact_bounds_changed" from="." to="Object_Pedestal_BlackPlain" method="_on_artifact_bounds_changed"]
+[connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]
