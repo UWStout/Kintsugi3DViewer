@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://4dk8c3kcipcj"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_uuob5"]
+[ext_resource type="Texture2D" uid="uid://dhnx1ij5mq2f5" path="res://assets/Environments/HDRIs/hayloft_4k.exr" id="2_eeqwe"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_n7sw1"]
+panorama = ExtResource("2_eeqwe")
+
+[sub_resource type="Sky" id="Sky_rnbbc"]
+sky_material = SubResource("PanoramaSkyMaterial_n7sw1")
+
+[sub_resource type="Environment" id="Environment_t3yq2"]
+background_mode = 2
+background_energy_multiplier = 1.5
+sky = SubResource("Sky_rnbbc")
+
+[node name="HdriScene" instance=ExtResource("1_uuob5")]
+environment_name = "Hayloft HDRI"
+environment_graphics = SubResource("Environment_t3yq2")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_t3yq2")

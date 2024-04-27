@@ -48,6 +48,8 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	var headers = PackedStringArray(["Accept: model/gltf-binary, model/gltf+json"])
 	var raw_data = await _fetch_url_raw(url, headers)
 	
+	print("Received glTF raw data")
+	
 	var document = GLTFDocument.new()
 	var state = GLTFState.new()
 	
@@ -124,6 +126,9 @@ func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> 
 	
 	# Wait for the request to complete and fetch signal parameters
 	var response = await request.request_completed
+	
+	print ("HTTP request complete: " + url)
+	
 	var result = response[0]
 	var response_code = response[1]
 	var headers = response[2]

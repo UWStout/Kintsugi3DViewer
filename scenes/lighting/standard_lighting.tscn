@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://c75pmtmqbakeb"]
+
+[ext_resource type="Script" path="res://scripts/lighting/responsive_lighting_root.gd" id="1_45lt8"]
+[ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="2_np112"]
+
+[node name="lighting" type="Node3D"]
+script = ExtResource("1_45lt8")
+
+[node name="dynamics" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="widget_one" parent="dynamics" instance=ExtResource("2_np112")]
+distance = 1.0
+vertical_angle = -30.0
+
+[node name="widget_two" parent="dynamics" instance=ExtResource("2_np112")]
+distance = 1.0
+horizontal_angle = 120.0
+vertical_angle = -30.0
+
+[node name="widget_three" parent="dynamics" instance=ExtResource("2_np112")]
+distance = 1.0
+horizontal_angle = 240.0
+vertical_angle = -30.0

@@ -121,7 +121,7 @@ void light()
 		// Godot automaticallly multiplies DIFFUSE_LIGHT by albedo; 
 		// we put diffuse conribution in SPECULAR_LIGHT so that doesn't happen
 		diffuseLinear * irradiance / PI + 
-//		constantLinear * backLighting / PI + 
+		constantLinear * backLighting / PI + 
 	  	mix(mfdTimesFresnel, vec3(dot(mfdTimesFresnel / f0, vec3(1.0/3.0))), oneMinusHDotVSq * oneMinusHDotVSq * oneMinusHDotV)
 			* geomRatio * irradiance;
 }

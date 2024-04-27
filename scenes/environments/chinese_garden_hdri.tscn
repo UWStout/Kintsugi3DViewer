@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://co5kep7w2756c"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_bas76"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bvdew"]
+load_path = "res://.godot/imported/chinese_garden_4k (1).exr-35a233b4609fc5f6d72d2269a760a961.bptc.ctex"
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nhsux"]
+panorama = SubResource("CompressedTexture2D_bvdew")
+
+[sub_resource type="Sky" id="Sky_sbj1w"]
+sky_material = SubResource("PanoramaSkyMaterial_nhsux")
+
+[sub_resource type="Environment" id="Environment_v53rm"]
+background_mode = 2
+background_energy_multiplier = 2.5
+sky = SubResource("Sky_sbj1w")
+
+[node name="HdriScene" instance=ExtResource("1_bas76")]
+environment_name = "Chinese Garden HDRI"
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_v53rm")

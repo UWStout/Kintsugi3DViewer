@@ -40,7 +40,7 @@ func fetch_image(uri: String) -> Image:
 		return imported
 	else:
 		var fetched = await _child_fetcher.fetch_image(uri)
-		_cache.export_png(dir, file, fetched)
+		_cache.export_png_async(dir, file, fetched)
 		return fetched
 
 

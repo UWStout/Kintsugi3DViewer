@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://5qanqeo3p43b"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_73fy8"]
+[ext_resource type="Texture2D" uid="uid://cetw058kfqla7" path="res://assets/Environments/HDRIs/rooitou_park_4k.exr" id="2_ac0y4"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_mnkuy"]
+panorama = ExtResource("2_ac0y4")
+
+[sub_resource type="Sky" id="Sky_sv566"]
+sky_material = SubResource("PanoramaSkyMaterial_mnkuy")
+
+[sub_resource type="Environment" id="Environment_w74yj"]
+background_mode = 2
+background_energy_multiplier = 2.0
+sky = SubResource("Sky_sv566")
+
+[node name="HdriScene" instance=ExtResource("1_73fy8")]
+environment_name = "Rooitou Park HDRI"
+environment_graphics = SubResource("Environment_w74yj")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_w74yj")

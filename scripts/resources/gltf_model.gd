@@ -14,6 +14,7 @@ var mat_loader : GltfMaterial
 var obj : GLTFObject
 var aabb : AABB
 
+signal preview_load_completed
 signal load_completed
 signal load_progress(estimation : float)
 
@@ -22,15 +23,11 @@ signal load_progress(estimation : float)
 var artifact: ArtifactData = null
 var load_finished : bool = false
 
-
-
 func _load_gltf() -> GLTFObject:
 	return null
 
 func _create_material() -> GltfMaterial:
 	return GltfMaterial.new(obj)
-
-
 
 func load_artifact() -> int:
 	obj = await _load_gltf()
@@ -48,9 +45,11 @@ func load_artifact() -> int:
 		return -1
 	
 	if not mesh.get_aabb() == null:
-		aabb = mesh.get_aabb()
+		aabb = mesh.get_aabb() * mesh.global_transform
 	else:
-		aabb = AABB()
+		aabb = AABB() * mesh.global_transform
+		
+	preview_load_completed.emit();
 	
 	mat_loader = _create_material()
 	mat_loader.load_complete.connect(_on_material_load_complete)

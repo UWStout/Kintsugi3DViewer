@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://diiijjog58f0c"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_lc68j"]
+[ext_resource type="Texture2D" uid="uid://2umujd5u58kn" path="res://assets/Environments/HDRIs/zhengyang_gate_4k.exr" id="2_ps0io"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wnuya"]
+panorama = ExtResource("2_ps0io")
+
+[sub_resource type="Sky" id="Sky_kh7gk"]
+sky_material = SubResource("PanoramaSkyMaterial_wnuya")
+
+[sub_resource type="Environment" id="Environment_ey6py"]
+background_mode = 2
+background_energy_multiplier = 1.5
+sky = SubResource("Sky_kh7gk")
+
+[node name="HdriScene" instance=ExtResource("1_lc68j")]
+environment_name = "Zhengyang Gate HDRI"
+environment_graphics = SubResource("Environment_ey6py")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_ey6py")

@@ -1,12 +1,12 @@
-[gd_scene load_steps=99 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=111 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
+[ext_resource type="Script" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
 [ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_8xtf8"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/toggle_bottom_bar_button.gd" id="8_au3ok"]
-[ext_resource type="Script" path="res://scripts/environment_controller.gd" id="12_acvmt"]
-[ext_resource type="PackedScene" uid="uid://nhadmfkkkpi" path="res://scenes/environments/test_environment.tscn" id="14_atfu2"]
+[ext_resource type="Script" path="res://scripts/environments/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
 [ext_resource type="Texture2D" uid="uid://ckoeurmsqnnnt" path="res://assets/UI 2D/Icons/Top Dock/Import/Import_White_V1.svg" id="17_6ee1a"]
 [ext_resource type="Texture2D" uid="uid://cyq6mug4f7usx" path="res://assets/UI 2D/Icons/Top Dock/Controls Help/V2/ControlsHelp_Shown_White_V2.svg" id="17_6nw6i"]
@@ -67,16 +67,28 @@
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_cache_dropdown_button.gd" id="60_abk66"]
 [ext_resource type="Texture2D" uid="uid://dx7avrcprh331" path="res://assets/UI 2D/Icons/Side Dock/Environment Selection/EnvironmentSelection_White_V1.svg" id="60_d70fm"]
 [ext_resource type="Texture2D" uid="uid://dr8j5m6vi4ldi" path="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.svg" id="61_ywghh"]
+[ext_resource type="PackedScene" uid="uid://cum2pa85altu4" path="res://scenes/environments/Beige_Room_Environment.tscn" id="67_6ljs3"]
 [ext_resource type="Texture2D" uid="uid://dp7md5bqtxlvy" path="res://assets/UI 2D/Icons/Expanded Light Customization/Add Light/AddLight_White_V2.svg" id="67_63m5u"]
-[ext_resource type="PackedScene" uid="uid://bxukdqyc2f3j2" path="res://artifacts/guan-yu-test-voyager/model.glb" id="70_wftgc"]
+[ext_resource type="PackedScene" uid="uid://b0ifr0bsst2vi" path="res://scenes/environments/Green_Square_Room.tscn" id="68_gxb4g"]
+[ext_resource type="PackedScene" uid="uid://cq08g6is3yd0q" path="res://scenes/environments/green_tile_pillar_room.tscn" id="69_3p8jk"]
+[ext_resource type="PackedScene" uid="uid://dmio3hqlb4in5" path="res://scenes/environments/tan_tile_room.tscn" id="71_04ghq"]
 [ext_resource type="Texture2D" uid="uid://cito2sce6dag" path="res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_Out_White_V2.svg" id="71_muvog"]
+[ext_resource type="PackedScene" uid="uid://dax8cqqxulwsk" path="res://scenes/environments/round_classical_room_Environment.tscn" id="71_ns1n6"]
+[ext_resource type="PackedScene" uid="uid://co5kep7w2756c" path="res://scenes/environments/chinese_garden_hdri.tscn" id="72_7qija"]
+[ext_resource type="PackedScene" uid="uid://4dk8c3kcipcj" path="res://scenes/environments/hayloft-hdri.tscn" id="73_yat4e"]
+[ext_resource type="PackedScene" uid="uid://5qanqeo3p43b" path="res://scenes/environments/rooitou_park_hdri.tscn" id="74_23swl"]
+[ext_resource type="PackedScene" uid="uid://dm46deb605xdl" path="res://scenes/environments/sunny_vondelpark_hdri.tscn" id="75_nfilj"]
+[ext_resource type="PackedScene" uid="uid://bk3g1aihs6y1q" path="res://scenes/environments/industrial_sunset_hdri.tscn" id="76_hkfn5"]
+[ext_resource type="PackedScene" uid="uid://c0330c6wvvubh" path="res://scenes/environments/thatch_chapel_hdri.tscn" id="77_1xop2"]
+[ext_resource type="PackedScene" uid="uid://diiijjog58f0c" path="res://scenes/environments/zhengyang_gate_hdri.tscn" id="78_f28kr"]
+[ext_resource type="PackedScene" uid="uid://dknemfurs5vg1" path="res://scenes/environments/PhotoStudioWhite.tscn" id="79_hseew"]
 
-[sub_resource type="Sky" id="Sky_vfwqk"]
+[sub_resource type="Sky" id="Sky_ug4vp"]
 
-[sub_resource type="Environment" id="Environment_7futl"]
+[sub_resource type="Environment" id="Environment_ekb14"]
 background_mode = 1
 background_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
-sky = SubResource("Sky_vfwqk")
+sky = SubResource("Sky_ug4vp")
 sky_custom_fov = 1.0
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
@@ -240,20 +252,20 @@ border_color = Color(0, 1, 0, 1)
 
 [node name="viewer_scene" type="Node3D"]
 
-[node name="graphics" type="Node" parent="." node_paths=PackedStringArray("world_environment")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ekb14")
+script = ExtResource("1_8lf8i")
+
+[node name="graphics" type="Node" parent="." node_paths=PackedStringArray("viewer_environment")]
 script = ExtResource("1_7gla8")
-world_environment = NodePath("../WorldEnvironment")
+viewer_environment = NodePath("../WorldEnvironment")
 
 [node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_6cwju")
 _loader = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
 _ibr_shader = ExtResource("3_8xtf8")
 _environment_controller = NodePath("../environment_controller")
 _artifact_catalog_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_7futl")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
@@ -1846,7 +1858,7 @@ offset_bottom = 40.0
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
-environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("14_atfu2")])
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 
@@ -1892,14 +1904,12 @@ access = 2
 show_hidden_files = true
 script = ExtResource("29_4k4a7")
 
-[node name="guan_model" parent="." instance=ExtResource("70_wftgc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0971553, 2.46434, 0.0374031)
-visible = false
-
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection" method="_on_searchbar_text_changed"]
 [connection signal="item_selected" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" method="_on_item_selected"]
 [connection signal="visibility_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" method="_on_cache_visibility_changed"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" method="_on_text_changed"]
+[connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
+[connection signal="environment_changed" from="environment_controller" to="artifacts_controller" method="_on_environment_changed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]
