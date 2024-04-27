@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://bk3g1aihs6y1q"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_aolcx"]
+[ext_resource type="Texture2D" uid="uid://donsdmnk8lc23" path="res://assets/Environments/HDRIs/industrial_sunset_puresky_4k.exr" id="2_84n0v"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_leo3g"]
+panorama = ExtResource("2_84n0v")
+
+[sub_resource type="Sky" id="Sky_lxeft"]
+sky_material = SubResource("PanoramaSkyMaterial_leo3g")
+
+[sub_resource type="Environment" id="Environment_syo1v"]
+background_mode = 2
+background_energy_multiplier = 0.5
+sky = SubResource("Sky_lxeft")
+
+[node name="HdriScene" instance=ExtResource("1_aolcx")]
+environment_name = "Sunset HDRI"
+environment_graphics = SubResource("Environment_syo1v")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_syo1v")
