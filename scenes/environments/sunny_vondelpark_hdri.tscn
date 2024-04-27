@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm46deb605xdl"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_fynt6"]
+[ext_resource type="Texture2D" uid="uid://c0vay1i7gtgmp" path="res://assets/Environments/HDRIs/sunny_vondelpark_4k.exr" id="2_ki56e"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_p0tqi"]
+panorama = ExtResource("2_ki56e")
+
+[sub_resource type="Sky" id="Sky_xlkc2"]
+sky_material = SubResource("PanoramaSkyMaterial_p0tqi")
+
+[sub_resource type="Environment" id="Environment_lrni0"]
+background_mode = 2
+background_energy_multiplier = 2.5
+sky = SubResource("Sky_xlkc2")
+
+[node name="HdriScene" instance=ExtResource("1_fynt6")]
+environment_name = "Sunny Vondelpark HDRI"
+environment_graphics = SubResource("Environment_lrni0")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_lrni0")

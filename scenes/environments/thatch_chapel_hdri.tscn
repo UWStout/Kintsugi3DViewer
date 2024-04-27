@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0330c6wvvubh"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_jwwn1"]
+[ext_resource type="Texture2D" uid="uid://vxu7088dmpue" path="res://assets/Environments/HDRIs/thatch_chapel_4k.exr" id="2_1tlf7"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jr6v3"]
+panorama = ExtResource("2_1tlf7")
+
+[sub_resource type="Sky" id="Sky_kieol"]
+sky_material = SubResource("PanoramaSkyMaterial_jr6v3")
+
+[sub_resource type="Environment" id="Environment_88k0a"]
+background_mode = 2
+background_energy_multiplier = 1.5
+sky = SubResource("Sky_kieol")
+
+[node name="HdriScene" instance=ExtResource("1_jwwn1")]
+environment_name = "Thatch Chapel HDRI"
+environment_graphics = SubResource("Environment_88k0a")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_88k0a")

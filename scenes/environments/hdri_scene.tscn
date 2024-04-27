@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://cuk31uqvwxclc"]
+
+[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_s6aqb"]
+[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="3_15teb"]
+[ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="4_067em"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yqry7"]
+load_path = "res://.godot/imported/chinese_garden_4k (1).exr-35a233b4609fc5f6d72d2269a760a961.bptc.ctex"
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_wo4ah"]
+panorama = SubResource("CompressedTexture2D_yqry7")
+
+[sub_resource type="Sky" id="Sky_lnmn7"]
+sky_material = SubResource("PanoramaSkyMaterial_wo4ah")
+
+[sub_resource type="Environment" id="Environment_h4xmh"]
+background_mode = 2
+background_energy_multiplier = 1.5
+sky = SubResource("Sky_lnmn7")
+
+[node name="HdriScene" type="Node3D"]
+script = ExtResource("1_s6aqb")
+environment_graphics = SubResource("Environment_h4xmh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_h4xmh")
+script = ExtResource("3_15teb")
+
+[node name="artifact_root" type="Node3D" parent="."]
+
+[node name="lighting" parent="." instance=ExtResource("4_067em")]
+
+[node name="statics" type="Node3D" parent="lighting"]
+
+[connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]
