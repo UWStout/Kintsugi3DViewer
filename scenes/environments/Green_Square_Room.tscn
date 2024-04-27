@@ -78,7 +78,7 @@ light_energy = 100.0
 spot_range = 29.624
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="lighting/statics"]
-transform = Transform3D(-1, 7.57103e-08, 4.37114e-08, 0, -0.5, 0.866025, 8.74228e-08, 0.866025, 0.5, 0, 18.193, -9.294)
+transform = Transform3D(-1, 7.57103e-08, 4.37114e-08, 0, -0.5, 0.866025, 8.74228e-08, 0.866025, 0.5, 0, 17.5767, -9.294)
 light_energy = 100.0
 spot_range = 29.624
 
