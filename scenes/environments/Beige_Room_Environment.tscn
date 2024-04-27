@@ -18,6 +18,10 @@ sky_material = SubResource("ProceduralSkyMaterial_ccwvw")
 [sub_resource type="Environment" id="Environment_yvjqd"]
 background_mode = 2
 sky = SubResource("Sky_d8axl")
+ambient_light_source = 3
+ambient_light_color = Color(0.76, 0.872, 1, 1)
+ambient_light_sky_contribution = 0.83
+reflected_light_source = 2
 
 [node name="BeigeRoom" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.291439, -0.225525, 2.02496)
@@ -77,6 +81,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.255685, 2.62496, 0.0447104)
 
 [node name="statics" type="Node3D" parent="lighting"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting/statics"]
+transform = Transform3D(-0.64169, -0.487512, 0.592086, -0.0609653, 0.801966, 0.59425, -0.764537, 0.345228, -0.544335, 0, 3.89565, 0)
+directional_shadow_mode = 0
+sky_mode = 2
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="lighting/statics/DirectionalLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 2.98023e-08, 0, 1, 0, 0, 0)
+light_energy = 0.05
+shadow_enabled = true
+directional_shadow_mode = 0
+sky_mode = 1
 
 [connection signal="artifact_bounds_changed" from="." to="Object_Pedestal_BrownModern1" method="_on_artifact_bounds_changed"]
 [connection signal="artifact_bounds_changed" from="." to="lighting" method="_on_artifact_bounds_changed"]
