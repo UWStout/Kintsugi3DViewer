@@ -11,13 +11,17 @@ class_name RemoteGltfModel
 
 @export var fetcher: ResourceFetcher
 
-func _ready():
+func check_fetcher():
 	# Ensure the resource fetcher is avaliable
 	if not is_instance_valid(fetcher):
 		fetcher = GlobalFetcher
 		if not is_instance_valid(fetcher):
 			push_error("Remote glTF loader at node %s could not find a valid resource fetcher!" % get_path())
 			return
+
+func _ready():
+	# Ensure the resource fetcher is avaliable
+	check_fetcher()
 	
 	# If a URL is provided, override the artifact and load on ready. Used for testing.
 	if not artifactGltfUrl.is_empty():
@@ -84,6 +88,10 @@ func _ready():
 #	return 1
 
 func _load_gltf() -> GLTFObject:
+	
+	# might not have called _ready() yet
+	check_fetcher()
+	
 	var imported = null
 	
 	var dir_name = artifact.gltfUri.get_base_dir()

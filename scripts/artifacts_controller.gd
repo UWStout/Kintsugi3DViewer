@@ -22,7 +22,7 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
-var loaded_artifact: GltfModel
+var loaded_artifact: LoadableArtifact
 
 ## TESTING MODEL
 #var example_guan: Node3D
@@ -74,7 +74,6 @@ func display_artifact(index : int):
 		#change_scale()
 	pass
 
-
 func display_artifact_data(artifact: ArtifactData):
 	if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
 		return
@@ -83,12 +82,16 @@ func display_artifact_data(artifact: ArtifactData):
 	current_index = artifact_index
 	
 	if is_instance_valid(loaded_artifact):
-		if not loaded_artifact.load_finished:
-			loaded_artifact.stop_loading()
+		#if not loaded_artifact.load_finished:
+			#loaded_artifact.stop_loading()
 		
 		loaded_artifact.queue_free()
 
-	loaded_artifact = RemoteGltfModel.create(artifact)
+	if artifact["voyagerUri"] != null:
+		loaded_artifact = RemoteVoyagerStory.new(artifact)
+	else:
+		loaded_artifact = RemoteGltfModel.create(artifact)
+		
 	add_child(loaded_artifact)
 	_on_model_begin_load()
 	loaded_artifact.preview_load_completed.connect(_on_model_preview_load_complete)
@@ -154,7 +157,7 @@ func _on_model_begin_load():
 
 func _place_artifact():
 	var artifact_root = _environment_controller.get_active_artifact_root()
-	if not artifact_root == null:
+	if not artifact_root == null and loaded_artifact != null and loaded_artifact is GltfModel:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
 		#print(loaded_artifact.aabb.size.y)
 		target_pos -= loaded_artifact.aabb.position # position relative to bounding box
@@ -164,11 +167,12 @@ func _place_artifact():
 		loaded_artifact.global_position = target_pos
 		
 func _on_model_preview_load_complete():
-	_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
-	_place_artifact()
+	if loaded_artifact != null and loaded_artifact is GltfModel:
+		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
+		_place_artifact()
 
 func _on_environment_changed(new_environment):
-	if loaded_artifact != null:
+	if loaded_artifact != null and loaded_artifact is GltfModel:
 		new_environment.set_artifact_bounds(loaded_artifact.aabb)
 		_place_artifact()
 		
@@ -209,14 +213,13 @@ func _look_for_mesh(node : Node3D):
 	else:
 		return results.pop_front()
 
-
-func change_scale():
-	#print("HELLO THERE")
-	#self.get_child(0, false).get_child(0, false).scale = JsonReader.get_model_scale()
-	loaded_artifact.scale = JsonReader.get_model_scale()
+#func change_scale():
+	##print("HELLO THERE")
+	##self.get_child(0, false).get_child(0, false).scale = JsonReader.get_model_scale()
 	
 func _open_artifact_through_file(gltf_file_path : String):
-	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
+	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"): # \
+			# and not gltf_file_path.ends_with(".json"):
 		return
 	
 	if is_instance_valid(loaded_artifact):
