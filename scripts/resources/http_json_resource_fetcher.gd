@@ -114,7 +114,7 @@ func _format_relative_url(url: String) -> String:
 
 
 func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> Array:
-	var request = HTTPRequest.new();
+	var request = HTTPRequest.new()
 	add_child(request)
 	
 	# Check for client-side request errors (malformed urls, etc)
