@@ -157,7 +157,7 @@ func _on_model_begin_load():
 
 func _place_artifact():
 	var artifact_root = _environment_controller.get_active_artifact_root()
-	if not artifact_root == null and loaded_artifact != null and loaded_artifact is GltfModel:
+	if not artifact_root == null and loaded_artifact != null:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
 		#print(loaded_artifact.aabb.size.y)
 		target_pos -= loaded_artifact.aabb.position # position relative to bounding box
@@ -167,12 +167,12 @@ func _place_artifact():
 		loaded_artifact.global_position = target_pos
 		
 func _on_model_preview_load_complete():
-	if loaded_artifact != null and loaded_artifact is GltfModel:
+	if loaded_artifact != null and loaded_artifact:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 		_place_artifact()
 
 func _on_environment_changed(new_environment):
-	if loaded_artifact != null and loaded_artifact is GltfModel:
+	if loaded_artifact != null and loaded_artifact:
 		new_environment.set_artifact_bounds(loaded_artifact.aabb)
 		_place_artifact()
 		

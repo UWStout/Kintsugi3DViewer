@@ -498,6 +498,6 @@ func set_light_angle(new_angle : float):
 
 func set_environment_scale(scale : float):
 	var old_scale = _environment_scale
-	_environment_scale = scale
-	self.distance *= scale / old_scale
-	environment_scale_changed.emit(scale, old_scale)
+	_environment_scale = max(0.001, scale)
+	self.distance *= _environment_scale / old_scale
+	environment_scale_changed.emit(_environment_scale, old_scale)

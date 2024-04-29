@@ -103,12 +103,9 @@ func import_gltf(dir_name : String, name : String):
 	
 	var buffer = file.get_buffer(file.get_length())
 	
-	var gltf = GLTFDocument.new()
-	var state = GLTFState.new()
+	var object = GLTFObject.from_buffer(buffer)
 	
-	var error = gltf.append_from_buffer(buffer, "", state, 0x20)
-	
-	if error:
+	if object == null:
 		#var err_message = "there was an error while attempting to import file "
 		#err_message += file_name + " from directory " + dir_path  + ". error " + error_string(error)
 		#print(err_message)
@@ -124,12 +121,12 @@ func import_gltf(dir_name : String, name : String):
 	
 	file = FileAccess.open(file_path, FileAccess.READ)
 	
-	state.json = JSON.parse_string(file.get_as_text())
+	object.state.json = JSON.parse_string(file.get_as_text())
 	
 	#print("imported file " + name + ".glb from directory " + dir_path)
 	#print("imported file " + name + ".json from directory " + dir_path)
 	
-	return {"doc" : gltf, "state" : state}
+	return object
 
 func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : GLTFState):
 	#if outsized_folders.has(dir_name):
