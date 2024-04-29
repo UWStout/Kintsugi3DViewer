@@ -92,7 +92,7 @@ func _load_gltf() -> GLTFObject:
 	# might not have called _ready() yet
 	check_fetcher()
 	
-	var imported = null
+	var imported : GLTFObject = null 
 	
 	var dir_name = artifact.gltfUri.get_base_dir()
 	var file_name = artifact.gltfUri.trim_prefix(dir_name + "/")
@@ -102,9 +102,7 @@ func _load_gltf() -> GLTFObject:
 	imported = CacheManager.import_gltf(dir_name, file_name)
 	
 	if not imported == null:
-		var gltf_obj = GLTFObject.new()
-		gltf_obj.document = imported.doc
-		gltf_obj.state = imported.state
+		var gltf_obj = imported
 		gltf_obj.sourceUri = artifact.gltfUri
 		return gltf_obj
 	elif not Preferences.read_pref("offline mode"):

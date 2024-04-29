@@ -20,23 +20,40 @@ func load_artifact():
 	print(voyager_data.keys())
 	JsonReader.update_with_json(voyager_data)
 	
-	#var load_threads : Array[Thread] = []
 	var models : Array[GltfModel] = []
+	
+	# keep track of if models are loaded
+	var preview_loaded : Array[bool] = []
+	var fully_loaded : Array[bool] = []
+	preview_loaded.resize(JsonReader.get_model_count())
+	fully_loaded.resize(JsonReader.get_model_count())
 	
 	for i in JsonReader.get_model_count():
 		var voyagergltfdata = ArtifactData.new()
 		voyagergltfdata.gltfUri = artifact.gltfUri.get_base_dir() +"/"+ JsonReader.get_model_uri(i)
 		var model = RemoteGltfModel.create(voyagergltfdata)
 		models.append(model)
-		#var thread = Thread.new()
-		#load_threads.append(thread)
-		model.load_artifact() # TODO multithreading?
 		
-	##wait for all threads to finish
-	#for thread in load_threads:
-		#thread.wait_to_finish()
+		var preview_callback = func():
+			preview_loaded[i] = true
+			if (preview_loaded.all(func(b): return b)):
+				# all models have geometry fully downloaded, time to update AABB
+				refresh_aabb()
+				preview_load_completed.emit()
+			
+		model.preview_load_completed.connect(preview_callback)
+		
+		var complete_callback = func():
+			fully_loaded[i] = true
+			if (fully_loaded.all(func(b): return b)):
+				# all models are fully loaded
+				load_completed.emit()
+				load_finished = true
+				
+		model.load_completed.connect(complete_callback)
+		
+		model.load_artifact()
 	
-	# models have now all been loaded
 	# reconstruct scene graph as specified by Voyager
 	# first pass: create nodes, set scale/translation/rotation and attach models
 	var nodes : Array[Node3D] = []
@@ -60,7 +77,6 @@ func load_artifact():
 	for k in JsonReader.get_voyager_root_node_indices(0): # TODO hardcoding single scene (0) for now
 		add_child(nodes[k])
 		
-	preview_load_completed.emit()
-		
-	load_completed.emit()
-	load_finished = true
+	# actually start loading the models
+	for model in models:
+		model.load_artifact()

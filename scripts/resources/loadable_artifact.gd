@@ -16,6 +16,22 @@ var load_finished : bool = false
 var is_local : bool = false
 
 var artifact: ArtifactData = null
+var aabb : AABB
 
 func load_artifact():
 	pass
+	
+func refresh_aabb():
+	var meshes = find_children("*", "VisualInstance3D", true, false)
+	
+	if meshes.size() == 0:
+		aabb = AABB() * global_transform
+		return -1
+		
+	aabb = meshes[0].get_aabb() * meshes[0].global_transform
+	
+	# merge AABBs of all meshes
+	for mesh : VisualInstance3D in meshes:
+		aabb = aabb.merge(mesh.get_aabb() * mesh.global_transform)
+	
+	return 0

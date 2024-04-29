@@ -8,9 +8,7 @@
 
 class_name GltfModel extends LoadableArtifact
 
-var mat_loader : GltfMaterial
 var obj : GLTFObject
-var aabb : AABB
 
 @export var artifactGltfUrl : String
 
@@ -30,20 +28,13 @@ func load_artifact() -> int:
 		return -1
 	
 	add_child(scene)
-	
-	var content = scene.get_child(0, true)
-	if content == null:
-		return -1
-	
-	if content is MeshInstance3D and not content.get_aabb() == null:
-		aabb = content.get_aabb() * content.global_transform
-	else:
-		aabb = AABB() * content.global_transform
+	var error = refresh_aabb()
+	if error != 0:
+		return error
 		
 	preview_load_completed.emit();
 	
 	var meshes = scene.find_children("*", "MeshInstance3D")
-	
 	for mesh : MeshInstance3D in meshes:
 		var has_empty_materials
 		if mesh.mesh != null:
@@ -54,7 +45,8 @@ func load_artifact() -> int:
 				has_empty_materials = has_empty_materials || mesh.mesh.surface_get_material(i) == null
 		
 			if has_empty_materials:
-				mat_loader = _create_material()
+				print("loading external materials")
+				var mat_loader = _create_material()
 				mat_loader.load_complete.connect(_on_material_load_complete)
 				mat_loader.load_progress.connect(_on_material_load_progress)
 				
@@ -63,6 +55,10 @@ func load_artifact() -> int:
 						mesh.set_surface_override_material(i, mat_loader)
 					
 				mat_loader.load(mesh)
+			else:
+				load_completed.emit() # no materials, done loading
+		else:
+			load_completed.emit() # no mesh, done loading (probably an error)
 	
 	return 0
 
