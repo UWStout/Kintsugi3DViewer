@@ -51,8 +51,6 @@ func load_artifact():
 				load_finished = true
 				
 		model.load_completed.connect(complete_callback)
-		
-		model.load_artifact()
 	
 	# reconstruct scene graph as specified by Voyager
 	# first pass: create nodes, set scale/translation/rotation and attach models
