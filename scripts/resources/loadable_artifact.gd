@@ -25,13 +25,13 @@ func refresh_aabb():
 	var meshes = find_children("*", "VisualInstance3D", true, false)
 	
 	if meshes.size() == 0:
-		aabb = AABB() * global_transform
+		aabb = global_transform * AABB()
 		return -1
 		
-	aabb = meshes[0].get_aabb() * meshes[0].global_transform
+	aabb = meshes[0].global_transform * meshes[0].get_aabb()
 	
 	# merge AABBs of all meshes
 	for mesh : VisualInstance3D in meshes:
-		aabb = aabb.merge(mesh.get_aabb() * mesh.global_transform)
+		aabb = aabb.merge(mesh.global_transform * mesh.get_aabb())
 	
 	return 0
