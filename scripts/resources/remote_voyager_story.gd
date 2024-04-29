@@ -61,5 +61,6 @@ func load_artifact():
 		add_child(nodes[k])
 		
 	preview_load_completed.emit()
+		
 	load_completed.emit()
 	load_finished = true

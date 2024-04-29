@@ -31,25 +31,38 @@ func load_artifact() -> int:
 	
 	add_child(scene)
 	
-	var mesh = scene.get_child(0, true)
-	if mesh == null:
+	var content = scene.get_child(0, true)
+	if content == null:
 		return -1
 	
-	if mesh is Mesh and not mesh.get_aabb() == null:
-		aabb = mesh.get_aabb() * mesh.global_transform
+	if content is MeshInstance3D and not content.get_aabb() == null:
+		aabb = content.get_aabb() * content.global_transform
 	else:
-		aabb = AABB() * mesh.global_transform
+		aabb = AABB() * content.global_transform
 		
 	preview_load_completed.emit();
 	
-	if mesh is Mesh:
-		mat_loader = _create_material()
-		mat_loader.load_complete.connect(_on_material_load_complete)
-		mat_loader.load_progress.connect(_on_material_load_progress)
+	var meshes = scene.find_children("*", "MeshInstance3D")
+	
+	for mesh : MeshInstance3D in meshes:
+		var has_empty_materials
+		if mesh.mesh != null:
+			# only replace empty materials
+			# skip material load step completely if there are no empty materials
+			var surface_count = mesh.mesh.get_surface_count()
+			for i in surface_count:
+				has_empty_materials = has_empty_materials || mesh.mesh.surface_get_material(i) == null
 		
-		mesh.set_surface_override_material(0, mat_loader)
-		
-		mat_loader.load(mesh)
+			if has_empty_materials:
+				mat_loader = _create_material()
+				mat_loader.load_complete.connect(_on_material_load_complete)
+				mat_loader.load_progress.connect(_on_material_load_progress)
+				
+				for i in surface_count:
+					if mesh.mesh.surface_get_material(i) == null:
+						mesh.set_surface_override_material(i, mat_loader)
+					
+				mat_loader.load(mesh)
 	
 	return 0
 

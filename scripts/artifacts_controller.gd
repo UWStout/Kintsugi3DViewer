@@ -87,7 +87,7 @@ func display_artifact_data(artifact: ArtifactData):
 		
 		loaded_artifact.queue_free()
 
-	if artifact["voyagerUri"] != null:
+	if artifact["voyagerUri"] != null and not artifact["voyagerUri"].is_empty():
 		loaded_artifact = RemoteVoyagerStory.new(artifact)
 	else:
 		loaded_artifact = RemoteGltfModel.create(artifact)

@@ -58,18 +58,38 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	# the initial load process and is not euqipped to handle http resources, thus
 	# causing the load to fail outright. See modules/gltf/gltf_document.cpp@69,7318,7364
 	var gltf_error = document.append_from_buffer(raw_data, "", state, 0x20)
-	
+
 	if gltf_error:
 		push_error("An error occured parsing glTF data! Error code: %s" % gltf_error)
 		return GLTFObject.new()
 	
+	var uri_found = false
+	var bufferView_found = false
+	
+	if state.json != null and state.json.has("images"):
+		for image in state.json["images"]:
+			uri_found = uri_found or image.has("uri")
+			bufferView_found = bufferView_found or image.has("bufferView")
+			
+	if bufferView_found and not uri_found:
+		# bufferView usage was discovered with images and no images were found that use URIs
+		# try to reload, this time with embedded images on (no 0x20 flag)
+		var stateWithEmbedImages = GLTFState.new()
+		stateWithEmbedImages.set_handle_binary_image(GLTFState.HANDLE_BINARY_EMBED_AS_UNCOMPRESSED)
+		gltf_error = document.append_from_buffer(raw_data, "", stateWithEmbedImages)
+		
+		if gltf_error:
+			push_error("An error occured parsing glTF data! Error code: %s" % gltf_error)
+			# don't replace state
+		else:
+			state = stateWithEmbedImages # replace state with the one with embedded images
+			
 	var object := GLTFObject.new()
 	object.document = document
 	object.state = state
 	object.sourceUri = artifact.gltfUri
 	
 	return object
-
 
 func force_fetch_image(url: String) -> Image:
 	var image = Image.new()
