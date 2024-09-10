@@ -35,7 +35,7 @@ func _init_prefs():
 	write_pref("cache size", 2000)
 	write_pref("cache mode", CacheManager.REDUCE_CACHE_MODE.OLDEST)
 	write_pref("allow ip change", false)
-	write_pref("ip", "https://chviewer.jbuelow.com/")
+	write_pref("ip", "https://cshosting.blob.core.windows.net/kintsugi-3d/")
 	write_pref("offline mode", false)
 	write_pref("low res only", false)
 	write_pref("shadows", GraphicsController.SHADOWS.SOFT_MEDIUM)
