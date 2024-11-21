@@ -11,7 +11,7 @@ extends Node
 const _PREFERENCES_FILE : String = "preferences.pref"
 
 #TODO: add a defaut_pref() function to get the default value of a preference
-const _DEFAULT_IP: String = "https://cshosting.blob.core.windows.net/kintsugi-3d/"
+const _DEFAULT_IP: String = "https://kintsugi3d-app-dha5fwg3exc3dhdc.a03.azurefd.net/assets/"
 
 var signals_dict = {
 	"preference_name" : "signal"
