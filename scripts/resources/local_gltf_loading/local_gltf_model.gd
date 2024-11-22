@@ -39,4 +39,3 @@ static func create(p_artifact : ArtifactData):
 	model.artifact = p_artifact
 	model.is_local = true
 	return model
-
