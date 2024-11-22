@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://mlwyw6qnrdut"
-path="res://.godot/imported/Environment_WoodenFloor_DarkBrown.glb-cbcd9b41adba6e06b6181977a182429d.scn"
+uid="uid://by5aq3x4aevja"
+path="res://.godot/imported/bellstand.fbx-3a176a4698b503b29e586633cdebe1eb.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_WoodenFloor_DarkBrown.glb"
-dest_files=["res://.godot/imported/Environment_WoodenFloor_DarkBrown.glb-cbcd9b41adba6e06b6181977a182429d.scn"]
+source_file="res://assets/Environments/Objects/Benches/bellstand.fbx"
+dest_files=["res://.godot/imported/bellstand.fbx-3a176a4698b503b29e586633cdebe1eb.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -27,10 +27,11 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-gltf/naming_version=0
-gltf/embedded_image_handling=1
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1

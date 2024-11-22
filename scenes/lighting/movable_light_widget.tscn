@@ -1,8 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://hhkqv8yyqo7v"]
 
 [ext_resource type="ArrayMesh" uid="uid://b1g57rjtc2nhj" path="res://assets/mesh/light_widget_axis.res" id="1_f2faa"]
-[ext_resource type="Script" path="res://scripts/lighting/movable_light_widget.gd" id="1_gp4st"]
 [ext_resource type="Script" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_fmjf4"]
+
+[sub_resource type="Resource" id="Resource_aehjq"]
+metadata/__load_path__ = "res://scripts/lighting/movable_light_widget.gd"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pg2fx"]
 radius = 0.15
@@ -44,7 +46,7 @@ emission_enabled = true
 emission = Color(1, 1, 1, 1)
 
 [node name="movable_light_widget" type="Node3D"]
-script = ExtResource("1_gp4st")
+script = SubResource("Resource_aehjq")
 
 [node name="focus" type="StaticBody3D" parent="." node_paths=PackedStringArray("parent_widget")]
 collision_layer = 2
