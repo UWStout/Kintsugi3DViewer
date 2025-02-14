@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbcnutnhxu7uf"
-path.s3tc="res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-ec7c5c3910547e7ac8a82f2b8efaf408.s3tc.ctex"
-path.etc2="res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-ec7c5c3910547e7ac8a82f2b8efaf408.etc2.ctex"
+path.s3tc="res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-6bda53232edf7f7673405405cf44480b.s3tc.ctex"
+path.etc2="res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-6bda53232edf7f7673405405cf44480b.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Objects/Pedestals/Modern1/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png"
-dest_files=["res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-ec7c5c3910547e7ac8a82f2b8efaf408.s3tc.ctex", "res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-ec7c5c3910547e7ac8a82f2b8efaf408.etc2.ctex"]
+source_file="res://assets/environments/Objects/Pedestals/Modern1/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png"
+dest_files=["res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-6bda53232edf7f7673405405cf44480b.s3tc.ctex", "res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_roughness.png-6bda53232edf7f7673405405cf44480b.etc2.ctex"]
 
 [params]
 

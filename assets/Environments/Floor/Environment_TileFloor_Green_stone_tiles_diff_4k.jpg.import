@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ge2qawbtb6mf"
-path.s3tc="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-087ea88bd7893600303e9d1062171df6.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-087ea88bd7893600303e9d1062171df6.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-b6ab1f1687844545f48aa8f037c79ed9.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-b6ab1f1687844545f48aa8f037c79ed9.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg"
-dest_files=["res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-087ea88bd7893600303e9d1062171df6.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-087ea88bd7893600303e9d1062171df6.etc2.ctex"]
+source_file="res://assets/environments/Floor/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg"
+dest_files=["res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-b6ab1f1687844545f48aa8f037c79ed9.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Green_stone_tiles_diff_4k.jpg-b6ab1f1687844545f48aa8f037c79ed9.etc2.ctex"]
 
 [params]
 

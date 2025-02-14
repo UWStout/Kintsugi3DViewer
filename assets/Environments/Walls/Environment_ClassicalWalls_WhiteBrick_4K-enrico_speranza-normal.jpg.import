@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dt4coqhptc3mo"
-path.s3tc="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-89b2d703acac5569da10c5f5ec3d1208.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-89b2d703acac5569da10c5f5ec3d1208.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-855923a8133a482da12945471fb18f2e.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-855923a8133a482da12945471fb18f2e.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg"
-dest_files=["res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-89b2d703acac5569da10c5f5ec3d1208.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-89b2d703acac5569da10c5f5ec3d1208.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg"
+dest_files=["res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-855923a8133a482da12945471fb18f2e.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_4K-enrico_speranza-normal.jpg-855923a8133a482da12945471fb18f2e.etc2.ctex"]
 
 [params]
 

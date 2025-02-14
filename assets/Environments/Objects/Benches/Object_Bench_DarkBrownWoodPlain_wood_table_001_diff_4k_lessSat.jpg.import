@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://rmdlno7cx47s"
-path.s3tc="res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-6ee5fc40e0588d45f44aaea8513e9c34.s3tc.ctex"
-path.etc2="res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-6ee5fc40e0588d45f44aaea8513e9c34.etc2.ctex"
+path.s3tc="res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-94bb378108eac4a874434eaf01c8324b.s3tc.ctex"
+path.etc2="res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-94bb378108eac4a874434eaf01c8324b.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg"
-dest_files=["res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-6ee5fc40e0588d45f44aaea8513e9c34.s3tc.ctex", "res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-6ee5fc40e0588d45f44aaea8513e9c34.etc2.ctex"]
+source_file="res://assets/environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg"
+dest_files=["res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-94bb378108eac4a874434eaf01c8324b.s3tc.ctex", "res://.godot/imported/Object_Bench_DarkBrownWoodPlain_wood_table_001_diff_4k_lessSat.jpg-94bb378108eac4a874434eaf01c8324b.etc2.ctex"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dv6r7jh0a482a"
-path="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick.glb-dfb59bf4d0339eee0d0e4b60bc6960fb.scn"
+path="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick.glb-3950bfd6f164014d48bb5f7c78947c13.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_ClassicalWalls_WhiteBrick.glb"
-dest_files=["res://.godot/imported/Environment_ClassicalWalls_WhiteBrick.glb-dfb59bf4d0339eee0d0e4b60bc6960fb.scn"]
+source_file="res://assets/environments/Walls/Environment_ClassicalWalls_WhiteBrick.glb"
+dest_files=["res://.godot/imported/Environment_ClassicalWalls_WhiteBrick.glb-3950bfd6f164014d48bb5f7c78947c13.scn"]
 
 [params]
 

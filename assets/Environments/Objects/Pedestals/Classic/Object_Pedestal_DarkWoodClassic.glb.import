@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://duabw6oksmq5l"
-path="res://.godot/imported/Object_Pedestal_DarkWoodClassic.glb-1c5627465270fa9aa11cd45942f1fcb1.scn"
+path="res://.godot/imported/Object_Pedestal_DarkWoodClassic.glb-244a450e25167b0b577870e251cb1dd8.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Objects/Pedestals/Classic/Object_Pedestal_DarkWoodClassic.glb"
-dest_files=["res://.godot/imported/Object_Pedestal_DarkWoodClassic.glb-1c5627465270fa9aa11cd45942f1fcb1.scn"]
+source_file="res://assets/environments/Objects/Pedestals/Classic/Object_Pedestal_DarkWoodClassic.glb"
+dest_files=["res://.godot/imported/Object_Pedestal_DarkWoodClassic.glb-244a450e25167b0b577870e251cb1dd8.scn"]
 
 [params]
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhi2x26q6mbwb"
-path.s3tc="res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-058d8f577c729b3140f8db09689f1637.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-058d8f577c729b3140f8db09689f1637.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-88562c9210d8477eb843d7c3c5da1812.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-88562c9210d8477eb843d7c3c5da1812.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png"
-dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-058d8f577c729b3140f8db09689f1637.s3tc.ctex", "res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-058d8f577c729b3140f8db09689f1637.etc2.ctex"]
+source_file="res://assets/environments/Floor/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png"
+dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-88562c9210d8477eb843d7c3c5da1812.s3tc.ctex", "res://.godot/imported/Environment_ClassicalFloor_Dark_Marble_Gray_002_roughness.png-88562c9210d8477eb843d7c3c5da1812.etc2.ctex"]
 
 [params]
 

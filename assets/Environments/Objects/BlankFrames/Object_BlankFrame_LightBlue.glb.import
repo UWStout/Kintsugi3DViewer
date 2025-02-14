@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://vmdtxtkh4o73"
-path="res://.godot/imported/Object_BlankFrame_LightBlue.glb-934f1116a1ae8a7b3a8de9a369396ab3.scn"
+path="res://.godot/imported/Object_BlankFrame_LightBlue.glb-19912b2bbe65aadec8cbe77251fdaa98.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Objects/BlankFrames/Object_BlankFrame_LightBlue.glb"
-dest_files=["res://.godot/imported/Object_BlankFrame_LightBlue.glb-934f1116a1ae8a7b3a8de9a369396ab3.scn"]
+source_file="res://assets/environments/Objects/BlankFrames/Object_BlankFrame_LightBlue.glb"
+dest_files=["res://.godot/imported/Object_BlankFrame_LightBlue.glb-19912b2bbe65aadec8cbe77251fdaa98.scn"]
 
 [params]
 
