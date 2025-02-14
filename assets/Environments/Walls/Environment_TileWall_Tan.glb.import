@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b57g2n3t8snnx"
-path="res://.godot/imported/Environment_TileWall_Tan.glb-c3be92b033b3f8bb3986f8878ae049eb.scn"
+path="res://.godot/imported/Environment_TileWall_Tan.glb-ff87c9bfc615e2f4b58ae1f1086cf39f.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_TileWall_Tan.glb"
-dest_files=["res://.godot/imported/Environment_TileWall_Tan.glb-c3be92b033b3f8bb3986f8878ae049eb.scn"]
+source_file="res://assets/environments/Walls/Environment_TileWall_Tan.glb"
+dest_files=["res://.godot/imported/Environment_TileWall_Tan.glb-ff87c9bfc615e2f4b58ae1f1086cf39f.scn"]
 
 [params]
 

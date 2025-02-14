@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://daqkjnsckxo6g"
-path="res://.godot/imported/Environment_CeilingSquares_White.glb-d2f0af22bebec19f6b7e6db711323d27.scn"
+path="res://.godot/imported/Environment_CeilingSquares_White.glb-5156e6e52cd80f79e77c625114464a75.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Ceiling/Environment_CeilingSquares_White.glb"
-dest_files=["res://.godot/imported/Environment_CeilingSquares_White.glb-d2f0af22bebec19f6b7e6db711323d27.scn"]
+source_file="res://assets/environments/Ceiling/Environment_CeilingSquares_White.glb"
+dest_files=["res://.godot/imported/Environment_CeilingSquares_White.glb-5156e6e52cd80f79e77c625114464a75.scn"]
 
 [params]
 

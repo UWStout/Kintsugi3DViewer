@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cfo6ijs8hdcgp"
-path="res://.godot/imported/Environment_MarbleLoop_White.glb-584c9f0d1b91fff4673e8dbaa845eb6f.scn"
+path="res://.godot/imported/Environment_MarbleLoop_White.glb-34b50bd8f5e6fb078a846b775bd259d7.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_MarbleLoop_White.glb"
-dest_files=["res://.godot/imported/Environment_MarbleLoop_White.glb-584c9f0d1b91fff4673e8dbaa845eb6f.scn"]
+source_file="res://assets/environments/Walls/Environment_MarbleLoop_White.glb"
+dest_files=["res://.godot/imported/Environment_MarbleLoop_White.glb-34b50bd8f5e6fb078a846b775bd259d7.scn"]
 
 [params]
 

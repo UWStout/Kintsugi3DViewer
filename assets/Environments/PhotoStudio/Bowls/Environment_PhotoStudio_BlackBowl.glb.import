@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://on3rqk3hdh7u"
-path="res://.godot/imported/Environment_PhotoStudio_BlackBowl.glb-e5447c63e8108484ac3d7130c7a6e991.scn"
+path="res://.godot/imported/Environment_PhotoStudio_BlackBowl.glb-245b465b5d598b44faebc88c01dc52d9.scn"
 
 [deps]
 
-source_file="res://assets/Environments/PhotoStudio/Bowls/Environment_PhotoStudio_BlackBowl.glb"
-dest_files=["res://.godot/imported/Environment_PhotoStudio_BlackBowl.glb-e5447c63e8108484ac3d7130c7a6e991.scn"]
+source_file="res://assets/environments/PhotoStudio/Bowls/Environment_PhotoStudio_BlackBowl.glb"
+dest_files=["res://.godot/imported/Environment_PhotoStudio_BlackBowl.glb-245b465b5d598b44faebc88c01dc52d9.scn"]
 
 [params]
 

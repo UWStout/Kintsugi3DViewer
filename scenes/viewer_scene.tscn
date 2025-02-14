@@ -1311,14 +1311,9 @@ theme_override_constants/margin_right = 20
 [node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("45_lplh0")
+graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["HARD", "SOFT VERY LOW", "SOFT LOW", "SOFT MEDIUM", "SOFT HIGH", "SOFT ULTRA"])
 option_height = 30
-option_descriptions = Array[String]([])
-selected_option = 0
-button_width = 200
-option_side = 0
-option_width = 400
-graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1347,17 +1342,16 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller", "panel_root") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("46_gy2xc")
+graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["DISABLED", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
-panel_root = Object(Control,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":2,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":0,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":0.0,"offset_top":0.0,"offset_right":40.0,"offset_bottom":40.0,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":1,"size_flags_stretch_ratio":1.0,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","script":null)
-
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
-graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
 visible = false
@@ -1428,17 +1422,16 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller", "panel_root") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("48_r3bj8")
+graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["DISABLED", "MSAA 2X", "MSAA 4X", "MSAA 8X", "MSAA MAX"])
 panel_width = 200
 option_height = 30
-panel_root = Object(Control,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":2,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":0,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":0.0,"offset_top":0.0,"offset_right":40.0,"offset_bottom":40.0,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":1,"size_flags_stretch_ratio":1.0,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","script":null)
-
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
-graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -1463,17 +1456,16 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller", "panel_root") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("49_ulw4s")
+graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["VERY LOW", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
-panel_root = Object(Control,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":2,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":0,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":0.0,"offset_top":0.0,"offset_right":40.0,"offset_bottom":40.0,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":1,"size_flags_stretch_ratio":1.0,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","script":null)
-
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
-graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 
 [node name="Cache" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
 visible = false
@@ -1690,7 +1682,7 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 10
 
-[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" instance=ExtResource("59_m1q5b")]
+[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("panel_root") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("60_abk66")
 options = Array[String](["LARGEST", "SMALLEST", "MOST RECENT", "LEAST RECENT"])
@@ -1698,8 +1690,7 @@ descriptions = Array[String](["removes the largest files from the cache first", 
 panel_side = null
 panel_width = 450
 option_height = null
-panel_root = Object(Control,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":2,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"clip_contents":false,"custom_minimum_size":Vector2(0, 0),"layout_direction":0,"layout_mode":0,"anchors_preset":0,"anchor_left":0.0,"anchor_top":0.0,"anchor_right":0.0,"anchor_bottom":0.0,"offset_left":0.0,"offset_top":0.0,"offset_right":40.0,"offset_bottom":40.0,"grow_horizontal":1,"grow_vertical":1,"rotation":0.0,"scale":Vector2(1, 1),"pivot_offset":Vector2(0, 0),"size_flags_horizontal":1,"size_flags_vertical":1,"size_flags_stretch_ratio":1.0,"localize_numeral_system":true,"tooltip_text":"","focus_neighbor_left":NodePath(""),"focus_neighbor_top":NodePath(""),"focus_neighbor_right":NodePath(""),"focus_neighbor_bottom":NodePath(""),"focus_next":NodePath(""),"focus_previous":NodePath(""),"focus_mode":0,"mouse_filter":0,"mouse_force_pass_scroll_events":true,"mouse_default_cursor_shape":0,"shortcut_context":null,"theme":null,"theme_type_variation":&"","script":null)
-
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
 

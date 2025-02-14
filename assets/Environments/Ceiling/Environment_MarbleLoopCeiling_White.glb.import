@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d2b1130k7nu4j"
-path="res://.godot/imported/Environment_MarbleLoopCeiling_White.glb-103c97194a7db30b0f244a694234089d.scn"
+path="res://.godot/imported/Environment_MarbleLoopCeiling_White.glb-b996f2aa4190d753d824bb482c94e191.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Ceiling/Environment_MarbleLoopCeiling_White.glb"
-dest_files=["res://.godot/imported/Environment_MarbleLoopCeiling_White.glb-103c97194a7db30b0f244a694234089d.scn"]
+source_file="res://assets/environments/Ceiling/Environment_MarbleLoopCeiling_White.glb"
+dest_files=["res://.godot/imported/Environment_MarbleLoopCeiling_White.glb-b996f2aa4190d753d824bb482c94e191.scn"]
 
 [params]
 

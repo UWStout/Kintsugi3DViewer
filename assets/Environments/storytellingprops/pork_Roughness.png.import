@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c22d3lc6vd1qc"
-path="res://.godot/imported/pork_Roughness.png-fd13f735c994600844885d91aa461088.ctex"
+path="res://.godot/imported/pork_Roughness.png-a2ceb6aaa6463290907a1824f903b0a4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/pork_Roughness.png"
-dest_files=["res://.godot/imported/pork_Roughness.png-fd13f735c994600844885d91aa461088.ctex"]
+source_file="res://assets/environments/storytellingprops/pork_Roughness.png"
+dest_files=["res://.godot/imported/pork_Roughness.png-a2ceb6aaa6463290907a1824f903b0a4.ctex"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dbnhnbpsu4u0a"
-path="res://.godot/imported/Environment_PhotoStudio_WhiteBowl.glb-0a27be0b98f52fc407d097ccfe789cb9.scn"
+path="res://.godot/imported/Environment_PhotoStudio_WhiteBowl.glb-a3fd86869046daa6d96d1234fe28681b.scn"
 
 [deps]
 
-source_file="res://assets/Environments/PhotoStudio/Bowls/Environment_PhotoStudio_WhiteBowl.glb"
-dest_files=["res://.godot/imported/Environment_PhotoStudio_WhiteBowl.glb-0a27be0b98f52fc407d097ccfe789cb9.scn"]
+source_file="res://assets/environments/PhotoStudio/Bowls/Environment_PhotoStudio_WhiteBowl.glb"
+dest_files=["res://.godot/imported/Environment_PhotoStudio_WhiteBowl.glb-a3fd86869046daa6d96d1234fe28681b.scn"]
 
 [params]
 

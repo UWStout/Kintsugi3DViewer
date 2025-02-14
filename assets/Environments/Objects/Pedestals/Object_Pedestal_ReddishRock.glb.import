@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dtaotwslvsvyb"
-path="res://.godot/imported/Object_Pedestal_ReddishRock.glb-8858b10bbf997e6fd10ee057ff5e25c0.scn"
+path="res://.godot/imported/Object_Pedestal_ReddishRock.glb-14ab22a57ba9f0022a571a5ea0871b98.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Objects/Pedestals/Object_Pedestal_ReddishRock.glb"
-dest_files=["res://.godot/imported/Object_Pedestal_ReddishRock.glb-8858b10bbf997e6fd10ee057ff5e25c0.scn"]
+source_file="res://assets/environments/Objects/Pedestals/Object_Pedestal_ReddishRock.glb"
+dest_files=["res://.godot/imported/Object_Pedestal_ReddishRock.glb-14ab22a57ba9f0022a571a5ea0871b98.scn"]
 
 [params]
 

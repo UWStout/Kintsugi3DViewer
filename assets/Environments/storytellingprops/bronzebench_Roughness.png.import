@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7tnbk40a3ma4"
-path="res://.godot/imported/bronzebench_Roughness.png-d039927ecaa4532d1f2b927c8e2234eb.ctex"
+path="res://.godot/imported/bronzebench_Roughness.png-1b6d2f1a91fbef8f598e4576455c04d3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/bronzebench_Roughness.png"
-dest_files=["res://.godot/imported/bronzebench_Roughness.png-d039927ecaa4532d1f2b927c8e2234eb.ctex"]
+source_file="res://assets/environments/storytellingprops/bronzebench_Roughness.png"
+dest_files=["res://.godot/imported/bronzebench_Roughness.png-1b6d2f1a91fbef8f598e4576455c04d3.ctex"]
 
 [params]
 

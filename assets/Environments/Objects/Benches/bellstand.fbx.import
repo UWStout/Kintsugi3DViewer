@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://by5aq3x4aevja"
-path="res://.godot/imported/bellstand.fbx-3a176a4698b503b29e586633cdebe1eb.scn"
+path="res://.godot/imported/bellstand.fbx-4dccd38b2a4a49aa87cf01a280d0fbec.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Objects/Benches/bellstand.fbx"
-dest_files=["res://.godot/imported/bellstand.fbx-3a176a4698b503b29e586633cdebe1eb.scn"]
+source_file="res://assets/environments/Objects/Benches/bellstand.fbx"
+dest_files=["res://.godot/imported/bellstand.fbx-4dccd38b2a4a49aa87cf01a280d0fbec.scn"]
 
 [params]
 
