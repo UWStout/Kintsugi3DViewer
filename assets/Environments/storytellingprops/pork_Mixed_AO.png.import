@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mww17ryytm6w"
-path="res://.godot/imported/pork_Mixed_AO.png-8a0131567b56c7dab55e5581858e37a0.ctex"
+path="res://.godot/imported/pork_Mixed_AO.png-cced30c6e87a678dd39f8ee7a662e129.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/pork_Mixed_AO.png"
-dest_files=["res://.godot/imported/pork_Mixed_AO.png-8a0131567b56c7dab55e5581858e37a0.ctex"]
+source_file="res://assets/environments/storytellingprops/pork_Mixed_AO.png"
+dest_files=["res://.godot/imported/pork_Mixed_AO.png-cced30c6e87a678dd39f8ee7a662e129.ctex"]
 
 [params]
 

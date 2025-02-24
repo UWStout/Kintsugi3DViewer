@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://hhfsdgf44ubx"
-path.s3tc="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-ba2bc645b1eef4e3ca5de82933174a8a.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-ba2bc645b1eef4e3ca5de82933174a8a.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-5f8fdf1c8b9e6cea597639a0c7b35987.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-5f8fdf1c8b9e6cea597639a0c7b35987.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_TileFloor_Green_stone_tiles_rough_4k.png"
-dest_files=["res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-ba2bc645b1eef4e3ca5de82933174a8a.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-ba2bc645b1eef4e3ca5de82933174a8a.etc2.ctex"]
+source_file="res://assets/environments/Floor/Environment_TileFloor_Green_stone_tiles_rough_4k.png"
+dest_files=["res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-5f8fdf1c8b9e6cea597639a0c7b35987.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Green_stone_tiles_rough_4k.png-5f8fdf1c8b9e6cea597639a0c7b35987.etc2.ctex"]
 
 [params]
 

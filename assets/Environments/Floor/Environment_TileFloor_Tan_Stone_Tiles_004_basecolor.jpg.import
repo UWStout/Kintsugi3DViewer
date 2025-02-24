@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5fmu711nng4w"
-path.s3tc="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-667f3f7981a50ee9c844887fe8d179a7.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-667f3f7981a50ee9c844887fe8d179a7.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-d587a966af5c1f14afe3eb31538f1899.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-d587a966af5c1f14afe3eb31538f1899.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg"
-dest_files=["res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-667f3f7981a50ee9c844887fe8d179a7.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-667f3f7981a50ee9c844887fe8d179a7.etc2.ctex"]
+source_file="res://assets/environments/Floor/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg"
+dest_files=["res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-d587a966af5c1f14afe3eb31538f1899.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_basecolor.jpg-d587a966af5c1f14afe3eb31538f1899.etc2.ctex"]
 
 [params]
 

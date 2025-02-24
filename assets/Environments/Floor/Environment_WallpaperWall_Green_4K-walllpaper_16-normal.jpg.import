@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://oj0jc8aveid5"
-path.s3tc="res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-9e8f67db807e38a20d7f8b3e923aff38.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-9e8f67db807e38a20d7f8b3e923aff38.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-aa1f02e1b21d32b1fe2629325523996b.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-aa1f02e1b21d32b1fe2629325523996b.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg"
-dest_files=["res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-9e8f67db807e38a20d7f8b3e923aff38.s3tc.ctex", "res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-9e8f67db807e38a20d7f8b3e923aff38.etc2.ctex"]
+source_file="res://assets/environments/Floor/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg"
+dest_files=["res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-aa1f02e1b21d32b1fe2629325523996b.s3tc.ctex", "res://.godot/imported/Environment_WallpaperWall_Green_4K-walllpaper_16-normal.jpg-aa1f02e1b21d32b1fe2629325523996b.etc2.ctex"]
 
 [params]
 

@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://d1qwlyf7ypflv"
-path="res://.godot/imported/porkchop.obj-099da740a3a48101853ad45c28b2cf7b.mesh"
+path="res://.godot/imported/porkchop.obj-f610db2e7c4fa47bf7dedbc04a353583.mesh"
 
 [deps]
 
-files=["res://.godot/imported/porkchop.obj-099da740a3a48101853ad45c28b2cf7b.mesh"]
+files=["res://.godot/imported/porkchop.obj-f610db2e7c4fa47bf7dedbc04a353583.mesh"]
 
-source_file="res://assets/Environments/storytellingprops/porkchop.obj"
-dest_files=["res://.godot/imported/porkchop.obj-099da740a3a48101853ad45c28b2cf7b.mesh", "res://.godot/imported/porkchop.obj-099da740a3a48101853ad45c28b2cf7b.mesh"]
+source_file="res://assets/environments/storytellingprops/porkchop.obj"
+dest_files=["res://.godot/imported/porkchop.obj-f610db2e7c4fa47bf7dedbc04a353583.mesh", "res://.godot/imported/porkchop.obj-f610db2e7c4fa47bf7dedbc04a353583.mesh"]
 
 [params]
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://flgql73m4r6"
-path.s3tc="res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-a2ad5c70e5636f1a5da0d34730afe928.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-a2ad5c70e5636f1a5da0d34730afe928.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-aa17c303b91e8f37077ad4b847dce991.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-aa17c303b91e8f37077ad4b847dce991.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png"
-dest_files=["res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-a2ad5c70e5636f1a5da0d34730afe928.s3tc.ctex", "res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-a2ad5c70e5636f1a5da0d34730afe928.etc2.ctex"]
+source_file="res://assets/environments/Floor/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png"
+dest_files=["res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-aa17c303b91e8f37077ad4b847dce991.s3tc.ctex", "res://.godot/imported/Environment_RoundFloor_Checkered_floor_tiles_06_nor_gl_4k.png-aa17c303b91e8f37077ad4b847dce991.etc2.ctex"]
 
 [params]
 

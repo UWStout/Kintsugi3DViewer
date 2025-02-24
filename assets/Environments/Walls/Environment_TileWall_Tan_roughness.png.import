@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://f3tgoof0gs3e"
-path.s3tc="res://.godot/imported/Environment_TileWall_Tan_roughness.png-b3bfdf4a202282ca854575a77df28031.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileWall_Tan_roughness.png-b3bfdf4a202282ca854575a77df28031.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileWall_Tan_roughness.png-649d74e3aaff4c682dad0bfb67694e89.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileWall_Tan_roughness.png-649d74e3aaff4c682dad0bfb67694e89.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_TileWall_Tan_roughness.png"
-dest_files=["res://.godot/imported/Environment_TileWall_Tan_roughness.png-b3bfdf4a202282ca854575a77df28031.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_roughness.png-b3bfdf4a202282ca854575a77df28031.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_TileWall_Tan_roughness.png"
+dest_files=["res://.godot/imported/Environment_TileWall_Tan_roughness.png-649d74e3aaff4c682dad0bfb67694e89.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_roughness.png-649d74e3aaff4c682dad0bfb67694e89.etc2.ctex"]
 
 [params]
 

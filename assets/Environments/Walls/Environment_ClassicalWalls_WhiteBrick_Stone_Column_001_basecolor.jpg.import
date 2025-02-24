@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dd25dq5gxkix8"
-path.s3tc="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-4c069f3869faa6cc8143c5d0b9079beb.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-4c069f3869faa6cc8143c5d0b9079beb.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-ced896a546e7ae70acff724c649eec5d.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-ced896a546e7ae70acff724c649eec5d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg"
-dest_files=["res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-4c069f3869faa6cc8143c5d0b9079beb.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-4c069f3869faa6cc8143c5d0b9079beb.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg"
+dest_files=["res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-ced896a546e7ae70acff724c649eec5d.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_WhiteBrick_Stone_Column_001_basecolor.jpg-ced896a546e7ae70acff724c649eec5d.etc2.ctex"]
 
 [params]
 

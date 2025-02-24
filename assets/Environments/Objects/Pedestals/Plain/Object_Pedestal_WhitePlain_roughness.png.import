@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://67e3uveyo6j5"
-path.s3tc="res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-cf30d0673493a4231813c3c5ad1359d5.s3tc.ctex"
-path.etc2="res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-cf30d0673493a4231813c3c5ad1359d5.etc2.ctex"
+path.s3tc="res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-0e636a35261631ad51d13ff9e7357a25.s3tc.ctex"
+path.etc2="res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-0e636a35261631ad51d13ff9e7357a25.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain_roughness.png"
-dest_files=["res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-cf30d0673493a4231813c3c5ad1359d5.s3tc.ctex", "res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-cf30d0673493a4231813c3c5ad1359d5.etc2.ctex"]
+source_file="res://assets/environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain_roughness.png"
+dest_files=["res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-0e636a35261631ad51d13ff9e7357a25.s3tc.ctex", "res://.godot/imported/Object_Pedestal_WhitePlain_roughness.png-0e636a35261631ad51d13ff9e7357a25.etc2.ctex"]
 
 [params]
 
