@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmmdlvi8s5yns"
-path="res://.godot/imported/charcoal_Roughness.png-6f98904b6d448d1e79f25a1b10b494ec.ctex"
+path="res://.godot/imported/charcoal_Roughness.png-3c7227d6756a77f0588ef2d51863d77e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/charcoal_Roughness.png"
-dest_files=["res://.godot/imported/charcoal_Roughness.png-6f98904b6d448d1e79f25a1b10b494ec.ctex"]
+source_file="res://assets/environments/storytellingprops/charcoal_Roughness.png"
+dest_files=["res://.godot/imported/charcoal_Roughness.png-3c7227d6756a77f0588ef2d51863d77e.ctex"]
 
 [params]
 

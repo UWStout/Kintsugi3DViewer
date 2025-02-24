@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2umujd5u58kn"
-path.bptc="res://.godot/imported/zhengyang_gate_4k.exr-d64b41815773fc4a0cc8af86fb73810d.bptc.ctex"
-path.astc="res://.godot/imported/zhengyang_gate_4k.exr-d64b41815773fc4a0cc8af86fb73810d.astc.ctex"
+path.bptc="res://.godot/imported/zhengyang_gate_4k.exr-9440589f261902bcb3d51031b770a988.bptc.ctex"
+path.astc="res://.godot/imported/zhengyang_gate_4k.exr-9440589f261902bcb3d51031b770a988.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Environments/HDRIs/zhengyang_gate_4k.exr"
-dest_files=["res://.godot/imported/zhengyang_gate_4k.exr-d64b41815773fc4a0cc8af86fb73810d.bptc.ctex", "res://.godot/imported/zhengyang_gate_4k.exr-d64b41815773fc4a0cc8af86fb73810d.astc.ctex"]
+source_file="res://assets/environments/HDRIs/zhengyang_gate_4k.exr"
+dest_files=["res://.godot/imported/zhengyang_gate_4k.exr-9440589f261902bcb3d51031b770a988.bptc.ctex", "res://.godot/imported/zhengyang_gate_4k.exr-9440589f261902bcb3d51031b770a988.astc.ctex"]
 
 [params]
 

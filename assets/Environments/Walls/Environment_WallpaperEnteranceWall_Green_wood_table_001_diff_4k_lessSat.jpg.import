@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bm7h32vgxj0ib"
-path.s3tc="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-5614a1cf0fd314f8b4fb336a7373d830.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-5614a1cf0fd314f8b4fb336a7373d830.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-71a03175bb260fd95bae6b1103e7a0ad.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-71a03175bb260fd95bae6b1103e7a0ad.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg"
-dest_files=["res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-5614a1cf0fd314f8b4fb336a7373d830.s3tc.ctex", "res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-5614a1cf0fd314f8b4fb336a7373d830.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg"
+dest_files=["res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-71a03175bb260fd95bae6b1103e7a0ad.s3tc.ctex", "res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k_lessSat.jpg-71a03175bb260fd95bae6b1103e7a0ad.etc2.ctex"]
 
 [params]
 

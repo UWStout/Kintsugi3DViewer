@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmo2u83cni4b0"
-path="res://.godot/imported/bellstand_bell stand_Normal.png-504d63d73f8b2dc6082b2fbdf68c6b2c.ctex"
+path="res://.godot/imported/bellstand_bell stand_Normal.png-7d363ddd00dc07ce32ccd125bb44e841.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/bellstand_bell stand_Normal.png"
-dest_files=["res://.godot/imported/bellstand_bell stand_Normal.png-504d63d73f8b2dc6082b2fbdf68c6b2c.ctex"]
+source_file="res://assets/environments/storytellingprops/bellstand_bell stand_Normal.png"
+dest_files=["res://.godot/imported/bellstand_bell stand_Normal.png-7d363ddd00dc07ce32ccd125bb44e841.ctex"]
 
 [params]
 

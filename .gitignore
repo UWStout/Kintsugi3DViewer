@@ -14,3 +14,6 @@ data_*/
 
 # Built exports
 /export
+
+# MacOS
+.DS_Store

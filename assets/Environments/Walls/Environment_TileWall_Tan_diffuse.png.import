@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0ro44hee5ac1"
-path.s3tc="res://.godot/imported/Environment_TileWall_Tan_diffuse.png-092114b94e98a548a2913b7dbb828f9c.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileWall_Tan_diffuse.png-092114b94e98a548a2913b7dbb828f9c.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileWall_Tan_diffuse.png-5fb3e6413faa6506a7a8fd72891c46c8.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileWall_Tan_diffuse.png-5fb3e6413faa6506a7a8fd72891c46c8.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_TileWall_Tan_diffuse.png"
-dest_files=["res://.godot/imported/Environment_TileWall_Tan_diffuse.png-092114b94e98a548a2913b7dbb828f9c.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_diffuse.png-092114b94e98a548a2913b7dbb828f9c.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_TileWall_Tan_diffuse.png"
+dest_files=["res://.godot/imported/Environment_TileWall_Tan_diffuse.png-5fb3e6413faa6506a7a8fd72891c46c8.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_diffuse.png-5fb3e6413faa6506a7a8fd72891c46c8.etc2.ctex"]
 
 [params]
 
