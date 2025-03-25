@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cg4ot783def6h"
-path.s3tc="res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-3dbe686332b7f7c17077c972bc5b958b.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-3dbe686332b7f7c17077c972bc5b958b.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-687b41d8740fea5c86ea4f848759cd7c.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-687b41d8740fea5c86ea4f848759cd7c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Ceiling/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg"
-dest_files=["res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-3dbe686332b7f7c17077c972bc5b958b.s3tc.ctex", "res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-3dbe686332b7f7c17077c972bc5b958b.etc2.ctex"]
+source_file="res://assets/environments/Ceiling/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg"
+dest_files=["res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-687b41d8740fea5c86ea4f848759cd7c.s3tc.ctex", "res://.godot/imported/Environment_MarbleLoopCeiling_White_Stone_Column_001_basecolor.jpg-687b41d8740fea5c86ea4f848759cd7c.etc2.ctex"]
 
 [params]
 

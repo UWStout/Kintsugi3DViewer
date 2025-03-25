@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b3qyhrcpoq7xw"
-path.s3tc="res://.godot/imported/stonebench_Metallic.png-fe74a90fc46ed69e78975708bafcb85c.s3tc.ctex"
-path.etc2="res://.godot/imported/stonebench_Metallic.png-fe74a90fc46ed69e78975708bafcb85c.etc2.ctex"
+path.s3tc="res://.godot/imported/stonebench_Metallic.png-15591d66727bb7a98ec1543e16c575aa.s3tc.ctex"
+path.etc2="res://.godot/imported/stonebench_Metallic.png-15591d66727bb7a98ec1543e16c575aa.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/stonebench_Metallic.png"
-dest_files=["res://.godot/imported/stonebench_Metallic.png-fe74a90fc46ed69e78975708bafcb85c.s3tc.ctex", "res://.godot/imported/stonebench_Metallic.png-fe74a90fc46ed69e78975708bafcb85c.etc2.ctex"]
+source_file="res://assets/environments/storytellingprops/stonebench_Metallic.png"
+dest_files=["res://.godot/imported/stonebench_Metallic.png-15591d66727bb7a98ec1543e16c575aa.s3tc.ctex", "res://.godot/imported/stonebench_Metallic.png-15591d66727bb7a98ec1543e16c575aa.etc2.ctex"]
 
 [params]
 

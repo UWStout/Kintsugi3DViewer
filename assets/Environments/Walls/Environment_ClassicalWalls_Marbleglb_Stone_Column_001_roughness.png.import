@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b5bkxohydwsfl"
-path.s3tc="res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-8080be41a184ddb8ee7eebbdfac64bed.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-8080be41a184ddb8ee7eebbdfac64bed.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-44d17218331b7a64e7afe90b1f09d434.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-44d17218331b7a64e7afe90b1f09d434.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png"
-dest_files=["res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-8080be41a184ddb8ee7eebbdfac64bed.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-8080be41a184ddb8ee7eebbdfac64bed.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png"
+dest_files=["res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-44d17218331b7a64e7afe90b1f09d434.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_Marbleglb_Stone_Column_001_roughness.png-44d17218331b7a64e7afe90b1f09d434.etc2.ctex"]
 
 [params]
 

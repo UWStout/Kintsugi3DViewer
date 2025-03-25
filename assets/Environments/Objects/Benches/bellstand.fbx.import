@@ -3,18 +3,18 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://nv6a83a84b11"
-path="res://.godot/imported/Environment_WallpaperWall_Green.glb-f308e992928a8001ba3d3c9c805134fb.scn"
+uid="uid://by5aq3x4aevja"
+path="res://.godot/imported/bellstand.fbx-4dccd38b2a4a49aa87cf01a280d0fbec.scn"
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_WallpaperWall_Green.glb"
-dest_files=["res://.godot/imported/Environment_WallpaperWall_Green.glb-f308e992928a8001ba3d3c9c805134fb.scn"]
+source_file="res://assets/environments/Objects/Benches/bellstand.fbx"
+dest_files=["res://.godot/imported/bellstand.fbx-4dccd38b2a4a49aa87cf01a280d0fbec.scn"]
 
 [params]
 
-nodes/root_type="Node3D"
-nodes/root_name="Scene Root"
+nodes/root_type=""
+nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
@@ -27,10 +27,11 @@ meshes/force_disable_compression=false
 skins/use_named_skins=true
 animation/import=true
 animation/fps=30
-animation/trimming=false
+animation/trimming=true
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-gltf/naming_version=0
-gltf/embedded_image_handling=1
+fbx/importer=0
+fbx/allow_geometry_helper_nodes=false
+fbx/embedded_image_handling=1

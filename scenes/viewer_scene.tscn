@@ -173,14 +173,14 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.141176, 0.141176, 0.141176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
-bg_color = Color(0.85098, 0.85098, 0.85098, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
 bg_color = Color(0.733333, 0.733333, 0.733333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3beys"]
 bg_color = Color(0.654902, 0.654902, 0.654902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_116h6"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -193,6 +193,8 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5e1kc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp4v3"]
 content_margin_left = 30.0
@@ -211,8 +213,6 @@ content_margin_right = 15.0
 bg_color = Color(0.141176, 0.141176, 0.141176, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5e1kc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqsj3"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -932,9 +932,9 @@ theme_override_constants/margin_right = 5
 [node name="new_light_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button" node_paths=PackedStringArray("environment_controller", "light_selection_ui")]
 custom_minimum_size = Vector2(240, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_u8r5e")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ahlbe")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
+theme_override_styles/normal = SubResource("StyleBoxFlat_u8r5e")
 script = ExtResource("29_ujmju")
 environment_controller = NodePath("../../../../../../../../../../environment_controller")
 light_selection_ui = NodePath("../../../..")
@@ -1159,13 +1159,15 @@ expand_mode = 5
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_5e1kc")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_5e1kc")
+current_tab = 0
 
 [node name="General" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
+metadata/_tab_index = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General"]
 layout_mode = 1
@@ -1260,6 +1262,7 @@ preference_name = "low res only"
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
+metadata/_tab_index = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering"]
 layout_mode = 1
@@ -1305,16 +1308,12 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller", "panel_root") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("45_lplh0")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["HARD", "SOFT VERY LOW", "SOFT LOW", "SOFT MEDIUM", "SOFT HIGH", "SOFT ULTRA"])
-panel_width = 200
 option_height = 30
-panel_root = NodePath("../../../../../../../../../../../../../dropdown_layer")
-selected_index = null
-_start_toggled = null
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -1350,7 +1349,7 @@ graphics_controller = NodePath("../../../../../../../../../../../../../../graphi
 options = Array[String](["DISABLED", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
-panel_root = NodePath("../../../../../../../../../../../../../dropdown_layer")
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
 
@@ -1380,10 +1379,9 @@ theme_override_constants/margin_right = 20
 [node name="OptionButton" type="OptionButton" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer"]
 custom_minimum_size = Vector2(154, 40)
 layout_mode = 2
-item_count = 4
 selected = 0
+item_count = 4
 popup/item_0/text = "DISABLED"
-popup/item_0/id = 0
 popup/item_1/text = "LOW"
 popup/item_1/id = 1
 popup/item_2/text = "MEDIUM"
@@ -1431,7 +1429,7 @@ graphics_controller = NodePath("../../../../../../../../../../../../../../graphi
 options = Array[String](["DISABLED", "MSAA 2X", "MSAA 4X", "MSAA 8X", "MSAA MAX"])
 panel_width = 200
 option_height = 30
-panel_root = NodePath("../../../../../../../../../../../../../dropdown_layer")
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
 
@@ -1465,7 +1463,7 @@ graphics_controller = NodePath("../../../../../../../../../../../../../../graphi
 options = Array[String](["VERY LOW", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
-panel_root = NodePath("../../../../../../../../../../../../../dropdown_layer")
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
 
@@ -1473,6 +1471,7 @@ _start_toggled = null
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
+metadata/_tab_index = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache"]
 layout_mode = 1
@@ -1691,7 +1690,7 @@ descriptions = Array[String](["removes the largest files from the cache first", 
 panel_side = null
 panel_width = 450
 option_height = null
-panel_root = NodePath("../../../../../../../../../../../../../../../dropdown_layer")
+panel_root = NodePath("")
 selected_index = null
 _start_toggled = null
 
@@ -1864,6 +1863,7 @@ environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContaine
 
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
 disable_3d = true
+transparent_bg = true
 title = "Select Artifact"
 position = Vector2i(432, 81)
 size = Vector2i(288, 486)
