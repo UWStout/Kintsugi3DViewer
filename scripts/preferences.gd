@@ -10,6 +10,9 @@ extends Node
 
 const _PREFERENCES_FILE : String = "preferences.pref"
 
+#TODO: add a defaut_pref() function to get the default value of a preference
+const _DEFAULT_IP: String = "https://kintsugi3d-app-dha5fwg3exc3dhdc.a03.azurefd.net/assets/"
+
 var signals_dict = {
 	"preference_name" : "signal"
 }
@@ -35,7 +38,7 @@ func _init_prefs():
 	write_pref("cache size", 2000)
 	write_pref("cache mode", CacheManager.REDUCE_CACHE_MODE.OLDEST)
 	write_pref("allow ip change", false)
-	write_pref("ip", "https://chviewer.jbuelow.com/")
+	write_pref("ip", _DEFAULT_IP)
 	write_pref("offline mode", false)
 	write_pref("low res only", false)
 	write_pref("shadows", GraphicsController.SHADOWS.SOFT_MEDIUM)

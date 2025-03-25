@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vxu7088dmpue"
-path.bptc="res://.godot/imported/thatch_chapel_4k.exr-bf7508a0c111943d2878d507ac44a0e9.bptc.ctex"
-path.astc="res://.godot/imported/thatch_chapel_4k.exr-bf7508a0c111943d2878d507ac44a0e9.astc.ctex"
+path.bptc="res://.godot/imported/thatch_chapel_4k.exr-2743d1420f033c65c0c094f2204bd0ab.bptc.ctex"
+path.astc="res://.godot/imported/thatch_chapel_4k.exr-2743d1420f033c65c0c094f2204bd0ab.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/Environments/HDRIs/thatch_chapel_4k.exr"
-dest_files=["res://.godot/imported/thatch_chapel_4k.exr-bf7508a0c111943d2878d507ac44a0e9.bptc.ctex", "res://.godot/imported/thatch_chapel_4k.exr-bf7508a0c111943d2878d507ac44a0e9.astc.ctex"]
+source_file="res://assets/environments/HDRIs/thatch_chapel_4k.exr"
+dest_files=["res://.godot/imported/thatch_chapel_4k.exr-2743d1420f033c65c0c094f2204bd0ab.bptc.ctex", "res://.godot/imported/thatch_chapel_4k.exr-2743d1420f033c65c0c094f2204bd0ab.astc.ctex"]
 
 [params]
 

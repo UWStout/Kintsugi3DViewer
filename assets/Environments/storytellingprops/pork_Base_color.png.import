@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ykv5icx2ayth"
-path="res://.godot/imported/pork_Base_color.png-dadf8825a607a655a156461f60d79a01.ctex"
+path="res://.godot/imported/pork_Base_color.png-80983a30312c9e450f7205acb71b47ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/pork_Base_color.png"
-dest_files=["res://.godot/imported/pork_Base_color.png-dadf8825a607a655a156461f60d79a01.ctex"]
+source_file="res://assets/environments/storytellingprops/pork_Base_color.png"
+dest_files=["res://.godot/imported/pork_Base_color.png-80983a30312c9e450f7205acb71b47ee.ctex"]
 
 [params]
 

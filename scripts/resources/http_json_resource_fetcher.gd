@@ -21,7 +21,11 @@ var artifacts_cache: Array[ArtifactData]
 var cache_timeout_ms: int = 120000
 
 func get_server_root() -> String:
-	return Preferences.read_pref("ip")
+	if Preferences.read_pref("allow ip change"):
+		return Preferences.read_pref("ip")
+	else:
+		return Preferences._DEFAULT_IP
+
 
 func fetch_artifacts() -> Array[ArtifactData]:
 	if artifacts_cache != null:

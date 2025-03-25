@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vibyliyghgeb"
-path="res://.godot/imported/stonebench_Height.png-bbf081285ede2419e8aa03c07b51c154.ctex"
+path="res://.godot/imported/stonebench_Height.png-ae216fdb9e26582e7d4f0e36361d0dbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Environments/storytellingprops/stonebench_Height.png"
-dest_files=["res://.godot/imported/stonebench_Height.png-bbf081285ede2419e8aa03c07b51c154.ctex"]
+source_file="res://assets/environments/storytellingprops/stonebench_Height.png"
+dest_files=["res://.godot/imported/stonebench_Height.png-ae216fdb9e26582e7d4f0e36361d0dbc.ctex"]
 
 [params]
 

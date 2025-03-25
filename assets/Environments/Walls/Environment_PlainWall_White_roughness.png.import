@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://elm4hdrbyvk3"
-path.s3tc="res://.godot/imported/Environment_PlainWall_White_roughness.png-c46e87dd8777227a0b13fe686c0e859a.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_PlainWall_White_roughness.png-c46e87dd8777227a0b13fe686c0e859a.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_PlainWall_White_roughness.png-a72eed7310c1c33bf250a9667e1d9a05.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_PlainWall_White_roughness.png-a72eed7310c1c33bf250a9667e1d9a05.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_PlainWall_White_roughness.png"
-dest_files=["res://.godot/imported/Environment_PlainWall_White_roughness.png-c46e87dd8777227a0b13fe686c0e859a.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_White_roughness.png-c46e87dd8777227a0b13fe686c0e859a.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_PlainWall_White_roughness.png"
+dest_files=["res://.godot/imported/Environment_PlainWall_White_roughness.png-a72eed7310c1c33bf250a9667e1d9a05.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_White_roughness.png-a72eed7310c1c33bf250a9667e1d9a05.etc2.ctex"]
 
 [params]
 

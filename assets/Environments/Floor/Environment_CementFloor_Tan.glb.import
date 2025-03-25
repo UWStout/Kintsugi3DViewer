@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dbmcoh6d6iy17"
-path="res://.godot/imported/Environment_CementFloor_Tan.glb-5214c9c3f8c891d1f57ed888d2584be9.scn"
+path="res://.godot/imported/Environment_CementFloor_Tan.glb-c3b905c859c818a88cf3e701f562f71d.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Floor/Environment_CementFloor_Tan.glb"
-dest_files=["res://.godot/imported/Environment_CementFloor_Tan.glb-5214c9c3f8c891d1f57ed888d2584be9.scn"]
+source_file="res://assets/environments/Floor/Environment_CementFloor_Tan.glb"
+dest_files=["res://.godot/imported/Environment_CementFloor_Tan.glb-c3b905c859c818a88cf3e701f562f71d.scn"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type="Node3D"
 nodes/root_name="Scene Root"
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -28,6 +29,7 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
 gltf/naming_version=0

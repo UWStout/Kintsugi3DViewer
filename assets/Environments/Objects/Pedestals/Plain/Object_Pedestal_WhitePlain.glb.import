@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ba4ibeulyci4r"
-path="res://.godot/imported/Object_Pedestal_WhitePlain.glb-95269c629990276729a41cb0e928e708.scn"
+path="res://.godot/imported/Object_Pedestal_WhitePlain.glb-31b84b723d6448d5501f1adf03f3f88e.scn"
 
 [deps]
 
-source_file="res://assets/Environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain.glb"
-dest_files=["res://.godot/imported/Object_Pedestal_WhitePlain.glb-95269c629990276729a41cb0e928e708.scn"]
+source_file="res://assets/environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain.glb"
+dest_files=["res://.godot/imported/Object_Pedestal_WhitePlain.glb-31b84b723d6448d5501f1adf03f3f88e.scn"]
 
 [params]
 
@@ -17,6 +17,7 @@ nodes/root_type="Node3D"
 nodes/root_name="Scene Root"
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -28,6 +29,7 @@ animation/import=true
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
 gltf/naming_version=0

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2u7ravf2syyt"
-path.s3tc="res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-3982d199b6d41b370c1f1b49b9099cec.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-3982d199b6d41b370c1f1b49b9099cec.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-1d5731cadc41757fceb2fdccef5fae02.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-1d5731cadc41757fceb2fdccef5fae02.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png"
-dest_files=["res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-3982d199b6d41b370c1f1b49b9099cec.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-3982d199b6d41b370c1f1b49b9099cec.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png"
+dest_files=["res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-1d5731cadc41757fceb2fdccef5fae02.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_floor_tiles_02_nor_gl_4k.png-1d5731cadc41757fceb2fdccef5fae02.etc2.ctex"]
 
 [params]
 
