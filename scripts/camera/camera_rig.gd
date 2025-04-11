@@ -57,6 +57,7 @@ class_name CameraRig
 @export_range(0, 10, 0.01) var fov_rate: float = 4
 @export_range(1, 179, 0.1, "degrees") var fov_initial_fov: float = 75
 
+
 @export_group("Raycasting", "raycast_")
 @export var raycast_enabled : bool = true
 @export var raycast_distance : float = 1000

@@ -5,6 +5,7 @@ var sdfgi_enabled : bool
 var ssao_enabled : bool
 var ssil_enabled : bool
 var ssr_enabled : bool
+var cam
 
 func _on_environment_changed(new_environment : DisplayEnvironment):
 	# Set current "environment" (i.e. background graphics) to the one defined 
