@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bysxbdtuhp25x"
-path.s3tc="res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-e784c13ce788ef1da8b48bfec3b0630e.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-e784c13ce788ef1da8b48bfec3b0630e.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-d0e625c91b74f47b9c432ef6f2f45f11.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-d0e625c91b74f47b9c432ef6f2f45f11.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png"
-dest_files=["res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-e784c13ce788ef1da8b48bfec3b0630e.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-e784c13ce788ef1da8b48bfec3b0630e.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png"
+dest_files=["res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-d0e625c91b74f47b9c432ef6f2f45f11.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_Tan_scuffed_cement_nor_gl_4k.png-d0e625c91b74f47b9c432ef6f2f45f11.etc2.ctex"]
 
 [params]
 

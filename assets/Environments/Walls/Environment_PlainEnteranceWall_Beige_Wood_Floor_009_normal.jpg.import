@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2nv5ufucdapa"
-path.s3tc="res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-aa565898a7471d2aa7e7f97a86e68d12.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-aa565898a7471d2aa7e7f97a86e68d12.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-e863bc22d5b3390e6e03ce5a1f1e0b75.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-e863bc22d5b3390e6e03ce5a1f1e0b75.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/Environments/Walls/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg"
-dest_files=["res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-aa565898a7471d2aa7e7f97a86e68d12.s3tc.ctex", "res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-aa565898a7471d2aa7e7f97a86e68d12.etc2.ctex"]
+source_file="res://assets/environments/Walls/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg"
+dest_files=["res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-e863bc22d5b3390e6e03ce5a1f1e0b75.s3tc.ctex", "res://.godot/imported/Environment_PlainEnteranceWall_Beige_Wood_Floor_009_normal.jpg-e863bc22d5b3390e6e03ce5a1f1e0b75.etc2.ctex"]
 
 [params]
 

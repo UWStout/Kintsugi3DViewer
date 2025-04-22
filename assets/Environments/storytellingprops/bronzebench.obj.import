@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://cfg2ci8vdnti5"
-path="res://.godot/imported/bronzebench.obj-f8d560ba55f74ffc6681beaab979ebb2.mesh"
+path="res://.godot/imported/bronzebench.obj-9e59ef17d58b58b9db592dede5116c4c.mesh"
 
 [deps]
 
-files=["res://.godot/imported/bronzebench.obj-f8d560ba55f74ffc6681beaab979ebb2.mesh"]
+files=["res://.godot/imported/bronzebench.obj-9e59ef17d58b58b9db592dede5116c4c.mesh"]
 
-source_file="res://assets/Environments/storytellingprops/bronzebench.obj"
-dest_files=["res://.godot/imported/bronzebench.obj-f8d560ba55f74ffc6681beaab979ebb2.mesh", "res://.godot/imported/bronzebench.obj-f8d560ba55f74ffc6681beaab979ebb2.mesh"]
+source_file="res://assets/environments/storytellingprops/bronzebench.obj"
+dest_files=["res://.godot/imported/bronzebench.obj-9e59ef17d58b58b9db592dede5116c4c.mesh", "res://.godot/imported/bronzebench.obj-9e59ef17d58b58b9db592dede5116c4c.mesh"]
 
 [params]
 
