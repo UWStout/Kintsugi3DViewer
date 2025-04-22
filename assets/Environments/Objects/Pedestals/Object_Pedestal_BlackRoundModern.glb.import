@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dt48off7d7v17"
-path="res://.godot/imported/Object_Pedestal_BlackRoundModern.glb-737f8cee6a026431f01a5691529a80e1.scn"
+path="res://.godot/imported/Object_Pedestal_BlackRoundModern.glb-b2d2d56d2a02c015c30b1da387313636.scn"
 
 [deps]
 
-source_file="res://assets/environments/Objects/Pedestals/Object_Pedestal_BlackRoundModern.glb"
-dest_files=["res://.godot/imported/Object_Pedestal_BlackRoundModern.glb-737f8cee6a026431f01a5691529a80e1.scn"]
+source_file="res://assets/Environments/Objects/Pedestals/Object_Pedestal_BlackRoundModern.glb"
+dest_files=["res://.godot/imported/Object_Pedestal_BlackRoundModern.glb-b2d2d56d2a02c015c30b1da387313636.scn"]
 
 [params]
 

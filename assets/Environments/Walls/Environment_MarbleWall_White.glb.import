@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c2dwi7uhlcor2"
-path="res://.godot/imported/Environment_MarbleWall_White.glb-fbff2c7d4889cb63687c0ca64caa42d7.scn"
+path="res://.godot/imported/Environment_MarbleWall_White.glb-b726cd46b5c5fd8fc76c290a33878f19.scn"
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_MarbleWall_White.glb"
-dest_files=["res://.godot/imported/Environment_MarbleWall_White.glb-fbff2c7d4889cb63687c0ca64caa42d7.scn"]
+source_file="res://assets/Environments/Walls/Environment_MarbleWall_White.glb"
+dest_files=["res://.godot/imported/Environment_MarbleWall_White.glb-b726cd46b5c5fd8fc76c290a33878f19.scn"]
 
 [params]
 

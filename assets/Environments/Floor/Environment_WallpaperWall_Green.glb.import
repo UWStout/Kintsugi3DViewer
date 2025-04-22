@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b843y2kffveds"
-path="res://.godot/imported/Environment_WallpaperWall_Green.glb-af16ce29be03abc49f101b8fa6363d33.scn"
+path="res://.godot/imported/Environment_WallpaperWall_Green.glb-ba546bbae9136492857b5cf345c4b2c7.scn"
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_WallpaperWall_Green.glb"
-dest_files=["res://.godot/imported/Environment_WallpaperWall_Green.glb-af16ce29be03abc49f101b8fa6363d33.scn"]
+source_file="res://assets/Environments/Floor/Environment_WallpaperWall_Green.glb"
+dest_files=["res://.godot/imported/Environment_WallpaperWall_Green.glb-ba546bbae9136492857b5cf345c4b2c7.scn"]
 
 [params]
 

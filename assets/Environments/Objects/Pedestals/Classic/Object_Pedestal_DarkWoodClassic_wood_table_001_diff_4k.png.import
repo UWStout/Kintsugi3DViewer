@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2tsjy8pya2i2"
-path.s3tc="res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-1faf2440e5814716e5dba590a7aecb32.s3tc.ctex"
-path.etc2="res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-1faf2440e5814716e5dba590a7aecb32.etc2.ctex"
+path.s3tc="res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-4781712b2bba24b4ebce0cd7536823d8.s3tc.ctex"
+path.etc2="res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-4781712b2bba24b4ebce0cd7536823d8.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Objects/Pedestals/Classic/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png"
-dest_files=["res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-1faf2440e5814716e5dba590a7aecb32.s3tc.ctex", "res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-1faf2440e5814716e5dba590a7aecb32.etc2.ctex"]
+source_file="res://assets/Environments/Objects/Pedestals/Classic/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png"
+dest_files=["res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-4781712b2bba24b4ebce0cd7536823d8.s3tc.ctex", "res://.godot/imported/Object_Pedestal_DarkWoodClassic_wood_table_001_diff_4k.png-4781712b2bba24b4ebce0cd7536823d8.etc2.ctex"]
 
 [params]
 

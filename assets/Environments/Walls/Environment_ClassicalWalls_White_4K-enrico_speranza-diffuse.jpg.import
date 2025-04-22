@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dmj0nei22v10g"
-path.s3tc="res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-706615285d95108b428490a8452f4879.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-706615285d95108b428490a8452f4879.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-e59db7fc127b19d5a669ddef9dc91972.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-e59db7fc127b19d5a669ddef9dc91972.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg"
-dest_files=["res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-706615285d95108b428490a8452f4879.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-706615285d95108b428490a8452f4879.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg"
+dest_files=["res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-e59db7fc127b19d5a669ddef9dc91972.s3tc.ctex", "res://.godot/imported/Environment_ClassicalWalls_White_4K-enrico_speranza-diffuse.jpg-e59db7fc127b19d5a669ddef9dc91972.etc2.ctex"]
 
 [params]
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2bhu6cv5bdhh"
-path.s3tc="res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-cd8ddee94e4c5ee57520f87eb65a6371.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-cd8ddee94e4c5ee57520f87eb65a6371.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-11c6a0a34149ad5e25a96ca28cf293f1.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-11c6a0a34149ad5e25a96ca28cf293f1.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_PlainWall_White_Concrete_010_COLOR.png"
-dest_files=["res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-cd8ddee94e4c5ee57520f87eb65a6371.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-cd8ddee94e4c5ee57520f87eb65a6371.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_PlainWall_White_Concrete_010_COLOR.png"
+dest_files=["res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-11c6a0a34149ad5e25a96ca28cf293f1.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_White_Concrete_010_COLOR.png-11c6a0a34149ad5e25a96ca28cf293f1.etc2.ctex"]
 
 [params]
 

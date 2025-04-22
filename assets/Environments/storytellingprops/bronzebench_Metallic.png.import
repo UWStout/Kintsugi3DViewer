@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://g7ab020n2kh1"
-path="res://.godot/imported/bronzebench_Metallic.png-2325ff5a61962916c59b846733fb8e03.ctex"
+path="res://.godot/imported/bronzebench_Metallic.png-56504a6e1e822619ecf2602724145778.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environments/storytellingprops/bronzebench_Metallic.png"
-dest_files=["res://.godot/imported/bronzebench_Metallic.png-2325ff5a61962916c59b846733fb8e03.ctex"]
+source_file="res://assets/Environments/storytellingprops/bronzebench_Metallic.png"
+dest_files=["res://.godot/imported/bronzebench_Metallic.png-56504a6e1e822619ecf2602724145778.ctex"]
 
 [params]
 

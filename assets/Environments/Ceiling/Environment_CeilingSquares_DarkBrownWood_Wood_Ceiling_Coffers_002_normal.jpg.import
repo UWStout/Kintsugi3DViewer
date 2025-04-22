@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://6qujp7xm8v8f"
-path.s3tc="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-6d898abfabaee7fcbb3d2e1967d26784.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-6d898abfabaee7fcbb3d2e1967d26784.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-478c5acd28fa47a747f36d4048eeeff5.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-478c5acd28fa47a747f36d4048eeeff5.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Ceiling/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg"
-dest_files=["res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-6d898abfabaee7fcbb3d2e1967d26784.s3tc.ctex", "res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-6d898abfabaee7fcbb3d2e1967d26784.etc2.ctex"]
+source_file="res://assets/Environments/Ceiling/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg"
+dest_files=["res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-478c5acd28fa47a747f36d4048eeeff5.s3tc.ctex", "res://.godot/imported/Environment_CeilingSquares_DarkBrownWood_Wood_Ceiling_Coffers_002_normal.jpg-478c5acd28fa47a747f36d4048eeeff5.etc2.ctex"]
 
 [params]
 

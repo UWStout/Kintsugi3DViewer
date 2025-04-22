@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dol8j3awaxe0d"
-path.s3tc="res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-dc75edda4f292b0e256eb3ac9805d962.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-dc75edda4f292b0e256eb3ac9805d962.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-35a95284900a990ae412f546977c23c9.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-35a95284900a990ae412f546977c23c9.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg"
-dest_files=["res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-dc75edda4f292b0e256eb3ac9805d962.s3tc.ctex", "res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-dc75edda4f292b0e256eb3ac9805d962.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg"
+dest_files=["res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-35a95284900a990ae412f546977c23c9.s3tc.ctex", "res://.godot/imported/Environment_MarbleLoop_White_Stone_Column_001_basecolor.jpg-35a95284900a990ae412f546977c23c9.etc2.ctex"]
 
 [params]
 

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7qx8w2k5afa"
-path.s3tc="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-ee586907254d18f07e711b2f1668c073.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-ee586907254d18f07e711b2f1668c073.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-e4894b3a4219acc898cc9524ee4cd85f.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-e4894b3a4219acc898cc9524ee4cd85f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png"
-dest_files=["res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-ee586907254d18f07e711b2f1668c073.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-ee586907254d18f07e711b2f1668c073.etc2.ctex"]
+source_file="res://assets/Environments/Floor/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png"
+dest_files=["res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-e4894b3a4219acc898cc9524ee4cd85f.s3tc.ctex", "res://.godot/imported/Environment_TileFloor_Tan_Stone_Tiles_004_roughness.png-e4894b3a4219acc898cc9524ee4cd85f.etc2.ctex"]
 
 [params]
 

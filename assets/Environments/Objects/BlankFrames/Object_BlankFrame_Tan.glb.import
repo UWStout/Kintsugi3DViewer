@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://55ppspmmtvga"
-path="res://.godot/imported/Object_BlankFrame_Tan.glb-2e6dc3fef7b69b68b584ef8802ebd060.scn"
+path="res://.godot/imported/Object_BlankFrame_Tan.glb-b8726a224d53386715b8b8968034fead.scn"
 
 [deps]
 
-source_file="res://assets/environments/Objects/BlankFrames/Object_BlankFrame_Tan.glb"
-dest_files=["res://.godot/imported/Object_BlankFrame_Tan.glb-2e6dc3fef7b69b68b584ef8802ebd060.scn"]
+source_file="res://assets/Environments/Objects/BlankFrames/Object_BlankFrame_Tan.glb"
+dest_files=["res://.godot/imported/Object_BlankFrame_Tan.glb-b8726a224d53386715b8b8968034fead.scn"]
 
 [params]
 

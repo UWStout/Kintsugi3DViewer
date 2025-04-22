@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cdaxneaem2hir"
-path="res://.godot/imported/Environment_ClassicalFloor_Dark.glb-a640020124e4363c50c8475a3cb6ac24.scn"
+path="res://.godot/imported/Environment_ClassicalFloor_Dark.glb-7c499bf96c5eb251cfadcb4099092c61.scn"
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_ClassicalFloor_Dark.glb"
-dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark.glb-a640020124e4363c50c8475a3cb6ac24.scn"]
+source_file="res://assets/Environments/Floor/Environment_ClassicalFloor_Dark.glb"
+dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark.glb-7c499bf96c5eb251cfadcb4099092c61.scn"]
 
 [params]
 

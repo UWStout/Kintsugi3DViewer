@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bahviuklcncpb"
-path.s3tc="res://.godot/imported/charcoal_Normal.png-df2f0a651b63939b0720caa983a621a1.s3tc.ctex"
-path.etc2="res://.godot/imported/charcoal_Normal.png-df2f0a651b63939b0720caa983a621a1.etc2.ctex"
+path.s3tc="res://.godot/imported/charcoal_Normal.png-97f4862000d978c46abe3e5c900b940b.s3tc.ctex"
+path.etc2="res://.godot/imported/charcoal_Normal.png-97f4862000d978c46abe3e5c900b940b.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/environments/storytellingprops/charcoal_Normal.png"
-dest_files=["res://.godot/imported/charcoal_Normal.png-df2f0a651b63939b0720caa983a621a1.s3tc.ctex", "res://.godot/imported/charcoal_Normal.png-df2f0a651b63939b0720caa983a621a1.etc2.ctex"]
+source_file="res://assets/Environments/storytellingprops/charcoal_Normal.png"
+dest_files=["res://.godot/imported/charcoal_Normal.png-97f4862000d978c46abe3e5c900b940b.s3tc.ctex", "res://.godot/imported/charcoal_Normal.png-97f4862000d978c46abe3e5c900b940b.etc2.ctex"]
 
 [params]
 

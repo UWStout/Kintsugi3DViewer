@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://nc03b6uwc15w"
-path.s3tc="res://.godot/imported/charcoal_Metallic.png-17d1e25d2703c7c9242198fdd3de1369.s3tc.ctex"
-path.etc2="res://.godot/imported/charcoal_Metallic.png-17d1e25d2703c7c9242198fdd3de1369.etc2.ctex"
+path.s3tc="res://.godot/imported/charcoal_Metallic.png-09280155f8d4695fc61aa636796350c7.s3tc.ctex"
+path.etc2="res://.godot/imported/charcoal_Metallic.png-09280155f8d4695fc61aa636796350c7.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/environments/storytellingprops/charcoal_Metallic.png"
-dest_files=["res://.godot/imported/charcoal_Metallic.png-17d1e25d2703c7c9242198fdd3de1369.s3tc.ctex", "res://.godot/imported/charcoal_Metallic.png-17d1e25d2703c7c9242198fdd3de1369.etc2.ctex"]
+source_file="res://assets/Environments/storytellingprops/charcoal_Metallic.png"
+dest_files=["res://.godot/imported/charcoal_Metallic.png-09280155f8d4695fc61aa636796350c7.s3tc.ctex", "res://.godot/imported/charcoal_Metallic.png-09280155f8d4695fc61aa636796350c7.etc2.ctex"]
 
 [params]
 

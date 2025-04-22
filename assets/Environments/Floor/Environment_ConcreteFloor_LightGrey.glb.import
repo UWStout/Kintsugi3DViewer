@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://br0mg8kyvtblo"
-path="res://.godot/imported/Environment_ConcreteFloor_LightGrey.glb-9cd14c112e1ee247d5ba16beb15b845f.scn"
+path="res://.godot/imported/Environment_ConcreteFloor_LightGrey.glb-d7b21c0f4a7e16068956d0e772fed482.scn"
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_ConcreteFloor_LightGrey.glb"
-dest_files=["res://.godot/imported/Environment_ConcreteFloor_LightGrey.glb-9cd14c112e1ee247d5ba16beb15b845f.scn"]
+source_file="res://assets/Environments/Floor/Environment_ConcreteFloor_LightGrey.glb"
+dest_files=["res://.godot/imported/Environment_ConcreteFloor_LightGrey.glb-d7b21c0f4a7e16068956d0e772fed482.scn"]
 
 [params]
 

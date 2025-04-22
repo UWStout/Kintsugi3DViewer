@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://w480dhs3j2yc"
-path="res://.godot/imported/charcoal.obj-3d114bf94289f29f6429ec44cb743966.mesh"
+path="res://.godot/imported/charcoal.obj-cef42f795c758f2d0f6f5f06f83762f0.mesh"
 
 [deps]
 
-files=["res://.godot/imported/charcoal.obj-3d114bf94289f29f6429ec44cb743966.mesh"]
+files=["res://.godot/imported/charcoal.obj-cef42f795c758f2d0f6f5f06f83762f0.mesh"]
 
-source_file="res://assets/environments/storytellingprops/charcoal.obj"
-dest_files=["res://.godot/imported/charcoal.obj-3d114bf94289f29f6429ec44cb743966.mesh", "res://.godot/imported/charcoal.obj-3d114bf94289f29f6429ec44cb743966.mesh"]
+source_file="res://assets/Environments/storytellingprops/charcoal.obj"
+dest_files=["res://.godot/imported/charcoal.obj-cef42f795c758f2d0f6f5f06f83762f0.mesh", "res://.godot/imported/charcoal.obj-cef42f795c758f2d0f6f5f06f83762f0.mesh"]
 
 [params]
 
