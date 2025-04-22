@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds7jvis14mn1j"
-path.s3tc="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-7b646e2ed46bddff5b6bb2dc0db869f2.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-7b646e2ed46bddff5b6bb2dc0db869f2.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-1a5c3e7bfc5e82553ad2753ce641b587.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-1a5c3e7bfc5e82553ad2753ce641b587.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg"
-dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-7b646e2ed46bddff5b6bb2dc0db869f2.s3tc.ctex", "res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-7b646e2ed46bddff5b6bb2dc0db869f2.etc2.ctex"]
+source_file="res://assets/Environments/Floor/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg"
+dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-1a5c3e7bfc5e82553ad2753ce641b587.s3tc.ctex", "res://.godot/imported/Environment_ClassicalFloor_Dark_4K-enrico_speranza-normal.jpg-1a5c3e7bfc5e82553ad2753ce641b587.etc2.ctex"]
 
 [params]
 

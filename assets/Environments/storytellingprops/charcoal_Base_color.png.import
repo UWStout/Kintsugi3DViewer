@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k6yr4r48abbd"
-path.s3tc="res://.godot/imported/charcoal_Base_color.png-271e396da95d2a018f29f56543b4303c.s3tc.ctex"
-path.etc2="res://.godot/imported/charcoal_Base_color.png-271e396da95d2a018f29f56543b4303c.etc2.ctex"
+path.s3tc="res://.godot/imported/charcoal_Base_color.png-7d92cb70db4b06aa877f374fffb424c9.s3tc.ctex"
+path.etc2="res://.godot/imported/charcoal_Base_color.png-7d92cb70db4b06aa877f374fffb424c9.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/environments/storytellingprops/charcoal_Base_color.png"
-dest_files=["res://.godot/imported/charcoal_Base_color.png-271e396da95d2a018f29f56543b4303c.s3tc.ctex", "res://.godot/imported/charcoal_Base_color.png-271e396da95d2a018f29f56543b4303c.etc2.ctex"]
+source_file="res://assets/Environments/storytellingprops/charcoal_Base_color.png"
+dest_files=["res://.godot/imported/charcoal_Base_color.png-7d92cb70db4b06aa877f374fffb424c9.s3tc.ctex", "res://.godot/imported/charcoal_Base_color.png-7d92cb70db4b06aa877f374fffb424c9.etc2.ctex"]
 
 [params]
 

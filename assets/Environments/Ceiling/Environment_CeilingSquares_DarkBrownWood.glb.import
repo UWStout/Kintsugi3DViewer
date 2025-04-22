@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://blyfu4duxrv0v"
-path="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-5d5f48ba3a0e5582709a2bf7ee1ad91b.scn"
+path="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-aa3c62b62dd4d035e4ad42c127e68d03.scn"
 
 [deps]
 
-source_file="res://assets/environments/Ceiling/Environment_CeilingSquares_DarkBrownWood.glb"
-dest_files=["res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-5d5f48ba3a0e5582709a2bf7ee1ad91b.scn"]
+source_file="res://assets/Environments/Ceiling/Environment_CeilingSquares_DarkBrownWood.glb"
+dest_files=["res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-aa3c62b62dd4d035e4ad42c127e68d03.scn"]
 
 [params]
 

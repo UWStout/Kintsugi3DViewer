@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://beiocbuj4fplo"
-path.s3tc="res://.godot/imported/Environment_PlainWall_White_diffuse.png-720c3a28c806d1da25afbda582588702.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_PlainWall_White_diffuse.png-720c3a28c806d1da25afbda582588702.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_PlainWall_White_diffuse.png-9dc9b8b89fc24f3b4eb43dc37d2363f0.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_PlainWall_White_diffuse.png-9dc9b8b89fc24f3b4eb43dc37d2363f0.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_PlainWall_White_diffuse.png"
-dest_files=["res://.godot/imported/Environment_PlainWall_White_diffuse.png-720c3a28c806d1da25afbda582588702.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_White_diffuse.png-720c3a28c806d1da25afbda582588702.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_PlainWall_White_diffuse.png"
+dest_files=["res://.godot/imported/Environment_PlainWall_White_diffuse.png-9dc9b8b89fc24f3b4eb43dc37d2363f0.s3tc.ctex", "res://.godot/imported/Environment_PlainWall_White_diffuse.png-9dc9b8b89fc24f3b4eb43dc37d2363f0.etc2.ctex"]
 
 [params]
 

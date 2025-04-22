@@ -15,6 +15,7 @@ dest_files=["res://.godot/imported/Raleway-Black.ttf-366a9e44cc0e3adc702394649eb
 Rendering=null
 antialiasing=1
 generate_mipmaps=false
+disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
 msdf_pixel_range=8
 msdf_size=48

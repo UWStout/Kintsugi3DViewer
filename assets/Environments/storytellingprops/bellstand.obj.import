@@ -4,14 +4,14 @@ importer="wavefront_obj"
 importer_version=1
 type="Mesh"
 uid="uid://kafflpcy8cny"
-path="res://.godot/imported/bellstand.obj-9a7a1892e4b9daeaf314b5d7f6f93a8e.mesh"
+path="res://.godot/imported/bellstand.obj-90a068acc7d269187b41a2632b6c656f.mesh"
 
 [deps]
 
-files=["res://.godot/imported/bellstand.obj-9a7a1892e4b9daeaf314b5d7f6f93a8e.mesh"]
+files=["res://.godot/imported/bellstand.obj-90a068acc7d269187b41a2632b6c656f.mesh"]
 
-source_file="res://assets/environments/storytellingprops/bellstand.obj"
-dest_files=["res://.godot/imported/bellstand.obj-9a7a1892e4b9daeaf314b5d7f6f93a8e.mesh", "res://.godot/imported/bellstand.obj-9a7a1892e4b9daeaf314b5d7f6f93a8e.mesh"]
+source_file="res://assets/Environments/storytellingprops/bellstand.obj"
+dest_files=["res://.godot/imported/bellstand.obj-90a068acc7d269187b41a2632b6c656f.mesh", "res://.godot/imported/bellstand.obj-90a068acc7d269187b41a2632b6c656f.mesh"]
 
 [params]
 

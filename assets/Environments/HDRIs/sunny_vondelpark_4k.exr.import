@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c0vay1i7gtgmp"
-path.bptc="res://.godot/imported/sunny_vondelpark_4k.exr-88f90b84c743ad3b8e504fef11ade3c2.bptc.ctex"
-path.astc="res://.godot/imported/sunny_vondelpark_4k.exr-88f90b84c743ad3b8e504fef11ade3c2.astc.ctex"
+path.bptc="res://.godot/imported/sunny_vondelpark_4k.exr-0b4ac0dc47f3d81d6ea307742adf285e.bptc.ctex"
+path.astc="res://.godot/imported/sunny_vondelpark_4k.exr-0b4ac0dc47f3d81d6ea307742adf285e.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/environments/HDRIs/sunny_vondelpark_4k.exr"
-dest_files=["res://.godot/imported/sunny_vondelpark_4k.exr-88f90b84c743ad3b8e504fef11ade3c2.bptc.ctex", "res://.godot/imported/sunny_vondelpark_4k.exr-88f90b84c743ad3b8e504fef11ade3c2.astc.ctex"]
+source_file="res://assets/Environments/HDRIs/sunny_vondelpark_4k.exr"
+dest_files=["res://.godot/imported/sunny_vondelpark_4k.exr-0b4ac0dc47f3d81d6ea307742adf285e.bptc.ctex", "res://.godot/imported/sunny_vondelpark_4k.exr-0b4ac0dc47f3d81d6ea307742adf285e.astc.ctex"]
 
 [params]
 

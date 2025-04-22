@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drggrlj05yrpr"
-path="res://.godot/imported/bellstand_bell stand_OcclusionRoughnessMetallic.png-e900cd9537b063d901a0bbdce8741d02.ctex"
+path="res://.godot/imported/bellstand_bell stand_OcclusionRoughnessMetallic.png-649ae5817da1fa8facce8a1d86032aa4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environments/storytellingprops/bellstand_bell stand_OcclusionRoughnessMetallic.png"
-dest_files=["res://.godot/imported/bellstand_bell stand_OcclusionRoughnessMetallic.png-e900cd9537b063d901a0bbdce8741d02.ctex"]
+source_file="res://assets/Environments/storytellingprops/bellstand_bell stand_OcclusionRoughnessMetallic.png"
+dest_files=["res://.godot/imported/bellstand_bell stand_OcclusionRoughnessMetallic.png-649ae5817da1fa8facce8a1d86032aa4.ctex"]
 
 [params]
 

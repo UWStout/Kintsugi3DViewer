@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0recuk1pbf6m"
-path.s3tc="res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-321d8b84ec516895501139c8edc52e1c.s3tc.ctex"
-path.etc2="res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-321d8b84ec516895501139c8edc52e1c.etc2.ctex"
+path.s3tc="res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-1fa7b455c14ed724c85259ee958424f7.s3tc.ctex"
+path.etc2="res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-1fa7b455c14ed724c85259ee958424f7.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Objects/Columns/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg"
-dest_files=["res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-321d8b84ec516895501139c8edc52e1c.s3tc.ctex", "res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-321d8b84ec516895501139c8edc52e1c.etc2.ctex"]
+source_file="res://assets/Environments/Objects/Columns/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg"
+dest_files=["res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-1fa7b455c14ed724c85259ee958424f7.s3tc.ctex", "res://.godot/imported/Object_ClassicCollumn_White_Stone_Column_001_basecolor.jpg-1fa7b455c14ed724c85259ee958424f7.etc2.ctex"]
 
 [params]
 

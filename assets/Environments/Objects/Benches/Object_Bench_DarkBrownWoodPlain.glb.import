@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bucbvke7el4el"
-path="res://.godot/imported/Object_Bench_DarkBrownWoodPlain.glb-0d29750f2c14e3b602b26d3c1d257267.scn"
+path="res://.godot/imported/Object_Bench_DarkBrownWoodPlain.glb-876d5ddd4c8f27169a88f75723baf2cd.scn"
 
 [deps]
 
-source_file="res://assets/environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain.glb"
-dest_files=["res://.godot/imported/Object_Bench_DarkBrownWoodPlain.glb-0d29750f2c14e3b602b26d3c1d257267.scn"]
+source_file="res://assets/Environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain.glb"
+dest_files=["res://.godot/imported/Object_Bench_DarkBrownWoodPlain.glb-876d5ddd4c8f27169a88f75723baf2cd.scn"]
 
 [params]
 

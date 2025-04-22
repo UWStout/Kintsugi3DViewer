@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cyjeklbnfgip7"
-path="res://.godot/imported/stonebench_Mixed_AO.png-fbb18a5a5dffb7ae77afc31d105fbfd6.ctex"
+path="res://.godot/imported/stonebench_Mixed_AO.png-410223d2ab46d61da47905addb60e958.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environments/storytellingprops/stonebench_Mixed_AO.png"
-dest_files=["res://.godot/imported/stonebench_Mixed_AO.png-fbb18a5a5dffb7ae77afc31d105fbfd6.ctex"]
+source_file="res://assets/Environments/storytellingprops/stonebench_Mixed_AO.png"
+dest_files=["res://.godot/imported/stonebench_Mixed_AO.png-410223d2ab46d61da47905addb60e958.ctex"]
 
 [params]
 

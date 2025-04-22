@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ckdtmfuxmqgav"
-path="res://.godot/imported/Environment_RoundWall_Black.glb-11130eb7a5e66b08d187528da3f52fc5.scn"
+path="res://.godot/imported/Environment_RoundWall_Black.glb-d884cd6118a9c6bdf6c82f05740648a0.scn"
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_RoundWall_Black.glb"
-dest_files=["res://.godot/imported/Environment_RoundWall_Black.glb-11130eb7a5e66b08d187528da3f52fc5.scn"]
+source_file="res://assets/Environments/Walls/Environment_RoundWall_Black.glb"
+dest_files=["res://.godot/imported/Environment_RoundWall_Black.glb-d884cd6118a9c6bdf6c82f05740648a0.scn"]
 
 [params]
 
