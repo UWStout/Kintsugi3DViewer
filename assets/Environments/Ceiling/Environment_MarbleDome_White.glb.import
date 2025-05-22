@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ffbujfy87xwx"
-path="res://.godot/imported/Environment_MarbleDome_White.glb-f5ec87668e1c5d61f6c27533f80e11f3.scn"
+path="res://.godot/imported/Environment_MarbleDome_White.glb-fbc868b3a8798990021accb0ee4ad37b.scn"
 
 [deps]
 
-source_file="res://assets/environments/Ceiling/Environment_MarbleDome_White.glb"
-dest_files=["res://.godot/imported/Environment_MarbleDome_White.glb-f5ec87668e1c5d61f6c27533f80e11f3.scn"]
+source_file="res://assets/Environments/Ceiling/Environment_MarbleDome_White.glb"
+dest_files=["res://.godot/imported/Environment_MarbleDome_White.glb-fbc868b3a8798990021accb0ee4ad37b.scn"]
 
 [params]
 

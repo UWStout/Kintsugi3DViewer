@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cdoqpoh4wckrs"
-path="res://.godot/imported/Environment_StoneWall_WornGrey.glb-2eda55db32cf1b2f9c1f7d25b0ef2e61.scn"
+path="res://.godot/imported/Environment_StoneWall_WornGrey.glb-3e859710bf85ac652bf8c35dd37b5270.scn"
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_StoneWall_WornGrey.glb"
-dest_files=["res://.godot/imported/Environment_StoneWall_WornGrey.glb-2eda55db32cf1b2f9c1f7d25b0ef2e61.scn"]
+source_file="res://assets/Environments/Walls/Environment_StoneWall_WornGrey.glb"
+dest_files=["res://.godot/imported/Environment_StoneWall_WornGrey.glb-3e859710bf85ac652bf8c35dd37b5270.scn"]
 
 [params]
 

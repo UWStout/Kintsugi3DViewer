@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://yyfi7jx4yddi"]
+[gd_scene load_steps=6 format=3 uid="uid://dqwubacvmk3dw"]
 
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/dropdown/dropdown_panel.gd" id="1_566j1"]
 [ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="2_pgqca"]

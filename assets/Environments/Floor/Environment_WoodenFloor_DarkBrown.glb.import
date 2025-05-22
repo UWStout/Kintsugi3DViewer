@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://mlwyw6qnrdut"
-path="res://.godot/imported/Environment_WoodenFloor_DarkBrown.glb-51e16cb3653b6b577a14093b76229a4b.scn"
+path="res://.godot/imported/Environment_WoodenFloor_DarkBrown.glb-cbcd9b41adba6e06b6181977a182429d.scn"
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_WoodenFloor_DarkBrown.glb"
-dest_files=["res://.godot/imported/Environment_WoodenFloor_DarkBrown.glb-51e16cb3653b6b577a14093b76229a4b.scn"]
+source_file="res://assets/Environments/Floor/Environment_WoodenFloor_DarkBrown.glb"
+dest_files=["res://.godot/imported/Environment_WoodenFloor_DarkBrown.glb-cbcd9b41adba6e06b6181977a182429d.scn"]
 
 [params]
 

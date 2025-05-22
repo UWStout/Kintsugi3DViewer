@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dchnoswrm0hdv"
-path.s3tc="res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-ead5771f20c5bc1e393462a13e100b4b.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-ead5771f20c5bc1e393462a13e100b4b.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-8c49ff851a189fed730071ab50ba65a5.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-8c49ff851a189fed730071ab50ba65a5.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg"
-dest_files=["res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-ead5771f20c5bc1e393462a13e100b4b.s3tc.ctex", "res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-ead5771f20c5bc1e393462a13e100b4b.etc2.ctex"]
+source_file="res://assets/Environments/Floor/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg"
+dest_files=["res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-8c49ff851a189fed730071ab50ba65a5.s3tc.ctex", "res://.godot/imported/Environment_PlainEnteranceWall_Tan_4K-teak_wood-normal.jpg-8c49ff851a189fed730071ab50ba65a5.etc2.ctex"]
 
 [params]
 

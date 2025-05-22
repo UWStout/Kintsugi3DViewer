@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c2ax25xc62nmj"
-path.s3tc="res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-70047d347c7c229443c6ed2ae3c7116c.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-70047d347c7c229443c6ed2ae3c7116c.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-9cd72606d2e39f957d2a7030ab4fab78.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-9cd72606d2e39f957d2a7030ab4fab78.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg"
-dest_files=["res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-70047d347c7c229443c6ed2ae3c7116c.s3tc.ctex", "res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-70047d347c7c229443c6ed2ae3c7116c.etc2.ctex"]
+source_file="res://assets/Environments/Floor/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg"
+dest_files=["res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-9cd72606d2e39f957d2a7030ab4fab78.s3tc.ctex", "res://.godot/imported/Environment_ConcreteFloor_LightGrey_Concrete_010_COLOR.jpg-9cd72606d2e39f957d2a7030ab4fab78.etc2.ctex"]
 
 [params]
 

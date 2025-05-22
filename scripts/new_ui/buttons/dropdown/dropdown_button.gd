@@ -24,7 +24,7 @@ enum side_enum {LEFT, RIGHT}
 @onready var texture_rect = $HBoxContainer/HBoxContainer2/MarginContainer/CenterContainer/TextureRect
 @onready var label = $HBoxContainer/HBoxContainer/MarginContainer/Label
 
-var dropdown_panel_scene = preload("res://scenes/new_ui/dropdown_panel.tscn")
+var dropdown_panel_scene: PackedScene = preload("res://scenes/new_ui/dropdown_panel.tscn")
 var expanding_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_Out_White_V1.svg")
 var shrinking_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_In_White_V1.svg")
 
@@ -41,9 +41,19 @@ func _input(event):
 			toggle_off()
 
 func _on_toggle_on():
+	print("Loaded resource:", dropdown_panel_scene)
+	print("Is PackedScene:", dropdown_panel_scene is PackedScene)
+
+	var instance = dropdown_panel_scene.instantiate()
+	print("Instantiated node:", instance)
+	if (instance != null):
+		print("Instance type:", instance.get_class())
+	else:
+		push_error("⚠️ Instantiate() failed! Scene likely has a broken reference.")
+		return
 	panel = dropdown_panel_scene.instantiate() as DropdownPanel
 	panel_root.add_child(panel)
-	
+		
 	panel.linked_dropdown_button = self
 	panel.set_width(panel_width)
 	

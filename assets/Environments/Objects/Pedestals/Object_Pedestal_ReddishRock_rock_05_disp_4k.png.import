@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dxtloup2u36ub"
-path.s3tc="res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-453b58e907ca4a124074a56e8eb27a85.s3tc.ctex"
-path.etc2="res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-453b58e907ca4a124074a56e8eb27a85.etc2.ctex"
+path.s3tc="res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-319c55ab66375d809fe30aa393c24200.s3tc.ctex"
+path.etc2="res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-319c55ab66375d809fe30aa393c24200.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Objects/Pedestals/Object_Pedestal_ReddishRock_rock_05_disp_4k.png"
-dest_files=["res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-453b58e907ca4a124074a56e8eb27a85.s3tc.ctex", "res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-453b58e907ca4a124074a56e8eb27a85.etc2.ctex"]
+source_file="res://assets/Environments/Objects/Pedestals/Object_Pedestal_ReddishRock_rock_05_disp_4k.png"
+dest_files=["res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-319c55ab66375d809fe30aa393c24200.s3tc.ctex", "res://.godot/imported/Object_Pedestal_ReddishRock_rock_05_disp_4k.png-319c55ab66375d809fe30aa393c24200.etc2.ctex"]
 
 [params]
 

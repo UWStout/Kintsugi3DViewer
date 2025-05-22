@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhnx1ij5mq2f5"
-path.bptc="res://.godot/imported/hayloft_4k.exr-cb4ded95d25fb913f62c3833ee42bb5d.bptc.ctex"
-path.astc="res://.godot/imported/hayloft_4k.exr-cb4ded95d25fb913f62c3833ee42bb5d.astc.ctex"
+path.bptc="res://.godot/imported/hayloft_4k.exr-0aacbfee3e1e81766041da31f7aedad6.bptc.ctex"
+path.astc="res://.godot/imported/hayloft_4k.exr-0aacbfee3e1e81766041da31f7aedad6.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/environments/HDRIs/hayloft_4k.exr"
-dest_files=["res://.godot/imported/hayloft_4k.exr-cb4ded95d25fb913f62c3833ee42bb5d.bptc.ctex", "res://.godot/imported/hayloft_4k.exr-cb4ded95d25fb913f62c3833ee42bb5d.astc.ctex"]
+source_file="res://assets/Environments/HDRIs/hayloft_4k.exr"
+dest_files=["res://.godot/imported/hayloft_4k.exr-0aacbfee3e1e81766041da31f7aedad6.bptc.ctex", "res://.godot/imported/hayloft_4k.exr-0aacbfee3e1e81766041da31f7aedad6.astc.ctex"]
 
 [params]
 

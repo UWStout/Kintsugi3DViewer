@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://j7upe6q0r33k"
-path="res://.godot/imported/Environment_ClassicalWalls_Marbleglb.glb-420a30e5b771589456a68a881de265f4.scn"
+path="res://.godot/imported/Environment_ClassicalWalls_Marbleglb.glb-1d82495a3ceecadef6e1ae7a388f23b2.scn"
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_ClassicalWalls_Marbleglb.glb"
-dest_files=["res://.godot/imported/Environment_ClassicalWalls_Marbleglb.glb-420a30e5b771589456a68a881de265f4.scn"]
+source_file="res://assets/Environments/Walls/Environment_ClassicalWalls_Marbleglb.glb"
+dest_files=["res://.godot/imported/Environment_ClassicalWalls_Marbleglb.glb-1d82495a3ceecadef6e1ae7a388f23b2.scn"]
 
 [params]
 
