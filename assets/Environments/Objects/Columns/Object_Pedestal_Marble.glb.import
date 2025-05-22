@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cmsi73eoam8mp"
-path="res://.godot/imported/Object_Pedestal_Marble.glb-55186d5aece1c997dfe993fe13e3f43b.scn"
+path="res://.godot/imported/Object_Pedestal_Marble.glb-95d03ebb0e242d879d64acf568781b24.scn"
 
 [deps]
 
-source_file="res://assets/environments/Objects/Columns/Object_Pedestal_Marble.glb"
-dest_files=["res://.godot/imported/Object_Pedestal_Marble.glb-55186d5aece1c997dfe993fe13e3f43b.scn"]
+source_file="res://assets/Environments/Objects/Columns/Object_Pedestal_Marble.glb"
+dest_files=["res://.godot/imported/Object_Pedestal_Marble.glb-95d03ebb0e242d879d64acf568781b24.scn"]
 
 [params]
 

@@ -1342,16 +1342,13 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller", "panel_root") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("46_gy2xc")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["DISABLED", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
-panel_root = NodePath("")
-selected_index = null
-_start_toggled = null
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
 visible = false
@@ -1422,16 +1419,13 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller", "panel_root") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("48_r3bj8")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["DISABLED", "MSAA 2X", "MSAA 4X", "MSAA 8X", "MSAA MAX"])
 panel_width = 200
 option_height = 30
-panel_root = NodePath("")
-selected_index = null
-_start_toggled = null
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -1456,16 +1450,13 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller", "panel_root") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("49_ulw4s")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["VERY LOW", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
-panel_root = NodePath("")
-selected_index = null
-_start_toggled = null
 
 [node name="Cache" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
 visible = false
@@ -1682,17 +1673,12 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 10
 
-[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("panel_root") instance=ExtResource("59_m1q5b")]
+[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("60_abk66")
 options = Array[String](["LARGEST", "SMALLEST", "MOST RECENT", "LEAST RECENT"])
 descriptions = Array[String](["removes the largest files from the cache first", "removes the smallest files from the cache first", "removes recent files from the cache first", "removes the least recent files from the cache first"])
-panel_side = null
 panel_width = 450
-option_height = null
-panel_root = NodePath("")
-selected_index = null
-_start_toggled = null
 
 [node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2

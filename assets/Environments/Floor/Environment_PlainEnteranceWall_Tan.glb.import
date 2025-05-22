@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://od0syubn2d41"
-path="res://.godot/imported/Environment_PlainEnteranceWall_Tan.glb-53015bc014af65d8b14eede5808eedad.scn"
+path="res://.godot/imported/Environment_PlainEnteranceWall_Tan.glb-6743d9da6757edd1187d2db3dc6fbad6.scn"
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_PlainEnteranceWall_Tan.glb"
-dest_files=["res://.godot/imported/Environment_PlainEnteranceWall_Tan.glb-53015bc014af65d8b14eede5808eedad.scn"]
+source_file="res://assets/Environments/Floor/Environment_PlainEnteranceWall_Tan.glb"
+dest_files=["res://.godot/imported/Environment_PlainEnteranceWall_Tan.glb-6743d9da6757edd1187d2db3dc6fbad6.scn"]
 
 [params]
 

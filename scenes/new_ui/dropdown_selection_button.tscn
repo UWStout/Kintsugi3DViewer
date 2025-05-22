@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/dropdown/dropdown_selection_button.gd" id="1_t2xsa"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wr2p2"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6n8hd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1yubs"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ueo5j"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ajw42"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1yubs"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6n8hd"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wr2p2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sdyje"]
 bg_color = Color(0.145098, 0.145098, 0.145098, 1)
@@ -37,11 +37,11 @@ corner_radius_bottom_left = 5
 
 [node name="Button" type="Button"]
 custom_minimum_size = Vector2(0, 50)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_wr2p2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6n8hd")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_1yubs")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ueo5j")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ajw42")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_1yubs")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_6n8hd")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wr2p2")
 script = ExtResource("1_t2xsa")
 toggled_on_style = SubResource("StyleBoxFlat_sdyje")
 toggled_on_hover_style = SubResource("StyleBoxFlat_jx0qm")

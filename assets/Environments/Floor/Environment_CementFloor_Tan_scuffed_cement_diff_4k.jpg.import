@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://1bj5co1c04j0"
-path.s3tc="res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-a016a1269c4121b15a9f2c2a0570ad9b.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-a016a1269c4121b15a9f2c2a0570ad9b.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-cef7b99c5abe5c28836acc54d8020fcf.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-cef7b99c5abe5c28836acc54d8020fcf.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg"
-dest_files=["res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-a016a1269c4121b15a9f2c2a0570ad9b.s3tc.ctex", "res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-a016a1269c4121b15a9f2c2a0570ad9b.etc2.ctex"]
+source_file="res://assets/Environments/Floor/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg"
+dest_files=["res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-cef7b99c5abe5c28836acc54d8020fcf.s3tc.ctex", "res://.godot/imported/Environment_CementFloor_Tan_scuffed_cement_diff_4k.jpg-cef7b99c5abe5c28836acc54d8020fcf.etc2.ctex"]
 
 [params]
 

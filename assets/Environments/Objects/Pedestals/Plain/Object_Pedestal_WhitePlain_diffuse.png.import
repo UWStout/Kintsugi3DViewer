@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://oy2iybwm113f"
-path.s3tc="res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-048e1f82fb5fca211747685e14488630.s3tc.ctex"
-path.etc2="res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-048e1f82fb5fca211747685e14488630.etc2.ctex"
+path.s3tc="res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-92556d42c749df022bbf737c7fde9503.s3tc.ctex"
+path.etc2="res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-92556d42c749df022bbf737c7fde9503.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain_diffuse.png"
-dest_files=["res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-048e1f82fb5fca211747685e14488630.s3tc.ctex", "res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-048e1f82fb5fca211747685e14488630.etc2.ctex"]
+source_file="res://assets/Environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain_diffuse.png"
+dest_files=["res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-92556d42c749df022bbf737c7fde9503.s3tc.ctex", "res://.godot/imported/Object_Pedestal_WhitePlain_diffuse.png-92556d42c749df022bbf737c7fde9503.etc2.ctex"]
 
 [params]
 

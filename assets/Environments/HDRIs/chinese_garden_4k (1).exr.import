@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bpb45pim55cbk"
-path.bptc="res://.godot/imported/chinese_garden_4k (1).exr-cfaa138516a7dcbc86332901fe349e90.bptc.ctex"
-path.astc="res://.godot/imported/chinese_garden_4k (1).exr-cfaa138516a7dcbc86332901fe349e90.astc.ctex"
+path.bptc="res://.godot/imported/chinese_garden_4k (1).exr-35a233b4609fc5f6d72d2269a760a961.bptc.ctex"
+path.astc="res://.godot/imported/chinese_garden_4k (1).exr-35a233b4609fc5f6d72d2269a760a961.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/environments/HDRIs/chinese_garden_4k (1).exr"
-dest_files=["res://.godot/imported/chinese_garden_4k (1).exr-cfaa138516a7dcbc86332901fe349e90.bptc.ctex", "res://.godot/imported/chinese_garden_4k (1).exr-cfaa138516a7dcbc86332901fe349e90.astc.ctex"]
+source_file="res://assets/Environments/HDRIs/chinese_garden_4k (1).exr"
+dest_files=["res://.godot/imported/chinese_garden_4k (1).exr-35a233b4609fc5f6d72d2269a760a961.bptc.ctex", "res://.godot/imported/chinese_garden_4k (1).exr-35a233b4609fc5f6d72d2269a760a961.astc.ctex"]
 
 [params]
 

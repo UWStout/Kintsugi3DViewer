@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cetw058kfqla7"
-path.bptc="res://.godot/imported/rooitou_park_4k.exr-53fa314368a2cbf9455bc4b16456c8bd.bptc.ctex"
-path.astc="res://.godot/imported/rooitou_park_4k.exr-53fa314368a2cbf9455bc4b16456c8bd.astc.ctex"
+path.bptc="res://.godot/imported/rooitou_park_4k.exr-f8fa829e516a4a0d048eeaed378c2d07.bptc.ctex"
+path.astc="res://.godot/imported/rooitou_park_4k.exr-f8fa829e516a4a0d048eeaed378c2d07.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/environments/HDRIs/rooitou_park_4k.exr"
-dest_files=["res://.godot/imported/rooitou_park_4k.exr-53fa314368a2cbf9455bc4b16456c8bd.bptc.ctex", "res://.godot/imported/rooitou_park_4k.exr-53fa314368a2cbf9455bc4b16456c8bd.astc.ctex"]
+source_file="res://assets/Environments/HDRIs/rooitou_park_4k.exr"
+dest_files=["res://.godot/imported/rooitou_park_4k.exr-f8fa829e516a4a0d048eeaed378c2d07.bptc.ctex", "res://.godot/imported/rooitou_park_4k.exr-f8fa829e516a4a0d048eeaed378c2d07.astc.ctex"]
 
 [params]
 

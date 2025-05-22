@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6q0n2frd4u3a"
-path.s3tc="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-defecf3f1ac809934c1288f379796f34.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-defecf3f1ac809934c1288f379796f34.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-db061cbcedbdb8b37f8b2ea7861cec4b.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-db061cbcedbdb8b37f8b2ea7861cec4b.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png"
-dest_files=["res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-defecf3f1ac809934c1288f379796f34.s3tc.ctex", "res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-defecf3f1ac809934c1288f379796f34.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png"
+dest_files=["res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-db061cbcedbdb8b37f8b2ea7861cec4b.s3tc.ctex", "res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_rough_4k.png-db061cbcedbdb8b37f8b2ea7861cec4b.etc2.ctex"]
 
 [params]
 

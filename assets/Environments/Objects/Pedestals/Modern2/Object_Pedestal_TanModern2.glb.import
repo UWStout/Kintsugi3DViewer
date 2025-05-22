@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dymjas1hlbkrs"
-path="res://.godot/imported/Object_Pedestal_TanModern2.glb-f184bbbbc4d82ab872de1fbf1cb1bfb0.scn"
+path="res://.godot/imported/Object_Pedestal_TanModern2.glb-77c50e34b31820c32b7d6c7662dabd1d.scn"
 
 [deps]
 
-source_file="res://assets/environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb"
-dest_files=["res://.godot/imported/Object_Pedestal_TanModern2.glb-f184bbbbc4d82ab872de1fbf1cb1bfb0.scn"]
+source_file="res://assets/Environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb"
+dest_files=["res://.godot/imported/Object_Pedestal_TanModern2.glb-77c50e34b31820c32b7d6c7662dabd1d.scn"]
 
 [params]
 

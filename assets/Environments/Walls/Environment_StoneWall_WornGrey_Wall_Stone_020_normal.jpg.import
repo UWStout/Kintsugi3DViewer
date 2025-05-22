@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvrq146vqrdfq"
-path.s3tc="res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-b6e922c9b90e954cb028765c01eab4af.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-b6e922c9b90e954cb028765c01eab4af.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-cb70c83766bbcd37e314416f7c93f8ca.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-cb70c83766bbcd37e314416f7c93f8ca.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg"
-dest_files=["res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-b6e922c9b90e954cb028765c01eab4af.s3tc.ctex", "res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-b6e922c9b90e954cb028765c01eab4af.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg"
+dest_files=["res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-cb70c83766bbcd37e314416f7c93f8ca.s3tc.ctex", "res://.godot/imported/Environment_StoneWall_WornGrey_Wall_Stone_020_normal.jpg-cb70c83766bbcd37e314416f7c93f8ca.etc2.ctex"]
 
 [params]
 

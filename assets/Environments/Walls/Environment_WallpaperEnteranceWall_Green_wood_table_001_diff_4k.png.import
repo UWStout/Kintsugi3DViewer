@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bh36w03lkdi7q"
-path="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k.png-a856fd1e84d442666e69949822278c94.ctex"
+path="res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k.png-587906a790f8ec7c3d974e05dbdbfb2b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,8 +11,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k.png"
-dest_files=["res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k.png-a856fd1e84d442666e69949822278c94.ctex"]
+source_file="res://assets/Environments/Walls/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k.png"
+dest_files=["res://.godot/imported/Environment_WallpaperEnteranceWall_Green_wood_table_001_diff_4k.png-587906a790f8ec7c3d974e05dbdbfb2b.ctex"]
 
 [params]
 

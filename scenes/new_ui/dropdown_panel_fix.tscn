@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqwubacvmk3dw"]
+[gd_scene load_steps=6 format=3 uid="uid://yyfi7jx4yddi"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/dropdown/dropdown_panel.gd" id="1_566j1"]
-[ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="2_pgqca"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="2_snxii"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/dropdown/dropdown_panel.gd" id="1_scl7d"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="2_rju8c"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="3_wkyxc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_do05a"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 1)
@@ -24,10 +24,10 @@ point_count = 2
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 100)
 mouse_filter = 2
-script = ExtResource("1_566j1")
+script = ExtResource("1_scl7d")
 
 [node name="ExclusiveToggleGroup" type="Node" parent="."]
-script = ExtResource("2_snxii")
+script = ExtResource("2_rju8c")
 can_toggle_off_all = false
 
 [node name="ExpandingPanel" type="Panel" parent="."]
@@ -35,7 +35,7 @@ clip_contents = true
 layout_mode = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_do05a")
-script = ExtResource("2_pgqca")
+script = ExtResource("3_wkyxc")
 expand_direction = 0
 animation_speed = 0.3
 animation_curve = SubResource("Curve_e381p")

@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://db005l2gcp8nh"
-path.s3tc="res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-c6debde3a3a0030a37e9856624bcd641.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-c6debde3a3a0030a37e9856624bcd641.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-3818a0a609f5051f4eaccda447f34f55.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-3818a0a609f5051f4eaccda447f34f55.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_TileWall_Tan_Stone_Column_001_basecolor.png"
-dest_files=["res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-c6debde3a3a0030a37e9856624bcd641.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-c6debde3a3a0030a37e9856624bcd641.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_TileWall_Tan_Stone_Column_001_basecolor.png"
+dest_files=["res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-3818a0a609f5051f4eaccda447f34f55.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_Stone_Column_001_basecolor.png-3818a0a609f5051f4eaccda447f34f55.etc2.ctex"]
 
 [params]
 

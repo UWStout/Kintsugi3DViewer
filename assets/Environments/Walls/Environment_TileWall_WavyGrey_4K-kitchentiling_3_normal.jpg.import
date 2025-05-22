@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c372oexsgoskd"
-path.s3tc="res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-5c3a536c140228fe959d5f372348bd1b.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-5c3a536c140228fe959d5f372348bd1b.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-bb079b4ac8ea8acab79ed6140f144092.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-bb079b4ac8ea8acab79ed6140f144092.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg"
-dest_files=["res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-5c3a536c140228fe959d5f372348bd1b.s3tc.ctex", "res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-5c3a536c140228fe959d5f372348bd1b.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg"
+dest_files=["res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-bb079b4ac8ea8acab79ed6140f144092.s3tc.ctex", "res://.godot/imported/Environment_TileWall_WavyGrey_4K-kitchentiling_3_normal.jpg-bb079b4ac8ea8acab79ed6140f144092.etc2.ctex"]
 
 [params]
 

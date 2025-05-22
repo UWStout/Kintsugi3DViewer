@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://0olly4lxuiac"
-path.s3tc="res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-f6fa9c23d01d8f3407c51446af064b7d.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-f6fa9c23d01d8f3407c51446af064b7d.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-50e1acf8815ac4a4a9a5ef076d20094d.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-50e1acf8815ac4a4a9a5ef076d20094d.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Ceiling/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg"
-dest_files=["res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-f6fa9c23d01d8f3407c51446af064b7d.s3tc.ctex", "res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-f6fa9c23d01d8f3407c51446af064b7d.etc2.ctex"]
+source_file="res://assets/Environments/Ceiling/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg"
+dest_files=["res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-50e1acf8815ac4a4a9a5ef076d20094d.s3tc.ctex", "res://.godot/imported/Environment_CeilingSquares_White_Ceiling_Drop_Tiles_001_basecolor.jpg-50e1acf8815ac4a4a9a5ef076d20094d.etc2.ctex"]
 
 [params]
 

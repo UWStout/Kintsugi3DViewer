@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmnmpmdv1flww"
-path.s3tc="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-75db8ace2ece7f264c9b8adcdfcf4b7c.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-75db8ace2ece7f264c9b8adcdfcf4b7c.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-3ba7a2f76d8b7c300a02a77243f06ac7.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-3ba7a2f76d8b7c300a02a77243f06ac7.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,8 +13,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Floor/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg"
-dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-75db8ace2ece7f264c9b8adcdfcf4b7c.s3tc.ctex", "res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-75db8ace2ece7f264c9b8adcdfcf4b7c.etc2.ctex"]
+source_file="res://assets/Environments/Floor/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg"
+dest_files=["res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-3ba7a2f76d8b7c300a02a77243f06ac7.s3tc.ctex", "res://.godot/imported/Environment_ClassicalFloor_Dark_4K-wallpaper_5-diffuse.jpg-3ba7a2f76d8b7c300a02a77243f06ac7.etc2.ctex"]
 
 [params]
 
