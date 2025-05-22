@@ -77,4 +77,3 @@ func _handle_input_event(event):
 	
 	if do_raycast:
 		camera.cast_ray_to_world()
-

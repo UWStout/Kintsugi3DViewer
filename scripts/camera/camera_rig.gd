@@ -48,7 +48,7 @@ class_name CameraRig
 @export var dolly_initial_distance: float = 10
 @export_subgroup("Limits", "dolly_limit_")
 @export var dolly_limit_enabled: bool = true
-@export var dolly_limit_minDistance: float = 1
+@export var dolly_limit_minDistance: float = 5
 @export var dolly_limit_maxDistance: float = 100
 
 @export_group("FOV Zoom", "fov_")

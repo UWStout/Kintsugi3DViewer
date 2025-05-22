@@ -278,6 +278,8 @@ _artifact_catalog_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/si
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
 dolly_initial_distance = 7.0
+dolly_limit_maxDistance = 105.0
+fov_enabled = true
 
 [node name="CameraRigidBody" type="RigidBody3D" parent="Camera"]
 
