@@ -35,4 +35,3 @@ func _on_toggle_off():
 	text = "OFF"
 	
 	super._on_toggle_off()
-
