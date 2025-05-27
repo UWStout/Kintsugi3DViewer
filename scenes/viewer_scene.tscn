@@ -798,6 +798,7 @@ texture = ExtResource("60_d70fm")
 expand_mode = 5
 
 [node name="sidebar_context_menus" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock"]
+visible = false
 clip_contents = true
 layout_mode = 2
 script = ExtResource("30_j217o")
@@ -807,7 +808,6 @@ animation_speed = 0.1
 animation_curve = SubResource("Curve_jj0bh")
 
 [node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifact_controller", "connected_button")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
