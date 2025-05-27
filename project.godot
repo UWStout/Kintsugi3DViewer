@@ -27,7 +27,6 @@ CacheManager="*res://scripts/resources/cache_manager.gd"
 GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
 UrlReader="*res://scripts/url_reader.gd"
-ResponsiveLightingRoot="*res://scripts/lighting/responsive_lighting_root.gd"
 
 [display]
 
