@@ -29,11 +29,6 @@ AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
 UrlReader="*res://scripts/url_reader.gd"
 ResponsiveLightingRoot="*res://scripts/lighting/responsive_lighting_root.gd"
 
-[display]
-
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
-
 [editor]
 
 version_control/autoload_on_startup=true
