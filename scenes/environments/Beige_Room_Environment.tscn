@@ -24,7 +24,7 @@ ambient_light_sky_contribution = 0.83
 reflected_light_source = 2
 
 [node name="BeigeRoom" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.291439, -0.225525, 2.02496)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101253, -1.09972, -0.0256984)
 script = ExtResource("1_4vv0j")
 environment_name = "Beige Room"
 environment_graphics = SubResource("Environment_yvjqd")
@@ -77,7 +77,7 @@ transform = Transform3D(-0.999892, 0, -0.014695, 0, 1, 0, 0.014695, 0, -0.999892
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.295, 2.59548, 0.00200009)
 
 [node name="lighting" parent="." instance=ExtResource("8_gup68")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.255685, 2.62496, 0.0447104)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.255685, 2.29687, 0.0447104)
 
 [node name="statics" type="Node3D" parent="lighting"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)

@@ -20,7 +20,7 @@ background_mode = 2
 sky = SubResource("Sky_ab6hd")
 
 [node name="TanTileRoom" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.30461, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60865, 0)
 script = ExtResource("1_8od0m")
 environment_name = "Tan Tile Room"
 environment_graphics = SubResource("Environment_wtict")
