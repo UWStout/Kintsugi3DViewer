@@ -23,7 +23,7 @@ ambient_light_source = 2
 ambient_light_color = Color(0.864675, 0.864675, 0.864675, 1)
 
 [node name="GreenSquareRoom" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15082, -1.89051, -1.04515)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15082, 0.10949, -0.04515)
 script = ExtResource("1_sysmk")
 environment_name = "Green Square Room"
 environment_graphics = SubResource("Environment_k76l8")
