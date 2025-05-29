@@ -24,7 +24,7 @@ enum side_enum {LEFT, RIGHT}
 @onready var texture_rect = $HBoxContainer/HBoxContainer2/MarginContainer/CenterContainer/TextureRect
 @onready var label = $HBoxContainer/HBoxContainer/MarginContainer/Label
 
-var dropdown_panel_scene: PackedScene = preload("res://scenes/new_ui/dropdown_panel.tscn")
+@export var dropdown_panel_scene: PackedScene = preload("res://scenes/new_ui/dropdown_panel.tscn")
 var expanding_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_Out_White_V1.svg")
 var shrinking_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_In_White_V1.svg")
 
