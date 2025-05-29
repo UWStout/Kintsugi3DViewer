@@ -4,7 +4,8 @@ var base_resolution = Vector2(1142, 648)
 var max_resolution = 2
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	get_window().connect("size_changed", Callable(self, "on_window_size_changed"))
+	#get_window().connect("size_changed", Callable(self, "on_window_size_changed"))
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
