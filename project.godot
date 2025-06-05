@@ -33,7 +33,6 @@ UiScaling="*res://scripts/new_ui/ui_scaling.gd"
 [display]
 
 window/stretch/aspect="expand"
-window/stretch/scale=1
 
 [editor]
 
