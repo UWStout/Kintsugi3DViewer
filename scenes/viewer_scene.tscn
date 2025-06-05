@@ -1,11 +1,10 @@
-[gd_scene load_steps=112 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=111 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
 [ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_8xtf8"]
-[ext_resource type="Script" path="res://scripts/new_ui/ui_scaling.gd" id="7_wj208"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/toggle_bottom_bar_button.gd" id="8_au3ok"]
 [ext_resource type="Script" path="res://scripts/environments/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
@@ -290,7 +289,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("7_wj208")
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root"]
 layout_mode = 1
