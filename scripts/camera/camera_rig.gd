@@ -48,8 +48,8 @@ class_name CameraRig
 @export var dolly_initial_distance: float = 10
 @export_subgroup("Limits", "dolly_limit_")
 @export var dolly_limit_enabled: bool = true
-@export var dolly_limit_minDistance: float = 1
-@export var dolly_limit_maxDistance: float = 100
+@export var dolly_limit_minDistance: float = 0
+@export var dolly_limit_maxDistance: float = 50
 
 @export_group("FOV Zoom", "fov_")
 @export var fov_enabled: bool = false
@@ -74,6 +74,9 @@ var target_fov: float
 
 #lights
 var environment_controller : EnvironmentController
+
+func get_dolly():
+	return target_dolly
 
 func set_fov(new_fov: float):
 	if rig_enabled:

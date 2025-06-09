@@ -35,4 +35,3 @@ func _input(event):
 		else:
 			if top_dock.is_expanded and hide_ui_button._is_toggled and not settings_menu.visible:
 				top_dock.shrink()
-

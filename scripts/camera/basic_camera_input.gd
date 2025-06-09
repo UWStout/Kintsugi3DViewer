@@ -11,7 +11,7 @@ extends Node
 @export var camera: CameraRig
 @export var capture_all_input: bool = false
 @export var input_enabled: bool = true
-@export var zoom_rate: float = 1
+@export var zoom_rate: float = 0.20
 @export var drag_rate: float = 0.025
 @export var rotation_rate: float = 0.01
 
@@ -59,11 +59,26 @@ func _handle_input_event(event):
 		
 		# Zoom In
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			if (camera.get_dolly() <= 3):
+				zoom_rate = 0.08
+				drag_rate = 0.01
+			else:
+				zoom_rate = 0.4
+				drag_rate = 0.04
 			camera.apply_zoom(-zoom_rate)
+			print(camera.get_dolly())
+			
 		
 		# Zoom Out
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			if (camera.get_dolly() <= 3):
+				zoom_rate = 0.1
+				drag_rate = 0.01
+			else:
+				zoom_rate = 0.4
+				drag_rate = 0.04
 			camera.apply_zoom(zoom_rate)
+			print(camera.get_dolly())
 	
 	if event is InputEventMouseMotion:
 		if dragCamera:
@@ -77,4 +92,3 @@ func _handle_input_event(event):
 	
 	if do_raycast:
 		camera.cast_ray_to_world()
-
