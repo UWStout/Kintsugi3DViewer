@@ -149,20 +149,29 @@ func _basis_csv_to_image(in_csv: Array) -> Image:
 	var width = 0
 	var data = PackedFloat32Array()
 	
+	var basis_count = in_csv.size() / 3
+	
 	for l in range(0, in_csv.size(), 3):
 		var red = in_csv[l]
+		
+		var tag : String = red[0]
+		if tag.begins_with("Diffuse"):
+			basis_count = l / 3
+			break  # Ignore diffuse colors only used by Kintsugi 3D Builder
+		
 		var green = in_csv[l + 1]
 		var blue = in_csv[l + 2]
 		
 		if width == 0:
 			width = red.size() - 1
-		
+			
 		if red.size() >= 2:
 			for i in width:
 				data.append(float(red[i + 1]))
 				data.append(float(green[i + 1]))
 				data.append(float(blue[i + 1]))
-	return Image.create_from_data(width, in_csv.size() / 3, false, Image.FORMAT_RGBF, data.to_byte_array())
+				
+	return Image.create_from_data(width, basis_count, false, Image.FORMAT_RGBF, data.to_byte_array())
 
 func _get_self_mesh_index(parent: Node, state: GLTFState) -> int:
 	for mesh in state.meshes:
