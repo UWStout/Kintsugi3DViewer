@@ -29,8 +29,14 @@ func _pressed():
 	)
 
 func calculate_center_rect():
-	var window_width = DisplayServer.window_get_size().x
-	var window_height = DisplayServer.window_get_size().y
+	var window_width
+	var window_height
+	if (UiScaling.resolution == "high"):
+		window_width = DisplayServer.window_get_size().x/UiScaling.high_resolution
+		window_height = DisplayServer.window_get_size().y/UiScaling.high_resolution
+	else:
+		window_width = DisplayServer.window_get_size().x
+		window_height = DisplayServer.window_get_size().y
 	
 	var size_x : int = 0.65 * window_width
 	var size_y : int = 0.65 * window_height
