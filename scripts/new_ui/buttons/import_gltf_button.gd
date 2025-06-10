@@ -1,11 +1,14 @@
 extends ExtendedButton
 
 @export var artifacts_controller : ArtifactsController
+@export var filetype_warning : Control
 
 func _pressed():
 	
 	var dialog = FileDialog.new()
 	#dialog.set_window_title("Pick a file, any file")
+	dialog.add_filter("*.glb", "GLB Files")
+	dialog.add_filter("*.gltf", "GLTF Files")
 	dialog.access = FileDialog.ACCESS_FILESYSTEM
 	dialog.set_file_mode(FileDialog.FILE_MODE_OPEN_FILE)
 	dialog.popup(calculate_center_rect())
@@ -19,6 +22,10 @@ func _pressed():
 	dialog.file_selected.connect(func(result : String):
 		if result.ends_with(".glb") or result.ends_with(".gltf"):
 			artifacts_controller._open_artifact_through_file(result)
+		else:
+			filetype_warning.visible = true
+			filetype_warning.mouse_filter = Control.MOUSE_FILTER_STOP
+			
 	)
 
 func calculate_center_rect():
