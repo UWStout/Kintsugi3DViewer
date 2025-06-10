@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbpq5g7y6yycl"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/dropdown/dropdown_button.gd" id="1_ikg8t"]
+[ext_resource type="Script" uid="uid://dhxno3aqfpchx" path="res://scripts/new_ui/buttons/dropdown/dropdown_button.gd" id="1_ikg8t"]
 [ext_resource type="Texture2D" uid="uid://cirwvvesqpths" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_Out_White_V1.svg" id="2_nwh51"]
 
 [node name="Dropdown" type="Button"]

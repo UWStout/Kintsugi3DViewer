@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=4 uid="uid://c4g5ukcjy6xg7"]
 
-[ext_resource type="Script" path="res://scripts/resources/remote_gltf_model.gd" id="2_cwgq4"]
-[ext_resource type="Shader" path="res://shaders/BasisIBR.gdshader" id="3_ta54f"]
+[ext_resource type="Script" uid="uid://b1wf2oh7sveiu" path="res://scripts/resources/remote_gltf_model.gd" id="2_cwgq4"]
+[ext_resource type="Shader" uid="uid://bctexkhm4twxs" path="res://shaders/BasisIBR.gdshader" id="3_ta54f"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="3_v7l8o"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_aiiyt"]

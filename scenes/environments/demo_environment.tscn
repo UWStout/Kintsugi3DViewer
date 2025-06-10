@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://c8tb8din2btal"]
 
-[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_jk51f"]
-[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="2_av8hb"]
-[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="2_dt1q0"]
+[ext_resource type="Script" uid="uid://bni7fjgmx1q30" path="res://scripts/environments/environment.gd" id="1_jk51f"]
+[ext_resource type="Script" uid="uid://c7u56vrbgcid2" path="res://scripts/environments/preview_environment.gd" id="2_av8hb"]
+[ext_resource type="Script" uid="uid://vrtawcke3ugx" path="res://scripts/environments/responsive_podium.gd" id="2_dt1q0"]
 [ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="3_a6pww"]
 
 [sub_resource type="Sky" id="Sky_vg8os"]
