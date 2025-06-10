@@ -808,7 +808,6 @@ animation_speed = 0.1
 animation_curve = SubResource("Curve_jj0bh")
 
 [node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifact_controller", "connected_button")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1829,6 +1828,7 @@ Licensed under GPLv3
 ( http://www.gnu.org/licenses/gpl-3.0.html )"
 
 [node name="filetype_warning" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
