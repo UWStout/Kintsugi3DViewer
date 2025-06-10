@@ -535,11 +535,12 @@ script = ExtResource("18_nhgjm")
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer" node_paths=PackedStringArray("artifacts_controller")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer" node_paths=PackedStringArray("artifacts_controller", "filetype_warning")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("17_4rmbt")
 artifacts_controller = NodePath("../../../../../../../../../../artifacts_controller")
+filetype_warning = NodePath("../../../../../../../../filetype_warning")
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/Button"]
 layout_mode = 1
@@ -1091,11 +1092,11 @@ theme_override_constants/margin_right = 15
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer"]
-visible = false
 layout_mode = 2
 mouse_filter = 2
 
 [node name="settings_menu" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer"]
+visible = false
 clip_contents = true
 custom_minimum_size = Vector2(960, 563)
 layout_mode = 2
@@ -1826,6 +1827,86 @@ theme_override_font_sizes/font_size = 12
 text = "Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
 Licensed under GPLv3
 ( http://www.gnu.org/licenses/gpl-3.0.html )"
+
+[node name="filetype_warning" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="panel" type="Panel" parent="new_ui_root/MarginContainer/filetype_warning"]
+clip_contents = true
+custom_minimum_size = Vector2(480, 250)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_116h6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/filetype_warning/panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_font_sizes/font_size = 32
+text = "ERROR"
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("22_lq8gq")
+expand_mode = 5
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Label2" type="Label" parent="new_ui_root/MarginContainer/filetype_warning/panel/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(100, 140)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_font_sizes/font_size = 24
+text = "Unsupported file type. Please only use GLB or GLTF files."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Panel" type="Panel" parent="new_ui_root/MarginContainer"]
 visible = false
