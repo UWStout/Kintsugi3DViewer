@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://dknemfurs5vg1"]
 
-[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_fgp6x"]
+[ext_resource type="Script" uid="uid://bni7fjgmx1q30" path="res://scripts/environments/environment.gd" id="1_fgp6x"]
 [ext_resource type="PackedScene" uid="uid://ba4ibeulyci4r" path="res://assets/Environments/Objects/Pedestals/Plain/Object_Pedestal_WhitePlain.glb" id="1_gjy87"]
-[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="1_nttac"]
+[ext_resource type="Script" uid="uid://c7u56vrbgcid2" path="res://scripts/environments/preview_environment.gd" id="1_nttac"]
 [ext_resource type="PackedScene" uid="uid://dbnhnbpsu4u0a" path="res://assets/Environments/PhotoStudio/Bowls/Environment_PhotoStudio_WhiteBowl.glb" id="2_4udnm"]
-[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="4_4gdia"]
+[ext_resource type="Script" uid="uid://vrtawcke3ugx" path="res://scripts/environments/responsive_podium.gd" id="4_4gdia"]
 [ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="4_nlvfg"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_wdfuc"]

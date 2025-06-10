@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://x4dbnmx5mhsr"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/cache_artifact_display_ui.gd" id="1_53qvj"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/favorite_artifact_button.gd" id="2_ayr4j"]
+[ext_resource type="Script" uid="uid://df4rkhbk4fug4" path="res://scripts/new_ui/cache_artifact_display_ui.gd" id="1_53qvj"]
+[ext_resource type="Script" uid="uid://cr7covlqg14p4" path="res://scripts/new_ui/buttons/favorite_artifact_button.gd" id="2_ayr4j"]
 [ext_resource type="Texture2D" uid="uid://10j3vlxtldb5" path="res://assets/UI 2D/Icons/Expanded Light Customization/Trash/Trash_White_V2.svg" id="2_yrw4x"]
 [ext_resource type="Texture2D" uid="uid://wdxfsqy4011o" path="res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg" id="3_62d3o"]
 

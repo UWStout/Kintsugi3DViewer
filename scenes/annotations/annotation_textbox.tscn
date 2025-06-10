@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cr3pgnbsky3y2"]
 
-[ext_resource type="Script" path="res://scripts/annotations/annotation_textbox.gd" id="1_ilovh"]
+[ext_resource type="Script" uid="uid://cpbyngpkoitpu" path="res://scripts/annotations/annotation_textbox.gd" id="1_ilovh"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_vijm1"]
 
