@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c8b616pdkad77"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/confirmation_panel_ui.gd" id="1_8kc32"]
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/extended_button.gd" id="1_prncf"]
+[ext_resource type="Script" uid="uid://j6ujgwvuswiu" path="res://scripts/new_ui/confirmation_panel_ui.gd" id="1_8kc32"]
+[ext_resource type="Script" uid="uid://dlre6ofopywpx" path="res://scripts/new_ui/buttons/base/extended_button.gd" id="1_prncf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp6xv"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 1)

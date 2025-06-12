@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dax8cqqxulwsk"]
 
-[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_8wd86"]
+[ext_resource type="Script" uid="uid://bni7fjgmx1q30" path="res://scripts/environments/environment.gd" id="1_8wd86"]
 [ext_resource type="PackedScene" uid="uid://c4awtm1lmpwgi" path="res://assets/Environments/Objects/Columns/Object_ClassicColumn_White.glb" id="1_43hdl"]
 [ext_resource type="PackedScene" uid="uid://dp4glovwmtg7o" path="res://assets/Environments/Floor/Environment_RoundFloor_Checkered.glb" id="2_w51kg"]
 [ext_resource type="PackedScene" uid="uid://cfo6ijs8hdcgp" path="res://assets/Environments/Walls/Environment_MarbleLoop_White.glb" id="3_gr4n4"]
@@ -9,8 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://ffbujfy87xwx" path="res://assets/Environments/Ceiling/Environment_MarbleDome_White.glb" id="6_rsjjy"]
 [ext_resource type="PackedScene" uid="uid://cmsi73eoam8mp" path="res://assets/Environments/Objects/Columns/Object_Pedestal_Marble.glb" id="7_4q54w"]
 [ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="7_iqnhb"]
-[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="9_7bjqh"]
-[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="10_m5yxo"]
+[ext_resource type="Script" uid="uid://vrtawcke3ugx" path="res://scripts/environments/responsive_podium.gd" id="9_7bjqh"]
+[ext_resource type="Script" uid="uid://c7u56vrbgcid2" path="res://scripts/environments/preview_environment.gd" id="10_m5yxo"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8uo0a"]
 

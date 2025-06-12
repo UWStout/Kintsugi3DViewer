@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b63y0dy1jau8"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/dropdown/dropdown_selection_button.gd" id="1_t2xsa"]
+[ext_resource type="Script" uid="uid://bujhge3gbfl7u" path="res://scripts/new_ui/buttons/dropdown/dropdown_selection_button.gd" id="1_t2xsa"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6n8hd"]
 

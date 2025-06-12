@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://c72ra7k2av6rs"]
 
-[ext_resource type="Script" path="res://scripts/lighting/new_light_widget.gd" id="1_tjvct"]
-[ext_resource type="Script" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_jqfgj"]
+[ext_resource type="Script" uid="uid://cusaxdtryt630" path="res://scripts/lighting/new_light_widget.gd" id="1_tjvct"]
+[ext_resource type="Script" uid="uid://cqh5xnr2h5kiv" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_jqfgj"]
 [ext_resource type="ArrayMesh" uid="uid://b1g57rjtc2nhj" path="res://assets/mesh/light_widget_axis.res" id="3_2tqa1"]
-[ext_resource type="Script" path="res://scenes/lighting/responsive_light_range.gd" id="4_qcydt"]
+[ext_resource type="Script" uid="uid://q1k7122lcgvw" path="res://scenes/lighting/responsive_light_range.gd" id="4_qcydt"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_t5ior"]
 radius = 0.15

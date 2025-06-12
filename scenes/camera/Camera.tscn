@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cl6qk62t7vj7w"]
 
-[ext_resource type="Script" path="res://scripts/camera/camera_rig.gd" id="1_lr3ga"]
-[ext_resource type="Script" path="res://scripts/camera/basic_camera_input.gd" id="2_k3ms6"]
-[ext_resource type="Script" path="res://scripts/camera/touch_input_provider.gd" id="3_32agc"]
+[ext_resource type="Script" uid="uid://c6wx0qw348kl1" path="res://scripts/camera/camera_rig.gd" id="1_lr3ga"]
+[ext_resource type="Script" uid="uid://cuxgccmyey5ud" path="res://scripts/camera/basic_camera_input.gd" id="2_k3ms6"]
+[ext_resource type="Script" uid="uid://b0weqvnqnu8x" path="res://scripts/camera/touch_input_provider.gd" id="3_32agc"]
 
 [node name="Camera" type="Node3D" node_paths=PackedStringArray("camera", "rotationPoint", "spotLight")]
 script = ExtResource("1_lr3ga")

@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://cq08g6is3yd0q"]
 
-[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_2g17x"]
+[ext_resource type="Script" uid="uid://bni7fjgmx1q30" path="res://scripts/environments/environment.gd" id="1_2g17x"]
 [ext_resource type="PackedScene" uid="uid://dbmcoh6d6iy17" path="res://assets/Environments/Floor/Environment_CementFloor_Tan.glb" id="1_qaa6f"]
-[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="2_7gjnh"]
+[ext_resource type="Script" uid="uid://c7u56vrbgcid2" path="res://scripts/environments/preview_environment.gd" id="2_7gjnh"]
 [ext_resource type="PackedScene" uid="uid://bsgwy7qgmj4up" path="res://assets/Environments/Floor/Environment_TileFloor_Green.glb" id="3_ec481"]
 [ext_resource type="PackedScene" uid="uid://dymjas1hlbkrs" path="res://assets/Environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb" id="4_eo5wn"]
 [ext_resource type="PackedScene" uid="uid://cm13tevt5epos" path="res://assets/Environments/Objects/Pedestals/Modern2/object_pedestal_tan_modern_2_recentered.tscn" id="5_kt3fp"]
-[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="6_y37db"]
+[ext_resource type="Script" uid="uid://vrtawcke3ugx" path="res://scripts/environments/responsive_podium.gd" id="6_y37db"]
 [ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="7_gw5ud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oqij1"]
