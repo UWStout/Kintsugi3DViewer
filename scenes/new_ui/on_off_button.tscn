@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpdwl7akyrn37"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/on_off_toggle_button.gd" id="1_3w4ry"]
+[ext_resource type="Script" uid="uid://bg2wbmrgts0gk" path="res://scripts/new_ui/buttons/base/on_off_toggle_button.gd" id="1_3w4ry"]
 
 [sub_resource type="Curve" id="Curve_pnc1t"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]

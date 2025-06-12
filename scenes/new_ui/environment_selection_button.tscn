@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cwgiophlqxk64"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/environment_selection_button.gd" id="1_50i83"]
+[ext_resource type="Script" uid="uid://dj2gfl0io4gnp" path="res://scripts/new_ui/buttons/environment_selection_button.gd" id="1_50i83"]
 [ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/UI 2D/toggle_annotations_on.png" id="2_6evjk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://b3uf4vkq1s5qa"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_offline_mode_button.gd" id="1_awng8"]
+[ext_resource type="Script" uid="uid://jvdopr3655u7" path="res://scripts/new_ui/buttons/preferences/change_offline_mode_button.gd" id="1_awng8"]
 
 [sub_resource type="Curve" id="Curve_usm4y"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]

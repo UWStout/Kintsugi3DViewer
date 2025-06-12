@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dk1scqv0c6f0x"]
 
 [ext_resource type="PackedScene" uid="uid://dbmcoh6d6iy17" path="res://assets/Environments/Floor/Environment_CementFloor_Tan.glb" id="1_hk1oe"]
-[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_pggy2"]
-[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="2_01g1e"]
+[ext_resource type="Script" uid="uid://bni7fjgmx1q30" path="res://scripts/environments/environment.gd" id="1_pggy2"]
+[ext_resource type="Script" uid="uid://c7u56vrbgcid2" path="res://scripts/environments/preview_environment.gd" id="2_01g1e"]
 [ext_resource type="PackedScene" uid="uid://bsgwy7qgmj4up" path="res://assets/Environments/Floor/Environment_TileFloor_Green.glb" id="4_h5dlj"]
 [ext_resource type="PackedScene" uid="uid://dymjas1hlbkrs" path="res://assets/Environments/Objects/Pedestals/Modern2/Object_Pedestal_TanModern2.glb" id="5_sd3is"]
 

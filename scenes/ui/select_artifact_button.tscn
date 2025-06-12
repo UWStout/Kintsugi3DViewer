@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b30c7ucoxltg3"]
 
-[ext_resource type="Script" path="res://scripts/ui/select_artifact_button.gd" id="1_m6bb4"]
+[ext_resource type="Script" uid="uid://c5m2vyklkbs6f" path="res://scripts/ui/select_artifact_button.gd" id="1_m6bb4"]
 
 [node name="select_artifact_button" type="Button" node_paths=PackedStringArray("parent_window")]
 visible = false

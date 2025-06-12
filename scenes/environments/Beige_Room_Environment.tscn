@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://cum2pa85altu4"]
 
-[ext_resource type="Script" path="res://scripts/environments/environment.gd" id="1_4vv0j"]
-[ext_resource type="Script" path="res://scripts/environments/preview_environment.gd" id="2_1hwa7"]
+[ext_resource type="Script" uid="uid://bni7fjgmx1q30" path="res://scripts/environments/environment.gd" id="1_4vv0j"]
+[ext_resource type="Script" uid="uid://c7u56vrbgcid2" path="res://scripts/environments/preview_environment.gd" id="2_1hwa7"]
 [ext_resource type="PackedScene" uid="uid://2j64r5w75xq" path="res://assets/Environments/Walls/Environment_PlainWall_Beige.glb" id="2_mmd3i"]
 [ext_resource type="PackedScene" uid="uid://c8owvseqk5dyg" path="res://assets/Environments/Walls/Environment_PlainEnteranceWall_Beige.glb" id="3_ovb8t"]
 [ext_resource type="PackedScene" uid="uid://mlwyw6qnrdut" path="res://assets/Environments/Floor/Environment_WoodenFloor_DarkBrown.glb" id="4_s1sf7"]
 [ext_resource type="PackedScene" uid="uid://kpqra8aqrgni" path="res://assets/Environments/Objects/Pedestals/Modern1/Object_Pedestal_BrownModern1.glb" id="5_woygy"]
-[ext_resource type="Script" path="res://scripts/environments/responsive_podium.gd" id="6_3v2wm"]
+[ext_resource type="Script" uid="uid://vrtawcke3ugx" path="res://scripts/environments/responsive_podium.gd" id="6_3v2wm"]
 [ext_resource type="PackedScene" uid="uid://bucbvke7el4el" path="res://assets/Environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain.glb" id="6_yf2rq"]
 [ext_resource type="PackedScene" uid="uid://c75pmtmqbakeb" path="res://scenes/lighting/standard_lighting.tscn" id="8_gup68"]
 
