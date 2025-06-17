@@ -1,0 +1,47 @@
+{
+	"artifacts": [
+		{
+			"name": "The Age of Bronze, 1876–77, by Auguste Rodin",
+			"gltfUrl": "Mia_001239_Rodin_KintsugiTests1/model.glb"
+			"cameraZoominSetting": "10"
+		},
+		{
+			"name": "Child's Tiger Hat (Black), date unknown",
+			"gltfUri": "Mia_098063_BlackTigerHat_269_cameras/model.glb"
+		},
+		{
+			"name": "Child's Tiger Hat (Orange), date unknown",
+			"gltfUri": "Mia_098062_OrangeTigerHat_268_Cameras_4k/model.glb"
+		},
+		{
+			"name": "Cloisonné Altarpiece, 18th C CE",
+			"gltfUrl": "Mia_028757_CloisonneAltarpiece_376_Cameras_BottomRingFix/model.glb"
+		},
+		{
+			"name": "Flying Dragon, one of a pair, 7th-10th C CE",
+			"gltfUrl": "Mia_013604_Dragon2_K7_324cameras/model.glb"
+		},
+		{
+			"name": "General Guan Yu on Horseback, 16th C CE",
+			"gltfUrl": "Mia_031065_GuanYu_240_Cameras/model.glb"
+		},
+		{
+			"name": "Saint Lucy, c. 1410 by Benedetto di Bindo Zoppo",
+			"gltfUrl": "Mia_001697_StLucy_347_cameras/model.glb"
+		},
+		{
+			"name": "Table Lamp, c. 1900 CE, by François-Raoul Larche",
+			"gltfUrl": "Mia_040428_LarcheLamp_476_Cameras/model.glb"
+		},
+		{
+			"name": "Fangding food vessel, 11th C BCE [contextualized]",
+			"gltfUrl": "Contextualized-Fangding/fangding_chinese_food_vessel.glb",
+			"voyagerUri": "Contextualized-Fangding/scene.svx.json"
+		},
+		{
+			"name": "Ritual Bell, late 6th-early 5th C BCE [contextualized]",
+			"gltfUrl": "Contextualized-Bells/bell.gltf",
+			"voyagerUri": "Contextualized-Bells/scene.svx.json"
+		}
+	]
+}
