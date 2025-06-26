@@ -31,6 +31,9 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 	
 	if data.has("voyagerUri"):
 		out_data.voyagerUri = data.get("voyagerUri")
+		
+	if data.has("localDir"):
+		out_data.localDir = data.get("localDir") 
 	
 	return out_data
 
