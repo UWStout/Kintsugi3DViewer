@@ -13,6 +13,7 @@ var name: String
 var iconUri: String
 var gltfUri: String
 var voyagerUri: String
+var localDir: String
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
