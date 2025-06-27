@@ -63,13 +63,3 @@ func test_new_file_text(file, new_string):
 			print("Error: Not recognized as a dictionary")
 	else:
 		print("JSON Parse Error: ", json_test.get_error_message(), " in ", new_string, " at line ", json_test.get_error_line())
-
-func check_for_duplicates(data: Dictionary) -> bool:
-	var seen = {}
-	for artifact in data["artifacts"]:
-		var dir = artifact["localDir"]
-		if seen.has(dir):
-			return true
-		else:
-			seen[dir] = true
-	return false
