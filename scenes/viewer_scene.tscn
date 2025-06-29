@@ -1091,11 +1091,11 @@ theme_override_constants/margin_right = 15
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
 [node name="settings_menu" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer"]
-visible = false
 clip_contents = true
 custom_minimum_size = Vector2(960, 563)
 layout_mode = 2
