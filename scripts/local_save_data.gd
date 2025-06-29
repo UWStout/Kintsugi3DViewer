@@ -5,7 +5,7 @@ const _LOCAL_SAVE_FILE : String = "localdata.json"
 func _ready():
 	if not _does_save_exist():
 		_create_save_file()
-
+	#TODO: Check that all file paths are valid if a JSON file already exists
 
 
 func _does_save_exist() -> bool:
@@ -44,13 +44,29 @@ func _save_model(name, dir) -> void:
 	#check artifacts array exists, then append into array
 	if not data.has("artifacts"):
 		data["artifacts"] = []
-
-	data["artifacts"].append(data_to_send)
-	data["artifacts"].sort()
-	var new_string = JSON.stringify(data)
-	file.store_string(new_string)
-	test_new_file_text(file, new_string)
+	
+	#TODO: This currently doesn't save the model if a duplicate file path is detected.
+		#One potential modification would be to prompt to not save or overwrite.
+	if not check_for_duplicates(data, data_to_send):
+		data["artifacts"].append(data_to_send)
+		#data["artifacts"].sort()
+		var new_string = JSON.stringify(data)
+		file.store_string(new_string)
+		test_new_file_text(file, new_string)
+		print("File successfully saved!")
+	else:
+		print("Model not saved; duplicate file path detected.")
 	file.close()
+
+func check_for_duplicates(data: Dictionary, new_data) -> bool:
+	if not data.has("artifacts"):
+		return false
+
+	for artifact in data["artifacts"]:
+		if typeof(artifact) == TYPE_DICTIONARY and artifact.has("localDir"):
+			if artifact["localDir"] == new_data["localDir"]:
+				return true
+	return false
 
 func test_new_file_text(file, new_string):
 	var json_test = JSON.new()
