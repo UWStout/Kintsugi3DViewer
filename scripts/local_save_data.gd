@@ -50,7 +50,7 @@ func _save_model(name, dir) -> void:
 	if not check_for_duplicates(data, data_to_send):
 		data["artifacts"].append(data_to_send)
 		#data["artifacts"].sort()
-		var new_string = JSON.stringify(data)
+		var new_string = JSON.stringify(data, "\t")
 		file.store_string(new_string)
 		test_new_file_text(file, new_string)
 		print("File successfully saved!")
@@ -79,3 +79,21 @@ func test_new_file_text(file, new_string):
 			print("Error: Not recognized as a dictionary")
 	else:
 		print("JSON Parse Error: ", json_test.get_error_message(), " in ", new_string, " at line ", json_test.get_error_line())
+
+func get_dict() -> Dictionary:
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
+	
+	var json = JSON.new()
+	var parse_check = json.parse(file.get_as_text())
+	var data = {}
+	
+	#check the data was parsed into a dictionary
+	if parse_check == OK:
+		if typeof(json.data) == TYPE_DICTIONARY:
+			data = json.data
+		else:
+			print("Parsed JSON is not a dictionary.")
+	else:
+		print("JSON parse error: ", json.get_error_message())
+		data = {}  # fallback to empty dictionary
+	return data
