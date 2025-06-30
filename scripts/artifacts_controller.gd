@@ -208,5 +208,5 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
-	LocalSaveData._save_model(gltf_file_path.get_slice("/", (gltf_file_path.get_slice_count("/")-2)), gltf_file_path)
+	
 	
