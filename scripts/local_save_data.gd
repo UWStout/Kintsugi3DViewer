@@ -5,7 +5,44 @@ const _LOCAL_SAVE_FILE : String = "localdata.json"
 func _ready():
 	if not _does_save_exist():
 		_create_save_file()
-	#TODO: Check that all file paths are valid if a JSON file already exists
+	#Check that all file paths are valid if a JSON file already exists
+	else:
+		print("Local save file exists, checking entries...")
+		var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
+		#parse the file to pull the exisitng data
+		var json = JSON.new()
+		var parse_check = json.parse(file.get_as_text())
+		var data = {}
+		if parse_check == OK:
+			if typeof(json.data) == TYPE_DICTIONARY:
+				data = json.data
+			else:
+				#failsafe: reset the file with no data
+				print("Parsed JSON is not a dictionary.")
+				data = { "artifacts": [] }
+		else:
+			#failsafe: reset the file with no data
+			print("JSON parse error: ", json.get_error_message())
+			data = { "artifacts": [] }
+			
+		file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
+		var valid_artifacts = []
+		for artifact in data["artifacts"]:
+			if typeof(artifact) != TYPE_DICTIONARY:
+				continue
+			var file_path = artifact.get("localDir", "")
+			var name = artifact.get("name", "Unnamed")
+			if not FileAccess.file_exists(file_path):
+				print("Missing file at path: %s (for %s)" % [file_path, name])
+			else:
+				print("Valid file path for: %s" % name)
+				valid_artifacts.append(artifact)
+		#rewrite file only using data with valid file paths
+		#future thing: have extra workflow to either delete or reassign broken file paths
+		var json_string = JSON.stringify({ "artifacts": valid_artifacts }, "\t")
+		file.store_string(json_string)
+		file.close()
+
 
 
 func _does_save_exist() -> bool:
@@ -35,7 +72,8 @@ func _save_model(name, dir) -> void:
 		if typeof(json.data) == TYPE_DICTIONARY:
 			data = json.data
 		else:
-			print("Parsed JSON is not a dictionary.")
+			print("Parsed JSON is not a dictionary. Resetting file")
+			data = { "artifacts": [] }
 	else:
 		print("JSON parse error: ", json.get_error_message())
 		data = {}  # fallback to empty dictionary
@@ -49,7 +87,6 @@ func _save_model(name, dir) -> void:
 		#One potential modification would be to prompt to not save or overwrite.
 	if not check_for_duplicates(data, data_to_send):
 		data["artifacts"].append(data_to_send)
-		#data["artifacts"].sort()
 		var new_string = JSON.stringify(data, "\t")
 		file.store_string(new_string)
 		test_new_file_text(file, new_string)
