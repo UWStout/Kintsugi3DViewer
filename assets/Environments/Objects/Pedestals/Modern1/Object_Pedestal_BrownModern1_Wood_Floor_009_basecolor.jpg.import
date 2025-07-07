@@ -2,14 +2,13 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1rqx1vlm5fmf"
+uid="uid://blxnoeerhbo33"
 path.s3tc="res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_basecolor.jpg-06219f9ed2fead3ca5e1bb54722ef681.s3tc.ctex"
 path.etc2="res://.godot/imported/Object_Pedestal_BrownModern1_Wood_Floor_009_basecolor.jpg-06219f9ed2fead3ca5e1bb54722ef681.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
-generator_parameters={}
 
 [deps]
 
