@@ -7,7 +7,7 @@
 # This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 extends RefCounted
-extends Camera
+
 
 class_name ArtifactData
 
@@ -16,7 +16,9 @@ var iconUri: String
 var gltfUri: String
 var voyagerUri: String 
 var cameraloaded:bool
-var cameraZoomSetting : int
+var cameraZoominSetting : float
+var cameraZoomoutSetting : float
+
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
 	
@@ -31,9 +33,15 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 	
 	if data.has("gltfUri"):
 		out_data.gltfUri = data.get("gltfUri")
-	
-	if data.has("camerZoominaSetting"):
-		out_data.cameraZoomSetting = data.get("cameraZoominSetting")
+	var cameraloaded = false
+	if data.has("camerZoominSetting"):
+		out_data.cameraZoominSetting = data.get("cameraZoominSetting")
+	if data.has("camerZoomoutSetting"):
+		out_data.cameraZoomoutSetting = data.get("cameraZoomoutSetting")
+		cameraloaded = true
+		
+	#if cameraloaded == true:
+	#	cameraZoominsetting = 
 	if data.has("voyagerUri"):
 		out_data.voyagerUri = data.get("voyagerUri")
 	
