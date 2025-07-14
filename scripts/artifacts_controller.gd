@@ -19,6 +19,9 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 @export var _environment_controller : EnvironmentController
 @export var _artifact_catalog_ui : ArtifactCatalogUI
 
+@export var _save_import_panel : CenterContainer
+@export var _save_import_button: Button
+
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
@@ -208,5 +211,12 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
+	_save_import_panel.visible = true
+	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	var file_name = await _save_import_button.file_name_chosen
+	LocalSaveData._save_model(file_name, gltf_file_path)
+	_save_import_panel.visible = false
+	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
 	
 	

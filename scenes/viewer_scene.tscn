@@ -272,12 +272,14 @@ script = ExtResource("1_8lf8i")
 script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui", "_save_import_panel", "_save_import_button")]
 script = ExtResource("1_6cwju")
 _loader = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
 _ibr_shader = ExtResource("3_8xtf8")
 _environment_controller = NodePath("../environment_controller")
 _artifact_catalog_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
+_save_import_panel = NodePath("../new_ui_root/MarginContainer/save_file")
+_save_import_button = NodePath("../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
@@ -2045,6 +2047,7 @@ artifacts_controller = NodePath("../../../../../../../artifacts_controller")
 popup = NodePath("../../../..")
 
 [node name="save_file" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
@@ -2077,14 +2080,14 @@ theme_override_constants/margin_left = 106
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2" node_paths=PackedStringArray("settings_menu")]
+[node name="ExitButton" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2" node_paths=PackedStringArray("settings_menu")]
 custom_minimum_size = Vector2(38, 38)
 layout_mode = 2
 flat = true
 script = ExtResource("39_bahyo")
 settings_menu = NodePath("../../../../../..")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2096,7 +2099,7 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/Button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(12, 0)
 layout_mode = 2
@@ -2171,7 +2174,7 @@ alignment = 1
 layout_direction = 3
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+[node name="Don\'tSave" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
 custom_minimum_size = Vector2(119, 37)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
@@ -2185,7 +2188,7 @@ settings_menu = NodePath("../../../../../..")
 layout_direction = 2
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2"]
+[node name="Save" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2" node_paths=PackedStringArray("fileName", "popup")]
 custom_minimum_size = Vector2(70, 37)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
@@ -2193,6 +2196,8 @@ theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
 text = "Save"
 script = ExtResource("67_rdhqw")
+fileName = NodePath("../../../../MarginContainer4/LineEdit")
+popup = NodePath("../../../../../..")
 
 [node name="Panel" type="Panel" parent="new_ui_root/MarginContainer"]
 visible = false
@@ -2263,7 +2268,7 @@ script = ExtResource("29_4k4a7")
 [connection signal="visibility_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" method="_on_cache_visibility_changed"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" method="_on_text_changed"]
 [connection signal="text_submitted" from="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer4/LineEdit" to="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer4/LineEdit" method="_on_text_submitted"]
-[connection signal="pressed" from="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Button2" to="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Button2" method="_on_pressed"]
+[connection signal="pressed" from="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" to="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" method="_on_pressed"]
 [connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
 [connection signal="environment_changed" from="environment_controller" to="artifacts_controller" method="_on_environment_changed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
