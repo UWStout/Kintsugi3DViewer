@@ -22,7 +22,7 @@ func _pressed():
 	dialog.file_selected.connect(func(result : String):
 		if result.ends_with(".glb") or result.ends_with(".gltf"):
 			artifacts_controller._open_artifact_through_file(result)
-			LocalSaveData._save_model(result.get_slice("/", (result.get_slice_count("/")-2)), result)
+			#LocalSaveData._save_model(result.get_slice("/", (result.get_slice_count("/")-2)), result)
 		else:
 			filetype_warning.visible = true
 			filetype_warning.mouse_filter = Control.MOUSE_FILTER_STOP
