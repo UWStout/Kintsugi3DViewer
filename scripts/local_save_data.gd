@@ -59,7 +59,7 @@ func _init_save():
 	json.store_string(json_string)
 	json.close()
 	
-func _save_model(name, dir) -> void:
+func _save_model(name, dir) -> bool:
 	var data_to_send = {"name" : name, "localDir" : dir}
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
 	
@@ -83,17 +83,19 @@ func _save_model(name, dir) -> void:
 	if not data.has("artifacts"):
 		data["artifacts"] = []
 	
-	#TODO: This currently doesn't save the model if a duplicate file path is detected.
-		#One potential modification would be to prompt to not save or overwrite.
+	#this checks for duplicates; returns true if saved, false if a duplicate was detected
+	#note: currently no other edge cases, this assumes that it either saved successfully or it's a duplicate
 	if not check_for_duplicates(data, data_to_send):
 		data["artifacts"].append(data_to_send)
 		var new_string = JSON.stringify(data, "\t")
 		file.store_string(new_string)
 		test_new_file_text(file, new_string)
 		print("File successfully saved!")
-	else:
-		print("Model not saved; duplicate file path detected.")
+		file.close()
+		return true
+	print("Model not saved; duplicate file path detected.")
 	file.close()
+	return false
 
 func check_for_duplicates(data: Dictionary, new_data) -> bool:
 	if not data.has("artifacts"):
@@ -111,9 +113,9 @@ func test_new_file_text(file, new_string):
 	if error_test == OK:
 		var data_received = json_test.data
 		if typeof(data_received) == TYPE_DICTIONARY:
-			print("Successfully saved model")
+			print("File stable")
 		else:
-			print("Error: Not recognized as a dictionary")
+			print("Error: File not recognized as a dictionary")
 	else:
 		print("JSON Parse Error: ", json_test.get_error_message(), " in ", new_string, " at line ", json_test.get_error_line())
 
@@ -134,3 +136,7 @@ func get_dict() -> Dictionary:
 		print("JSON parse error: ", json.get_error_message())
 		data = {}  # fallback to empty dictionary
 	return data
+	
+func overwrite_exisitng_filename(filepath, new_name, old_name) -> void:
+	pass
+	#TODO: write this

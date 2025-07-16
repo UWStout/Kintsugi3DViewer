@@ -272,7 +272,7 @@ script = ExtResource("1_8lf8i")
 script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui", "_save_import_panel", "_save_import_button")]
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui", "_save_import_panel", "_save_import_button", "_duplicate_model_popup")]
 script = ExtResource("1_6cwju")
 _loader = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
 _ibr_shader = ExtResource("3_8xtf8")
@@ -280,6 +280,7 @@ _environment_controller = NodePath("../environment_controller")
 _artifact_catalog_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
 _save_import_panel = NodePath("../new_ui_root/MarginContainer/save_file")
 _save_import_button = NodePath("../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
+_duplicate_model_popup = NodePath("../new_ui_root/MarginContainer/duplicate_save_file")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
@@ -2198,6 +2199,146 @@ text = "Save"
 script = ExtResource("67_rdhqw")
 fileName = NodePath("../../../../MarginContainer4/LineEdit")
 popup = NodePath("../../../../../..")
+
+[node name="duplicate_save_file" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="panel" type="Panel" parent="new_ui_root/MarginContainer/duplicate_save_file"]
+custom_minimum_size = Vector2(450, 227)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m30np")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel"]
+custom_minimum_size = Vector2(450, 227)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 106
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ExitButton" type="Button" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+flat = true
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+texture = ExtResource("22_lq8gq")
+expand_mode = 5
+
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+theme_override_font_sizes/font_size = 28
+text = "Duplicate file detected"
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(387, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_font_sizes/font_size = 14
+text = "You attempted to save a model that has already been saved. Would you like to overwrite the previous file?"
+autowrap_mode = 3
+
+[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer5"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[node name="MarginContainer6" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer"]
+custom_minimum_size = Vector2(87, 0)
+layout_direction = 3
+layout_mode = 2
+
+[node name="Cancel" type="Button" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
+text = "Cancel"
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer"]
+custom_minimum_size = Vector2(115, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Overwrite" type="Button" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(70, 37)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
+text = "Overwrite"
 
 [node name="Panel" type="Panel" parent="new_ui_root/MarginContainer"]
 visible = false
