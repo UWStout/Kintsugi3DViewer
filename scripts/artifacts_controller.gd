@@ -21,6 +21,7 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 
 @export var _save_import_panel : CenterContainer
 @export var _save_import_button: Button
+@export var _duplicate_model_popup : CenterContainer
 
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
@@ -211,12 +212,20 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
+	#after model loads, show prompt to name filepath
 	_save_import_panel.visible = true
 	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	var file_name = await _save_import_button.file_name_chosen
-	LocalSaveData._save_model(file_name, gltf_file_path)
 	_save_import_panel.visible = false
 	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
+	#try to save new opened file
+	#if duplicate file path is detected, show prompt to keep original or overwrite
+	if not (LocalSaveData._save_model(file_name, gltf_file_path)):
+		_duplicate_model_popup.visible = true
+		_duplicate_model_popup.mouse_filter = Control.MOUSE_FILTER_STOP
+		#TODO: create await to check for overwrite button to be pressed
+			#create function to change original name to new name (func in local_save_data)
+		
 	
 	
