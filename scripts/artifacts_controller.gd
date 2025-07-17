@@ -22,6 +22,9 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 @export var _save_import_panel : CenterContainer
 @export var _save_import_button: Button
 @export var _duplicate_model_popup : CenterContainer
+@export var _overwrite_duplicate_button : Button
+
+@export var _invalid_file_popup : CenterContainer
 
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
@@ -216,6 +219,8 @@ func _open_artifact_through_file(gltf_file_path : String):
 	_save_import_panel.visible = true
 	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	var file_name = await _save_import_button.file_name_chosen
+	if file_name == "":
+		file_name = (gltf_file_path.get_slice("/", (gltf_file_path.get_slice_count("/")-2)))
 	_save_import_panel.visible = false
 	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
@@ -224,8 +229,29 @@ func _open_artifact_through_file(gltf_file_path : String):
 	if not (LocalSaveData._save_model(file_name, gltf_file_path)):
 		_duplicate_model_popup.visible = true
 		_duplicate_model_popup.mouse_filter = Control.MOUSE_FILTER_STOP
-		#TODO: create await to check for overwrite button to be pressed
-			#create function to change original name to new name (func in local_save_data)
-		
+		await _overwrite_duplicate_button.pressed
+		LocalSaveData.overwrite_exisitng_filename(gltf_file_path, file_name)
+		_duplicate_model_popup.visible = false
+		_duplicate_model_popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
+func _open_saved_artifact_through_file(gltf_file_path : String):
+	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
+		_save_import_panel.visible = true
+		_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	
+	if is_instance_valid(loaded_artifact):
+		loaded_artifact.queue_free()
+	
+	var data = ArtifactData.new()
+	data.gltfUri = gltf_file_path
+	
+	var model = LocalGltfModel.create(data)
+	add_child(model)
+	
+	model.preview_load_completed.connect(_on_model_preview_load_complete)
+	model.load_completed.connect(_on_model_load_complete)
+	model.load_progress.connect(_on_model_load_progress)
+	
+	loaded_artifact = model # set here to prevent null pointer dereference
+	model.load_artifact()
+	#EDGE CASE TO RESOLVE: if the filepath is invalid (deleted or moved) after application initalization
