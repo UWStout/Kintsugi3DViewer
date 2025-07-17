@@ -7,11 +7,10 @@ signal file_name_chosen(name: String)
 
 func _on_pressed() -> void:
 	var name = fileName.text.strip_edges()
+	fileName.clear
+	fileName.placeholder_text = "Please name the current model to save"
+
 	emit_signal("file_name_chosen", name)
-	#fileName.get_text()
-	#pull current filepath
-	#how to? -> global variable? would have to mess around with local vs cloud, probably more work than its worth
-	#		pass the variable directly to this script: open popup -> 
 
 
 func _get_file_name(file: String) -> void:
@@ -22,3 +21,6 @@ func _get_file_name(file: String) -> void:
 		name = (file.get_slice("/", (file.get_slice_count("/")-2)))
 	popup.visible = false
 	popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+
+#TODO: Make function to remove entries

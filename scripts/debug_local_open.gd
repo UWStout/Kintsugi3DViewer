@@ -11,7 +11,7 @@ func _on_text_submitted(new_text: String) -> void:
 		self.placeholder_text = "Requested index is out of range."
 	elif(index < data["artifacts"].size() or index>=0):
 		var result = data["artifacts"][index]["localDir"]
-		artifacts_controller._open_artifact_through_file(result)
+		artifacts_controller._open_saved_artifact_through_file(result)
 		self.clear()
 		self.placeholder_text = "Enter index here"
 		popup.visible = false

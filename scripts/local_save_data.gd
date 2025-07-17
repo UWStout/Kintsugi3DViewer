@@ -137,6 +137,33 @@ func get_dict() -> Dictionary:
 		data = {}  # fallback to empty dictionary
 	return data
 	
-func overwrite_exisitng_filename(filepath, new_name, old_name) -> void:
-	pass
-	#TODO: write this
+func overwrite_exisitng_filename(filepath, new_name) -> void:
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
+	
+	var json = JSON.new()
+	var parse_check = json.parse(file.get_as_text())
+	var data = {}
+	
+	#check the data was parsed into a dictionary
+	if parse_check == OK:
+		if typeof(json.data) == TYPE_DICTIONARY:
+			data = json.data
+		else:
+			print("Parsed JSON is not a dictionary. Resetting file")
+			data = { "artifacts": [] }
+	else:
+		print("JSON parse error: ", json.get_error_message())
+		data = {}  # fallback to empty dictionary
+	
+	# Merge and stringify
+	#check artifacts array exists, then append into array
+	if not data.has("artifacts"):
+		data["artifacts"] = []
+	for i in data["artifacts"].size():
+		if data["artifacts"][i]["localDir"] == filepath:
+			data["artifacts"][i]["name"] = new_name
+	var new_string = JSON.stringify(data, "\t")
+	file.store_string(new_string)
+	test_new_file_text(file, data)
+	print("Overwrite sucessful!")
+	file.close()
