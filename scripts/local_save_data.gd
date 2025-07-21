@@ -8,24 +8,9 @@ func _ready():
 	#Check that all file paths are valid if a JSON file already exists
 	else:
 		print("Local save file exists, checking entries...")
-		var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
 		#parse the file to pull the exisitng data
-		var json = JSON.new()
-		var parse_check = json.parse(file.get_as_text())
-		var data = {}
-		if parse_check == OK:
-			if typeof(json.data) == TYPE_DICTIONARY:
-				data = json.data
-			else:
-				#failsafe: reset the file with no data
-				print("Parsed JSON is not a dictionary.")
-				data = { "artifacts": [] }
-		else:
-			#failsafe: reset the file with no data
-			print("JSON parse error: ", json.get_error_message())
-			data = { "artifacts": [] }
-			
-		file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
+		var data = get_dict()
+		var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 		var valid_artifacts = []
 		for artifact in data["artifacts"]:
 			if typeof(artifact) != TYPE_DICTIONARY:
@@ -43,7 +28,12 @@ func _ready():
 		file.store_string(json_string)
 		file.close()
 
-
+func _is_file_valid(file_path: String) -> bool:
+	var data = get_dict()
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
+	if not FileAccess.file_exists(file_path):
+		return false
+	return true
 
 func _does_save_exist() -> bool:
 	var dir = DirAccess.open("user://")
@@ -61,27 +51,8 @@ func _init_save():
 	
 func _save_model(name, dir) -> bool:
 	var data_to_send = {"name" : name, "localDir" : dir}
+	var data = get_dict()
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
-	
-	var json = JSON.new()
-	var parse_check = json.parse(file.get_as_text())
-	var data = {}
-	
-	#check the data was parsed into a dictionary
-	if parse_check == OK:
-		if typeof(json.data) == TYPE_DICTIONARY:
-			data = json.data
-		else:
-			print("Parsed JSON is not a dictionary. Resetting file")
-			data = { "artifacts": [] }
-	else:
-		print("JSON parse error: ", json.get_error_message())
-		data = {}  # fallback to empty dictionary
-	
-	# Merge and stringify
-	#check artifacts array exists, then append into array
-	if not data.has("artifacts"):
-		data["artifacts"] = []
 	
 	#this checks for duplicates; returns true if saved, false if a duplicate was detected
 	#note: currently no other edge cases, this assumes that it either saved successfully or it's a duplicate
@@ -135,25 +106,15 @@ func get_dict() -> Dictionary:
 	else:
 		print("JSON parse error: ", json.get_error_message())
 		data = {}  # fallback to empty dictionary
+		#check artifacts array exists, then append into array
+	if not data.has("artifacts"):
+		data["artifacts"] = []
+		
 	return data
 	
 func overwrite_exisitng_filename(filepath, new_name) -> void:
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
-	
-	var json = JSON.new()
-	var parse_check = json.parse(file.get_as_text())
-	var data = {}
-	
-	#check the data was parsed into a dictionary
-	if parse_check == OK:
-		if typeof(json.data) == TYPE_DICTIONARY:
-			data = json.data
-		else:
-			print("Parsed JSON is not a dictionary. Resetting file")
-			data = { "artifacts": [] }
-	else:
-		print("JSON parse error: ", json.get_error_message())
-		data = {}  # fallback to empty dictionary
+	var data = get_dict()
 	
 	# Merge and stringify
 	#check artifacts array exists, then append into array
@@ -167,3 +128,23 @@ func overwrite_exisitng_filename(filepath, new_name) -> void:
 	test_new_file_text(file, data)
 	print("Overwrite sucessful!")
 	file.close()
+
+func _remove_entry(filepath : String)->void:
+	#CURRENTLY BROKEN - DON'T USE
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
+	var data = get_dict()
+	
+	# Merge and stringify
+	#check artifacts array exists, then append into array
+	if not data.has("artifacts"):
+		data["artifacts"] = []
+	for i in data["artifacts"].size():
+		if data["artifacts"][i]["localDir"] == filepath:
+			data["artifacts"].remove_at(i)
+			break
+	var new_string = JSON.stringify(data, "\t")
+	file.store_string(new_string)
+	test_new_file_text(file, data)
+	print("Overwrite sucessful!")
+	file.close()
+	

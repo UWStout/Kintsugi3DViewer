@@ -21,6 +21,3 @@ func _get_file_name(file: String) -> void:
 		name = (file.get_slice("/", (file.get_slice_count("/")-2)))
 	popup.visible = false
 	popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
-
-#TODO: Make function to remove entries

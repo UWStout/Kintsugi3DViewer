@@ -235,9 +235,11 @@ func _open_artifact_through_file(gltf_file_path : String):
 		_duplicate_model_popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 func _open_saved_artifact_through_file(gltf_file_path : String):
-	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
-		_save_import_panel.visible = true
-		_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
+	#Check the file can be opened
+	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):
+		_invalid_file_popup.visible = true
+		_invalid_file_popup.mouse_filter = Control.MOUSE_FILTER_STOP
+		#LocalSaveData._remove_entry(gltf_file_path) - bug found where it deletes all the data
 	
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
@@ -254,4 +256,4 @@ func _open_saved_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
-	#EDGE CASE TO RESOLVE: if the filepath is invalid (deleted or moved) after application initalization
+	
