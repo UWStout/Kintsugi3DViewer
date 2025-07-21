@@ -239,7 +239,7 @@ func _open_saved_artifact_through_file(gltf_file_path : String):
 	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):
 		_invalid_file_popup.visible = true
 		_invalid_file_popup.mouse_filter = Control.MOUSE_FILTER_STOP
-		#LocalSaveData._remove_entry(gltf_file_path) - bug found where it deletes all the data
+		LocalSaveData._remove_entry(gltf_file_path) #- bug found where it deletes all the data
 	
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
