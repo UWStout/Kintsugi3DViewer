@@ -130,19 +130,22 @@ func overwrite_exisitng_filename(filepath, new_name) -> void:
 	file.close()
 
 func _remove_entry(filepath : String)->void:
-	#CURRENTLY BROKEN - DON'T USE
-	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
 	var data = get_dict()
 	
 	# Merge and stringify
 	#check artifacts array exists, then append into array
 	if not data.has("artifacts"):
 		data["artifacts"] = []
-	for i in data["artifacts"].size():
-		if data["artifacts"][i]["localDir"] == filepath:
-			data["artifacts"].remove_at(i)
-			break
-	var new_string = JSON.stringify(data, "\t")
+	var valid_artifacts = []
+	for artifact in data["artifacts"]:
+		if typeof(artifact) != TYPE_DICTIONARY:
+			continue
+		var file_path = artifact.get("localDir", "")
+		var name = artifact.get("name", "Unnamed")
+		if not artifact["localDir"] == filepath:
+			valid_artifacts.append(artifact)
+	var new_string = JSON.stringify({ "artifacts": valid_artifacts }, "\t")
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 	file.store_string(new_string)
 	test_new_file_text(file, data)
 	print("Overwrite sucessful!")
