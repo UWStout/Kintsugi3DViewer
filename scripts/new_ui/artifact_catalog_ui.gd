@@ -9,7 +9,7 @@
 class_name ArtifactCatalogUI extends ContextMenu
 
 @export var artifact_select_button : PackedScene
-@export var artifact_controller : ArtifactsController
+@export var artifact_controller : LocalArtifactsController
 
 @onready var button_group : ExclusiveToggleGroup = $button_group
 @onready var v_box_container : VBoxContainer = $ScrollContainer/VBoxContainer

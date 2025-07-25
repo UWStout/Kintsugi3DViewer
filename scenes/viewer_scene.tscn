@@ -1,10 +1,11 @@
-[gd_scene load_steps=117 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=118 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://it820mej1q4b" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
 [ext_resource type="Shader" uid="uid://bctexkhm4twxs" path="res://shaders/BasisIBR.gdshader" id="3_8xtf8"]
+[ext_resource type="Script" uid="uid://djmaekyfhhdlp" path="res://scripts/local_artifacts_controller.gd" id="5_rwtoy"]
 [ext_resource type="Script" uid="uid://cltf5mbwn28h3" path="res://scripts/new_ui/buttons/toggle_bottom_bar_button.gd" id="8_au3ok"]
 [ext_resource type="Texture2D" uid="uid://pacmon8kdwjx" path="res://assets/UI 2D/Icons/Top Dock/Save/Save_White_V1.svg" id="11_14ide"]
 [ext_resource type="Script" uid="uid://yao1ow7lk6gh" path="res://scripts/environments/environment_controller.gd" id="12_acvmt"]
@@ -272,17 +273,24 @@ script = ExtResource("1_8lf8i")
 script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui", "_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup")]
+[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
 script = ExtResource("1_6cwju")
 _loader = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
 _ibr_shader = ExtResource("3_8xtf8")
 _environment_controller = NodePath("../environment_controller")
 _artifact_catalog_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
-_save_import_panel = NodePath("../new_ui_root/MarginContainer/save_file")
-_save_import_button = NodePath("../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
-_duplicate_model_popup = NodePath("../new_ui_root/MarginContainer/duplicate_save_file")
-_overwrite_duplicate_button = NodePath("../new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Overwrite")
-_invalid_file_popup = NodePath("../new_ui_root/MarginContainer/broken_file")
+
+[node name="local_artifacts_controller" type="Node3D" parent="artifacts_controller" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui")]
+script = ExtResource("5_rwtoy")
+_save_import_panel = NodePath("../../new_ui_root/MarginContainer/save_file")
+_save_import_button = NodePath("../../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
+_duplicate_model_popup = NodePath("../../new_ui_root/MarginContainer/duplicate_save_file")
+_overwrite_duplicate_button = NodePath("../../new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Overwrite")
+_invalid_file_popup = NodePath("../../new_ui_root/MarginContainer/broken_file")
+_loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
+_ibr_shader = ExtResource("3_8xtf8")
+_environment_controller = NodePath("../../environment_controller")
+_artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
@@ -556,7 +564,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("17_4rmbt")
-artifacts_controller = NodePath("../../../../../../../../../../artifacts_controller")
+artifacts_controller = NodePath("../../../../../../../../../../artifacts_controller/local_artifacts_controller")
 filetype_warning = NodePath("../../../../../../../../filetype_warning")
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/Button"]
@@ -865,7 +873,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("31_8olmt")
 artifact_select_button = ExtResource("31_3etux")
-artifact_controller = NodePath("../../../../../../artifacts_controller")
+artifact_controller = NodePath("../../../../../../artifacts_controller/local_artifacts_controller")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer/artifact_catalog/Button1")
 
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
@@ -2046,7 +2054,7 @@ theme_override_constants/margin_right = 50
 layout_mode = 2
 placeholder_text = "Enter index here"
 script = ExtResource("66_m30np")
-artifacts_controller = NodePath("../../../../../../../artifacts_controller")
+artifacts_controller = NodePath("../../../../../../../artifacts_controller/local_artifacts_controller")
 popup = NodePath("../../../..")
 
 [node name="save_file" type="CenterContainer" parent="new_ui_root/MarginContainer"]
