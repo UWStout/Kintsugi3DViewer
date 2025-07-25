@@ -141,7 +141,6 @@ func _remove_entry(filepath : String)->void:
 		if typeof(artifact) != TYPE_DICTIONARY:
 			continue
 		var file_path = artifact.get("localDir", "")
-		var name = artifact.get("name", "Unnamed")
 		if not artifact["localDir"] == filepath:
 			valid_artifacts.append(artifact)
 	var new_string = JSON.stringify({ "artifacts": valid_artifacts }, "\t")
@@ -151,3 +150,15 @@ func _remove_entry(filepath : String)->void:
 	print("Overwrite sucessful!")
 	file.close()
 	
+func get_artifact_data() -> Array[ArtifactData]:
+	var artifacts_json = get_dict()
+
+	var artifacts_data: Array[ArtifactData] = []
+
+	if artifacts_json.has("artifacts"):
+		for artifact_dict in artifacts_json["artifacts"]:
+			var artifact = ArtifactData.from_dict(artifact_dict)
+			artifacts_data.push_back(artifact)
+
+	print("get_artifact_data_local", artifacts_data)
+	return artifacts_data

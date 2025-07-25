@@ -26,10 +26,9 @@ shader = ExtResource("3_ta54f")
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Model" type="Node3D" parent="." node_paths=PackedStringArray("fetcher")]
+[node name="Model" type="Node3D" parent="."]
 script = ExtResource("2_cwgq4")
 artifactGltfUrl = "guan-yu/model.glb"
-fetcher = NodePath("")
 
 [node name="Camera" parent="." instance=ExtResource("3_v7l8o")]
 

@@ -18,9 +18,9 @@ var downloaded_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesUnfav
 var favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg")
 
 var data : ArtifactData
-var controller : ArtifactsController
+var controller : LocalArtifactsController
 
-func set_data(new_data : ArtifactData, new_controller : ArtifactsController):
+func set_data(new_data : ArtifactData, new_controller : LocalArtifactsController):
 	data = new_data
 	controller = new_controller
 	artifact_label.text = data.name
@@ -34,7 +34,7 @@ func _pressed():
 
 func _on_toggle_on():
 	if not controller == null:
-		controller.display_artifact_data(data)
+		controller._open_saved_artifact_through_file(data.localDir)
 		
 		for button in toggle_group.connected_buttons:
 			if not button == self:
