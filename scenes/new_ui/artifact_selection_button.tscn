@@ -74,6 +74,7 @@ expand_mode = 5
 
 [node name="artifact_label" type="Label" parent="HBoxContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(130, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "ARTIFACT A"

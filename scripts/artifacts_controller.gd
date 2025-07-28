@@ -26,30 +26,34 @@ var loaded_artifact: GltfModel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not is_instance_valid(_fetcher):
-		_fetcher = GlobalFetcher
-		if not is_instance_valid(_fetcher):
-			push_error("Artifacts Controller at node %s could not find a valid resource fetcher!" % get_path())
-			return
 	
-	await refresh_artifacts()
+	assign_fetcher()
+	
+	#await refresh_artifacts()
 	
 	if UrlReader.parameters.has("artifact"):
 		for artifact in artifacts:
 			if UrlReader.parameters["artifact"] == artifact.gltfUri.get_base_dir():
 				display_artifact_data(artifact)
 	
+func assign_fetcher():
+	if not is_instance_valid(_fetcher):
+		_fetcher = GlobalFetcher
+		if not is_instance_valid(_fetcher):
+			push_error("Artifacts Controller at node %s could not find a valid resource fetcher!" % get_path())
+			return
 
-func refresh_artifacts() -> Array[ArtifactData]:
-	if(Preferences.read_pref("offline mode")):
-		artifacts = CacheManager.get_artifact_data()
-	else:
-		artifacts = await _fetcher.fetch_artifacts()
-		artifacts_refreshed.emit(artifacts)
-		
-		if artifacts.size() == 0:
-			artifacts = CacheManager.get_artifact_data()
-	return artifacts
+
+#func refresh_artifacts() -> Array[ArtifactData]:
+	#if(Preferences.read_pref("offline mode")):
+		#artifacts = CacheManager.get_artifact_data()
+	#else:
+		#artifacts = await _fetcher.fetch_artifacts()
+		#artifacts_refreshed.emit(artifacts)
+		#
+		#if artifacts.size() == 0:
+			#artifacts = CacheManager.get_artifact_data()
+	#return artifacts
 
 
 func display_artifact(index : int):

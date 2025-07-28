@@ -4,13 +4,12 @@ const _LOCAL_SAVE_FILE : String = "localdata.json"
 
 func _ready():
 	if not _does_save_exist():
-		_create_save_file()
+		_init_save()
 	#Check that all file paths are valid if a JSON file already exists
 	else:
 		print("Local save file exists, checking entries...")
 		#parse the file to pull the exisitng data
 		var data = get_dict()
-		var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 		var valid_artifacts = []
 		for artifact in data["artifacts"]:
 			if typeof(artifact) != TYPE_DICTIONARY:
@@ -24,13 +23,14 @@ func _ready():
 				valid_artifacts.append(artifact)
 		#rewrite file only using data with valid file paths
 		#future thing: have extra workflow to either delete or reassign broken file paths
+		var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 		var json_string = JSON.stringify({ "artifacts": valid_artifacts }, "\t")
 		file.store_string(json_string)
 		file.close()
 
 func _is_file_valid(file_path: String) -> bool:
 	var data = get_dict()
-	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ)
 	if not FileAccess.file_exists(file_path):
 		return false
 	return true
@@ -38,10 +38,6 @@ func _is_file_valid(file_path: String) -> bool:
 func _does_save_exist() -> bool:
 	var dir = DirAccess.open("user://")
 	return dir.file_exists(_LOCAL_SAVE_FILE)
-
-func _create_save_file():
-	var save = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
-	_init_save()
 	
 func _init_save():
 	var json_string = JSON.stringify({"artifacts" : []})
@@ -60,7 +56,7 @@ func _save_model(name, dir) -> bool:
 		data["artifacts"].append(data_to_send)
 		var new_string = JSON.stringify(data, "\t")
 		file.store_string(new_string)
-		test_new_file_text(file, new_string)
+		test_new_file_text(new_string)
 		print("File successfully saved!")
 		file.close()
 		return true
@@ -78,9 +74,9 @@ func check_for_duplicates(data: Dictionary, new_data) -> bool:
 				return true
 	return false
 
-func test_new_file_text(file, new_string):
+func test_new_file_text(new_string: String):
 	var json_test = JSON.new()
-	var error_test = json_test.parse(file.get_as_text())
+	var error_test = json_test.parse(new_string)
 	if error_test == OK:
 		var data_received = json_test.data
 		if typeof(data_received) == TYPE_DICTIONARY:
@@ -91,8 +87,10 @@ func test_new_file_text(file, new_string):
 		print("JSON Parse Error: ", json_test.get_error_message(), " in ", new_string, " at line ", json_test.get_error_line())
 
 func get_dict() -> Dictionary:
-	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
-	
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ)
+	if file == null:
+		push_error("Could not open JSON file at user://" + _LOCAL_SAVE_FILE)
+		return {"artifacts": []}
 	var json = JSON.new()
 	var parse_check = json.parse(file.get_as_text())
 	var data = {}
@@ -113,7 +111,6 @@ func get_dict() -> Dictionary:
 	return data
 	
 func overwrite_exisitng_filename(filepath, new_name) -> void:
-	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
 	var data = get_dict()
 	
 	# Merge and stringify
@@ -124,8 +121,9 @@ func overwrite_exisitng_filename(filepath, new_name) -> void:
 		if data["artifacts"][i]["localDir"] == filepath:
 			data["artifacts"][i]["name"] = new_name
 	var new_string = JSON.stringify(data, "\t")
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 	file.store_string(new_string)
-	test_new_file_text(file, data)
+	test_new_file_text(new_string)
 	print("Overwrite sucessful!")
 	file.close()
 
@@ -146,7 +144,7 @@ func _remove_entry(filepath : String)->void:
 	var new_string = JSON.stringify({ "artifacts": valid_artifacts }, "\t")
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 	file.store_string(new_string)
-	test_new_file_text(file, data)
+	test_new_file_text(new_string)
 	print("Overwrite sucessful!")
 	file.close()
 	
@@ -155,10 +153,9 @@ func get_artifact_data() -> Array[ArtifactData]:
 
 	var artifacts_data: Array[ArtifactData] = []
 
-	if artifacts_json.has("artifacts"):
-		for artifact_dict in artifacts_json["artifacts"]:
-			var artifact = ArtifactData.from_dict(artifact_dict)
-			artifacts_data.push_back(artifact)
+	for artifact_dict in artifacts_json["artifacts"]:
+		var artifact = ArtifactData.from_dict(artifact_dict)
+		artifacts_data.push_back(artifact)
 
 	print("get_artifact_data_local", artifacts_data)
 	return artifacts_data
