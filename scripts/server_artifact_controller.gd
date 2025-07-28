@@ -1,0 +1,1 @@
+class_name ServerArtifactsController extends ArtifactsController

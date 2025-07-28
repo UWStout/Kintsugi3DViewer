@@ -20,6 +20,8 @@ var favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesFavori
 var data : ArtifactData
 var controller : LocalArtifactsController
 
+var local_favorite : bool = false
+
 func set_data(new_data : ArtifactData, new_controller : LocalArtifactsController):
 	data = new_data
 	controller = new_controller
@@ -65,6 +67,9 @@ func make_inactive():
 	artifact_preview.self_modulate = Color8(167, 167, 167, 255)
 
 func _on_favorite_artifact_button_pressed():
+	if not data.localDir == null:
+		local_favorite = not local_favorite
+		return
 	if not CacheManager.is_in_cache(data.gltfUri.get_base_dir()):
 		return
 	
@@ -74,6 +79,14 @@ func _on_favorite_artifact_button_pressed():
 		CacheManager.make_persistent(data.gltfUri.get_base_dir())
 
 func _process(delta):
+	#print(data.localDir)
+	if not data.localDir == null:
+		favorite_artifact_button.show()
+		if not local_favorite:
+			artifact_status.texture = favorited_icon
+		else:
+			artifact_status.texture = downloaded_icon
+		return
 	if CacheManager.is_in_cache(data.gltfUri.get_base_dir()):
 		favorite_artifact_button.show()
 		artifact_status.texture = downloaded_icon

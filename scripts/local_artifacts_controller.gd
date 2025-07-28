@@ -10,20 +10,10 @@ class_name LocalArtifactsController extends ArtifactsController
 
 func _ready():
 	
-	if not is_instance_valid(_fetcher):
-		_fetcher = GlobalFetcher
-	if not is_instance_valid(_fetcher):
-		push_error("Artifacts Controller at node %s could not find a valid resource fetcher!" % get_path())
-		return
+	assign_fetcher()
 	
 	await refresh_artifacts()
 	
-	if UrlReader.parameters.has("artifact"):
-		for artifact in artifacts:
-			if UrlReader.parameters["artifact"] == artifact.gltfUri.get_base_dir():
-				display_artifact_data(artifact)
-	
-	await refresh_artifacts()
 	
 	var args = OS.get_cmdline_args()
 	_open_artifact_through_file(args[0])
@@ -101,9 +91,7 @@ func _open_saved_artifact_through_file(gltf_file_path : String):
 	
 	#
 #func refresh_artifacts() -> Array[ArtifactData]:
-	#if(Preferences.read_pref("offline mode") == 0):
-		#pass
-	#if(Preferences.read_pref("offline mode") == 1):
+	#if(Preferences.read_pref("offline mode")):
 		#artifacts = CacheManager.get_artifact_data()
 	#else:
 		#artifacts = await _fetcher.fetch_artifacts()
