@@ -25,17 +25,10 @@ var artifacts: Array[ArtifactData]
 var loaded_artifact: GltfModel
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	
-	assign_fetcher()
-	
-	#await refresh_artifacts()
-	
-	if UrlReader.parameters.has("artifact"):
-		for artifact in artifacts:
-			if UrlReader.parameters["artifact"] == artifact.gltfUri.get_base_dir():
-				display_artifact_data(artifact)
-	
+#func _ready():
+	#
+	#pass
+	#
 func assign_fetcher():
 	if not is_instance_valid(_fetcher):
 		_fetcher = GlobalFetcher
