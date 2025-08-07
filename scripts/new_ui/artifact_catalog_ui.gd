@@ -9,7 +9,7 @@
 class_name ArtifactCatalogUI extends ContextMenu
 
 @export var artifact_select_button : PackedScene
-@export var artifact_controller : LocalArtifactsController
+@export var artifact_controller : ArtifactsController
 
 @onready var button_group : ExclusiveToggleGroup = $button_group
 @onready var v_box_container : VBoxContainer = $ScrollContainer/VBoxContainer
@@ -73,7 +73,8 @@ func refresh_list():
 	
 	if not artifact_controller == null:
 		await initialize_list(await artifact_controller.refresh_artifacts())
-	
+		
+	await artifact_controller.refresh_artifacts()
 	if not artifact_controller.loaded_artifact == null:
 		var button = get_button_for_artifact(artifact_controller.loaded_artifact.artifact)
 		if not button == null:
