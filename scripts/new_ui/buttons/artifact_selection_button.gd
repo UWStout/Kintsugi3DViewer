@@ -18,11 +18,11 @@ var downloaded_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesUnfav
 var favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg")
 
 var data : ArtifactData
-var controller : LocalArtifactsController
+var controller : ArtifactsController
 
 var local_favorite : bool = false
 
-func set_data(new_data : ArtifactData, new_controller : LocalArtifactsController):
+func set_data(new_data : ArtifactData, new_controller : ArtifactsController):
 	data = new_data
 	controller = new_controller
 	artifact_label.text = data.name
@@ -36,7 +36,10 @@ func _pressed():
 
 func _on_toggle_on():
 	if not controller == null:
-		controller._open_saved_artifact_through_file(data.localDir)
+		if not data.localDir == null:
+			controller._open_saved_artifact_through_file(data.localDir)
+		else:
+			controller.display_artifact_data(data)
 		
 		for button in toggle_group.connected_buttons:
 			if not button == self:
@@ -80,20 +83,22 @@ func _on_favorite_artifact_button_pressed():
 
 func _process(delta):
 	#print(data.localDir)
-	if not data.localDir == null:
+
+	if controller is LocalArtifactsController:
 		favorite_artifact_button.show()
 		if not local_favorite:
 			artifact_status.texture = favorited_icon
 		else:
 			artifact_status.texture = downloaded_icon
-		return
-	if CacheManager.is_in_cache(data.gltfUri.get_base_dir()):
-		favorite_artifact_button.show()
-		artifact_status.texture = downloaded_icon
-		
-		if CacheManager.is_persistent(data.gltfUri.get_base_dir()):
-			artifact_status.texture = favorited_icon
 	else:
-		artifact_status.texture = not_downloaded_icon
-		favorite_artifact_button.hide()
+		if CacheManager.is_in_cache(data.gltfUri.get_base_dir()):
+			favorite_artifact_button.show()
+			artifact_status.texture = downloaded_icon
+			
+			if CacheManager.is_persistent(data.gltfUri.get_base_dir()):
+				artifact_status.texture = favorited_icon
+		else:
+			artifact_status.texture = not_downloaded_icon
+			favorite_artifact_button.hide()
+	
 	pass

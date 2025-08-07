@@ -1,6 +1,6 @@
 class_name ServerArtifactsController extends ArtifactsController
 
-func ready():
+func _ready():
 	assign_fetcher()
 	
 	await refresh_artifacts()
