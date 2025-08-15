@@ -21,7 +21,8 @@ var data : ArtifactData
 var controller : ArtifactsController
 
 var local_favorite : bool = false
-
+	
+	
 func set_data(new_data : ArtifactData, new_controller : ArtifactsController):
 	data = new_data
 	controller = new_controller
@@ -36,11 +37,7 @@ func _pressed():
 
 func _on_toggle_on():
 	if not controller == null:
-		if not data.localDir == null:
-			controller._open_saved_artifact_through_file(data.localDir)
-		else:
-			controller.display_artifact_data(data)
-		
+		controller.open_artifact(data)
 		for button in toggle_group.connected_buttons:
 			if not button == self:
 				button.make_inactive()
@@ -70,7 +67,7 @@ func make_inactive():
 	artifact_preview.self_modulate = Color8(167, 167, 167, 255)
 
 func _on_favorite_artifact_button_pressed():
-	if not data.localDir == null:
+	if controller is LocalArtifactsController:
 		local_favorite = not local_favorite
 		return
 	if not CacheManager.is_in_cache(data.gltfUri.get_base_dir()):

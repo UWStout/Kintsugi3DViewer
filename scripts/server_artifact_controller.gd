@@ -21,3 +21,13 @@ func refresh_artifacts() -> Array[ArtifactData]:
 			artifacts = CacheManager.get_artifact_data()
 	return artifacts
 	
+func open_artifact(data : ArtifactData):
+	display_artifact_data(data)
+	emit_signal("artifact_loaded")
+	
+
+
+func _on_local_controller_artifact_loaded() -> void:
+		if is_instance_valid(loaded_artifact):
+			if not loaded_artifact.load_finished:
+				loaded_artifact.stop_loading()

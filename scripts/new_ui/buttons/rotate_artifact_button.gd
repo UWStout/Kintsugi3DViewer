@@ -8,6 +8,7 @@
 
 class_name RotateArtifactButton extends ToggleButton
 
+@export var artifacts_manager: ArtifactsManager
 @export var artifacts_controller : ArtifactsController
 @export var scene_camera : CameraRig
 @export var sidebar_context_menu : ExpandingContextPanel
@@ -16,6 +17,9 @@ class_name RotateArtifactButton extends ToggleButton
 @export var _lerp_speed : float = 0.5
 
 var is_grabbed : bool = false
+
+func _ready() -> void:
+	artifacts_manager.active_controller_changed.connect(_on_active_controller_changed)
 
 func _pressed():
 	if artifacts_controller.loaded_artifact == null or not artifacts_controller.loaded_artifact.load_finished:
@@ -65,3 +69,7 @@ func lerp_to_default_orientation(delta : float):
 		var artifact = artifacts_controller.loaded_artifact
 		
 		artifact.transform.basis = artifact.transform.basis.slerp(Basis.IDENTITY, delta).orthonormalized()
+		
+
+func _on_active_controller_changed(new_controller: ArtifactsController):
+	artifacts_controller = new_controller
