@@ -291,7 +291,7 @@ server = NodePath("server_controller")
 
 [node name="local_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui")]
 script = ExtResource("4_e3ejb")
-_save_import_panel = NodePath("../../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton/CenterContainer")
+_save_import_panel = NodePath("../../new_ui_root/MarginContainer/save_file")
 _save_import_button = NodePath("../../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
 _duplicate_model_popup = NodePath("../../new_ui_root/MarginContainer/duplicate_save_file")
 _overwrite_duplicate_button = NodePath("../../new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Overwrite")
