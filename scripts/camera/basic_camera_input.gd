@@ -66,7 +66,7 @@ func _handle_input_event(event):
 				zoom_rate = 0.4
 				drag_rate = 0.04
 			camera.apply_zoom(-zoom_rate)
-			print(camera.get_dolly())
+			#print(camera.get_dolly())
 			
 		
 		# Zoom Out
@@ -78,7 +78,7 @@ func _handle_input_event(event):
 				zoom_rate = 0.4
 				drag_rate = 0.04
 			camera.apply_zoom(zoom_rate)
-			print(camera.get_dolly())
+			#print(camera.get_dolly())
 	
 	if event is InputEventMouseMotion:
 		if dragCamera:

@@ -7,12 +7,18 @@
 # This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 extends Window
-
+@export var artifacts_manager : ArtifactsManager
 @export var artifacts_controller : ArtifactsController
 @export var artifacts_controller_node_path : NodePath
 @export var select_artifact_button = preload("res://scenes/ui/select_artifact_button.tscn")
 @onready var v_box_container = $ScrollContainer/VBoxContainer
 
+func _ready() -> void:
+	#await artifacts_controller._ready()
+	#artifacts_controller = artifacts_controller.get_current_controller()
+	artifacts_manager.active_controller_changed.connect(_on_active_controller_changed)
+	_on_active_controller_changed(artifacts_manager.active_controller)
+	
 func on_open():
 	populate_list()
 
@@ -42,3 +48,6 @@ func populate_list():
 		v_box_container.add_child(new_button)
 		pass
 	pass
+
+func _on_active_controller_changed(new_controller: ArtifactsController):
+	artifacts_controller = new_controller

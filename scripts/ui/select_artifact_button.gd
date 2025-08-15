@@ -12,7 +12,7 @@ class_name SelectArtifactButton
 
 var target_artifact: ArtifactData
 @export var parent_window : Window
-
+@export var artifacts_manager : ArtifactsManager
 @onready var artifacts_controller : ArtifactsController = $"../../../../artifacts_controller"
 
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +20,10 @@ func _ready():
 	if not is_instance_valid(target_artifact):
 		return
 	text = target_artifact.name
+	#await artifacts_controller._ready()
+	#artifacts_controller = artifacts_controller.get_current_controller()
+	artifacts_manager.active_controller_changed.connect(_on_active_controller_changed)
+	_on_active_controller_changed(artifacts_manager.active_controller)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -31,3 +35,6 @@ func _pressed():
 		parent_window.close_requested.emit()
 	
 	pass
+
+func _on_active_controller_changed(new_controller: ArtifactsController):
+	artifacts_controller = new_controller

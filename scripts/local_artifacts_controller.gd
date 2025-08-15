@@ -9,7 +9,6 @@ class_name LocalArtifactsController extends ArtifactsController
 
 
 func _ready():
-	
 	assign_fetcher()
 	
 	await refresh_artifacts()
@@ -64,19 +63,21 @@ func _open_artifact_through_file(gltf_file_path : String):
 		LocalSaveData.overwrite_exisitng_filename(gltf_file_path, file_name)
 		_duplicate_model_popup.visible = false
 		_duplicate_model_popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	refresh_artifacts()
 	
 
-func _open_saved_artifact_through_file(gltf_file_path : String):
+func open_artifact(data : ArtifactData):
+	var gltf_file_path = data.localDir
 	#Check the file can be opened
 	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):
 		_invalid_file_popup.visible = true
 		_invalid_file_popup.mouse_filter = Control.MOUSE_FILTER_STOP
 		LocalSaveData._remove_entry(gltf_file_path) #- bug found where it deletes all the data
+		return
 	
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
 	
-	var data = ArtifactData.new()
 	data.gltfUri = gltf_file_path
 	
 	var model = LocalGltfModel.create(data)
@@ -88,6 +89,7 @@ func _open_saved_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
+	emit_signal("artifact_loaded")
 	
 	#
 #func refresh_artifacts() -> Array[ArtifactData]:
@@ -100,3 +102,10 @@ func _open_saved_artifact_through_file(gltf_file_path : String):
 		#if artifacts.size() == 0:
 			#artifacts = CacheManager.get_artifact_data()
 	#return artifacts
+
+
+func _on_server_controller_artifact_loaded() -> void:
+		if is_instance_valid(loaded_artifact):
+			if not loaded_artifact.load_finished:
+				loaded_artifact.stop_loading()
+			loaded_artifact.queue_free()

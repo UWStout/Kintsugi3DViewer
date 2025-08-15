@@ -9,14 +9,20 @@
 class_name ArtifactCatalogUI extends ContextMenu
 
 @export var artifact_select_button : PackedScene
-@export var artifact_controller : ArtifactsController
+
+@export var artifacts_manager : ArtifactsManager
+var artifact_controller : ArtifactsController
 
 @onready var button_group : ExclusiveToggleGroup = $button_group
 @onready var v_box_container : VBoxContainer = $ScrollContainer/VBoxContainer
 @onready var searchbar : LineEdit = $header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar
 
 func _ready():
-	refresh_list()
+	#await artifact_controller._ready()
+	#artifact_controller = artifact_controller.get_current_controller()
+	artifacts_manager.active_controller_changed.connect(_on_active_controller_changed)
+	_on_active_controller_changed(artifacts_manager.active_controller)
+	
 
 func initialize_list(data : Array[ArtifactData]):
 	clear_buttons()
@@ -93,3 +99,7 @@ func get_button_for_artifact(data : ArtifactData) -> ArtifactSelectionButton:
 
 func get_buttons():
 	return v_box_container.get_children()
+	
+func _on_active_controller_changed(new_controller: ArtifactsController):
+	artifact_controller = new_controller
+	refresh_list()

@@ -7,7 +7,7 @@ func _ready():
 		_init_save()
 	#Check that all file paths are valid if a JSON file already exists
 	else:
-		print("Local save file exists, checking entries...")
+		#print("Local save file exists, checking entries...")
 		#parse the file to pull the exisitng data
 		var data = get_dict()
 		var valid_artifacts = []
@@ -19,7 +19,7 @@ func _ready():
 			if not FileAccess.file_exists(file_path):
 				print("Missing file at path: %s (for %s)" % [file_path, name])
 			else:
-				print("Valid file path for: %s" % name)
+				#print("Valid file path for: %s" % name)
 				valid_artifacts.append(artifact)
 		#rewrite file only using data with valid file paths
 		#future thing: have extra workflow to either delete or reassign broken file paths
@@ -60,7 +60,7 @@ func _save_model(name, dir) -> bool:
 		print("File successfully saved!")
 		file.close()
 		return true
-	print("Model not saved; duplicate file path detected.")
+	#print("Model not saved; duplicate file path detected.")
 	file.close()
 	return false
 
@@ -80,9 +80,11 @@ func test_new_file_text(new_string: String):
 	if error_test == OK:
 		var data_received = json_test.data
 		if typeof(data_received) == TYPE_DICTIONARY:
-			print("File stable")
+			pass
+			#print("File stable")
 		else:
-			print("Error: File not recognized as a dictionary")
+			#print("Error: File not recognized as a dictionary")
+			pass
 	else:
 		print("JSON Parse Error: ", json_test.get_error_message(), " in ", new_string, " at line ", json_test.get_error_line())
 
@@ -145,7 +147,7 @@ func _remove_entry(filepath : String)->void:
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 	file.store_string(new_string)
 	test_new_file_text(new_string)
-	print("Overwrite sucessful!")
+	#print("Overwrite sucessful!")
 	file.close()
 	
 func get_artifact_data() -> Array[ArtifactData]:
@@ -157,5 +159,5 @@ func get_artifact_data() -> Array[ArtifactData]:
 		var artifact = ArtifactData.from_dict(artifact_dict)
 		artifacts_data.push_back(artifact)
 
-	print("get_artifact_data_local", artifacts_data)
+	#print("get_artifact_data_local", artifacts_data)
 	return artifacts_data

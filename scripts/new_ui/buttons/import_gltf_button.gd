@@ -1,7 +1,9 @@
 extends ExtendedButton
 
-@export var artifacts_controller : ArtifactsController
+@export var artifacts_controller : LocalArtifactsController
 @export var filetype_warning : Control
+
+
 
 func _pressed():
 	

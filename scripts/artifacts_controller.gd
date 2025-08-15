@@ -10,6 +10,7 @@ extends Node3D
 class_name ArtifactsController
 
 signal artifacts_refreshed(artifacts: Array[ArtifactData])
+signal artifact_loaded()
 
 @export var _fetcher: ResourceFetcher
 @export var _loader: ModelLoaderProgress
@@ -24,11 +25,8 @@ var artifacts: Array[ArtifactData]
 
 var loaded_artifact: GltfModel
 
-# Called when the node enters the scene tree for the first time.
-#func _ready():
-	#
-	#pass
-	#
+
+
 func assign_fetcher():
 	if not is_instance_valid(_fetcher):
 		_fetcher = GlobalFetcher
@@ -133,6 +131,7 @@ func _place_artifact():
 		loaded_artifact.global_position = target_pos
 		
 func _on_model_preview_load_complete():
+	print("_environment_controller: ", _environment_controller)
 	_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 	_place_artifact()
 
