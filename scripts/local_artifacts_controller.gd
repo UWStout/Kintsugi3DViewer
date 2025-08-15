@@ -27,6 +27,7 @@ func refresh_artifacts() -> Array[ArtifactData]:
 	return artifacts
 
 func _open_artifact_through_file(gltf_file_path : String):
+	print("opening through file")
 	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
 		return
 	
@@ -45,10 +46,12 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
+	print("model loaded")
 	#after model loads, show prompt to name filepath
 	_save_import_panel.visible = true
 	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
 	var file_name = await _save_import_button.file_name_chosen
+	print("name chosen")
 	if file_name == "":
 		file_name = (gltf_file_path.get_slice("/", (gltf_file_path.get_slice_count("/")-2)))
 	_save_import_panel.visible = false
