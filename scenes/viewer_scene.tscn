@@ -176,11 +176,15 @@ corner_radius_bottom_left = 11
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ujfo"]
 bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rwtoy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3ejb"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovi1e"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -946,7 +950,6 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ncy14")
 placeholder_text = "Search..."
 
 [node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
-custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer"]
