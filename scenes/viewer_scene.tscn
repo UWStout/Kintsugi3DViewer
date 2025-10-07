@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=131 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -174,17 +174,46 @@ corner_radius_top_right = 11
 corner_radius_bottom_right = 11
 corner_radius_bottom_left = 11
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ujfo"]
-bg_color = Color(0.14902, 0.14902, 0.14902, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rwtoy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e3ejb"]
 bg_color = Color(0.12549, 0.12549, 0.12549, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fbxt"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xu6tf"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ili8e"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jy57"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.588235, 0.588235, 0.588235, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dvgfk"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgc6k"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4r83i"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7t2t"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.588235, 0.588235, 0.588235, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovi1e"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -949,22 +978,25 @@ theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_ncy14")
 placeholder_text = "Search..."
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
+[node name="Catalog_Toggle_Group" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
 layout_mode = 2
+script = ExtResource("28_7jo5e")
+can_toggle_off_all = false
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2"]
+material = SubResource("CanvasItemMaterial_rwtoy")
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer/CenterContainer"]
+[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer"]
 custom_minimum_size = Vector2(123, 24)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1ujfo")
+theme_override_styles/panel = SubResource("StyleBoxFlat_e3ejb")
 
-[node name="ArtifactLocalToggle" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/Panel" node_paths=PackedStringArray("artifacts_manager", "artifact_ui")]
+[node name="ArtifactServerToggle" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/Panel" node_paths=PackedStringArray("artifacts_manager", "artifact_ui", "toggle_group")]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 offset_right = 125.0
@@ -975,22 +1007,27 @@ flat = true
 script = ExtResource("39_1ujfo")
 artifacts_manager = NodePath("../../../../../../../../../../../../../artifacts_manager")
 artifact_ui = NodePath("../../../../../../..")
-metadata/_edit_use_anchors_ = true
+toggle_group = NodePath("../../../..")
+_start_toggled = true
+toggled_on_style = SubResource("StyleBoxFlat_8fbxt")
+toggled_on_hover_style = SubResource("StyleBoxFlat_xu6tf")
+toggled_off_style = SubResource("StyleBoxFlat_ili8e")
+toggled_off_hover_style = SubResource("StyleBoxFlat_8jy57")
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer2"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3"]
 material = SubResource("CanvasItemMaterial_rwtoy")
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer2/CenterContainer"]
+[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer"]
 custom_minimum_size = Vector2(123, 24)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e3ejb")
 
-[node name="ArtifactServerToggle" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer2/CenterContainer/Panel" node_paths=PackedStringArray("artifacts_manager", "artifact_ui")]
+[node name="ArtifactServerToggle" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/Panel" node_paths=PackedStringArray("artifacts_manager", "artifact_ui", "toggle_group")]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 offset_right = 125.0
@@ -1001,6 +1038,12 @@ flat = true
 script = ExtResource("40_e3ejb")
 artifacts_manager = NodePath("../../../../../../../../../../../../../artifacts_manager")
 artifact_ui = NodePath("../../../../../../..")
+toggle_group = NodePath("../../../..")
+_start_toggled = true
+toggled_on_style = SubResource("StyleBoxFlat_dvgfk")
+toggled_on_hover_style = SubResource("StyleBoxFlat_kgc6k")
+toggled_off_style = SubResource("StyleBoxFlat_4r83i")
+toggled_off_hover_style = SubResource("StyleBoxFlat_w7t2t")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
 layout_mode = 2
@@ -2621,8 +2664,8 @@ script = ExtResource("29_4k4a7")
 [connection signal="artifact_loaded" from="artifacts_manager/local_controller" to="artifacts_manager/server_controller" method="_on_local_controller_artifact_loaded"]
 [connection signal="artifact_loaded" from="artifacts_manager/server_controller" to="artifacts_manager/local_controller" method="_on_server_controller_artifact_loaded"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
-[connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/Panel/ArtifactLocalToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/Panel/ArtifactLocalToggle" method="_on_pressed"]
-[connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer2/CenterContainer/Panel/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/HBoxContainer/MarginContainer2/CenterContainer/Panel/ArtifactServerToggle" method="_on_pressed"]
+[connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/Panel/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/Panel/ArtifactServerToggle" method="_on_pressed"]
+[connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/Panel/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/Panel/ArtifactServerToggle" method="_on_pressed"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection" method="_on_searchbar_text_changed"]
 [connection signal="item_selected" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" method="_on_item_selected"]
 [connection signal="visibility_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" method="_on_cache_visibility_changed"]
