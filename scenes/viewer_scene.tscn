@@ -159,7 +159,7 @@ point_count = 2
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
 shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncy14"]
@@ -183,38 +183,54 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fbxt"]
-bg_color = Color(0.355314, 0.355314, 0.355314, 1)
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xu6tf"]
-bg_color = Color(0.753984, 0.753984, 0.753984, 1)
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ili8e"]
-bg_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.392157)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jy57"]
-bg_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+bg_color = Color(0.12549, 0.12549, 0.12549, 0.392157)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.588235, 0.588235, 0.588235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dvgfk"]
-bg_color = Color(0.588235, 0.588235, 0.588235, 1)
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgc6k"]
-bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4r83i"]
-bg_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+bg_color = Color(0.14902, 0.14902, 0.14902, 0.392157)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7t2t"]
-bg_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+bg_color = Color(0.14902, 0.14902, 0.14902, 0.392157)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
 border_width_bottom = 4
 border_color = Color(0.588235, 0.588235, 0.588235, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovi1e"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -1011,6 +1027,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ncy14")
 placeholder_text = "Search..."
 
 [node name="Catalog_Toggle_Group" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
+clip_contents = true
 layout_mode = 2
 
 [node name="toggle_group_file" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group"]
@@ -1037,7 +1054,6 @@ offset_right = 125.0
 offset_bottom = 28.0
 theme_override_font_sizes/font_size = 14
 text = "LOCAL"
-flat = true
 script = ExtResource("39_1ujfo")
 artifacts_manager = NodePath("../../../../../../../../../../../../../artifacts_manager")
 artifact_ui = NodePath("../../../../../../..")
@@ -1068,7 +1084,6 @@ offset_right = 125.0
 offset_bottom = 28.0
 theme_override_font_sizes/font_size = 14
 text = "SERVER"
-flat = true
 script = ExtResource("40_e3ejb")
 artifacts_manager = NodePath("../../../../../../../../../../../../../artifacts_manager")
 artifact_ui = NodePath("../../../../../../..")
