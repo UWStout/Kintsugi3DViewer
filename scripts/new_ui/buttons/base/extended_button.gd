@@ -32,3 +32,23 @@ func set_focus_style(style : StyleBox):
 	if not style == null:
 		remove_theme_stylebox_override("focus")
 		add_theme_stylebox_override("focus", style)
+
+func set_font_normal_color(color: Color):
+	if not color == null:
+		remove_theme_color_override("font_color")
+		add_theme_color_override("font_color", color)
+
+func set_font_hover_color(color: Color):
+	if not color == null:
+		remove_theme_color_override("font_hover_color")
+		add_theme_color_override("font_hover_color", color)
+		
+func set_font_pressed_color(color: Color):
+	if not color == null:
+		remove_theme_color_override("font_pressed_color")
+		add_theme_color_override("font_pressed_color", color)
+		
+func set_font_disabled_color(color: Color):
+	if not color == null:
+		remove_theme_color_override("font_disabled_color")
+		add_theme_color_override("font_disabled_color", color)

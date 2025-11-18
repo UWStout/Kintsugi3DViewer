@@ -1,11 +1,14 @@
-[gd_scene load_steps=111 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=131 format=3 uid="uid://bmmsv1log3xwv"]
 
-[ext_resource type="Script" uid="uid://it820mej1q4b" path="res://scripts/artifacts_controller.gd" id="1_6cwju"]
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
-[ext_resource type="Shader" uid="uid://bctexkhm4twxs" path="res://shaders/BasisIBR.gdshader" id="3_8xtf8"]
+[ext_resource type="Script" uid="uid://dqc60yy3ndexs" path="res://scripts/artifacts_manager.gd" id="3_e3ejb"]
+[ext_resource type="Script" uid="uid://dgqa0ce5m83sr" path="res://scripts/server_artifact_controller.gd" id="3_rwtoy"]
+[ext_resource type="Shader" uid="uid://bctexkhm4twxs" path="res://shaders/BasisIBR.gdshader" id="4_dvgfk"]
+[ext_resource type="Script" uid="uid://djmaekyfhhdlp" path="res://scripts/local_artifacts_controller.gd" id="4_e3ejb"]
 [ext_resource type="Script" uid="uid://cltf5mbwn28h3" path="res://scripts/new_ui/buttons/toggle_bottom_bar_button.gd" id="8_au3ok"]
+[ext_resource type="Texture2D" uid="uid://pacmon8kdwjx" path="res://assets/UI 2D/Icons/Top Dock/Save/Save_White_V1.svg" id="11_14ide"]
 [ext_resource type="Script" uid="uid://yao1ow7lk6gh" path="res://scripts/environments/environment_controller.gd" id="12_acvmt"]
 [ext_resource type="Script" uid="uid://cvukgvnle2ipo" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
 [ext_resource type="Texture2D" uid="uid://ckoeurmsqnnnt" path="res://assets/UI 2D/Icons/Top Dock/Import/Import_White_V1.svg" id="17_6ee1a"]
@@ -39,8 +42,10 @@
 [ext_resource type="PackedScene" uid="uid://bryvft6chb8m2" path="res://scenes/new_ui/load_progress_panel.tscn" id="35_r0wn5"]
 [ext_resource type="Script" uid="uid://bwxx277x6bmmd" path="res://scripts/new_ui/locked_mode_ui.gd" id="37_qxdlg"]
 [ext_resource type="Script" uid="uid://d3y07mej5yxac" path="res://scripts/new_ui/buttons/clear_cache_button.gd" id="38_eymw3"]
+[ext_resource type="Script" uid="uid://cfnxrf1fex3j2" path="res://scripts/new_ui/buttons/local_artifact_button.gd" id="39_1ujfo"]
 [ext_resource type="Script" uid="uid://dylheuyt71rh" path="res://scripts/new_ui/change_cache_size_line_edit.gd" id="39_abqn4"]
 [ext_resource type="Script" uid="uid://brtc6h0exe3n3" path="res://scripts/new_ui/buttons/preferences/close_settings_menu_button.gd" id="39_bahyo"]
+[ext_resource type="Script" uid="uid://bd7rc4o81iyq1" path="res://scripts/new_ui/server_artifact_button.gd" id="40_e3ejb"]
 [ext_resource type="PackedScene" uid="uid://b886wcwba86sq" path="res://scenes/new_ui/change_ip_address_option.tscn" id="40_th2ad"]
 [ext_resource type="Texture2D" uid="uid://do05o3sv3qejd" path="res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_Out_White_V2.svg" id="41_3mdr6"]
 [ext_resource type="PackedScene" uid="uid://b3uf4vkq1s5qa" path="res://scenes/new_ui/offline_mode_button.tscn" id="41_w7qw0"]
@@ -50,6 +55,7 @@
 [ext_resource type="Texture2D" uid="uid://cibmbmvm7k171" path="res://assets/UI 2D/Icons/NextAndPreviousArtifacts/V2/NextArtifact_White_V2.svg" id="45_drl5j"]
 [ext_resource type="Script" uid="uid://dfbtay8odfq6" path="res://scripts/new_ui/buttons/preferences/change_shadows_button.gd" id="45_lplh0"]
 [ext_resource type="Script" uid="uid://cr1747gna2kvx" path="res://scripts/new_ui/buttons/preferences/change_gi_button.gd" id="46_gy2xc"]
+[ext_resource type="Script" uid="uid://fokeq7qj3eu4" path="res://scripts/artifact_config.gd" id="48_dvgfk"]
 [ext_resource type="Script" uid="uid://b4w40etmy08k8" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
 [ext_resource type="Texture2D" uid="uid://cqfyy4ttfyp7q" path="res://assets/UI 2D/Icons/Top Dock/Settings/Settings_White_V2.svg" id="49_8n3c5"]
 [ext_resource type="Script" uid="uid://ij3k5ptd2lbc" path="res://scripts/new_ui/buttons/preferences/change_ssao_button.gd" id="49_ulw4s"]
@@ -67,8 +73,10 @@
 [ext_resource type="Script" uid="uid://bsks6xt3dpy8n" path="res://scripts/new_ui/buttons/preferences/change_cache_dropdown_button.gd" id="60_abk66"]
 [ext_resource type="Texture2D" uid="uid://dx7avrcprh331" path="res://assets/UI 2D/Icons/Side Dock/Environment Selection/EnvironmentSelection_White_V1.svg" id="60_d70fm"]
 [ext_resource type="Texture2D" uid="uid://dr8j5m6vi4ldi" path="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.svg" id="61_ywghh"]
+[ext_resource type="Script" uid="uid://biok10no4ariy" path="res://scripts/debug_local_open.gd" id="66_m30np"]
 [ext_resource type="PackedScene" uid="uid://cum2pa85altu4" path="res://scenes/environments/Beige_Room_Environment.tscn" id="67_6ljs3"]
 [ext_resource type="Texture2D" uid="uid://dp7md5bqtxlvy" path="res://assets/UI 2D/Icons/Expanded Light Customization/Add Light/AddLight_White_V2.svg" id="67_63m5u"]
+[ext_resource type="Script" uid="uid://cco3bvvcgm7p4" path="res://scripts/save_file.gd" id="67_rdhqw"]
 [ext_resource type="PackedScene" uid="uid://b0ifr0bsst2vi" path="res://scenes/environments/Green_Square_Room.tscn" id="68_gxb4g"]
 [ext_resource type="PackedScene" uid="uid://cq08g6is3yd0q" path="res://scenes/environments/green_tile_pillar_room.tscn" id="69_3p8jk"]
 [ext_resource type="PackedScene" uid="uid://dmio3hqlb4in5" path="res://scenes/environments/tan_tile_room.tscn" id="71_04ghq"]
@@ -151,7 +159,7 @@ point_count = 2
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
 border_width_right = 5
 border_width_bottom = 5
-border_color = Color(0.141176, 0.141176, 0.141176, 1)
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
 shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncy14"]
@@ -166,6 +174,64 @@ corner_radius_top_left = 11
 corner_radius_top_right = 11
 corner_radius_bottom_right = 11
 corner_radius_bottom_left = 11
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rwtoy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fbxt"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xu6tf"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ili8e"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8jy57"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dvgfk"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kgc6k"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4r83i"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(0.12549, 0.12549, 0.12549, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w7t2t"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ovi1e"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -242,6 +308,15 @@ corner_radius_bottom_left = 25
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au247"]
 bg_color = Color(0.141176, 0.141176, 0.141176, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m30np"]
+bg_color = Color(0.12549, 0.12549, 0.12549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rdhqw"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rwtoy"]
+bg_color = Color(0.807843, 0.807843, 0.807843, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jy3h8"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 5
@@ -260,12 +335,29 @@ script = ExtResource("1_8lf8i")
 script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
-[node name="artifacts_controller" type="Node3D" parent="." node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
-script = ExtResource("1_6cwju")
-_loader = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
-_ibr_shader = ExtResource("3_8xtf8")
-_environment_controller = NodePath("../environment_controller")
-_artifact_catalog_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
+[node name="artifacts_manager" type="Node3D" parent="." node_paths=PackedStringArray("local", "server")]
+script = ExtResource("3_e3ejb")
+local = NodePath("local_controller")
+server = NodePath("server_controller")
+
+[node name="local_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui")]
+script = ExtResource("4_e3ejb")
+_save_import_panel = NodePath("../../new_ui_root/MarginContainer/save_file")
+_save_import_button = NodePath("../../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
+_duplicate_model_popup = NodePath("../../new_ui_root/MarginContainer/duplicate_save_file")
+_overwrite_duplicate_button = NodePath("../../new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Overwrite")
+_invalid_file_popup = NodePath("../../new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton/CenterContainer")
+_loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
+_ibr_shader = ExtResource("4_dvgfk")
+_environment_controller = NodePath("../../environment_controller")
+_artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
+
+[node name="server_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
+script = ExtResource("3_rwtoy")
+_loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
+_ibr_shader = ExtResource("4_dvgfk")
+_environment_controller = NodePath("../../environment_controller")
+_artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
 
 [node name="Camera" parent="." instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
@@ -368,12 +460,13 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/Panel/MarginContainer2/HBoxContainer/CenterContainer" node_paths=PackedStringArray("artifact_controller")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/Panel/MarginContainer2/HBoxContainer/CenterContainer" node_paths=PackedStringArray("artifact_controller", "artifacts_manager")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("21_0nwoy")
 mode = 1
-artifact_controller = NodePath("../../../../../../../../../artifacts_controller")
+artifact_controller = NodePath("../../../../../../../../../artifacts_manager/local_controller")
+artifacts_manager = NodePath("../../../../../../../../../artifacts_manager")
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/Panel/MarginContainer2/HBoxContainer/CenterContainer/Button"]
 layout_mode = 1
@@ -394,11 +487,12 @@ expand_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/Panel/MarginContainer2/HBoxContainer/CenterContainer2" node_paths=PackedStringArray("artifact_controller")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/Panel/MarginContainer2/HBoxContainer/CenterContainer2" node_paths=PackedStringArray("artifact_controller", "artifacts_manager")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("21_0nwoy")
-artifact_controller = NodePath("../../../../../../../../../artifacts_controller")
+artifact_controller = NodePath("../../../../../../../../../artifacts_manager/local_controller")
+artifacts_manager = NodePath("../../../../../../../../../artifacts_manager")
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/Panel/MarginContainer2/HBoxContainer/CenterContainer2/Button"]
 layout_mode = 1
@@ -420,14 +514,14 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer" node_paths=PackedStringArray("hide_ui_button", "top_dock", "settings_menu")]
+[node name="top_dock" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer" node_paths=PackedStringArray("hide_ui_button", "top_dock", "settings_menu")]
 layout_mode = 2
 script = ExtResource("51_6lrbx")
 hide_ui_button = NodePath("top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer/hide_ui_button")
 top_dock = NodePath("top_dock")
-settings_menu = NodePath("../../CenterContainer")
+settings_menu = NodePath("../../settings_menu")
 
-[node name="top_dock" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="top_dock" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock"]
 clip_contents = true
 custom_minimum_size = Vector2(0, 85)
 layout_mode = 2
@@ -438,7 +532,7 @@ maximized_size = 85.0
 animation_speed = 0.2
 animation_curve = SubResource("Curve_xsehv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -447,18 +541,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer"]
 visible = false
 self_modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 script = SubResource("GDScript_amymp")
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -466,17 +560,17 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("37_qxdlg")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer" node_paths=PackedStringArray("settings_menu")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer" node_paths=PackedStringArray("settings_menu")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 icon_alignment = 1
 script = ExtResource("21_lyejv")
-settings_menu = NodePath("../../../../../../../../CenterContainer")
+settings_menu = NodePath("../../../../../../../../settings_menu")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -484,14 +578,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer/Button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer/CenterContainer/Button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = ExtResource("49_8n3c5")
 expand_mode = 5
 
-[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -499,17 +593,17 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("37_qxdlg")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer3"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer3"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer3/CenterContainer" node_paths=PackedStringArray("settings_menu")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer3/CenterContainer" node_paths=PackedStringArray("settings_menu")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 icon_alignment = 1
 script = ExtResource("21_lyejv")
 settings_menu = NodePath("../../../../../../../../about_container")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer3/CenterContainer/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer3/CenterContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -517,14 +611,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer3/CenterContainer/Button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer3/CenterContainer/Button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = ExtResource("17_6nw6i")
 expand_mode = 5
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -532,17 +626,17 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("18_nhgjm")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer" node_paths=PackedStringArray("artifacts_controller", "filetype_warning")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer" node_paths=PackedStringArray("artifacts_controller", "filetype_warning")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("17_4rmbt")
-artifacts_controller = NodePath("../../../../../../../../../../artifacts_controller")
+artifacts_controller = NodePath("../../../../../../../../../../artifacts_manager/local_controller")
 filetype_warning = NodePath("../../../../../../../../filetype_warning")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -550,37 +644,70 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/Button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/Button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(0, 55)
 layout_mode = 2
 texture = ExtResource("17_6ee1a")
 expand_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer"]
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("18_nhgjm")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer4"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer4/CenterContainer" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("21_lyejv")
+settings_menu = NodePath("../../../../../../../../debug_file_open")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer4/CenterContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer/MarginContainer4/CenterContainer/Button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(0, 55)
+layout_mode = 2
+texture = ExtResource("11_14ide")
+expand_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 alignment = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2"]
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3"]
 layout_mode = 2
 
-[node name="hide_ui_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer" node_paths=PackedStringArray("lights_selection")]
+[node name="hide_ui_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer" node_paths=PackedStringArray("lights_selection")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("23_li034")
 nodes_to_hide = Array[NodePath]([NodePath("../../../../../../../side_dock"), NodePath("../../../../../../../../VBoxContainer2")])
 lights_selection = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer/hide_ui_button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer/hide_ui_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -588,34 +715,35 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer/hide_ui_button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer3/CenterContainer/hide_ui_button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = ExtResource("51_mf5bh")
 expand_mode = 5
 
-[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2"]
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4"]
 layout_mode = 2
 
-[node name="rotate_artifact_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer" node_paths=PackedStringArray("artifacts_controller", "scene_camera", "sidebar_context_menu", "light_selection_ui")]
+[node name="rotate_artifact_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer" node_paths=PackedStringArray("artifacts_manager", "artifacts_controller", "scene_camera", "sidebar_context_menu", "light_selection_ui")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("26_ebyjk")
-artifacts_controller = NodePath("../../../../../../../../../../artifacts_controller")
+artifacts_manager = NodePath("../../../../../../../../../../artifacts_manager")
+artifacts_controller = NodePath("../../../../../../../../../../artifacts_manager/local_controller")
 scene_camera = NodePath("../../../../../../../../../../Camera")
 sidebar_context_menu = NodePath("../../../../../../../side_dock/sidebar_context_menus")
 light_selection_ui = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
 _lerp_speed = 2.0
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -623,24 +751,24 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = ExtResource("21_4k5n4")
 expand_mode = 5
 
-[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2"]
+[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5"]
 layout_mode = 2
 
-[node name="screenshot_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5/CenterContainer" node_paths=PackedStringArray("environment_controller", "light_selection_ui")]
+[node name="screenshot_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5/CenterContainer" node_paths=PackedStringArray("environment_controller", "light_selection_ui")]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("25_f72p0")
@@ -648,7 +776,7 @@ ui_root = NodePath("../../../../../../../../..")
 environment_controller = NodePath("../../../../../../../../../../environment_controller")
 light_selection_ui = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5/CenterContainer/screenshot_button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5/CenterContainer/screenshot_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -656,7 +784,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5/CenterContainer/screenshot_button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer5/CenterContainer/screenshot_button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -711,7 +839,6 @@ script = ExtResource("29_nkxfq")
 context_name = "artifact_catalog"
 context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
-_start_toggled = null
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer/artifact_catalog/Button1"]
 layout_mode = 1
@@ -746,7 +873,6 @@ script = ExtResource("29_nkxfq")
 context_name = "lights_selection"
 context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
-_start_toggled = null
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer2/light_customization/Button2"]
 layout_mode = 1
@@ -781,7 +907,6 @@ script = ExtResource("29_nkxfq")
 context_name = "environment_selection"
 context_menu = NodePath("../../../../../sidebar_context_menus")
 toggle_group = NodePath("../../../toggle_group")
-_start_toggled = null
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer3/environment_selection/Button3"]
 layout_mode = 1
@@ -798,16 +923,51 @@ layout_mode = 2
 texture = ExtResource("60_d70fm")
 expand_mode = 5
 
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="config_selection" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer4"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button4" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer4/config_selection" node_paths=PackedStringArray("context_menu", "toggle_group")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("29_nkxfq")
+context_name = "artifact_configuration"
+context_menu = NodePath("../../../../../sidebar_context_menus")
+toggle_group = NodePath("../../../toggle_group")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer4/config_selection/Button4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons/MarginContainer4/config_selection/Button4/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("11_14ide")
+expand_mode = 5
+
 [node name="sidebar_context_menus" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock"]
 clip_contents = true
 layout_mode = 2
 script = ExtResource("30_j217o")
-contexts = Array[NodePath]([NodePath("artifact_catalog"), NodePath("environment_selection"), NodePath("lights_selection")])
-maximized_size = 350.0
+contexts = Array[NodePath]([NodePath("artifact_catalog"), NodePath("environment_selection"), NodePath("lights_selection"), NodePath("artifact_configuration")])
+maximized_size = 335.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_jj0bh")
 
-[node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifact_controller", "connected_button")]
+[node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifacts_manager", "connected_button")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -816,15 +976,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("31_8olmt")
 artifact_select_button = ExtResource("31_3etux")
-artifact_controller = NodePath("../../../../../../artifacts_controller")
+artifacts_manager = NodePath("../../../../../../artifacts_manager")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer/artifact_catalog/Button1")
+metadata/_edit_use_anchors_ = true
 
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
 script = ExtResource("28_7jo5e")
 can_toggle_off_all = false
 
 [node name="header" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
-custom_minimum_size = Vector2(250, 100)
+custom_minimum_size = Vector2(250, 116)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_84frv")
 
@@ -835,12 +996,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
 layout_mode = 2
-theme_override_constants/margin_top = 18
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_bottom = 8
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer"]
 layout_mode = 2
@@ -856,6 +1016,7 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 8
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2"]
 layout_mode = 2
@@ -866,6 +1027,67 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 9
 theme_override_styles/normal = SubResource("StyleBoxFlat_ncy14")
 placeholder_text = "Search..."
+
+[node name="Catalog_Toggle_Group" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
+clip_contents = true
+layout_mode = 2
+
+[node name="toggle_group_file" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group"]
+script = ExtResource("28_7jo5e")
+can_toggle_off_all = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2"]
+material = SubResource("CanvasItemMaterial_rwtoy")
+layout_mode = 2
+
+[node name="ArtifactServerToggle" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer" node_paths=PackedStringArray("artifacts_manager", "artifact_ui", "toggle_group")]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "LOCAL"
+script = ExtResource("39_1ujfo")
+artifacts_manager = NodePath("../../../../../../../../../../../../artifacts_manager")
+artifact_ui = NodePath("../../../../../..")
+toggle_group = NodePath("../../../toggle_group_file")
+_start_toggled = true
+toggled_on_style = SubResource("StyleBoxFlat_8fbxt")
+toggled_on_hover_style = SubResource("StyleBoxFlat_xu6tf")
+toggled_off_style = SubResource("StyleBoxFlat_ili8e")
+toggled_off_hover_style = SubResource("StyleBoxFlat_8jy57")
+toggled_on_text = Color(0.807843, 0.807843, 0.807843, 1)
+toggled_on_hover_text = Color(0.807843, 0.807843, 0.807843, 1)
+toggled_off_text = Color(0.219608, 0.219608, 0.219608, 1)
+toggled_off_hover_text = Color(0.588235, 0.588235, 0.588235, 1)
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3"]
+material = SubResource("CanvasItemMaterial_rwtoy")
+layout_mode = 2
+
+[node name="ArtifactServerToggle" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer" node_paths=PackedStringArray("artifacts_manager", "artifact_ui", "toggle_group")]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "SERVER"
+script = ExtResource("40_e3ejb")
+artifacts_manager = NodePath("../../../../../../../../../../../../artifacts_manager")
+artifact_ui = NodePath("../../../../../..")
+toggle_group = NodePath("../../../toggle_group_file")
+toggled_on_style = SubResource("StyleBoxFlat_dvgfk")
+toggled_on_hover_style = SubResource("StyleBoxFlat_kgc6k")
+toggled_off_style = SubResource("StyleBoxFlat_4r83i")
+toggled_off_hover_style = SubResource("StyleBoxFlat_w7t2t")
+toggled_on_text = Color(0.807843, 0.807843, 0.807843, 1)
+toggled_on_hover_text = Color(0.807843, 0.807843, 0.807843, 1)
+toggled_off_text = Color(0.219608, 0.219608, 0.219608, 1)
+toggled_off_hover_text = Color(0.588235, 0.588235, 0.588235, 1)
 
 [node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog"]
 layout_mode = 2
@@ -887,7 +1109,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("33_ae4yh")
 light_config_button = ExtResource("33_p40ux")
-rotate_artifact_button = NodePath("../../../MarginContainer/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button")
+rotate_artifact_button = NodePath("../../../top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer2/light_customization/Button2")
 
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection"]
@@ -1041,6 +1263,61 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="artifact_configuration" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("environment_controller", "connected_button")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("48_dvgfk")
+environment_selection_button = ExtResource("34_xyh84")
+environment_controller = NodePath("../../../../../../environment_controller")
+connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer4/config_selection/Button4")
+
+[node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
+script = ExtResource("28_7jo5e")
+can_toggle_off_all = false
+
+[node name="header" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_84frv")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/header"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/header/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_bottom = 12
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/header/VBoxContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/header/VBoxContainer2/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "ARTIFACT CONFIGURATION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="VFlowContainer" type="VFlowContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock"]
 layout_mode = 2
 mouse_filter = 2
@@ -1090,18 +1367,18 @@ theme_override_constants/margin_right = 15
 [node name="new_loading_container" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer" instance=ExtResource("35_r0wn5")]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+[node name="settings_menu" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
 layout_mode = 2
 mouse_filter = 2
 
-[node name="settings_menu" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer"]
-visible = false
+[node name="settings_menu" type="Panel" parent="new_ui_root/MarginContainer/settings_menu"]
 clip_contents = true
 custom_minimum_size = Vector2(960, 563)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_116h6")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1109,38 +1386,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 theme_override_font_sizes/font_size = 32
 text = "SETTINGS"
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 script = ExtResource("39_bahyo")
 settings_menu = NodePath("../../../../../..")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1148,14 +1425,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 texture = ExtResource("22_lq8gq")
 expand_mode = 5
 
-[node name="TabContainer" type="TabContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 0
@@ -1164,12 +1441,12 @@ theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
 current_tab = 0
 
-[node name="General" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
+[node name="General" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1181,90 +1458,90 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="change_ip_option" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("40_th2ad")]
+[node name="change_ip_option" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer" instance=ExtResource("40_th2ad")]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "OFFLINE MODE:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="offline_mode_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("artifact_catalog_ui") instance=ExtResource("41_w7qw0")]
+[node name="offline_mode_button" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("artifact_catalog_ui") instance=ExtResource("41_w7qw0")]
 layout_mode = 2
 artifact_catalog_ui = NodePath("../../../../../../../../../../../../VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
 
-[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1cm1y")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "LOW-RES ONY:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="on_off_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" instance=ExtResource("42_ggwxf")]
+[node name="on_off_button" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/General/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" instance=ExtResource("42_ggwxf")]
 layout_mode = 2
 script = ExtResource("43_c6o60")
 preference_name = "low res only"
 
-[node name="Rendering" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
+[node name="Rendering" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
 metadata/_tab_index = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1276,46 +1553,48 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "SHADOWS:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("45_lplh0")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
 options = Array[String](["HARD", "SOFT VERY LOW", "SOFT LOW", "SOFT MEDIUM", "SOFT HIGH", "SOFT ULTRA"])
 option_height = 30
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -1323,26 +1602,26 @@ mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "GLOBAL ILLUMINATION:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 mouse_filter = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("46_gy2xc")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
@@ -1350,7 +1629,7 @@ options = Array[String](["DISABLED", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
 
-[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1358,22 +1637,22 @@ size_flags_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
 layout_mode = 2
 text = "SUBSURFACE SCATTERING:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="OptionButton" type="OptionButton" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer"]
+[node name="OptionButton" type="OptionButton" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer"]
 custom_minimum_size = Vector2(154, 40)
 layout_mode = 2
 selected = 0
@@ -1387,40 +1666,41 @@ popup/item_2/id = 2
 popup/item_3/text = "HIGH"
 popup/item_3/id = 3
 
-[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer"]
+[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1cm1y")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2"]
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "ANTI ALIASING:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer2/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("48_r3bj8")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
@@ -1428,30 +1708,31 @@ options = Array[String](["DISABLED", "MSAA 2X", "MSAA 4X", "MSAA 8X", "MSAA MAX"
 panel_width = 200
 option_height = 30
 
-[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2"]
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "SSAO:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3"]
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Dropdown" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
+[node name="Dropdown" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer2/MarginContainer3/HBoxContainer2/MarginContainer" node_paths=PackedStringArray("graphics_controller") instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("49_ulw4s")
 graphics_controller = NodePath("../../../../../../../../../../../../../../graphics")
@@ -1459,13 +1740,13 @@ options = Array[String](["VERY LOW", "LOW", "MEDIUM", "HIGH", "ULTRA"])
 panel_width = 200
 option_height = 30
 
-[node name="Cache" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer"]
+[node name="Cache" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
 metadata/_tab_index = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1477,21 +1758,21 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 2
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(540, 0)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_mvgsn")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1499,17 +1780,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel/CenterContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "CACHE"
 
-[node name="Panel2" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Panel2" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_2fbta")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1518,65 +1799,65 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "ARTIFACT NAME"
 
-[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_au247")
 
-[node name="CenterContainer2" type="CenterContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer2"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "REMOVE"
 
-[node name="Panel2" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
+[node name="Panel2" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_au247")
 
-[node name="CenterContainer3" type="CenterContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer3" type="CenterContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer3"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "FAVORITE"
 
-[node name="Panel3" type="Panel" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
+[node name="Panel3" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_au247")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer" node_paths=PackedStringArray("confirmation_panel")]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer" node_paths=PackedStringArray("confirmation_panel")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -1584,119 +1865,120 @@ script = ExtResource("35_5863c")
 artifact_display_ui = ExtResource("35_04bby")
 confirmation_panel = NodePath("../../../../../../../../../../../../confirmation_panel")
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "CACHE SIZE (mb):"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 15
 
-[node name="LineEdit" type="LineEdit" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer"]
+[node name="LineEdit" type="LineEdit" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 alignment = 1
 script = ExtResource("39_abqn4")
 
-[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5/HBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5/HBoxContainer/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5/HBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5/HBoxContainer/HBoxContainer2/MarginContainer"]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer5/HBoxContainer/HBoxContainer2/MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "REDUCE CACHE"
 script = ExtResource("53_am6aw")
 
-[node name="change_cache_mode" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="change_cache_mode" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 15
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode"]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode"]
 layout_mode = 2
 
-[node name="cache_mode_button" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer"]
+[node name="cache_mode_button" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button"]
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer"]
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 text = "CACHE MODE:"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2"]
 layout_mode = 2
 theme_override_constants/margin_right = 10
 
-[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" instance=ExtResource("59_m1q5b")]
+[node name="change_cache_dropdown_button" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/change_cache_mode/VBoxContainer/cache_mode_button/HBoxContainer2/MarginContainer" instance=ExtResource("59_m1q5b")]
 layout_mode = 2
 script = ExtResource("60_abk66")
 options = Array[String](["LARGEST", "SMALLEST", "MOST RECENT", "LEAST RECENT"])
 descriptions = Array[String](["removes the largest files from the cache first", "removes the smallest files from the cache first", "removes recent files from the cache first", "removes the least recent files from the cache first"])
 panel_width = 450
 
-[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 alignment = 2
 
-[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_top = 45
 theme_override_constants/margin_bottom = 20
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/MarginContainer3"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/MarginContainer3"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/MarginContainer3/CenterContainer" node_paths=PackedStringArray("confirmation_panel")]
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/VBoxContainer/MarginContainer3/CenterContainer" node_paths=PackedStringArray("confirmation_panel")]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.784314, 0, 0, 1)
@@ -1705,7 +1987,7 @@ text = "CLEAR ALL LOCAL DATA"
 script = ExtResource("38_eymw3")
 confirmation_panel = NodePath("../../../../../../../../../../../confirmation_panel")
 
-[node name="confirmation_panel" parent="new_ui_root/MarginContainer/CenterContainer" instance=ExtResource("54_5763k")]
+[node name="confirmation_panel" parent="new_ui_root/MarginContainer/settings_menu" instance=ExtResource("54_5763k")]
 visible = false
 layout_mode = 2
 
@@ -1908,6 +2190,516 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="debug_file_open" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="panel" type="Panel" parent="new_ui_root/MarginContainer/debug_file_open"]
+clip_contents = true
+custom_minimum_size = Vector2(480, 250)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_116h6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_font_sizes/font_size = 32
+text = "Select a file to load"
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Button" type="Button" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+texture = ExtResource("22_lq8gq")
+expand_mode = 5
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Label2" type="Label" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_font_sizes/font_size = 24
+text = "Please enter the index of the corresponding file"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="LineEdit" type="LineEdit" parent="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer4" node_paths=PackedStringArray("popup")]
+layout_mode = 2
+placeholder_text = "Enter index here"
+script = ExtResource("66_m30np")
+popup = NodePath("../../../..")
+
+[node name="save_file" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="panel" type="Panel" parent="new_ui_root/MarginContainer/save_file"]
+custom_minimum_size = Vector2(450, 251)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m30np")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/save_file/panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.5
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 106
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ExitButton" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+flat = true
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+texture = ExtResource("22_lq8gq")
+expand_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+theme_override_font_sizes/font_size = 28
+text = "Save model?"
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="Label2" type="Label" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_font_sizes/font_size = 14
+text = "Would you like to save the imported model?"
+
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 10
+
+[node name="LineEdit" type="LineEdit" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(0.588235, 0.588235, 0.588235, 1)
+theme_override_colors/font_color = Color(0.219608, 0.219608, 0.219608, 1)
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_rdhqw")
+placeholder_text = "Please name the current model to save"
+
+[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer5"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[node name="MarginContainer6" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 213
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer"]
+layout_direction = 3
+layout_mode = 2
+
+[node name="Don\'tSave" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(119, 37)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
+text = "Don't Save"
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+
+[node name="Save" type="Button" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2" node_paths=PackedStringArray("fileName", "popup")]
+custom_minimum_size = Vector2(70, 37)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
+text = "Save"
+script = ExtResource("67_rdhqw")
+fileName = NodePath("../../../../MarginContainer4/LineEdit")
+popup = NodePath("../../../../../..")
+
+[node name="duplicate_save_file" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="panel" type="Panel" parent="new_ui_root/MarginContainer/duplicate_save_file"]
+custom_minimum_size = Vector2(450, 227)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m30np")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel"]
+custom_minimum_size = Vector2(450, 227)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 106
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ExitButton" type="Button" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+flat = true
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+texture = ExtResource("22_lq8gq")
+expand_mode = 5
+
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+theme_override_font_sizes/font_size = 28
+text = "Duplicate file detected"
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(387, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_font_sizes/font_size = 14
+text = "You attempted to save a model that has already been saved. Would you like to overwrite the previous file?"
+autowrap_mode = 3
+
+[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer5"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[node name="MarginContainer6" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer"]
+custom_minimum_size = Vector2(87, 0)
+layout_direction = 3
+layout_mode = 2
+
+[node name="Cancel" type="Button" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(87, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
+text = "Cancel"
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer"]
+custom_minimum_size = Vector2(115, 0)
+layout_direction = 2
+layout_mode = 2
+
+[node name="Overwrite" type="Button" parent="new_ui_root/MarginContainer/duplicate_save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(70, 37)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
+text = "Overwrite"
+
+[node name="broken_file" type="CenterContainer" parent="new_ui_root/MarginContainer"]
+visible = false
+layout_mode = 2
+mouse_filter = 2
+
+[node name="panel" type="Panel" parent="new_ui_root/MarginContainer/broken_file"]
+custom_minimum_size = Vector2(450, 227)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m30np")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/broken_file/panel"]
+custom_minimum_size = Vector2(450, 227)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 106
+
+[node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer2/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="ExitButton" type="Button" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2" node_paths=PackedStringArray("settings_menu")]
+custom_minimum_size = Vector2(38, 38)
+layout_mode = 2
+flat = true
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer2/HSplitContainer/MarginContainer2/ExitButton/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+texture = ExtResource("22_lq8gq")
+expand_mode = 5
+
+[node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+
+[node name="Label" type="Label" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.807843, 0.807843, 0.807843, 1)
+theme_override_font_sizes/font_size = 28
+text = "Error"
+
+[node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(387, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.933333, 0.933333, 0.933333, 1)
+theme_override_font_sizes/font_size = 14
+text = "The file path you attempted to open is invalid. The entry has been removed from the catalog."
+autowrap_mode = 3
+
+[node name="MarginContainer5" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="ColorRect" type="ColorRect" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer5"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.219608, 0.219608, 0.219608, 1)
+
+[node name="MarginContainer6" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 36
+
+[node name="HBoxContainer" type="HBoxContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer6"]
+layout_mode = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer6/HBoxContainer"]
+custom_minimum_size = Vector2(58, 37)
+layout_direction = 3
+layout_mode = 2
+
+[node name="OK" type="Button" parent="new_ui_root/MarginContainer/broken_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("settings_menu")]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_rwtoy")
+text = "OK"
+script = ExtResource("39_bahyo")
+settings_menu = NodePath("../../../../../..")
+
 [node name="Panel" type="Panel" parent="new_ui_root/MarginContainer"]
 visible = false
 layout_mode = 2
@@ -1928,7 +2720,7 @@ environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("7
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 
-[node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_controller")]
+[node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_manager", "artifacts_controller")]
 disable_3d = true
 transparent_bg = true
 title = "Select Artifact"
@@ -1939,8 +2731,9 @@ unresizable = true
 transparent = true
 popup_window = true
 script = ExtResource("56_oke6g")
-artifacts_controller = NodePath("../artifacts_controller")
-artifacts_controller_node_path = NodePath("../artifacts_controller")
+artifacts_manager = NodePath("../artifacts_manager")
+artifacts_controller = NodePath("../artifacts_manager/local_controller")
+artifacts_controller_node_path = NodePath("../artifacts_manager/local_controller")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Window"]
 anchors_preset = 15
@@ -1954,7 +2747,7 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="select_artifact_button" type="Button" parent="Window/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent_window")]
+[node name="select_artifact_button" type="Button" parent="Window/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("parent_window", "artifacts_manager")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
@@ -1963,6 +2756,7 @@ text = "DEMO TEXT
 alignment = 0
 script = ExtResource("56_1pv8i")
 parent_window = NodePath("../../..")
+artifacts_manager = NodePath("../../../../artifacts_manager")
 
 [node name="save_screenshot_popup_window" type="FileDialog" parent="."]
 initial_position = 2
@@ -1971,12 +2765,18 @@ access = 2
 show_hidden_files = true
 script = ExtResource("29_4k4a7")
 
+[connection signal="artifact_loaded" from="artifacts_manager/local_controller" to="artifacts_manager/server_controller" method="_on_local_controller_artifact_loaded"]
+[connection signal="artifact_loaded" from="artifacts_manager/server_controller" to="artifacts_manager/local_controller" method="_on_server_controller_artifact_loaded"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
+[connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" method="_on_pressed"]
+[connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/ArtifactServerToggle" method="_on_pressed"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection" method="_on_searchbar_text_changed"]
-[connection signal="item_selected" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" method="_on_item_selected"]
-[connection signal="visibility_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" method="_on_cache_visibility_changed"]
-[connection signal="text_changed" from="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" to="new_ui_root/MarginContainer/CenterContainer/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" method="_on_text_changed"]
+[connection signal="item_selected" from="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" to="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Rendering/MarginContainer2/HBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer2/MarginContainer/OptionButton" method="_on_item_selected"]
+[connection signal="visibility_changed" from="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache" to="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/ScrollContainer/MarginContainer/VBoxContainer" method="_on_cache_visibility_changed"]
+[connection signal="text_changed" from="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" to="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" method="_on_text_changed"]
+[connection signal="text_submitted" from="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer4/LineEdit" to="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer4/LineEdit" method="_on_text_submitted"]
+[connection signal="pressed" from="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" to="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" method="_on_pressed"]
 [connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
-[connection signal="environment_changed" from="environment_controller" to="artifacts_controller" method="_on_environment_changed"]
+[connection signal="environment_changed" from="environment_controller" to="artifacts_manager" method="_on_environment_changed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]

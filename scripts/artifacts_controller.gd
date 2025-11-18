@@ -10,6 +10,7 @@ extends Node3D
 class_name ArtifactsController
 
 signal artifacts_refreshed(artifacts: Array[ArtifactData])
+signal artifact_loaded()
 
 @export var _fetcher: ResourceFetcher
 @export var _loader: ModelLoaderProgress
@@ -24,39 +25,26 @@ var artifacts: Array[ArtifactData]
 
 var loaded_artifact: GltfModel
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+
+
+func assign_fetcher():
 	if not is_instance_valid(_fetcher):
 		_fetcher = GlobalFetcher
 		if not is_instance_valid(_fetcher):
 			push_error("Artifacts Controller at node %s could not find a valid resource fetcher!" % get_path())
 			return
-	
-	await refresh_artifacts()
-	
-	if UrlReader.parameters.has("artifact"):
-		for artifact in artifacts:
-			if UrlReader.parameters["artifact"] == artifact.gltfUri.get_base_dir():
-				display_artifact_data(artifact)
-	
-	#print(OS.get_cmdline_args())
-	
-	var args = OS.get_cmdline_args()
-	_open_artifact_through_file(args[0])
-	#$"../new_ui_root/CenterContainer/Label".text += "\n" + arg
-	
-	#_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu\\model.glb")
 
-func refresh_artifacts() -> Array[ArtifactData]:
-	if(Preferences.read_pref("offline mode")):
-		artifacts = CacheManager.get_artifact_data()
-	else:
-		artifacts = await _fetcher.fetch_artifacts()
-		artifacts_refreshed.emit(artifacts)
-		
-		if artifacts.size() == 0:
-			artifacts = CacheManager.get_artifact_data()
-	return artifacts
+
+#func refresh_artifacts() -> Array[ArtifactData]:
+	#if(Preferences.read_pref("offline mode")):
+		#artifacts = CacheManager.get_artifact_data()
+	#else:
+		#artifacts = await _fetcher.fetch_artifacts()
+		#artifacts_refreshed.emit(artifacts)
+		#
+		#if artifacts.size() == 0:
+			#artifacts = CacheManager.get_artifact_data()
+	#return artifacts
 
 
 func display_artifact(index : int):
@@ -143,6 +131,7 @@ func _place_artifact():
 		loaded_artifact.global_position = target_pos
 		
 func _on_model_preview_load_complete():
+	print("_environment_controller: ", _environment_controller)
 	_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 	_place_artifact()
 
@@ -187,25 +176,3 @@ func _look_for_mesh(node : Node3D):
 		return null
 	else:
 		return results.pop_front()
-
-
-func _open_artifact_through_file(gltf_file_path : String):
-	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
-		return
-	
-	if is_instance_valid(loaded_artifact):
-		loaded_artifact.queue_free()
-	
-	var data = ArtifactData.new()
-	data.gltfUri = gltf_file_path
-	
-	var model = LocalGltfModel.create(data)
-	add_child(model)
-	
-	model.preview_load_completed.connect(_on_model_preview_load_complete)
-	model.load_completed.connect(_on_model_load_complete)
-	model.load_progress.connect(_on_model_load_progress)
-	
-	loaded_artifact = model # set here to prevent null pointer dereference
-	model.load_artifact()
-	

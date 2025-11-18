@@ -297,7 +297,7 @@ func import_artifact_data(dir_name : String):
 				data.gltfUri = parts[1]
 	
 	#print("imported data.txt from directory " + dir.get_current_dir())
-	
+	#print("import_artifact_data: ", data)
 	return data
 
 func export_artifact_data(dir_name : String, data : ArtifactData):
@@ -319,7 +319,7 @@ func export_artifact_data(dir_name : String, data : ArtifactData):
 	file.store_line("name:" + data.name)
 	file.store_line("uri:" + data.gltfUri)
 	
-	print("exported data.txt to directory " + dir.get_current_dir())
+	#print("exported data.txt to directory " + dir.get_current_dir())
 
 
 func get_artifacts_in_cache(include_peristent : bool) -> Array[String]:
@@ -742,6 +742,7 @@ func get_artifact_data() -> Array[ArtifactData]:
 	for artifact in artifacts:
 		artifacts_data.push_back(import_artifact_data(artifact))
 	
+	#print("get_artifact_data: ", artifacts_data)
 	return artifacts_data
 
 func get_size(artifact : String):
