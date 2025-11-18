@@ -27,7 +27,7 @@ vec3 evaluateBasisFunction(float w, int b)
 	int x0 = int(floor(x));
 	int x1 = x0 + 1;
 	float alpha = x - float(x0);
-	
+
 	return mix(texelFetch(basisFunctions, ivec2(x0, b), 0),
 		texelFetch(basisFunctions, ivec2(x1, b), 0), alpha).rgb;
 }
@@ -41,7 +41,7 @@ vec3 getMFDEstimateRaw(vec3 uvw)
     {
         estimate += weightsLookup0123[b] * evaluateBasisFunction(uvw[2], b);
     }
-	
+
 	vec4 weightsLookup4567 = texture(weights4567, uvw.xy);
 	for (int b = 4; b < 8; b++)
     {
@@ -57,21 +57,21 @@ vec3 getMFDEstimate(vec2 uv, float nDotH)
     return getMFDEstimateRaw(vec3(uv, w));
 }
 
-void fragment() 
+void fragment()
 {
 	// Godot 4 is different than Godot 3 in that the diffuse texture is NOT automatically decoded
 	// -- this is because it wants ALBEDO to be passed through gamma-encoded.
 	// To use it for other purposes (like the hacky metallic heuristic), we need to decode it.
 	vec3 diffuse = texture(diffuseMap, UV).rgb;
 	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
-	
+
 	// Specular texture is not designated as sRGB.
 	vec3 specularLinear = pow(texture(specularMap, UV).rgb, vec3(2.2));
-	
+
 	NORMAL_MAP = texture(normalMap, UV).xyz;
-	
+
 	vec3 diffusePlusSpecular = diffuseLinear + specularLinear;
-	
+
 //	// Adjust for dielectic specular (i.e. 0.04 for non-metallic)
 //    // See derivation above
 //    // Initially, calculate albedo assuming metallicity could be different for each RGB channel (for simplicity)
@@ -87,7 +87,7 @@ void fragment()
 //    albedoLinear = diffusePlusSpecular - 0.04 * (1.0 - maxMetallicity);
 
     vec3 albedoLinear = diffusePlusSpecular;
-	
+
 	vec3 metallicHeuristic = (specularLinear - 0.04) / (diffuseLinear + specularLinear - 0.04);
 	METALLIC = // 0.0;
 		//maxMetallicity;
@@ -98,12 +98,12 @@ void fragment()
 		//diffuse / pow(1.0 - METALLIC, 1.0/2.2);
 
 	ROUGHNESS = texture(roughnessMap, UV)[0]; // roughness = sqrt(m)
-	
+
 //	// Hard-coded for reverse-engineering BRDF
 //	METALLIC = 1.0;
 //	ALBEDO = pow(vec3(0.15, 0.05, 0.1),vec3(1.0/2.2));  // Godot 4 expects albedo to be gamma-encoded
 //	ROUGHNESS = 0.5;  // roughness = sqrt(m)
-	
+
 //	// For testing
 //	IRRADIANCE = vec4(0, 0, 0, 1);
 //	RADIANCE = vec4(0, 0, 0, 1);
@@ -142,7 +142,7 @@ void light()
 //	mfdTimesFresnel = f0 * mSq / (PI * sqrtDen * sqrtDen);
 
 	// Godot does not automatically / implicitly divide by pi, so no multiplication by PI is necessary.
-	SPECULAR_LIGHT += 
+	SPECULAR_LIGHT +=
 //		mfdTimesFresnel
 	  	mix(mfdTimesFresnel, vec3(dot(mfdTimesFresnel / f0, vec3(1.0/3.0))), oneMinusHDotVSq * oneMinusHDotVSq * oneMinusHDotV)
 			* geomRatio * irradiance;

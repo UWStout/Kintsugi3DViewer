@@ -13,9 +13,19 @@ enum mode_enum {NEXT, PREVIOUS}
 @export var mode : mode_enum = 0
 
 @export var artifact_controller : ArtifactsController
+@export var artifacts_manager : ArtifactsManager
+
+func _ready() -> void:
+	#await artifact_controller._ready()
+	#artifact_controller = artifact_controller.get_current_controller()
+	artifacts_manager.active_controller_changed.connect(_on_active_controller_changed)
+	_on_active_controller_changed(artifacts_manager.active_controller)
 
 func _pressed():
 	if mode == mode_enum.NEXT:
 		artifact_controller.display_next_artifact()
 	else:
 		artifact_controller.display_previous_artifact()
+		
+func _on_active_controller_changed(new_controller : ArtifactsController):
+	artifact_controller = new_controller

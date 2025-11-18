@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmkocyykwv00a"]
+
+[ext_resource type="Script" uid="uid://cfnxrf1fex3j2" path="res://scripts/new_ui/buttons/local_artifact_button.gd" id="1_weand"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ujfo"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+
+[node name="MarginContainer" type="MarginContainer"]
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(123, 24)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ujfo")
+
+[node name="ArtifactLocalToggle" type="Button" parent="CenterContainer/Panel"]
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+offset_right = 125.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 14
+toggle_mode = true
+text = "LOCAL"
+flat = true
+script = ExtResource("1_weand")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="CenterContainer/Panel/ArtifactLocalToggle" to="CenterContainer/Panel/ArtifactLocalToggle" method="_on_pressed"]

@@ -13,6 +13,7 @@ var name: String
 var iconUri: String
 var gltfUri: String
 var voyagerUri: String
+var localDir: String
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
@@ -31,6 +32,9 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 	
 	if data.has("voyagerUri"):
 		out_data.voyagerUri = data.get("voyagerUri")
+		
+	if data.has("localDir"):
+		out_data.localDir = data.get("localDir") 
 	
 	return out_data
 
