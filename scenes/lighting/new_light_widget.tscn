@@ -56,7 +56,6 @@ emission_enabled = true
 emission = Color(0.129412, 0.905882, 0.227451, 1)
 
 [node name="new_light_widget" type="Node3D"]
-top_level = true
 script = ExtResource("1_tjvct")
 
 [node name="target_point" type="StaticBody3D" parent="." node_paths=PackedStringArray("parent_widget")]
