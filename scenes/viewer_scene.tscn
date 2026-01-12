@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=135 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://cp2w47ahcrwcd" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
 [ext_resource type="Script" uid="uid://bcq7udi6oviaq" path="res://scripts/new_ui/buttons/rotate_artifact_button.gd" id="26_ebyjk"]
 [ext_resource type="Script" uid="uid://cmayt34q12k6v" path="res://scripts/new_ui/panels/sidebar_selection_menu.gd" id="27_veti7"]
+[ext_resource type="Texture2D" uid="uid://daoqhtpgwtsja" path="res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_In_White_V2.svg" id="27_w7t2t"]
 [ext_resource type="Script" uid="uid://b3605vi68waf8" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="28_7jo5e"]
 [ext_resource type="Script" uid="uid://bbt8eoapulayl" path="res://scripts/ui/save_screenshot_popup_window.gd" id="29_4k4a7"]
 [ext_resource type="Script" uid="uid://cj6ps23ksxidm" path="res://scripts/new_ui/buttons/expand_context_panel_button.gd" id="29_nkxfq"]
@@ -50,6 +51,7 @@
 [ext_resource type="Texture2D" uid="uid://do05o3sv3qejd" path="res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_Out_White_V2.svg" id="41_3mdr6"]
 [ext_resource type="PackedScene" uid="uid://b3uf4vkq1s5qa" path="res://scenes/new_ui/offline_mode_button.tscn" id="41_w7qw0"]
 [ext_resource type="PackedScene" uid="uid://cpdwl7akyrn37" path="res://scenes/new_ui/on_off_button.tscn" id="42_ggwxf"]
+[ext_resource type="Texture2D" uid="uid://dm5t52ueibrku" path="res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Hidden_White_V2.svg" id="43_8fbxt"]
 [ext_resource type="Script" uid="uid://bpq57njl8wn02" path="res://scripts/new_ui/buttons/preferences/preference_on_off_button.gd" id="43_c6o60"]
 [ext_resource type="Texture2D" uid="uid://d06y47evwscme" path="res://assets/UI 2D/Icons/NextAndPreviousArtifacts/V2/PreviousArtifact_White_V2.svg" id="44_2j8us"]
 [ext_resource type="Texture2D" uid="uid://cibmbmvm7k171" path="res://assets/UI 2D/Icons/NextAndPreviousArtifacts/V2/NextArtifact_White_V2.svg" id="45_drl5j"]
@@ -423,6 +425,8 @@ custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("8_au3ok")
 texture_rect = NodePath("CenterContainer/TextureRect")
+toggled_on_icon = ExtResource("27_w7t2t")
+toggled_off_icon = ExtResource("41_3mdr6")
 panel = NodePath("../../../Panel")
 toggle_group = NodePath("../../../../../../ExclusiveToggleGroup")
 
@@ -716,6 +720,8 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("23_li034")
 texture_rect = NodePath("CenterContainer/TextureRect")
+shown_icon = ExtResource("51_mf5bh")
+hidden_icon = ExtResource("43_8fbxt")
 nodes_to_hide = Array[NodePath]([NodePath("../../../../../../../side_dock"), NodePath("../../../../../../../../VBoxContainer2")])
 lights_selection = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
 

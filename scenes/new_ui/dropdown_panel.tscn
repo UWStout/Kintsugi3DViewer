@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dqwubacvmk3dw"]
+[gd_scene load_steps=7 format=3 uid="uid://dqwubacvmk3dw"]
 
 [ext_resource type="Script" uid="uid://ba80calwgy6ng" path="res://scripts/new_ui/buttons/dropdown/dropdown_panel.gd" id="1_566j1"]
+[ext_resource type="PackedScene" uid="uid://b63y0dy1jau8" path="res://scenes/new_ui/dropdown_selection_button.tscn" id="2_b4bjr"]
 [ext_resource type="Script" uid="uid://cojjswxbw3hug" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="2_pgqca"]
 [ext_resource type="Script" uid="uid://b3605vi68waf8" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="2_snxii"]
 
@@ -28,6 +29,7 @@ script = ExtResource("1_566j1")
 exclusive_toggle_group = NodePath("ExclusiveToggleGroup")
 expanding_panel = NodePath("ExpandingPanel")
 v_box_container = NodePath("ExpandingPanel/VBoxContainer")
+dropdown_selection_button_scene = ExtResource("2_b4bjr")
 
 [node name="ExclusiveToggleGroup" type="Node" parent="."]
 script = ExtResource("2_snxii")

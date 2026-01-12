@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://yyfi7jx4yddi"]
+[gd_scene load_steps=7 format=3 uid="uid://yyfi7jx4yddi"]
 
 [ext_resource type="Script" uid="uid://ba80calwgy6ng" path="res://scripts/new_ui/buttons/dropdown/dropdown_panel.gd" id="1_scl7d"]
+[ext_resource type="PackedScene" uid="uid://b63y0dy1jau8" path="res://scenes/new_ui/dropdown_selection_button.tscn" id="2_pm5xb"]
 [ext_resource type="Script" uid="uid://b3605vi68waf8" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="2_rju8c"]
 [ext_resource type="Script" uid="uid://cojjswxbw3hug" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="3_wkyxc"]
 
@@ -20,11 +21,15 @@ corner_radius_bottom_left = 5
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="dropdown_panel" type="Panel"]
+[node name="dropdown_panel" type="Panel" node_paths=PackedStringArray("exclusive_toggle_group", "expanding_panel", "v_box_container")]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 100)
 mouse_filter = 2
 script = ExtResource("1_scl7d")
+exclusive_toggle_group = NodePath("ExclusiveToggleGroup")
+expanding_panel = NodePath("ExpandingPanel")
+v_box_container = NodePath("ExpandingPanel/VBoxContainer")
+dropdown_selection_button_scene = ExtResource("2_pm5xb")
 
 [node name="ExclusiveToggleGroup" type="Node" parent="."]
 script = ExtResource("2_rju8c")

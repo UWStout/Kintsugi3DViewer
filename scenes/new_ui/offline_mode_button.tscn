@@ -20,10 +20,11 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="offline_mode_button" type="Button"]
+[node name="offline_mode_button" type="Button" node_paths=PackedStringArray("sliding_circle")]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 50)
 script = ExtResource("1_awng8")
+sliding_circle = NodePath("on_off_button/sliding_circle")
 animation_curve = SubResource("Curve_usm4y")
 
 [node name="on_off_button" type="Panel" parent="."]

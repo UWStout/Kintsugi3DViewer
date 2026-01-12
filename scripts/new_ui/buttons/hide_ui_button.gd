@@ -10,8 +10,8 @@ class_name HideUIButton extends ToggleButton
 
 @export var texture_rect : TextureRect
 
-var shown_icon = preload("res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Shown_White_V2.svg")
-var hidden_icon = preload("res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Hidden_White_V2.svg")
+@export var shown_icon : CompressedTexture2D 
+@export var hidden_icon : CompressedTexture2D
 
 @export var nodes_to_hide : Array[NodePath]
 @export var lights_selection : LightSelectionUI
