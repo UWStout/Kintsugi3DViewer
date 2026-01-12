@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://w1ffx4qqwuv2"]
+[gd_scene load_steps=28 format=3 uid="uid://bflt3yvnqm188"]
 
 [ext_resource type="PackedScene" uid="uid://cgdmv6pdnvrlc" path="res://scenes/ui/model_loading_progress.tscn" id="1_87ink"]
 [ext_resource type="Texture2D" uid="uid://5vgr1ua8ix5r" path="res://assets/UI 2D/next_button.png" id="2_7ir5o"]
@@ -135,7 +135,7 @@ expand_icon = true
 script = ExtResource("3_s1xmb")
 move_forward = false
 
-[node name="select_object_button" type="Button" parent="." node_paths=PackedStringArray("select_window")]
+[node name="select_object_button" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.024
@@ -156,7 +156,6 @@ theme_override_fonts/font = SubResource("SystemFont_gbd4e")
 shortcut = SubResource("Shortcut_5853c")
 text = "Select Object"
 script = ExtResource("5_h4bni")
-select_window = NodePath("../../Window")
 
 [node name="flashlight_toggle_button" type="Button" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -201,7 +200,7 @@ icon = ExtResource("8_e62ry")
 expand_icon = true
 script = ExtResource("9_jolgt")
 
-[node name="customize_lighting_button" type="Button" parent="." node_paths=PackedStringArray("connected_controller", "turntable_button")]
+[node name="customize_lighting_button" type="Button" parent="." node_paths=PackedStringArray("turntable_button")]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -218,10 +217,9 @@ grow_vertical = 2
 pivot_offset = Vector2(75, 25)
 text = "Customize Lights"
 script = ExtResource("10_i4r8o")
-connected_controller = NodePath("../../environment_controller")
 turntable_button = NodePath("../turntable_button")
 
-[node name="screenshot_button" type="Button" parent="." node_paths=PackedStringArray("environment_controller")]
+[node name="screenshot_button" type="Button" parent="."]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
 anchors_preset = -1
@@ -241,9 +239,8 @@ icon = ExtResource("11_jvvrc")
 expand_icon = true
 script = ExtResource("12_rsf0s")
 ui_root = NodePath("..")
-environment_controller = NodePath("../../environment_controller")
 
-[node name="light_widget_color_picker" type="ColorPicker" parent="." node_paths=PackedStringArray("environment_controller")]
+[node name="light_widget_color_picker" type="ColorPicker" parent="."]
 visible = false
 custom_minimum_size = Vector2(290, 264)
 layout_mode = 1
@@ -267,7 +264,6 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 script = ExtResource("13_6phuo")
-environment_controller = NodePath("../../environment_controller")
 
 [node name="select_environment_button" type="OptionButton" parent="." node_paths=PackedStringArray("turntable_button")]
 custom_minimum_size = Vector2(150, 50)
@@ -286,7 +282,7 @@ grow_vertical = 2
 script = ExtResource("14_tsggc")
 turntable_button = NodePath("../turntable_button")
 
-[node name="turntable_button" type="Button" parent="." node_paths=PackedStringArray("_scene_camera_rig", "_artifacts_controller", "_customize_lighting_button")]
+[node name="turntable_button" type="Button" parent="." node_paths=PackedStringArray("_customize_lighting_button")]
 layout_mode = 0
 offset_left = 476.0
 offset_top = 25.0
@@ -296,8 +292,6 @@ pivot_offset = Vector2(100, 25)
 text = "Rotate Object: OFF"
 script = ExtResource("15_mx5uv")
 _return_to_default_orientation = false
-_scene_camera_rig = NodePath("../../Camera")
-_artifacts_controller = NodePath("../../artifacts_controller")
 _customize_lighting_button = NodePath("../customize_lighting_button")
 
 [connection signal="color_changed" from="light_widget_color_picker" to="light_widget_color_picker" method="_on_color_changed"]

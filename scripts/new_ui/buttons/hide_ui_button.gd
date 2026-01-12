@@ -8,7 +8,7 @@
 
 class_name HideUIButton extends ToggleButton
 
-@onready var texture_rect = $CenterContainer/TextureRect
+@export var texture_rect : TextureRect
 
 var shown_icon = preload("res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Shown_White_V2.svg")
 var hidden_icon = preload("res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Hidden_White_V2.svg")

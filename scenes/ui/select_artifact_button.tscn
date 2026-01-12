@@ -2,11 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c5m2vyklkbs6f" path="res://scripts/ui/select_artifact_button.gd" id="1_m6bb4"]
 
-[node name="select_artifact_button" type="Button" node_paths=PackedStringArray("parent_window")]
+[node name="select_artifact_button" type="Button"]
 visible = false
 size_flags_horizontal = 3
 text = "DEMO TEXT
 "
 alignment = 0
 script = ExtResource("1_m6bb4")
-parent_window = NodePath("../../..")

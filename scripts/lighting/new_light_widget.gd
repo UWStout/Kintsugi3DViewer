@@ -22,22 +22,22 @@ var widget_vertical_angle : float = 0
 
 var was_grabbed : bool = false
 
-@onready var target_point = $target_point
+@export var target_point : MovableLightWidgetAxis
 
-@onready var distance_axis = $target_point/distance
-@onready var horizontal_axis = $target_point/horizontal
-@onready var vertical_axis = $target_point/vertical
+@export var distance_axis : MovableLightWidgetAxis
+@export var horizontal_axis : MovableLightWidgetAxis
+@export var vertical_axis : MovableLightWidgetAxis
 
-@onready var target_point_mesh = $target_point/mesh
-@onready var distance_mesh = $target_point/distance/mesh
-@onready var horizontal_mesh = $target_point/horizontal/mesh
-@onready var vertical_mesh = $target_point/vertical/mesh
+@export var target_point_mesh : GeometryInstance3D
+@export var distance_mesh : GeometryInstance3D
+@export var horizontal_mesh : GeometryInstance3D
+@export var vertical_mesh : GeometryInstance3D
 
-@onready var distance_track = $target_point/distance/track
-@onready var horizontal_track = $target_point/horizontal/track
-@onready var vertical_track = $target_point/vertical/track
+@export var distance_track : GeometryInstance3D
+@export var horizontal_track : GeometryInstance3D
+@export var vertical_track : GeometryInstance3D
 
-@onready var light = $target_point/light
+@export var light : Light3D
 
 signal environment_scale_changed(range : float, old_scale : float)
 var _environment_scale : float = 1
@@ -341,27 +341,17 @@ func handle_vertical_axis(event_pos : Vector2):
 func update_distance(new_distance : float):
 	widget_distance = clampf(new_distance, 0, max_distance)
 	
-	# Because @onready variables aren't ready early enough
-	$target_point/distance.position = Vector3(0, 0, widget_distance)
-	$target_point/horizontal.position = Vector3(0, 0, widget_distance)
-	$target_point/vertical.position = Vector3(0, 0, widget_distance)
-	$target_point/light.position = Vector3(0, 0, widget_distance)
-	
-	#distance_axis.position = Vector3(0, 0, new_distance)
-	#horizontal_axis.position = Vector3(0, 0, new_distance)
-	#vertical_axis.position = Vector3(0, 0, new_distance)
-	#light.position = Vector3(0, 0, new_distance)
+	distance_axis.position = Vector3(0, 0, widget_distance)
+	horizontal_axis.position = Vector3(0, 0, widget_distance)
+	vertical_axis.position = Vector3(0, 0, widget_distance)
+	light.position = Vector3(0, 0, widget_distance)
 
 # TODO: Add clamping to vertical angles
 func update_rotation(new_horizontal_angle : float, new_vertical_angle : float):
 	widget_horizontal_angle = fmod(new_horizontal_angle, 2*PI)
 	widget_vertical_angle = fmod(new_vertical_angle, 2*PI)
 	widget_vertical_angle = clampf(widget_vertical_angle, deg_to_rad(-89), deg_to_rad(89))
-	
-	$target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
-	
-	#target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
-	pass
+	target_point.rotation = Vector3(widget_vertical_angle, widget_horizontal_angle, 0)
 
 func update_direction_track():
 	distance_track.position = Vector3(0,0,50 - widget_distance)
@@ -383,7 +373,7 @@ func update_vertical_track():
 	vertical_track.global_rotation = target_point.global_rotation + Vector3(0, 0, PI/2)
 
 func change_color(new_color : Color):
-	$target_point/light.light_color = new_color
+	light.light_color = new_color
 	#
 	#var adjusted_color = Color(new_color.r, new_color.g, new_color.b, 1)
 	#
@@ -442,41 +432,41 @@ func _set_color_UTIL(col : Color):
 
 # Make it so this widget is invisible and cannot be clicked
 func make_immaterial():
-	$target_point/mesh.visible = false
-	$target_point/distance.visible = false
-	$target_point/horizontal.visible = false
-	$target_point/vertical.visible = false
+	target_point_mesh.visible = false
+	distance_axis.visible = false
+	horizontal_axis.visible = false
+	vertical_axis.visible = false
 	
-	$target_point.collision_layer = 0
-	$target_point.collision_mask = 0
+	target_point.collision_layer = 0
+	target_point.collision_mask = 0
 	
-	$target_point/distance.collision_layer = 0
-	$target_point/distance.collision_mask = 0
+	distance_axis.collision_layer = 0
+	distance_axis.collision_mask = 0
 	
-	$target_point/horizontal.collision_layer = 0
-	$target_point/horizontal.collision_mask = 0
+	horizontal_axis.collision_layer = 0
+	horizontal_axis.collision_mask = 0
 	
-	$target_point/vertical.collision_layer = 0
-	$target_point/vertical.collision_mask = 0
+	vertical_axis.collision_layer = 0
+	vertical_axis.collision_mask = 0
 
 # Make it so this widget is visible and can be clicked
 func make_material():
-	$target_point/mesh.visible = true
-	$target_point/distance.visible = true
-	$target_point/horizontal.visible = true
-	$target_point/vertical.visible = true
+	target_point_mesh.visible = true
+	distance_axis.visible = true
+	horizontal_axis.visible = true
+	vertical_axis.visible = true
 	
-	$target_point.collision_layer = 2
-	$target_point.collision_mask = 2
+	target_point.collision_layer = 2
+	target_point.collision_mask = 2
 	
-	$target_point/distance.collision_layer = 2
-	$target_point/distance.collision_mask = 2
+	distance_axis.collision_layer = 2
+	distance_axis.collision_mask = 2
 	
-	$target_point/horizontal.collision_layer = 2
-	$target_point/horizontal.collision_mask = 2
+	horizontal_axis.collision_layer = 2
+	horizontal_axis.collision_mask = 2
 	
-	$target_point/vertical.collision_layer = 2
-	$target_point/vertical.collision_mask = 2
+	vertical_axis.collision_layer = 2
+	vertical_axis.collision_mask = 2
 
 func init_widget():
 	_set_distance_UTIL(distance)

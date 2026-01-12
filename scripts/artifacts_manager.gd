@@ -20,3 +20,7 @@ func toggle_to_local():
 
 func toggle_to_server():
 	set_active_controller(server)
+
+func _on_environment_changed(new_environment: DisplayEnvironment) -> void:
+	if active_controller != null:
+		active_controller._on_environment_changed(new_environment)

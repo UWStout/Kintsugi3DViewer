@@ -20,11 +20,14 @@ corner_radius_bottom_left = 5
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="dropdown_panel" type="Panel"]
+[node name="dropdown_panel" type="Panel" node_paths=PackedStringArray("exclusive_toggle_group", "expanding_panel", "v_box_container")]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 100)
 mouse_filter = 2
 script = ExtResource("1_566j1")
+exclusive_toggle_group = NodePath("ExclusiveToggleGroup")
+expanding_panel = NodePath("ExpandingPanel")
+v_box_container = NodePath("ExpandingPanel/VBoxContainer")
 
 [node name="ExclusiveToggleGroup" type="Node" parent="."]
 script = ExtResource("2_snxii")

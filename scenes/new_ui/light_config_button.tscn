@@ -188,7 +188,7 @@ expand_mode = 3
 layout_mode = 2
 theme_override_constants/margin_left = -40
 
-[node name="ColorPicker" type="ColorPicker" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
+[node name="ColorPicker" type="ColorPicker" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("light_config_button", "text_edit")]
 layout_mode = 2
 theme_override_constants/sv_width = 175
 theme_override_constants/sv_height = 175
@@ -201,6 +201,8 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 script = ExtResource("5_ycabp")
+light_config_button = NodePath("../../../../..")
+text_edit = NodePath("../../MarginContainer2/TextEdit")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -212,9 +214,10 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_right = 25
 
-[node name="value_scroll_bar" type="VScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="value_scroll_bar" type="VScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("color_picker")]
 layout_mode = 2
 script = ExtResource("5_rfsx3")
+color_picker = NodePath("../../../ColorPicker")
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2

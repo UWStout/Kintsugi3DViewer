@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cpbyngpkoitpu" path="res://scripts/annotations/annotation_textbox.gd" id="1_ilovh"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_vijm1"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_l6mqf"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5f4d"]
 content_margin_left = 20.0
@@ -21,13 +22,17 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="annotation_textbox" type="Sprite3D"]
+[node name="annotation_textbox" type="Sprite3D" node_paths=PackedStringArray("sub_viewport_container", "sub_viewport", "title_text", "content_text")]
 transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -1.22234, 2.32904, 5.09109)
 billboard = 1
 double_sided = false
 alpha_cut = 1
-texture = SubResource("ViewportTexture_vijm1")
+texture = SubResource("ViewportTexture_l6mqf")
 script = ExtResource("1_ilovh")
+sub_viewport_container = NodePath("SubViewportContainer")
+sub_viewport = NodePath("SubViewportContainer/SubViewport")
+title_text = NodePath("SubViewportContainer/SubViewport/Panel/VBoxContainer/TitleText")
+content_text = NodePath("SubViewportContainer/SubViewport/Panel/VBoxContainer/ContentText")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 visibility_layer = 0

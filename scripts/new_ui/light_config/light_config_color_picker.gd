@@ -8,9 +8,8 @@
 
 extends ColorPicker
 
-@onready var light_config_button = $"../../../../.."
-@onready var text_edit = $"../../MarginContainer2/TextEdit"
-
+@export var light_config_button : LightConfigButton
+@export var text_edit : LineEdit
 
 func _on_color_changed(color):
 	light_config_button.update_light_color(color)
