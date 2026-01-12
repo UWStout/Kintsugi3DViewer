@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=132 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -58,6 +58,7 @@
 [ext_resource type="Script" uid="uid://fokeq7qj3eu4" path="res://scripts/artifact_config.gd" id="48_dvgfk"]
 [ext_resource type="Script" uid="uid://b4w40etmy08k8" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
 [ext_resource type="Texture2D" uid="uid://cqfyy4ttfyp7q" path="res://assets/UI 2D/Icons/Top Dock/Settings/Settings_White_V2.svg" id="49_8n3c5"]
+[ext_resource type="PackedScene" uid="uid://c6jha02ajpeme" path="res://scenes/new_ui/artifact_config_camera.tscn" id="49_kgc6k"]
 [ext_resource type="Script" uid="uid://ij3k5ptd2lbc" path="res://scripts/new_ui/buttons/preferences/change_ssao_button.gd" id="49_ulw4s"]
 [ext_resource type="Script" uid="uid://6oxtdjel6nfb" path="res://scripts/new_ui/mouse_capture_ui.gd" id="51_6lrbx"]
 [ext_resource type="Texture2D" uid="uid://b85lkvh1xrnqy" path="res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Shown_White_V2.svg" id="51_mf5bh"]
@@ -924,7 +925,6 @@ texture = ExtResource("60_d70fm")
 expand_mode = 5
 
 [node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -1263,7 +1263,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="artifact_configuration" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("environment_controller", "connected_button")]
+[node name="artifact_configuration" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("rotate_artifact_button", "connected_button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1272,8 +1272,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("48_dvgfk")
-environment_selection_button = ExtResource("34_xyh84")
-environment_controller = NodePath("../../../../../../environment_controller")
+rotate_artifact_button = NodePath("../../../top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer4/config_selection/Button4")
 
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
@@ -1281,7 +1280,7 @@ script = ExtResource("28_7jo5e")
 can_toggle_off_all = false
 
 [node name="header" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
-custom_minimum_size = Vector2(250, 100)
+custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_84frv")
 
@@ -1305,7 +1304,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/header/VBoxContainer2/MarginContainer/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "ARTIFACT CONFIGURATION"
+text = "CONFIGURATION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1317,6 +1316,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="artifact_config_camera" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" instance=ExtResource("49_kgc6k")]
+layout_mode = 2
 
 [node name="VFlowContainer" type="VFlowContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock"]
 layout_mode = 2
