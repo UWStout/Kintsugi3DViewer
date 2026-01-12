@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6jha02ajpeme"]
+[gd_scene load_steps=13 format=3 uid="uid://c6jha02ajpeme"]
 
 [ext_resource type="Script" uid="uid://cirv4kyfgey4b" path="res://scripts/new_ui/artifact_config/artifact_config_camera.gd" id="1_myoh4"]
 [ext_resource type="Script" uid="uid://cojjswxbw3hug" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="2_e6f2i"]
 [ext_resource type="Script" uid="uid://coea26ld8qo2q" path="res://scripts/new_ui/artifact_config/expand_artifact_config_button.gd" id="3_neaxx"]
+[ext_resource type="Texture2D" uid="uid://dv0minaroyaff" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg" id="3_oioad"]
 [ext_resource type="Texture2D" uid="uid://bsbp1i4e881g4" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg" id="4_sfj25"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3a8op"]
@@ -12,20 +13,22 @@ bg_color = Color(0.219608, 0.219608, 0.219608, 1)
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbt0l"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crwu2"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ieyjv"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6hssd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqiip"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6hssd"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ieyjv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crwu2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbt0l"]
 
 [node name="artifact_config_camera" type="MarginContainer"]
 offset_right = 260.0
 offset_bottom = 45.0
 script = ExtResource("1_myoh4")
+expand_icon = ExtResource("4_sfj25")
+shrunk_icon = ExtResource("3_oioad")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -54,11 +57,11 @@ layout_mode = 2
 [node name="Button" type="Button" parent="Panel/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("parent_panel", "parent_config_button")]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_pbt0l")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_crwu2")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_ieyjv")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_bqiip")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6hssd")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bqiip")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_ieyjv")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_crwu2")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_pbt0l")
 script = ExtResource("3_neaxx")
 parent_panel = NodePath("../../..")
 parent_config_button = NodePath("../../../..")
