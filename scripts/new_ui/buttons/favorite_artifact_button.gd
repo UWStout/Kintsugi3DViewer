@@ -8,14 +8,11 @@
 
 extends ToggleButton
 
-@onready var cache_artifact_display = $"../../../.."
+@export var cache_artifact_display : Control
+@export var texture_rect : TextureRect
 
-var favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg")
-var not_favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg")
-
-@onready var texture_rect = $CenterContainer/TextureRect
-
-
+@export var favorited_icon : CompressedTexture2D
+@export var not_favorited_icon : CompressedTexture2D
 
 func _on_toggle_on():
 	CacheManager.make_persistent(cache_artifact_display.artifact_url_name)

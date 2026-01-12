@@ -3,9 +3,9 @@ class_name ArtifactConfigurationUI extends ContextMenu
 @export var environment_selection_button : PackedScene
 @export var environment_controller : EnvironmentController
 
-@onready var button_group = $button_group
-@onready var v_box_container = $ScrollContainer/VBoxContainer
-@onready var searchbar = $header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar
+@export var button_group : ExclusiveToggleGroup
+@export var v_box_container : BoxContainer
+@export var searchbar : TextEdit
 
 func initialize_list(environments : Array[DisplayEnvironment]):
 	for i in range(0, environments.size()):

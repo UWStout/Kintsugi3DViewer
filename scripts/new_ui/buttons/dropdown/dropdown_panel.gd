@@ -8,9 +8,9 @@
 
 class_name DropdownPanel extends Panel
 
-@onready var exclusive_toggle_group = $ExclusiveToggleGroup
-@onready var expanding_panel = $ExpandingPanel
-@onready var v_box_container = $ExpandingPanel/VBoxContainer
+@export var exclusive_toggle_group : ExclusiveToggleGroup
+@export var expanding_panel : ExpandingPanel
+@export var v_box_container : BoxContainer
 
 var dropdown_selection_button_scene = preload("res://scenes/new_ui/dropdown_selection_button.tscn")
 

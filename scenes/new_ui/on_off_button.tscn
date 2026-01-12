@@ -20,7 +20,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="button" type="Button"]
+[node name="button" type="Button" node_paths=PackedStringArray("sliding_circle")]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 50)
 anchors_preset = 15
@@ -31,6 +31,7 @@ offset_bottom = -598.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3w4ry")
+sliding_circle = NodePath("on_off_button/sliding_circle")
 animation_curve = SubResource("Curve_pnc1t")
 
 [node name="on_off_button" type="Panel" parent="."]

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dhxno3aqfpchx" path="res://scripts/new_ui/buttons/dropdown/dropdown_button.gd" id="1_ikg8t"]
 [ext_resource type="Texture2D" uid="uid://cirwvvesqpths" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_Out_White_V1.svg" id="2_nwh51"]
 
-[node name="Dropdown" type="Button"]
+[node name="Dropdown" type="Button" node_paths=PackedStringArray("texture_rect", "label")]
 custom_minimum_size = Vector2(200, 50)
 offset_left = 446.0
 offset_top = 308.0
@@ -11,6 +11,8 @@ offset_right = 646.0
 offset_bottom = 358.0
 script = ExtResource("1_ikg8t")
 panel_width = 400
+texture_rect = NodePath("HBoxContainer/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
+label = NodePath("HBoxContainer/HBoxContainer/MarginContainer/Label")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

@@ -8,7 +8,7 @@
 
 extends ExclusiveToggleButton
 
-@onready var texture_rect = $CenterContainer/TextureRect
+@export var texture_rect : TextureRect
 
 var toggled_on_icon = preload("res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_In_White_V2.svg")
 var toggled_off_icon = preload("res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_Out_White_V2.svg")
