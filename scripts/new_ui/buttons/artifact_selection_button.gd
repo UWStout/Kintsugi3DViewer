@@ -8,14 +8,14 @@
 
 class_name ArtifactSelectionButton extends ExclusiveToggleButton
 
-@onready var artifact_label = $HBoxContainer/artifact_label
-@onready var artifact_preview = $HBoxContainer/MarginContainer/CenterContainer/artifact_preview
-@onready var artifact_status = $HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/artifact_status
-@onready var favorite_artifact_button = $HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/favorite_artifact_button
+@export var artifact_label : Label
+@export var artifact_preview : TextureRect
+@export var artifact_status : TextureRect
+@export var favorite_artifact_button : Button
 
-var not_downloaded_icon = preload("res://assets/UI 2D/Icons/Favorites/Favorites Download/FavoritesDownload_White_V1.svg")
-var downloaded_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg")
-var favorited_icon = preload("res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg")
+@export var not_downloaded_icon : CompressedTexture2D
+@export var downloaded_icon : CompressedTexture2D
+@export var favorited_icon : CompressedTexture2D
 
 var data : ArtifactData
 var controller : ArtifactsController

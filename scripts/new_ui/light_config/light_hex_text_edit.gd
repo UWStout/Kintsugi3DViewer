@@ -8,7 +8,7 @@
 
 extends LineEdit
 
-@onready var color_picker = $"../../MarginContainer/ColorPicker"
+@export var color_picker : ColorPicker
 
 func is_hex(text : String):
 	if not text.length() == 7:

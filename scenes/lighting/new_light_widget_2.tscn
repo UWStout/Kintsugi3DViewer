@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bkfr1bxktloy3"]
 
-[ext_resource type="Script" uid="uid://cusaxdtryt630" path="res://scripts/lighting/new_light_widget.gd" id="1_t0h8u"]
+[ext_resource type="Script" uid="uid://cusaxdtryt630" path="res://scripts/lighting/light_widget.gd" id="1_t0h8u"]
 [ext_resource type="Script" uid="uid://cqh5xnr2h5kiv" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_82s74"]
 [ext_resource type="PackedScene" uid="uid://52bjih531usx" path="res://assets/Light 3D UI/Spotlight_BlueArrow_Straight.glb" id="3_kradj"]
 [ext_resource type="PackedScene" uid="uid://dom43b4ijacdi" path="res://assets/Light 3D UI/Spotlight_RedArrow_Lat.glb" id="4_qgu54"]

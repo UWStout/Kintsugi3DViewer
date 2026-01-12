@@ -8,8 +8,8 @@
 
 extends Button
 
-@onready var annotations_on_icon = preload("res://assets/UI 2D/toggle_annotations_on.png")
-@onready var annotations_off_icon = preload("res://assets/UI 2D/toggle_annotations_off.png")
+@export var annotations_on_icon = preload("res://assets/UI 2D/toggle_annotations_on.png")
+@export var annotations_off_icon = preload("res://assets/UI 2D/toggle_annotations_off.png")
 
 var is_on : bool = true
 

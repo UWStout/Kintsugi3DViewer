@@ -35,7 +35,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="Button" type="Button"]
+[node name="Button" type="Button" node_paths=PackedStringArray("title_label", "description_label")]
 custom_minimum_size = Vector2(0, 50)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_6n8hd")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_1yubs")
@@ -43,6 +43,8 @@ theme_override_styles/hover = SubResource("StyleBoxEmpty_ueo5j")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ajw42")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_wr2p2")
 script = ExtResource("1_t2xsa")
+title_label = NodePath("HBoxContainer/MarginContainer/title_label")
+description_label = NodePath("HBoxContainer/description_label")
 toggled_on_style = SubResource("StyleBoxFlat_sdyje")
 toggled_on_hover_style = SubResource("StyleBoxFlat_jx0qm")
 toggled_off_style = SubResource("StyleBoxEmpty_qfnvw")

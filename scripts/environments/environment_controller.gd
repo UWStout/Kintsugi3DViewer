@@ -21,7 +21,7 @@ var loaded_scenes : Array[DisplayEnvironment]
 signal environment_changed(new_environment : DisplayEnvironment)
 
 var selected_index : int = -1
-var selected_light : NewLightWidget
+var selected_light : LightWidget
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -55,7 +55,7 @@ func preload_all_scenes():
 		# Let all the dynamic lights in the scene know that this object is their controller,
 		# and hide them all
 		for dynamic_light in loaded_scene.get_dynamic_lighting().get_children():
-			dynamic_light = dynamic_light as NewLightWidget
+			dynamic_light = dynamic_light as LightWidget
 			dynamic_light.controller = self
 			dynamic_light.make_immaterial()
 			dynamic_light.init_widget()
@@ -78,8 +78,8 @@ func open_scene(index : int):
 		loaded_scenes[selected_index].visible = true
 		
 		for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
-			if dynamic_light is NewLightWidget:
-				light_selection_ui.create_button_for_light(dynamic_light as NewLightWidget)
+			if dynamic_light is LightWidget:
+				light_selection_ui.create_button_for_light(dynamic_light as LightWidget)
 		
 		# Fire signal
 		environment_changed.emit(loaded_scenes[selected_index])
@@ -89,7 +89,7 @@ func show_scene_lighting(index : int):
 		return
 	
 	for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
-		dynamic_light = dynamic_light as NewLightWidget
+		dynamic_light = dynamic_light as LightWidget
 		dynamic_light.make_material()
 	
 func hide_scene_lighting(index : int):
@@ -97,7 +97,7 @@ func hide_scene_lighting(index : int):
 		return
 	
 	for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
-		dynamic_light = dynamic_light as NewLightWidget
+		dynamic_light = dynamic_light as LightWidget
 		dynamic_light.make_immaterial()
 
 func begin_customizing_lights():
@@ -109,7 +109,7 @@ func stop_customizing_lights():
 	#if not connected_customize_lighting_button == null:
 		#connected_customize_lighting_button.override_stop_customizing()
 
-func select_light(light : NewLightWidget):
+func select_light(light : LightWidget):
 	if light == null:
 		#if not connected_color_picker == null:
 			#connected_color_picker.visible = false

@@ -13,9 +13,9 @@ class_name ArtifactCatalogUI extends ContextMenu
 @export var artifacts_manager : ArtifactsManager
 var artifact_controller : ArtifactsController
 
-@onready var button_group : ExclusiveToggleGroup = $button_group
-@onready var v_box_container : VBoxContainer = $ScrollContainer/VBoxContainer
-@onready var searchbar : LineEdit = $header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar
+@export var button_group : ExclusiveToggleGroup
+@export var v_box_container : VBoxContainer
+@export var searchbar : LineEdit
 
 func _ready():
 	#await artifact_controller._ready()

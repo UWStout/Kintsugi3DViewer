@@ -8,13 +8,11 @@
 
 class_name ExpandSiderbarButton extends ExclusiveToggleButton
 
-@onready var texture_rect = $CenterContainer/TextureRect
-
-var toggled_on_icon = preload("res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_In_White_V2.svg")
-var toggled_off_icon = preload("res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_Out_White_V2.svg")
-
-
+@export var texture_rect : TextureRect
 @export var sidebar_selection_menu : SidebarSelectionMenu
+
+@export var toggled_on_icon : CompressedTexture2D
+@export var toggled_off_icon : CompressedTexture2D
 
 func _pressed():
 	if sidebar_selection_menu._expanding or sidebar_selection_menu._shrinking:

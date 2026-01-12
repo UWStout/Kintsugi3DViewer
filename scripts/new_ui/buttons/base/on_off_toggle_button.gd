@@ -8,7 +8,7 @@
 
 class_name OnOffButton extends ToggleButton
 
-@onready var sliding_circle = $on_off_button/sliding_circle as Control
+@export var sliding_circle : Control
 
 @export var do_animate : bool = true
 @export var animate_speed : float = 0.2

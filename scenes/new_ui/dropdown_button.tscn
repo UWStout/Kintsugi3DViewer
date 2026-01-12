@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbpq5g7y6yycl"]
+[gd_scene load_steps=5 format=3 uid="uid://bbpq5g7y6yycl"]
 
 [ext_resource type="Script" uid="uid://dhxno3aqfpchx" path="res://scripts/new_ui/buttons/dropdown/dropdown_button.gd" id="1_ikg8t"]
+[ext_resource type="PackedScene" uid="uid://dqwubacvmk3dw" path="res://scenes/new_ui/dropdown_panel.tscn" id="2_e62ms"]
 [ext_resource type="Texture2D" uid="uid://cirwvvesqpths" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_Out_White_V1.svg" id="2_nwh51"]
+[ext_resource type="Texture2D" uid="uid://bhdpxxdhcphsn" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V1/LightExpand_In_White_V1.svg" id="4_tmcj0"]
 
-[node name="Dropdown" type="Button"]
+[node name="Dropdown" type="Button" node_paths=PackedStringArray("texture_rect", "label")]
 custom_minimum_size = Vector2(200, 50)
 offset_left = 446.0
 offset_top = 308.0
@@ -11,6 +13,11 @@ offset_right = 646.0
 offset_bottom = 358.0
 script = ExtResource("1_ikg8t")
 panel_width = 400
+texture_rect = NodePath("HBoxContainer/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
+label = NodePath("HBoxContainer/HBoxContainer/MarginContainer/Label")
+dropdown_panel_scene = ExtResource("2_e62ms")
+expanding_icon = ExtResource("2_nwh51")
+shrinking_icon = ExtResource("4_tmcj0")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1

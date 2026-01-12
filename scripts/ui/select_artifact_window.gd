@@ -10,8 +10,8 @@ extends Window
 @export var artifacts_manager : ArtifactsManager
 @export var artifacts_controller : ArtifactsController
 @export var artifacts_controller_node_path : NodePath
-@export var select_artifact_button = preload("res://scenes/ui/select_artifact_button.tscn")
-@onready var v_box_container = $ScrollContainer/VBoxContainer
+@export var select_artifact_button : PackedScene
+@export var v_box_container : BoxContainer
 
 func _ready() -> void:
 	#await artifacts_controller._ready()

@@ -8,7 +8,7 @@
 
 extends LineEdit
 
-@onready var owner_node = $"../../.."
+@export var owner_node : Node
 
 func _ready():
 	if not Preferences.read_pref("allow ip change"):

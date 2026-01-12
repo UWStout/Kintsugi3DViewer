@@ -10,7 +10,7 @@ extends Node3D
 
 @export var camera : CameraRig
 @export var distance_threshold : float = 2
-@onready var csg_mesh_3d = $CSGMesh3D
+@export var csg_mesh_3d : GeometryInstance3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

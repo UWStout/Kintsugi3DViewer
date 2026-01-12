@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://x4dbnmx5mhsr"]
+[gd_scene load_steps=9 format=3 uid="uid://x4dbnmx5mhsr"]
 
 [ext_resource type="Script" uid="uid://df4rkhbk4fug4" path="res://scripts/new_ui/cache_artifact_display_ui.gd" id="1_53qvj"]
 [ext_resource type="Script" uid="uid://cr7covlqg14p4" path="res://scripts/new_ui/buttons/favorite_artifact_button.gd" id="2_ayr4j"]
 [ext_resource type="Texture2D" uid="uid://10j3vlxtldb5" path="res://assets/UI 2D/Icons/Expanded Light Customization/Trash/Trash_White_V2.svg" id="2_yrw4x"]
 [ext_resource type="Texture2D" uid="uid://wdxfsqy4011o" path="res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg" id="3_62d3o"]
+[ext_resource type="Texture2D" uid="uid://dmc2uugakyhj0" path="res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg" id="4_bjbps"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfp1k"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -32,10 +33,14 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="cache_artifact_display" type="MarginContainer"]
+[node name="cache_artifact_display" type="MarginContainer" node_paths=PackedStringArray("name_label", "size_label", "delete_button", "favorite_button")]
 custom_minimum_size = Vector2(520, 50)
 theme_override_constants/margin_top = 5
 script = ExtResource("1_53qvj")
+name_label = NodePath("Panel/HBoxContainer/CenterContainer/HBoxContainer/name_label")
+size_label = NodePath("Panel/HBoxContainer/CenterContainer/HBoxContainer/size_label")
+delete_button = NodePath("Panel/HBoxContainer/CenterContainer2/delete_button")
+favorite_button = NodePath("Panel/HBoxContainer/CenterContainer3/favorite_button")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 50)
@@ -98,11 +103,15 @@ expand_mode = 5
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="favorite_button" type="Button" parent="Panel/HBoxContainer/CenterContainer3"]
+[node name="favorite_button" type="Button" parent="Panel/HBoxContainer/CenterContainer3" node_paths=PackedStringArray("cache_artifact_display", "texture_rect")]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 script = ExtResource("2_ayr4j")
+cache_artifact_display = NodePath("../../../..")
+texture_rect = NodePath("CenterContainer/TextureRect")
+favorited_icon = ExtResource("4_bjbps")
+not_favorited_icon = ExtResource("3_62d3o")
 toggled_off_style = SubResource("StyleBoxFlat_lkqrr")
 toggled_off_hover_style = SubResource("StyleBoxFlat_5cls3")
 
