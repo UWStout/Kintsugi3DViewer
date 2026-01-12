@@ -6,5 +6,5 @@ func _on_artifact_bounds_changed(aabb : AABB):
 	# set range scale for dynamic lights
 	var dynamic_lights = find_child("dynamics").get_children()
 	for light in dynamic_lights:
-		if light is NewLightWidget:
+		if light is LightWidget:
 			light.set_environment_scale(aabb.get_longest_axis_size())

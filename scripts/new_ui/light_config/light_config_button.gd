@@ -28,7 +28,7 @@ var light_color : Color
 @export var expand_icon : CompressedTexture2D
 @export var shrunk_icon : CompressedTexture2D
 
-var connected_light : NewLightWidget
+var connected_light : LightWidget
 
 func set_button_name(new_name : String):
 	label.text = new_name
@@ -64,7 +64,7 @@ func update_light_color(new_color : Color):
 	if not connected_light == null:
 		connected_light._set_color_UTIL(light_color)
 
-func set_color_from_light(light : NewLightWidget):
+func set_color_from_light(light : LightWidget):
 	light_color = light.color
 	light_strength = light.get_color_strength()
 	light_angle = light.get_light_angle()
@@ -81,7 +81,7 @@ func set_color_from_light(light : NewLightWidget):
 func set_toggle_group(group : ExclusiveToggleGroup):
 	group.register_button(button)
 
-func set_connected_light(light : NewLightWidget):
+func set_connected_light(light : LightWidget):
 	connected_light = light
 
 func on_button_open():
