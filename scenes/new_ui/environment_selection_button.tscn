@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://dj2gfl0io4gnp" path="res://scripts/new_ui/buttons/environment_selection_button.gd" id="1_50i83"]
 [ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/UI 2D/toggle_annotations_on.png" id="2_6evjk"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ers81"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q2ihn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r1xo"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ers81"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4v61n"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
@@ -24,10 +24,10 @@ bg_color = Color(0.423529, 0.423529, 0.423529, 1)
 
 [node name="environment_selection_button" type="Button"]
 custom_minimum_size = Vector2(250, 60)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_gp8r4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ers81")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_q2ihn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_7r1xo")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ers81")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gp8r4")
 expand_icon = true
 script = ExtResource("1_50i83")
 toggled_on_style = SubResource("StyleBoxFlat_4v61n")
