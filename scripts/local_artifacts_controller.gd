@@ -13,14 +13,11 @@ func _ready():
 	
 	await refresh_artifacts()
 	
-	
 	var args = OS.get_cmdline_args()
 	_open_artifact_through_file(args[0])
 
 	#$"../new_ui_root/CenterContainer/Label".text += "\n" + arg
-	
 	#_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu\\model.glb")
-	
 	
 func refresh_artifacts() -> Array[ArtifactData]:
 	artifacts = LocalSaveData.get_artifact_data()

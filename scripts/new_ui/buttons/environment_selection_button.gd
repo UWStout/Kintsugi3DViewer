@@ -8,8 +8,8 @@
 
 class_name EnvironmentSelectionButton extends ExclusiveToggleButton
 
-@onready var environment_label = $HBoxContainer/environment_label
-@onready var environment_preview = $HBoxContainer/MarginContainer/CenterContainer/environment_preview
+@export var environment_label : Label
+@export var environment_preview : TextureRect
 
 var index : int
 var environment_name : String

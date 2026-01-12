@@ -11,9 +11,9 @@ class_name LightSelectionUI extends ContextMenu
 @export var light_config_button : PackedScene
 @export var rotate_artifact_button : RotateArtifactButton
 
-@onready var v_box_container = $ScrollContainer/VBoxContainer
-@onready var new_light_button = $ScrollContainer/VBoxContainer/new_light_button
-@onready var button_group = $button_group
+@export var v_box_container : BoxContainer
+@export var new_light_button : Button
+@export var button_group : ExclusiveToggleGroup
 
 func on_context_expanded():
 	rotate_artifact_button.toggle_off()
