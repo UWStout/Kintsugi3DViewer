@@ -9,7 +9,7 @@
 @tool
 extends Node3D
 
-class_name NewLightWidget
+class_name LightWidget
 
 @export_range(0, 10) var distance : float = 2 : set = _set_distance_UTIL
 @export_range(0, 360) var horizontal_angle : float = 0 : set = _set_horizontal_angle_UTIL

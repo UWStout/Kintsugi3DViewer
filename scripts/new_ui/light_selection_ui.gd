@@ -24,7 +24,7 @@ func on_context_shrunk():
 
 	super.on_context_shrunk()
 
-func create_button_for_light(light : NewLightWidget):
+func create_button_for_light(light : LightWidget):
 	var new_button = light_config_button.instantiate()
 	
 	var num_children = v_box_container.get_children().size()
