@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://ccsu2er238wo6"]
+[gd_scene load_steps=23 format=3 uid="uid://ccsu2er238wo6"]
 
 [ext_resource type="Script" uid="uid://bfy01s3ldk0pk" path="res://scripts/new_ui/light_config/light_config_button.gd" id="1_p3eq6"]
 [ext_resource type="Script" uid="uid://cojjswxbw3hug" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="1_um2c1"]
+[ext_resource type="Texture2D" uid="uid://dv0minaroyaff" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg" id="3_eck74"]
 [ext_resource type="Script" uid="uid://dxkqjlryftktk" path="res://scripts/new_ui/light_config/expand_light_config_button.gd" id="3_ecn13"]
 [ext_resource type="Texture2D" uid="uid://bsbp1i4e881g4" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg" id="4_lxyto"]
 [ext_resource type="Script" uid="uid://dvpte42gdmpta" path="res://scripts/new_ui/light_config/light_strength_scrollbar.gd" id="5_dxtfb"]
@@ -28,15 +29,15 @@ corner_radius_bottom_left = 5
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yickx"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ths8o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qa24"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qah2i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okix6"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qa24"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ths8o"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yickx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ufuk"]
 bg_color = Color(1, 1, 1, 1)
@@ -71,13 +72,26 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="light_config_button" type="MarginContainer"]
+[node name="light_config_button" type="MarginContainer" node_paths=PackedStringArray("light_strength_label", "light_angle_label", "miniature_color_display", "label", "button", "texture_rect", "color_picker", "text_edit", "strength_scroll_bar", "angle_scroll_bar", "value_scroll_bar")]
 offset_right = 260.0
 offset_bottom = 60.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 5
 script = ExtResource("1_p3eq6")
+light_strength_label = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer/MarginContainer/light_strength_label")
+light_angle_label = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer/MarginContainer/light_angle_label")
+miniature_color_display = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/inner")
+label = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/Label")
+button = NodePath("Panel/VBoxContainer/VBoxContainer/Button")
+texture_rect = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
+color_picker = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer/ColorPicker")
+text_edit = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer2/TextEdit")
+strength_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer/strength_scroll_bar")
+angle_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer/angle_scroll_bar")
+value_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/value_scroll_bar")
+expand_icon = ExtResource("4_lxyto")
+shrunk_icon = ExtResource("3_eck74")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -108,11 +122,11 @@ layout_mode = 2
 [node name="Button" type="Button" parent="Panel/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("parent_panel", "parent_config_button")]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_yickx")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ths8o")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_3qa24")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_qah2i")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_okix6")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_3qa24")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ths8o")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yickx")
 script = ExtResource("3_ecn13")
 parent_panel = NodePath("../../..")
 parent_config_button = NodePath("../../../..")
@@ -240,13 +254,14 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 10
 
-[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer"]
+[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer" node_paths=PackedStringArray("light_config_button")]
 custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1000.0
 value = 335.0
 script = ExtResource("5_dxtfb")
+light_config_button = NodePath("../../../../../../..")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer"]
 layout_mode = 2
@@ -285,12 +300,13 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 10
 
-[node name="angle_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer"]
+[node name="angle_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("light_config_button")]
 custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
 max_value = 90.0
 value = 90.0
 script = ExtResource("6_e7rxa")
+light_config_button = NodePath("../../../../../../..")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer"]
 layout_mode = 2

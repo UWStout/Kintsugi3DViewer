@@ -335,6 +335,13 @@ script = ExtResource("1_8lf8i")
 script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
+[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui")]
+script = ExtResource("12_acvmt")
+scene_camera = NodePath("../Camera")
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
+light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
+environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
+
 [node name="artifacts_manager" type="Node3D" parent="." node_paths=PackedStringArray("local", "server")]
 script = ExtResource("3_e3ejb")
 local = NodePath("local_controller")
@@ -967,7 +974,7 @@ maximized_size = 335.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_jj0bh")
 
-[node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifacts_manager", "connected_button")]
+[node name="artifact_catalog" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifacts_manager", "button_group", "v_box_container", "searchbar", "connected_button")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -977,6 +984,9 @@ grow_vertical = 2
 script = ExtResource("31_8olmt")
 artifact_select_button = ExtResource("31_3etux")
 artifacts_manager = NodePath("../../../../../../artifacts_manager")
+button_group = NodePath("button_group")
+v_box_container = NodePath("ScrollContainer/VBoxContainer")
+searchbar = NodePath("header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer/artifact_catalog/Button1")
 metadata/_edit_use_anchors_ = true
 
@@ -1099,7 +1109,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="lights_selection" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("rotate_artifact_button", "connected_button")]
+[node name="lights_selection" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("rotate_artifact_button", "v_box_container", "new_light_button", "button_group", "connected_button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1110,6 +1120,9 @@ grow_vertical = 2
 script = ExtResource("33_ae4yh")
 light_config_button = ExtResource("33_p40ux")
 rotate_artifact_button = NodePath("../../../top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button")
+v_box_container = NodePath("ScrollContainer/VBoxContainer")
+new_light_button = NodePath("ScrollContainer/VBoxContainer/new_light_button/new_light_button")
+button_group = NodePath("button_group")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer2/light_customization/Button2")
 
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection"]
@@ -1191,7 +1204,7 @@ text = "NEW LIGHT"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="environment_selection" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("environment_controller", "connected_button")]
+[node name="environment_selection" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("environment_controller", "button_group", "v_box_container", "searchbar", "connected_button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1202,6 +1215,9 @@ grow_vertical = 2
 script = ExtResource("33_xl44j")
 environment_selection_button = ExtResource("34_xyh84")
 environment_controller = NodePath("../../../../../../environment_controller")
+button_group = NodePath("button_group")
+v_box_container = NodePath("ScrollContainer/VBoxContainer")
+searchbar = NodePath("header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer3/environment_selection/Button3")
 
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection"]
@@ -2713,13 +2729,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui")]
-script = ExtResource("12_acvmt")
-scene_camera = NodePath("../Camera")
-environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
-light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
-environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
-
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_manager", "artifacts_controller")]
 disable_3d = true
 transparent_bg = true
@@ -2765,6 +2774,8 @@ access = 2
 show_hidden_files = true
 script = ExtResource("29_4k4a7")
 
+[connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
+[connection signal="environment_changed" from="environment_controller" to="artifacts_manager" method="_on_environment_changed"]
 [connection signal="artifact_loaded" from="artifacts_manager/local_controller" to="artifacts_manager/server_controller" method="_on_local_controller_artifact_loaded"]
 [connection signal="artifact_loaded" from="artifacts_manager/server_controller" to="artifacts_manager/local_controller" method="_on_server_controller_artifact_loaded"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
@@ -2776,7 +2787,5 @@ script = ExtResource("29_4k4a7")
 [connection signal="text_changed" from="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" to="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer2/MarginContainer4/HBoxContainer/HBoxContainer2/MarginContainer/LineEdit" method="_on_text_changed"]
 [connection signal="text_submitted" from="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer4/LineEdit" to="new_ui_root/MarginContainer/debug_file_open/panel/VBoxContainer/MarginContainer4/LineEdit" method="_on_text_submitted"]
 [connection signal="pressed" from="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" to="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" method="_on_pressed"]
-[connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
-[connection signal="environment_changed" from="environment_controller" to="artifacts_manager" method="_on_environment_changed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]
