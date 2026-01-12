@@ -8,13 +8,26 @@
 
 class_name ArtifactConfigButton extends MarginContainer
 
-var expand_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg")
-var shrunk_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg")
+
+@export var light_strength_label : Label
+@export var light_angle_label : Label
+@export var miniature_color_display : Control
+@export var label : Label
+@export var button : Button
+@export var texture_rect : TextureRect
+
+@export var strength_scroll_bar : ScrollBar
+@export var angle_scroll_bar : ScrollBar
+@export var value_scroll_bar : ScrollBar
+
+@export var expand_icon : CompressedTexture2D
+@export var shrunk_icon : CompressedTexture2D
+
 
 func on_button_open():
 	#print("light made material")
 	#connected_light.make_material()
-	#texture_rect.texture = expand_icon
+	texture_rect.texture = expand_icon
 	#connected_light.controller.select_light(null)
 	pass
 
@@ -22,5 +35,5 @@ func on_button_close():
 	#print("light made immaterial")
 	#connected_light.make_immaterial()
 	#connected_light.controller.force_hide_lights()
-	#texture_rect.texture = shrunk_icon
+	texture_rect.texture = shrunk_icon
 	pass
