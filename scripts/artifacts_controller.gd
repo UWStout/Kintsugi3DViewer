@@ -132,7 +132,8 @@ func _place_artifact():
 		
 func _on_model_preview_load_complete():
 	print("_environment_controller: ", _environment_controller)
-	_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
+	if _environment_controller.get_current_environment() != null:
+		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 	_place_artifact()
 
 func _on_environment_changed(new_environment):

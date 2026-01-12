@@ -22,7 +22,7 @@ bg_color = Color(0.423529, 0.423529, 0.423529, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o32hu"]
 bg_color = Color(0.423529, 0.423529, 0.423529, 1)
 
-[node name="environment_selection_button" type="Button"]
+[node name="environment_selection_button" type="Button" node_paths=PackedStringArray("environment_label", "environment_preview")]
 custom_minimum_size = Vector2(250, 60)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_ers81")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_q2ihn")
@@ -30,6 +30,8 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_7r1xo")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_gp8r4")
 expand_icon = true
 script = ExtResource("1_50i83")
+environment_label = NodePath("HBoxContainer/environment_label")
+environment_preview = NodePath("HBoxContainer/MarginContainer/CenterContainer/environment_preview")
 toggled_on_style = SubResource("StyleBoxFlat_4v61n")
 toggled_on_hover_style = SubResource("StyleBoxFlat_h47gq")
 toggled_off_style = SubResource("StyleBoxEmpty_1nwaj")

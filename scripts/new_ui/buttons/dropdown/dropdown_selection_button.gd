@@ -8,8 +8,8 @@
 
 class_name DropdownSelectionButton extends ExclusiveToggleButton
 
-@onready var title_label = $HBoxContainer/MarginContainer/title_label
-@onready var description_label = $HBoxContainer/description_label
+@export var title_label : Label
+@export var description_label : Label
 
 var connected_button : DropdownButton
 var index : int = -1

@@ -10,7 +10,7 @@ extends StaticBody3D
 
 class_name MovableLightWidgetAxis
 
-@export var parent_widget : NewLightWidget
+@export var parent_widget : LightWidget
 
 func _on_environment_scale_changed(scale : float, old_scale : float):
 	self.position.y *= scale / old_scale

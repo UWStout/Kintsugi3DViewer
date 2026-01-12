@@ -11,9 +11,10 @@ extends Button
 class_name SelectArtifactButton
 
 var target_artifact: ArtifactData
+var artifacts_controller : ArtifactsController
+
 @export var parent_window : Window
 @export var artifacts_manager : ArtifactsManager
-@onready var artifacts_controller : ArtifactsController = $"../../../../artifacts_controller"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

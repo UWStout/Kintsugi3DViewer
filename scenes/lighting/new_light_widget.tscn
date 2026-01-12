@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://c72ra7k2av6rs"]
 
-[ext_resource type="Script" uid="uid://cusaxdtryt630" path="res://scripts/lighting/new_light_widget.gd" id="1_tjvct"]
+[ext_resource type="Script" uid="uid://cusaxdtryt630" path="res://scripts/lighting/light_widget.gd" id="1_tjvct"]
 [ext_resource type="Script" uid="uid://cqh5xnr2h5kiv" path="res://scripts/lighting/movable_light_widget_axis.gd" id="2_jqfgj"]
 [ext_resource type="ArrayMesh" uid="uid://b1g57rjtc2nhj" path="res://assets/mesh/light_widget_axis.res" id="3_2tqa1"]
 [ext_resource type="Script" uid="uid://q1k7122lcgvw" path="res://scenes/lighting/responsive_light_range.gd" id="4_qcydt"]
@@ -55,8 +55,20 @@ albedo_color = Color(0, 0, 0, 1)
 emission_enabled = true
 emission = Color(0.129412, 0.905882, 0.227451, 1)
 
-[node name="new_light_widget" type="Node3D"]
+[node name="new_light_widget" type="Node3D" node_paths=PackedStringArray("target_point", "distance_axis", "horizontal_axis", "vertical_axis", "target_point_mesh", "distance_mesh", "horizontal_mesh", "vertical_mesh", "distance_track", "horizontal_track", "vertical_track", "light")]
 script = ExtResource("1_tjvct")
+target_point = NodePath("target_point")
+distance_axis = NodePath("target_point/distance")
+horizontal_axis = NodePath("target_point/horizontal")
+vertical_axis = NodePath("target_point/vertical")
+target_point_mesh = NodePath("target_point/mesh")
+distance_mesh = NodePath("target_point/distance/mesh")
+horizontal_mesh = NodePath("target_point/horizontal/mesh")
+vertical_mesh = NodePath("target_point/vertical/mesh")
+distance_track = NodePath("target_point/distance/track")
+horizontal_track = NodePath("target_point/horizontal/track")
+vertical_track = NodePath("target_point/vertical/track")
+light = NodePath("target_point/light")
 
 [node name="target_point" type="StaticBody3D" parent="." node_paths=PackedStringArray("parent_widget")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

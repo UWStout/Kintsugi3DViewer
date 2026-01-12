@@ -75,7 +75,7 @@ func show_light(light_index : int):
 	if light_index < 0 or light_index >= get_dynamic_lighting().get_children().size():
 		return
 	
-	if get_dynamic_lighting().get_children()[light_index] is NewLightWidget:
+	if get_dynamic_lighting().get_children()[light_index] is LightWidget:
 		get_dynamic_lighting().get_children()[light_index].make_material()
 
 func add_dynamic_light():

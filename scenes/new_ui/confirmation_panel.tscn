@@ -15,13 +15,6 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6pam"]
-bg_color = Color(0.85098, 0.85098, 0.85098, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj50i"]
 bg_color = Color(0.772549, 0.772549, 0.772549, 1)
 corner_radius_top_left = 5
@@ -36,8 +29,8 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yopi7"]
-bg_color = Color(0.145098, 0.145098, 0.145098, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6pam"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -57,9 +50,20 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="CenterContainer" type="CenterContainer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yopi7"]
+bg_color = Color(0.145098, 0.145098, 0.145098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="CenterContainer" type="CenterContainer" node_paths=PackedStringArray("header", "description", "cancel_button", "confirm_button")]
 custom_minimum_size = Vector2(1152, 648)
 script = ExtResource("1_8kc32")
+header = NodePath("confirmation_panel/VBoxContainer/MarginContainer/CenterContainer/header")
+description = NodePath("confirmation_panel/VBoxContainer/MarginContainer2/CenterContainer/description")
+cancel_button = NodePath("confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/cancel_button")
+confirm_button = NodePath("confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/confirm_button")
 
 [node name="confirmation_panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(450, 300)
@@ -121,28 +125,28 @@ alignment = 1
 [node name="cancel_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
-theme_override_colors/font_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
-theme_override_colors/font_hover_color = Color(0.145098, 0.145098, 0.145098, 1)
-theme_override_colors/font_focus_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_f6pam")
+theme_override_colors/font_hover_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_focus_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_styles/hover = SubResource("StyleBoxFlat_uj50i")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_xgs7b")
+theme_override_styles/normal = SubResource("StyleBoxFlat_f6pam")
 text = "CANCEL"
 script = ExtResource("1_prncf")
 
 [node name="confirm_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_hover_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_focus_color = Color(0.85098, 0.85098, 0.85098, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_yopi7")
+theme_override_colors/font_hover_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_focus_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
 theme_override_styles/hover = SubResource("StyleBoxFlat_3ttia")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_m1m1v")
+theme_override_styles/normal = SubResource("StyleBoxFlat_yopi7")
 text = "CLEAR CACHE"
 script = ExtResource("1_prncf")
 

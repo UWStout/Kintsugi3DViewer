@@ -9,7 +9,6 @@
 extends Control
 class_name ModelLoaderProgress
 
-#@onready var progressBar: ProgressBar = $Panel/MarginContainer/VBoxContainer/ProgressBar
 @export var progressBar : ProgressBar
 @export var text_label : Label
 

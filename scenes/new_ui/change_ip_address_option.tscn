@@ -24,10 +24,11 @@ alignment = 2
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/MarginContainer"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer2/MarginContainer" node_paths=PackedStringArray("owner_node")]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 alignment = 1
 script = ExtResource("1_1pnbb")
+owner_node = NodePath("../../..")
 
 [connection signal="text_changed" from="HBoxContainer2/MarginContainer/LineEdit" to="HBoxContainer2/MarginContainer/LineEdit" method="_on_text_changed"]
