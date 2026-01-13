@@ -29,15 +29,15 @@ corner_radius_bottom_left = 5
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ths8o"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qa24"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qah2i"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yickx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okix6"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yickx"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qah2i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qa24"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ths8o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ufuk"]
 bg_color = Color(1, 1, 1, 1)
@@ -90,8 +90,8 @@ text_edit = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer2/TextEdi
 strength_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer/strength_scroll_bar")
 angle_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer/angle_scroll_bar")
 value_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/value_scroll_bar")
-expand_icon = ExtResource("4_lxyto")
-shrunk_icon = ExtResource("3_eck74")
+expand_icon = ExtResource("3_eck74")
+shrunk_icon = ExtResource("4_lxyto")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -122,11 +122,11 @@ layout_mode = 2
 [node name="Button" type="Button" parent="Panel/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("parent_panel", "parent_config_button")]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ths8o")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_3qa24")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_qah2i")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_okix6")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yickx")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_okix6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qah2i")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_3qa24")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ths8o")
 script = ExtResource("3_ecn13")
 parent_panel = NodePath("../../..")
 parent_config_button = NodePath("../../../..")
@@ -186,7 +186,8 @@ expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = -40
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 18
 
 [node name="ColorPicker" type="ColorPicker" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("light_config_button", "text_edit")]
 layout_mode = 2

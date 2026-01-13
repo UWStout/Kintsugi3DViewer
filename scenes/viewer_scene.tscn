@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=136 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -244,14 +244,14 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.141176, 0.141176, 0.141176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
-bg_color = Color(0.733333, 0.733333, 0.733333, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3beys"]
 bg_color = Color(0.654902, 0.654902, 0.654902, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
-bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
+bg_color = Color(0.733333, 0.733333, 0.733333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_116h6"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -267,6 +267,13 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5e1kc"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niflw"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp4v3"]
 content_margin_left = 30.0
 content_margin_right = 30.0
@@ -275,13 +282,6 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_color = Color(0.85098, 0.85098, 0.85098, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niflw"]
-content_margin_left = 15.0
-content_margin_right = 15.0
-bg_color = Color(0.141176, 0.141176, 0.141176, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
@@ -1178,9 +1178,9 @@ theme_override_constants/margin_right = 5
 [node name="new_light_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button" node_paths=PackedStringArray("environment_controller", "light_selection_ui")]
 custom_minimum_size = Vector2(240, 45)
 layout_mode = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_ahlbe")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
 theme_override_styles/normal = SubResource("StyleBoxFlat_u8r5e")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ahlbe")
 script = ExtResource("29_ujmju")
 environment_controller = NodePath("../../../../../../../../../../environment_controller")
 light_selection_ui = NodePath("../../../..")
@@ -1304,7 +1304,6 @@ connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContaine
 
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
 script = ExtResource("28_7jo5e")
-can_toggle_off_all = false
 
 [node name="header" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
 custom_minimum_size = Vector2(0, 65)
@@ -1346,6 +1345,9 @@ size_flags_vertical = 3
 
 [node name="artifact_config_camera" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" instance=ExtResource("49_kgc6k")]
 layout_mode = 2
+
+[node name="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/artifact_config_camera/Panel/VBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("toggle_group")]
+toggle_group = NodePath("../../../../../../../button_group")
 
 [node name="VFlowContainer" type="VFlowContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock"]
 layout_mode = 2
@@ -1469,8 +1471,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5e1kc")
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
 current_tab = 0
 
 [node name="General" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
@@ -2409,8 +2411,8 @@ theme_override_constants/margin_bottom = 10
 
 [node name="LineEdit" type="LineEdit" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer4"]
 layout_mode = 2
-theme_override_colors/font_placeholder_color = Color(0.588235, 0.588235, 0.588235, 1)
 theme_override_colors/font_color = Color(0.219608, 0.219608, 0.219608, 1)
+theme_override_colors/font_placeholder_color = Color(0.588235, 0.588235, 0.588235, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_rdhqw")
 placeholder_text = "Please name the current model to save"
@@ -2807,3 +2809,5 @@ script = ExtResource("29_4k4a7")
 [connection signal="pressed" from="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" to="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save" method="_on_pressed"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]
+
+[editable path="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/artifact_config_camera"]
