@@ -1,6 +1,6 @@
 # Kintsugi 3D Viewer
 
-Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek.
 
 Licensed under GPLv3
 ( http://www.gnu.org/licenses/gpl-3.0.html )
