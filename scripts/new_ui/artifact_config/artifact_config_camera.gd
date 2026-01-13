@@ -9,16 +9,20 @@
 class_name ArtifactConfigButton extends MarginContainer
 
 
-@export var light_strength_label : Label
-@export var light_angle_label : Label
-@export var miniature_color_display : Control
-@export var label : Label
+
 @export var button : Button
 @export var texture_rect : TextureRect
 
-@export var strength_scroll_bar : ScrollBar
-@export var angle_scroll_bar : ScrollBar
-@export var value_scroll_bar : ScrollBar
+@export var min_scroll_bar : ScrollBar
+@export var max_scroll_bar : ScrollBar
+@export var pan_scroll_bar : ScrollBar
+@export var rot_scroll_bar : ScrollBar
+
+@export var min_label : Label
+@export var max_label : Label
+@export var pan_label : Label
+@export var rot_label : Label
+
 
 @export var expand_icon : CompressedTexture2D
 @export var shrunk_icon : CompressedTexture2D

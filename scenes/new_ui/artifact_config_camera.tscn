@@ -15,20 +15,31 @@ point_count = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6hssd"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bqiip"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neaxx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ieyjv"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_crwu2"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oioad"]
+bg_color = Color(0.86610764, 0.4355035, 0.62563324, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbt0l"]
 
-[node name="artifact_config_camera" type="MarginContainer"]
+[node name="artifact_config_camera" type="MarginContainer" node_paths=PackedStringArray("button", "texture_rect", "min_scroll_bar", "max_scroll_bar", "pan_scroll_bar", "rot_scroll_bar", "min_label", "max_label", "pan_label", "rot_label")]
 offset_right = 260.0
 offset_bottom = 45.0
 script = ExtResource("1_myoh4")
-expand_icon = ExtResource("4_sfj25")
-shrunk_icon = ExtResource("3_oioad")
+button = NodePath("Panel/VBoxContainer/VBoxContainer/Button")
+texture_rect = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
+min_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer/min_scroll_bar")
+max_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer/max_scroll_bar")
+pan_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/MarginContainer/pan_scroll_bar")
+rot_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/MarginContainer/rot_scroll_bar")
+min_label = NodePath("Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/CenterContainer/MarginContainer/min_label")
+max_label = NodePath("Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/CenterContainer/MarginContainer/max_label")
+pan_label = NodePath("Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/CenterContainer/MarginContainer/pan_label")
+rot_label = NodePath("Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/CenterContainer/MarginContainer/rot_label")
+expand_icon = ExtResource("3_oioad")
+shrunk_icon = ExtResource("4_sfj25")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -38,7 +49,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3a8op")
 script = ExtResource("2_e6f2i")
 expand_direction = 0
 minimized_size = 45.0
-maximized_size = 490.0
+maximized_size = 180.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_nmx01")
 
@@ -58,9 +69,9 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6hssd")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_bqiip")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_neaxx")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_ieyjv")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_crwu2")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_oioad")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_pbt0l")
 script = ExtResource("3_neaxx")
 parent_panel = NodePath("../../..")
@@ -127,7 +138,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="light_strength_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/CenterContainer/MarginContainer"]
+[node name="min_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = ".335"
@@ -136,8 +147,8 @@ text = ".335"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(106, 16)
+[node name="min_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
@@ -166,7 +177,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="light_strength_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/CenterContainer/MarginContainer"]
+[node name="max_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = ".335"
@@ -175,8 +186,8 @@ text = ".335"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(106, 16)
+[node name="max_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
@@ -205,7 +216,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="light_strength_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/CenterContainer/MarginContainer"]
+[node name="pan_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = ".335"
@@ -214,8 +225,8 @@ text = ".335"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(106, 16)
+[node name="pan_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
@@ -244,7 +255,7 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="light_strength_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/CenterContainer/MarginContainer"]
+[node name="rot_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = ".335"
@@ -253,8 +264,8 @@ text = ".335"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(106, 16)
+[node name="rot_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
