@@ -10,7 +10,7 @@ extends Panel
 
 @export var artifact_button: PackedScene
 
-@onready var artifact_catalog = ArtifactCatalog
+@onready var artifact_catalog #= ArtifactCatalog
 
 func _ready():
 	hide_panel()
