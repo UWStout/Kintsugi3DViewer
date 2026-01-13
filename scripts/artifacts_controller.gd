@@ -15,8 +15,6 @@ signal artifact_loaded()
 @export var _fetcher: ResourceFetcher
 @export var _loader: ModelLoaderProgress
 
-@export var _ibr_shader : Shader
-
 @export var _environment_controller : EnvironmentController
 @export var _artifact_catalog_ui : ArtifactCatalogUI
 

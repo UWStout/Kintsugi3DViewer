@@ -17,8 +17,8 @@ var _parent : Node
 var images : Array
 var _resources_loaded : Dictionary
 
-const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader")
-const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader")
+const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader") # TODO non-ORM shader may not be doing gamma decoding correclty
+const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader") 
 const SHADER_STANDARD = preload("res://shaders/standard_shader.gdshader")
 
 func _init(p_gltf : GLTFObject):
@@ -113,9 +113,10 @@ func _load_shader_image(image : Image, shader_key : String):
 func select_shader(material):
 	if (material.has("extras") and
 	material["extras"].has_all(["basisFunctionsUri", "specularWeights"])):
-		if material["extras"].has("roughnessTexture"):
-			shader = SHADER_IBR
-		else:
+		# TODO: non-ORM models are extremely atypical and the shader may not be doing game decoding correctly
+		#if material["extras"].has("roughnessTexture"):
+			#shader = SHADER_IBR
+		#else:
 			shader = SHADER_ORM_IBR
 	else:
 		shader = SHADER_STANDARD
