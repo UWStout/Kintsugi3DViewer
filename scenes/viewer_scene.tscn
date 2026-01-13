@@ -74,7 +74,6 @@
 [ext_resource type="PackedScene" uid="uid://bbpq5g7y6yycl" path="res://scenes/new_ui/dropdown_button.tscn" id="59_m1q5b"]
 [ext_resource type="Script" uid="uid://bsks6xt3dpy8n" path="res://scripts/new_ui/buttons/preferences/change_cache_dropdown_button.gd" id="60_abk66"]
 [ext_resource type="Texture2D" uid="uid://dx7avrcprh331" path="res://assets/UI 2D/Icons/Side Dock/Environment Selection/EnvironmentSelection_White_V1.svg" id="60_d70fm"]
-[ext_resource type="Texture2D" uid="uid://dr8j5m6vi4ldi" path="res://assets/Logo SVGs/Logo V3/LogoV3_Transparent.svg" id="61_ywghh"]
 [ext_resource type="Texture2D" uid="uid://dh4l38o5cpa27" path="res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_In_White_V2.svg" id="65_kgc6k"]
 [ext_resource type="Script" uid="uid://biok10no4ariy" path="res://scripts/debug_local_open.gd" id="66_m30np"]
 [ext_resource type="PackedScene" uid="uid://cum2pa85altu4" path="res://scenes/environments/Beige_Room_Environment.tscn" id="67_6ljs3"]
@@ -93,6 +92,7 @@
 [ext_resource type="PackedScene" uid="uid://c0330c6wvvubh" path="res://scenes/environments/thatch_chapel_hdri.tscn" id="77_1xop2"]
 [ext_resource type="PackedScene" uid="uid://diiijjog58f0c" path="res://scenes/environments/zhengyang_gate_hdri.tscn" id="78_f28kr"]
 [ext_resource type="PackedScene" uid="uid://dknemfurs5vg1" path="res://scenes/environments/PhotoStudioWhite.tscn" id="79_hseew"]
+[ext_resource type="Texture2D" uid="uid://cwoq01hgf53li" path="res://assets/Logo SVGs/Logo V1/LogoV1_Transparent.svg" id="88_8fbxt"]
 [ext_resource type="PackedScene" uid="uid://b30c7ucoxltg3" path="res://scenes/ui/select_artifact_button.tscn" id="90_4r83i"]
 
 [sub_resource type="Sky" id="Sky_ug4vp"]
@@ -243,14 +243,14 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.141176, 0.141176, 0.141176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
-bg_color = Color(0.733333, 0.733333, 0.733333, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3beys"]
 bg_color = Color(0.654902, 0.654902, 0.654902, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
-bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
+bg_color = Color(0.733333, 0.733333, 0.733333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_116h6"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -266,6 +266,13 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5e1kc"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niflw"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp4v3"]
 content_margin_left = 30.0
 content_margin_right = 30.0
@@ -274,13 +281,6 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_color = Color(0.85098, 0.85098, 0.85098, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niflw"]
-content_margin_left = 15.0
-content_margin_right = 15.0
-bg_color = Color(0.141176, 0.141176, 0.141176, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
@@ -1178,9 +1178,9 @@ theme_override_constants/margin_right = 5
 [node name="new_light_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button" node_paths=PackedStringArray("environment_controller", "light_selection_ui")]
 custom_minimum_size = Vector2(240, 45)
 layout_mode = 2
-theme_override_styles/hover = SubResource("StyleBoxFlat_ahlbe")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
 theme_override_styles/normal = SubResource("StyleBoxFlat_u8r5e")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ahlbe")
 script = ExtResource("29_ujmju")
 environment_controller = NodePath("../../../../../../../../../../environment_controller")
 light_selection_ui = NodePath("../../../..")
@@ -1469,8 +1469,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5e1kc")
-theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
 current_tab = 0
 
 [node name="General" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
@@ -2107,7 +2107,7 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/about_container/panel/VBoxContainer/MarginContainer2/CenterContainer"]
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
-texture = ExtResource("61_ywghh")
+texture = ExtResource("88_8fbxt")
 expand_mode = 3
 
 [node name="MarginContainer3" type="MarginContainer" parent="new_ui_root/MarginContainer/about_container/panel/VBoxContainer"]
@@ -2138,7 +2138,7 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_colors/font_color = Color(0.654902, 0.654902, 0.654902, 1)
 theme_override_font_sizes/font_size = 12
-text = "Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+text = "Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek.
 Licensed under GPLv3
 ( http://www.gnu.org/licenses/gpl-3.0.html )"
 
@@ -2409,8 +2409,8 @@ theme_override_constants/margin_bottom = 10
 
 [node name="LineEdit" type="LineEdit" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer4"]
 layout_mode = 2
-theme_override_colors/font_placeholder_color = Color(0.588235, 0.588235, 0.588235, 1)
 theme_override_colors/font_color = Color(0.219608, 0.219608, 0.219608, 1)
+theme_override_colors/font_placeholder_color = Color(0.588235, 0.588235, 0.588235, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_rdhqw")
 placeholder_text = "Please name the current model to save"
