@@ -64,6 +64,7 @@ func _open_artifact_through_file(gltf_file_path : String):
 		_duplicate_model_popup.visible = false
 		_duplicate_model_popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	refresh_artifacts()
+	_artifact_catalog_ui.refresh_list()
 	
 
 func open_artifact(data : ArtifactData):
