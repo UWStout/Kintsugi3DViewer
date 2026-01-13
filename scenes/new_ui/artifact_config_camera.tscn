@@ -43,7 +43,7 @@ shrunk_icon = ExtResource("4_sfj25")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(250, 45)
+custom_minimum_size = Vector2(250, 180)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3a8op")
 script = ExtResource("2_e6f2i")
@@ -139,9 +139,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="min_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = ".335"
+text = "100.0cm"
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer"]
 layout_mode = 2
@@ -153,7 +155,8 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 max_value = 500.0
-value = 10.0
+step = 1.0
+value = 100.0
 
 [node name="max distance" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -178,9 +181,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="max_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = ".335"
+text = "100.0cm"
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer"]
 layout_mode = 2
@@ -192,7 +197,8 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 max_value = 500.0
-value = 10.0
+step = 1.0
+value = 100.0
 
 [node name="panning" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -217,9 +223,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="pan_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = ".335"
+text = "100.0cm"
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer"]
 layout_mode = 2
@@ -231,7 +239,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
 max_value = 500.0
-value = 10.0
+step = 1.0
+value = 100.0
+rounded = true
 
 [node name="rotation" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -256,9 +266,11 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="rot_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = ".335"
+text = "360.0°"
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer"]
 layout_mode = 2
@@ -269,5 +281,11 @@ custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
-max_value = 500.0
-value = 10.0
+max_value = 360.0
+value = 360.0
+rounded = true
+
+[connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer/min_scroll_bar" to="." method="_on_min_scroll_bar_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer/max_scroll_bar" to="." method="_on_max_scroll_bar_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/MarginContainer/pan_scroll_bar" to="." method="_on_pan_scroll_bar_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/MarginContainer/rot_scroll_bar" to="." method="_on_rot_scroll_bar_value_changed"]
