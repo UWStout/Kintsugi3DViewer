@@ -41,3 +41,19 @@ func on_button_close():
 	#connected_light.controller.force_hide_lights()
 	texture_rect.texture = shrunk_icon
 	pass
+
+
+func _on_rot_scroll_bar_value_changed(value: float) -> void:
+	rot_label.text = str(value) + "°"
+
+
+func _on_pan_scroll_bar_value_changed(value: float) -> void:
+	pan_label.text = str(value) + "cm"
+
+
+func _on_max_scroll_bar_value_changed(value: float) -> void:
+	max_label.text = str(value) + "cm"
+
+
+func _on_min_scroll_bar_value_changed(value: float) -> void:
+	min_label.text = str(value) + "cm"
