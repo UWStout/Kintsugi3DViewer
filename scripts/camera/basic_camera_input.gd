@@ -39,6 +39,13 @@ func _handle_input_event(event):
 		
 	var do_raycast = false
 	
+	if (camera.get_dolly() <= 3):
+		zoom_rate = 0.1
+		drag_rate = 0.01
+	else:
+		zoom_rate = 0.4
+		drag_rate = 0.04
+	
 	if event is InputEventMouseButton:
 		# Left Click
 		if event.button_index == MOUSE_BUTTON_LEFT:
@@ -59,26 +66,15 @@ func _handle_input_event(event):
 		
 		# Zoom In
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			if (camera.get_dolly() <= 3):
-				zoom_rate = 0.08
-				drag_rate = 0.01
-			else:
-				zoom_rate = 0.4
-				drag_rate = 0.04
 			camera.apply_zoom(-zoom_rate)
-			#print(camera.get_dolly())
-			
 		
 		# Zoom Out
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			if (camera.get_dolly() <= 3):
-				zoom_rate = 0.1
-				drag_rate = 0.01
-			else:
-				zoom_rate = 0.4
-				drag_rate = 0.04
 			camera.apply_zoom(zoom_rate)
-			#print(camera.get_dolly())
+	
+	if event is InputEventPanGesture:
+		# Primarily for MacOS trackpad and Magic Mouse
+		camera.apply_zoom(zoom_rate * event.delta.y)
 	
 	if event is InputEventMouseMotion:
 		if dragCamera:
