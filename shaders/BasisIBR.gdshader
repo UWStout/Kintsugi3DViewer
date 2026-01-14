@@ -59,13 +59,18 @@ vec3 getMFDEstimate(vec2 uv, float nDotH)
 
 void fragment()
 {
-	// Godot 4 is different than Godot 3 in that the diffuse texture is NOT automatically decoded
+	// TODO gamma decoding behavior may have changed circa Godot 4.5?
+
+
+	// On older versions of Godot 4 (<4.5?) it seemed to need gamma decoding here but that may no longer be the case?
+	// Verified that this is true in light(), not sure about in fragment()
+	// PREVIOUSLY: Godot 4 is different than Godot 3 in that the diffuse texture is NOT automatically decoded
 	// -- this is because it wants ALBEDO to be passed through gamma-encoded.
 	// To use it for other purposes (like the hacky metallic heuristic), we need to decode it.
-	vec3 diffuse = texture(diffuseMap, UV).rgb;
-	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
+	vec3 diffuseLinear = texture(diffuseMap, UV).rgb;
 
 	// Specular texture is not designated as sRGB.
+	// TODO verify that gamma decoding is still needed, and if so use the true sRGB conversion rather than pow(x,2.2)
 	vec3 specularLinear = pow(texture(specularMap, UV).rgb, vec3(2.2));
 
 	NORMAL_MAP = texture(normalMap, UV).xyz;
@@ -94,7 +99,7 @@ void fragment()
 		clamp(dot(vec3(1.0 / 3.0), metallicHeuristic), 0.0, 1.0);
 		//max(0.0, min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
 	ALBEDO = //vec3(0.0);
-		pow(albedoLinear, vec3(1.0 / 2.2));
+		pow(albedoLinear, vec3(1.0 / 2.2)); // TODO confirm gamma-correctness and use true sRGB conversion rather than pow(x,1/2.2)
 		//diffuse / pow(1.0 - METALLIC, 1.0/2.2);
 
 	ROUGHNESS = texture(roughnessMap, UV)[0]; // roughness = sqrt(m)
@@ -124,8 +129,9 @@ void light()
 	vec3 mfdTimesFresnel = getMFDEstimate(UV, nDotH);
 	float geomRatio = 0.5 / max(0.05, nDotV * sqrt(mix(nDotL * nDotL, 1, mSq) + nDotL * sqrt(mix(nDotV * nDotV, 1, mSq))));
 
-	vec3 diffuse = texture(diffuseMap, UV).rgb;
-	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
+	// Get more accurate diffuse estimate that isn't combined with specular, for discrete lights
+	// On older versions of Godot 4 (<4.5?) it seemed to need gamma decoding here but that no longer appears to be the case.
+	vec3 diffuseLinear = texture(diffuseMap, UV).rgb;
 
 	// Godot appears to divide by PI for normalized Lambertian
 	DIFFUSE_LIGHT += diffuseLinear / (PI * ALBEDO * (1.0 - METALLIC) + step(1.0, METALLIC)) * irradiance; // Godot expects this to not be divided by pi
