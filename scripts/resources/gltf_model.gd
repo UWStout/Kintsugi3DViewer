@@ -44,6 +44,8 @@ func load_artifact() -> int:
 	if mesh == null:
 		return -1
 	
+	# Most environments seem to be authored with a scale assumption of 1 unit = 50cm
+	# since 1 unit = 1m is more typical, just scale up imported models.
 	mesh.scale = Vector3(2.0, 2.0, 2.0)
 	
 	if not mesh.get_aabb() == null:
