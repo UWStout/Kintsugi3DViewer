@@ -40,9 +40,11 @@ func load_artifact() -> int:
 	
 	add_child(scene)
 	
-	var mesh = scene.get_child(0, true)
+	var mesh : Node3D = scene.get_child(0, true)
 	if mesh == null:
 		return -1
+	
+	mesh.scale = Vector3(2.0, 2.0, 2.0)
 	
 	if not mesh.get_aabb() == null:
 		aabb = mesh.get_aabb() * mesh.global_transform
