@@ -8,13 +8,19 @@
 
 class_name ArtifactConfigUI extends ContextMenu
 
-@export var artifact_config_menu : PackedScene
+@export var artifact_config_menu : ArtifactConfigButton
 @export var rotate_artifact_button : RotateArtifactButton
 
 @onready var v_box_container = $ScrollContainer/VBoxContainer
 @onready var button_group = $button_group
 
+signal camera_setting_changed(minDistance: float, maxDistance: float)
 
+func _ready() -> void:
+	artifact_config_menu.camera_setting_changed.connect(_on_camera_setting_changed)
+
+func _on_camera_setting_changed(minimum: float, maximum: float) -> void:
+	camera_setting_changed.emit(minimum, maximum)
 #func initialize_list(environments : Array[DisplayEnvironment]):
 	#for i in range(0, environments.size()):
 		#create_button(i, environments[i].environment_name)

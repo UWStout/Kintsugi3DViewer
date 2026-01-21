@@ -27,6 +27,10 @@ class_name ArtifactConfigButton extends MarginContainer
 @export var expand_icon : CompressedTexture2D
 @export var shrunk_icon : CompressedTexture2D
 
+var min_zoom = 0.0
+var max_zoom = 50.0
+signal camera_setting_changed(min: float, max: float)
+
 
 func on_button_open():
 	#print("light made material")
@@ -48,12 +52,28 @@ func _on_rot_scroll_bar_value_changed(value: float) -> void:
 
 
 func _on_pan_scroll_bar_value_changed(value: float) -> void:
-	pan_label.text = str(value) + "cm"
+	pan_label.text = str(value) + ""
 
 
 func _on_max_scroll_bar_value_changed(value: float) -> void:
-	max_label.text = str(value) + "cm"
-
+	if value > min_zoom:
+		max_zoom = value
+	else:
+		max_zoom = min_zoom
+		max_scroll_bar.value = max_zoom
+		
+	max_label.text = str(max_zoom) + ""
+	camera_setting_changed.emit(min_zoom, max_zoom)
 
 func _on_min_scroll_bar_value_changed(value: float) -> void:
-	min_label.text = str(value) + "cm"
+	if value < max_zoom:
+		min_zoom = value
+	else:
+		min_zoom = max_zoom
+		min_scroll_bar.value = min_zoom
+		
+	min_label.text = str(min_zoom) + ""
+	camera_setting_changed.emit(min_zoom, max_zoom)
+	
+	min_label.text = str(min_zoom) + ""
+	camera_setting_changed.emit(min_zoom, max_zoom)

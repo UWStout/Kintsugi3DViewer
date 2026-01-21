@@ -16,6 +16,7 @@ class_name CameraRig
 @export var camera: Camera3D
 @export var rotationPoint: Node3D
 @export var spotLight : SpotLight3D
+@export var configSettings: ArtifactConfigUI
 
 @export_group("Rotation", "rot_")
 @export var rot_enabled: bool = true
@@ -151,6 +152,7 @@ func _ready():
 	rotationPoint.transform = target_transform
 	camera.position.z = target_dolly
 	camera.fov = target_fov
+	configSettings.camera_setting_changed.connect(_on_camera_settings_changed)
 	
 func _process(delta):
 	if not rig_enabled:
@@ -259,3 +261,14 @@ func enable_flashlight():
 	
 func disable_flashlight():
 	spotLight.visible = false
+	
+func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
+	dolly_limit_minDistance = artifact.cameraZoominSetting
+	dolly_limit_maxDistance = artifact.cameraZoomoutSetting 
+	print("max distance:", dolly_limit_maxDistance)
+	#print(dolly_limit_maxDistance)
+	#pass # Replace with function body.
+	
+func _on_camera_settings_changed(minDistance: float, maxDistance: float) -> void:
+	dolly_limit_minDistance = minDistance
+	dolly_limit_maxDistance = maxDistance
