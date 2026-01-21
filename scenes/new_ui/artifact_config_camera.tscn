@@ -142,7 +142,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "100.0cm"
+text = "0.0"
 horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer"]
@@ -154,9 +154,8 @@ custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
-max_value = 500.0
+max_value = 50.0
 step = 1.0
-value = 100.0
 
 [node name="max distance" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -184,7 +183,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "100.0cm"
+text = "50.0"
 horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer"]
@@ -196,9 +195,10 @@ custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 1
-max_value = 500.0
+min_value = 10.0
+max_value = 75.0
 step = 1.0
-value = 100.0
+value = 50.0
 
 [node name="panning" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2

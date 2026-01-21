@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=135 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -368,8 +368,9 @@ _loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HF
 _environment_controller = NodePath("../../environment_controller")
 _artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
 
-[node name="Camera" parent="." instance=ExtResource("1_degd7")]
+[node name="Camera" parent="." node_paths=PackedStringArray("configSettings") instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
+configSettings = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration")
 dolly_initial_distance = 7.0
 
 [node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera", "csg_mesh_3d")]
@@ -1287,7 +1288,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="artifact_configuration" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("rotate_artifact_button", "connected_button")]
+[node name="artifact_configuration" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifact_config_menu", "rotate_artifact_button", "connected_button")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1296,6 +1297,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("48_dvgfk")
+artifact_config_menu = NodePath("ScrollContainer/VBoxContainer/artifact_config_camera")
 rotate_artifact_button = NodePath("../../../top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button")
 connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContainer4/config_selection/Button4")
 
@@ -2793,7 +2795,9 @@ script = ExtResource("29_4k4a7")
 
 [connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
 [connection signal="environment_changed" from="environment_controller" to="artifacts_manager" method="_on_environment_changed"]
+[connection signal="artifact_changed" from="artifacts_manager/local_controller" to="Camera" method="_on_artifacts_controller_artifact_changed"]
 [connection signal="artifact_loaded" from="artifacts_manager/local_controller" to="artifacts_manager/server_controller" method="_on_local_controller_artifact_loaded"]
+[connection signal="artifact_changed" from="artifacts_manager/server_controller" to="Camera" method="_on_artifacts_controller_artifact_changed"]
 [connection signal="artifact_loaded" from="artifacts_manager/server_controller" to="artifacts_manager/local_controller" method="_on_server_controller_artifact_loaded"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
 [connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" method="_on_pressed"]

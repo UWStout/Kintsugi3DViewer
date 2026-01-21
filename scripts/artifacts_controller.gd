@@ -11,6 +11,7 @@ class_name ArtifactsController
 
 signal artifacts_refreshed(artifacts: Array[ArtifactData])
 signal artifact_loaded()
+signal artifact_changed(artifact: ArtifactData)
 
 @export var _fetcher: ResourceFetcher
 @export var _loader: ModelLoaderProgress
@@ -133,6 +134,7 @@ func _on_model_preview_load_complete():
 	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 	_place_artifact()
+	artifact_changed.emit(artifacts[current_index])
 
 func _on_environment_changed(new_environment):
 	if loaded_artifact != null:
