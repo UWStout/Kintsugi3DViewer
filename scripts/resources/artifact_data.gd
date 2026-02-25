@@ -14,9 +14,8 @@ var iconUri: String
 var gltfUri: String
 var voyagerUri: String
 var localDir: String
-var cameraloaded:bool
-var cameraZoominSetting : float
-var cameraZoomoutSetting : float
+var min_distance : float
+var max_distance : float
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
@@ -39,12 +38,14 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 	if data.has("localDir"):
 		out_data.localDir = data.get("localDir") 
 	
-	var cameraloaded = false
-	if data.has("cameraZoominSetting"):
-		out_data.cameraZoominSetting = data.get("cameraZoominSetting")
-	if data.has("cameraZoomoutSetting"):
-		out_data.cameraZoomoutSetting = data.get("cameraZoomoutSetting")
-		cameraloaded = true
+	if data.has("min_distance"):
+		out_data.min_distance = data.get("min_distance")
+	#else:
+		#out_data.min_distance = 0.0
+	if data.has("max_distance"):
+		out_data.max_distance = data.get("max_distance")
+	#else:
+		#out_data.max_distance = 10.0
 	
 	return out_data
 

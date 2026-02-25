@@ -1,84 +1,85 @@
-[gd_scene load_steps=135 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=136 format=3 uid="uid://bmmsv1log3xwv"]
 
-[ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
-[ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
+[ext_resource type="Script" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
+[ext_resource type="Script" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
 [ext_resource type="PackedScene" uid="uid://cl6qk62t7vj7w" path="res://scenes/camera/Camera.tscn" id="1_degd7"]
-[ext_resource type="Script" uid="uid://dqc60yy3ndexs" path="res://scripts/artifacts_manager.gd" id="3_e3ejb"]
-[ext_resource type="Script" uid="uid://dgqa0ce5m83sr" path="res://scripts/server_artifact_controller.gd" id="3_rwtoy"]
-[ext_resource type="Script" uid="uid://djmaekyfhhdlp" path="res://scripts/local_artifacts_controller.gd" id="4_e3ejb"]
-[ext_resource type="Script" uid="uid://cltf5mbwn28h3" path="res://scripts/new_ui/buttons/toggle_bottom_bar_button.gd" id="8_au3ok"]
+[ext_resource type="Script" path="res://scripts/artifacts_manager.gd" id="3_e3ejb"]
+[ext_resource type="Script" path="res://scripts/server_artifact_controller.gd" id="3_rwtoy"]
+[ext_resource type="Script" path="res://scripts/local_artifacts_controller.gd" id="4_e3ejb"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/toggle_bottom_bar_button.gd" id="8_au3ok"]
 [ext_resource type="Texture2D" uid="uid://pacmon8kdwjx" path="res://assets/UI 2D/Icons/Top Dock/Save/Save_White_V1.svg" id="11_14ide"]
-[ext_resource type="Script" uid="uid://yao1ow7lk6gh" path="res://scripts/environments/environment_controller.gd" id="12_acvmt"]
-[ext_resource type="Script" uid="uid://cvukgvnle2ipo" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
+[ext_resource type="Script" path="res://scripts/environments/environment_controller.gd" id="12_acvmt"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
 [ext_resource type="Texture2D" uid="uid://ckoeurmsqnnnt" path="res://assets/UI 2D/Icons/Top Dock/Import/Import_White_V1.svg" id="17_6ee1a"]
 [ext_resource type="Texture2D" uid="uid://cyq6mug4f7usx" path="res://assets/UI 2D/Icons/Top Dock/Controls Help/V2/ControlsHelp_Shown_White_V2.svg" id="17_6nw6i"]
-[ext_resource type="Script" uid="uid://disebqe6a48a8" path="res://scripts/new_ui/desktop_only_control.gd" id="18_nhgjm"]
-[ext_resource type="Script" uid="uid://btrdt065ggt0m" path="res://scripts/new_ui/buttons/cycle_artifact_button.gd" id="21_0nwoy"]
+[ext_resource type="Script" path="res://scripts/new_ui/desktop_only_control.gd" id="18_nhgjm"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/cycle_artifact_button.gd" id="21_0nwoy"]
 [ext_resource type="Texture2D" uid="uid://pkranv4v71ty" path="res://assets/UI 2D/Icons/Top Dock/Object Rotation/ObjectRotation_White_V2.svg" id="21_4k5n4"]
-[ext_resource type="Script" uid="uid://buo5qcg2yrxbw" path="res://scripts/new_ui/safe_area_adapter.gd" id="21_jg7c6"]
-[ext_resource type="Script" uid="uid://b10mfqx448lcb" path="res://scripts/new_ui/buttons/open_settings_menu_button.gd" id="21_lyejv"]
-[ext_resource type="Script" uid="uid://cojjswxbw3hug" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="22_bcjqb"]
+[ext_resource type="Script" path="res://scripts/new_ui/safe_area_adapter.gd" id="21_jg7c6"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/open_settings_menu_button.gd" id="21_lyejv"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="22_bcjqb"]
 [ext_resource type="Texture2D" uid="uid://diuvpuxijc6bm" path="res://assets/UI 2D/Icons/Close Icon/CloseIcon_White_V1.svg" id="22_lq8gq"]
-[ext_resource type="Script" uid="uid://cd83ll3q7in6m" path="res://scripts/new_ui/buttons/hide_ui_button.gd" id="23_li034"]
-[ext_resource type="Script" uid="uid://cp2w47ahcrwcd" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
-[ext_resource type="Script" uid="uid://bcq7udi6oviaq" path="res://scripts/new_ui/buttons/rotate_artifact_button.gd" id="26_ebyjk"]
-[ext_resource type="Script" uid="uid://cmayt34q12k6v" path="res://scripts/new_ui/panels/sidebar_selection_menu.gd" id="27_veti7"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/hide_ui_button.gd" id="23_li034"]
+[ext_resource type="Script" path="res://scripts/ui/screenshot_button.gd" id="25_f72p0"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/rotate_artifact_button.gd" id="26_ebyjk"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/sidebar_selection_menu.gd" id="27_veti7"]
 [ext_resource type="Texture2D" uid="uid://daoqhtpgwtsja" path="res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_In_White_V2.svg" id="27_w7t2t"]
-[ext_resource type="Script" uid="uid://b3605vi68waf8" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="28_7jo5e"]
-[ext_resource type="Script" uid="uid://bbt8eoapulayl" path="res://scripts/ui/save_screenshot_popup_window.gd" id="29_4k4a7"]
-[ext_resource type="Script" uid="uid://cj6ps23ksxidm" path="res://scripts/new_ui/buttons/expand_context_panel_button.gd" id="29_nkxfq"]
-[ext_resource type="Script" uid="uid://5mtw3sm75r88" path="res://scripts/new_ui/light_config/add_light_button.gd" id="29_ujmju"]
-[ext_resource type="Script" uid="uid://sej47rof6gn7" path="res://scripts/new_ui/panels/expanding_contextual_panel.gd" id="30_j217o"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/base/exclusive_toggle_group.gd" id="28_7jo5e"]
+[ext_resource type="Script" path="res://scripts/ui/save_screenshot_popup_window.gd" id="29_4k4a7"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/expand_context_panel_button.gd" id="29_nkxfq"]
+[ext_resource type="Script" path="res://scripts/new_ui/light_config/add_light_button.gd" id="29_ujmju"]
+[ext_resource type="Script" path="res://scripts/new_ui/panels/expanding_contextual_panel.gd" id="30_j217o"]
 [ext_resource type="PackedScene" uid="uid://2kcde1sv8k6i" path="res://scenes/new_ui/artifact_selection_button.tscn" id="31_3etux"]
-[ext_resource type="Script" uid="uid://yatmqsx7xr3v" path="res://scripts/new_ui/artifact_catalog_ui.gd" id="31_8olmt"]
+[ext_resource type="Script" path="res://scripts/new_ui/artifact_catalog_ui.gd" id="31_8olmt"]
 [ext_resource type="PackedScene" uid="uid://c8tb8din2btal" path="res://scenes/environments/demo_environment.tscn" id="33_80o4d"]
-[ext_resource type="Script" uid="uid://t53f0t1a60wq" path="res://scripts/new_ui/light_selection_ui.gd" id="33_ae4yh"]
+[ext_resource type="Script" path="res://scripts/new_ui/light_selection_ui.gd" id="33_ae4yh"]
 [ext_resource type="PackedScene" uid="uid://ccsu2er238wo6" path="res://scenes/new_ui/light_config_button.tscn" id="33_p40ux"]
-[ext_resource type="Script" uid="uid://dddiiqeqsvjd2" path="res://scripts/new_ui/buttons/expand_sidebar_button.gd" id="33_s0b57"]
-[ext_resource type="Script" uid="uid://nb2pxrvf7v52" path="res://scripts/new_ui/environment_selection_ui.gd" id="33_xl44j"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/expand_sidebar_button.gd" id="33_s0b57"]
+[ext_resource type="Script" path="res://scripts/new_ui/environment_selection_ui.gd" id="33_xl44j"]
 [ext_resource type="PackedScene" uid="uid://cwgiophlqxk64" path="res://scenes/new_ui/environment_selection_button.tscn" id="34_xyh84"]
 [ext_resource type="PackedScene" uid="uid://x4dbnmx5mhsr" path="res://scenes/new_ui/cache_artifact_display.tscn" id="35_04bby"]
-[ext_resource type="Script" uid="uid://c7a8l16x08a1" path="res://scripts/new_ui/cache_ui.gd" id="35_5863c"]
+[ext_resource type="Script" path="res://scripts/new_ui/cache_ui.gd" id="35_5863c"]
 [ext_resource type="PackedScene" uid="uid://bryvft6chb8m2" path="res://scenes/new_ui/load_progress_panel.tscn" id="35_r0wn5"]
-[ext_resource type="Script" uid="uid://bwxx277x6bmmd" path="res://scripts/new_ui/locked_mode_ui.gd" id="37_qxdlg"]
-[ext_resource type="Script" uid="uid://d3y07mej5yxac" path="res://scripts/new_ui/buttons/clear_cache_button.gd" id="38_eymw3"]
-[ext_resource type="Script" uid="uid://cfnxrf1fex3j2" path="res://scripts/new_ui/buttons/local_artifact_button.gd" id="39_1ujfo"]
-[ext_resource type="Script" uid="uid://dylheuyt71rh" path="res://scripts/new_ui/change_cache_size_line_edit.gd" id="39_abqn4"]
-[ext_resource type="Script" uid="uid://brtc6h0exe3n3" path="res://scripts/new_ui/buttons/preferences/close_settings_menu_button.gd" id="39_bahyo"]
-[ext_resource type="Script" uid="uid://bd7rc4o81iyq1" path="res://scripts/new_ui/server_artifact_button.gd" id="40_e3ejb"]
+[ext_resource type="Script" path="res://scripts/new_ui/locked_mode_ui.gd" id="37_qxdlg"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/clear_cache_button.gd" id="38_eymw3"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/local_artifact_button.gd" id="39_1ujfo"]
+[ext_resource type="Script" path="res://scripts/new_ui/change_cache_size_line_edit.gd" id="39_abqn4"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/close_settings_menu_button.gd" id="39_bahyo"]
+[ext_resource type="Script" path="res://scripts/new_ui/server_artifact_button.gd" id="40_e3ejb"]
 [ext_resource type="PackedScene" uid="uid://b886wcwba86sq" path="res://scenes/new_ui/change_ip_address_option.tscn" id="40_th2ad"]
 [ext_resource type="Texture2D" uid="uid://do05o3sv3qejd" path="res://assets/UI 2D/Icons/BotFlyout/V2/BotFlyout_Out_White_V2.svg" id="41_3mdr6"]
 [ext_resource type="PackedScene" uid="uid://b3uf4vkq1s5qa" path="res://scenes/new_ui/offline_mode_button.tscn" id="41_w7qw0"]
 [ext_resource type="PackedScene" uid="uid://cpdwl7akyrn37" path="res://scenes/new_ui/on_off_button.tscn" id="42_ggwxf"]
 [ext_resource type="Texture2D" uid="uid://dm5t52ueibrku" path="res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Hidden_White_V2.svg" id="43_8fbxt"]
-[ext_resource type="Script" uid="uid://bpq57njl8wn02" path="res://scripts/new_ui/buttons/preferences/preference_on_off_button.gd" id="43_c6o60"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/preference_on_off_button.gd" id="43_c6o60"]
 [ext_resource type="Texture2D" uid="uid://d06y47evwscme" path="res://assets/UI 2D/Icons/NextAndPreviousArtifacts/V2/PreviousArtifact_White_V2.svg" id="44_2j8us"]
 [ext_resource type="Texture2D" uid="uid://cibmbmvm7k171" path="res://assets/UI 2D/Icons/NextAndPreviousArtifacts/V2/NextArtifact_White_V2.svg" id="45_drl5j"]
-[ext_resource type="Script" uid="uid://dfbtay8odfq6" path="res://scripts/new_ui/buttons/preferences/change_shadows_button.gd" id="45_lplh0"]
-[ext_resource type="Script" uid="uid://cr1747gna2kvx" path="res://scripts/new_ui/buttons/preferences/change_gi_button.gd" id="46_gy2xc"]
-[ext_resource type="Script" uid="uid://fokeq7qj3eu4" path="res://scripts/artifact_config.gd" id="48_dvgfk"]
-[ext_resource type="Script" uid="uid://b4w40etmy08k8" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_shadows_button.gd" id="45_lplh0"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_gi_button.gd" id="46_gy2xc"]
+[ext_resource type="Script" path="res://scripts/artifact_config.gd" id="48_dvgfk"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
 [ext_resource type="Texture2D" uid="uid://cqfyy4ttfyp7q" path="res://assets/UI 2D/Icons/Top Dock/Settings/Settings_White_V2.svg" id="49_8n3c5"]
 [ext_resource type="PackedScene" uid="uid://c6jha02ajpeme" path="res://scenes/new_ui/artifact_config_camera.tscn" id="49_kgc6k"]
-[ext_resource type="Script" uid="uid://ij3k5ptd2lbc" path="res://scripts/new_ui/buttons/preferences/change_ssao_button.gd" id="49_ulw4s"]
-[ext_resource type="Script" uid="uid://6oxtdjel6nfb" path="res://scripts/new_ui/mouse_capture_ui.gd" id="51_6lrbx"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_ssao_button.gd" id="49_ulw4s"]
+[ext_resource type="Script" path="res://scripts/new_ui/mouse_capture_ui.gd" id="51_6lrbx"]
 [ext_resource type="Texture2D" uid="uid://b85lkvh1xrnqy" path="res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Shown_White_V2.svg" id="51_mf5bh"]
-[ext_resource type="Script" uid="uid://b2g4dghift2lq" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
-[ext_resource type="Script" uid="uid://c5o6ov4cmgu81" path="res://scripts/new_ui/buttons/preferences/reduce_cache_button.gd" id="53_am6aw"]
+[ext_resource type="Script" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/reduce_cache_button.gd" id="53_am6aw"]
 [ext_resource type="Texture2D" uid="uid://bptwx56fa5640" path="res://assets/UI 2D/Icons/Top Dock/Screenshot/Screenshot_White_V2.svg" id="54_78aod"]
 [ext_resource type="PackedScene" uid="uid://c8b616pdkad77" path="res://scenes/new_ui/confirmation_panel.tscn" id="54_5763k"]
-[ext_resource type="Script" uid="uid://c5m2vyklkbs6f" path="res://scripts/ui/select_artifact_button.gd" id="56_1pv8i"]
-[ext_resource type="Script" uid="uid://xv2f2ndo0okk" path="res://scripts/ui/select_artifact_window.gd" id="56_oke6g"]
+[ext_resource type="Script" path="res://scripts/ui/select_artifact_button.gd" id="56_1pv8i"]
+[ext_resource type="Script" path="res://scripts/ui/select_artifact_window.gd" id="56_oke6g"]
 [ext_resource type="Texture2D" uid="uid://w1vpf4b8xxmo" path="res://assets/UI 2D/Icons/Side Dock/Artifact Selection/ArtifactSelection_White_V1.svg" id="58_ko508"]
 [ext_resource type="Texture2D" uid="uid://b4v3ou3i7audw" path="res://assets/UI 2D/Icons/Side Dock/Light Customization/LightCustomization_White_V1.svg" id="59_ilccf"]
 [ext_resource type="PackedScene" uid="uid://bbpq5g7y6yycl" path="res://scenes/new_ui/dropdown_button.tscn" id="59_m1q5b"]
-[ext_resource type="Script" uid="uid://bsks6xt3dpy8n" path="res://scripts/new_ui/buttons/preferences/change_cache_dropdown_button.gd" id="60_abk66"]
+[ext_resource type="Script" path="res://scripts/new_ui/buttons/preferences/change_cache_dropdown_button.gd" id="60_abk66"]
 [ext_resource type="Texture2D" uid="uid://dx7avrcprh331" path="res://assets/UI 2D/Icons/Side Dock/Environment Selection/EnvironmentSelection_White_V1.svg" id="60_d70fm"]
 [ext_resource type="Texture2D" uid="uid://dh4l38o5cpa27" path="res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_In_White_V2.svg" id="65_kgc6k"]
-[ext_resource type="Script" uid="uid://biok10no4ariy" path="res://scripts/debug_local_open.gd" id="66_m30np"]
+[ext_resource type="PackedScene" uid="uid://cr7gvekcb6mjk" path="res://scenes/new_ui/artifact_config_reset_save.tscn" id="66_70iam"]
+[ext_resource type="Script" path="res://scripts/debug_local_open.gd" id="66_m30np"]
 [ext_resource type="PackedScene" uid="uid://cum2pa85altu4" path="res://scenes/environments/Beige_Room_Environment.tscn" id="67_6ljs3"]
 [ext_resource type="Texture2D" uid="uid://dp7md5bqtxlvy" path="res://assets/UI 2D/Icons/Expanded Light Customization/Add Light/AddLight_White_V2.svg" id="67_63m5u"]
-[ext_resource type="Script" uid="uid://cco3bvvcgm7p4" path="res://scripts/save_file.gd" id="67_rdhqw"]
+[ext_resource type="Script" path="res://scripts/save_file.gd" id="67_rdhqw"]
 [ext_resource type="PackedScene" uid="uid://b0ifr0bsst2vi" path="res://scenes/environments/Green_Square_Room.tscn" id="68_gxb4g"]
 [ext_resource type="PackedScene" uid="uid://cq08g6is3yd0q" path="res://scenes/environments/green_tile_pillar_room.tscn" id="69_3p8jk"]
 [ext_resource type="PackedScene" uid="uid://dmio3hqlb4in5" path="res://scenes/environments/tan_tile_room.tscn" id="71_04ghq"]
@@ -243,14 +244,14 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.141176, 0.141176, 0.141176, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
-bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
+bg_color = Color(0.733333, 0.733333, 0.733333, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3beys"]
 bg_color = Color(0.654902, 0.654902, 0.654902, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
-bg_color = Color(0.733333, 0.733333, 0.733333, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u8r5e"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_116h6"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -266,13 +267,6 @@ corner_radius_bottom_left = 10
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5e1kc"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niflw"]
-content_margin_left = 15.0
-content_margin_right = 15.0
-bg_color = Color(0.141176, 0.141176, 0.141176, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp4v3"]
 content_margin_left = 30.0
 content_margin_right = 30.0
@@ -281,6 +275,13 @@ border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niflw"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 
@@ -1176,9 +1177,9 @@ theme_override_constants/margin_right = 5
 [node name="new_light_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection/ScrollContainer/VBoxContainer/new_light_button" node_paths=PackedStringArray("environment_controller", "light_selection_ui")]
 custom_minimum_size = Vector2(240, 45)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_u8r5e")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ahlbe")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3beys")
+theme_override_styles/normal = SubResource("StyleBoxFlat_u8r5e")
 script = ExtResource("29_ujmju")
 environment_controller = NodePath("../../../../../../../../../../environment_controller")
 light_selection_ui = NodePath("../../../..")
@@ -1342,11 +1343,17 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="artifact_config_camera" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" instance=ExtResource("49_kgc6k")]
+[node name="artifact_config_camera" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("save_reset") instance=ExtResource("49_kgc6k")]
 layout_mode = 2
+save_reset = NodePath("../reset_save")
 
 [node name="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/artifact_config_camera/Panel/VBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("toggle_group")]
 toggle_group = NodePath("../../../../../../../button_group")
+
+[node name="reset_save" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("config", "local_controller") instance=ExtResource("66_70iam")]
+layout_mode = 2
+config = NodePath("../artifact_config_camera")
+local_controller = NodePath("../../../../../../../../../artifacts_manager/local_controller")
 
 [node name="VFlowContainer" type="VFlowContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock"]
 layout_mode = 2
@@ -1470,8 +1477,8 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5e1kc")
-theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
 current_tab = 0
 
 [node name="General" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
@@ -1691,7 +1698,6 @@ layout_mode = 2
 selected = 0
 item_count = 4
 popup/item_0/text = "DISABLED"
-popup/item_0/id = 0
 popup/item_1/text = "LOW"
 popup/item_1/id = 1
 popup/item_2/text = "MEDIUM"
@@ -2410,8 +2416,8 @@ theme_override_constants/margin_bottom = 10
 
 [node name="LineEdit" type="LineEdit" parent="new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer4"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.219608, 0.219608, 0.219608, 1)
 theme_override_colors/font_placeholder_color = Color(0.588235, 0.588235, 0.588235, 1)
+theme_override_colors/font_color = Color(0.219608, 0.219608, 0.219608, 1)
 theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_rdhqw")
 placeholder_text = "Please name the current model to save"
