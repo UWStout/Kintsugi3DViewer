@@ -53,7 +53,7 @@ func _init_save():
 	json.close()
 	
 func _save_model(name, dir) -> bool:
-	var data_to_send = {"name" : name, "localDir" : dir}
+	var data_to_send = {"name" : name, "localDir" : dir, "min_distance" : 0.0, "max_distance" : 10.0}
 	var data = get_dict()
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
 	
@@ -135,6 +135,20 @@ func overwrite_exisitng_filename(filepath, new_name) -> void:
 	test_new_file_text(new_string)
 	print("Overwrite sucessful!")
 	file.close()
+
+func overwrite_camera_constraints(filepath, min_distance, max_distance) -> void:
+	var data = get_dict()
+	for i in data["artifacts"].size():
+		if data["artifacts"][i]["localDir"] == filepath:
+			data["artifacts"][i]["min_distance"] = min_distance
+			data["artifacts"][i]["max_distance"] = max_distance
+	var new_string = JSON.stringify(data, "\t")
+	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
+	file.store_string(new_string)
+	test_new_file_text(new_string)
+	print("edit sucessful!")
+	file.close()
+			
 
 func _remove_entry(filepath : String)->void:
 	var data = get_dict()

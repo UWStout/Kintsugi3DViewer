@@ -32,3 +32,20 @@ func _on_local_controller_artifact_loaded() -> void:
 			if not loaded_artifact.load_finished:
 				loaded_artifact.stop_loading()
 			loaded_artifact.queue_free()
+
+func display_artifact_data(artifact: ArtifactData):
+	if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
+		return
+	
+	var artifact_index = artifacts.find(artifact)
+	current_index = artifact_index
+	
+	if is_instance_valid(loaded_artifact):
+		if not loaded_artifact.load_finished:
+			loaded_artifact.stop_loading()
+		
+		loaded_artifact.queue_free()
+
+	loaded_artifact = RemoteGltfModel.create(artifact)
+	add_child(loaded_artifact)
+	super.display_artifact_data(artifact)

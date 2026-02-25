@@ -82,22 +82,27 @@ func open_artifact(data : ArtifactData):
 		_invalid_file_popup.mouse_filter = Control.MOUSE_FILTER_STOP
 		LocalSaveData._remove_entry(gltf_file_path) #- bug found where it deletes all the data
 		return
+
 	
 	if is_instance_valid(loaded_artifact):
+		if not loaded_artifact.load_finished:
+			loaded_artifact.stop_loading()
 		loaded_artifact.queue_free()
-	
+		
 	data.gltfUri = gltf_file_path
 	
-	var model = LocalGltfModel.create(data)
-	add_child(model)
-	#_on_model_begin_load()
-	model.preview_load_completed.connect(_on_model_preview_load_complete)
-	model.load_completed.connect(_on_model_load_complete)
-	model.load_progress.connect(_on_model_load_progress)
-	
-	loaded_artifact = model # set here to prevent null pointer dereference
-	model.load_artifact()
+	loaded_artifact = LocalGltfModel.create(data)
+	add_child(loaded_artifact)
 	emit_signal("artifact_loaded")
+	#_on_model_begin_load()
+	display_artifact_data(data)
+	#model.preview_load_completed.connect(_on_model_preview_load_complete)
+	#model.load_completed.connect(_on_model_load_complete)
+	#model.load_progress.connect(_on_model_load_progress)
+	#
+	#loaded_artifact = model # set here to prevent null pointer dereference
+	#model.load_artifact()
+
 	
 	#
 #func refresh_artifacts() -> Array[ArtifactData]:
@@ -117,3 +122,6 @@ func _on_server_controller_artifact_loaded() -> void:
 			if not loaded_artifact.load_finished:
 				loaded_artifact.stop_loading()
 			loaded_artifact.queue_free()
+
+func _get_current_artifact() -> ArtifactData:
+	return current_artifact

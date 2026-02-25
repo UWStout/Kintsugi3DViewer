@@ -263,9 +263,10 @@ func disable_flashlight():
 	spotLight.visible = false
 	
 func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
-	dolly_limit_minDistance = artifact.cameraZoominSetting
-	dolly_limit_maxDistance = artifact.cameraZoomoutSetting 
+	dolly_limit_minDistance = artifact.min_distance
+	dolly_limit_maxDistance = artifact.max_distance 
 	print("max distance:", dolly_limit_maxDistance)
+	print("min distance:", dolly_limit_minDistance)
 	#print(dolly_limit_maxDistance)
 	#pass # Replace with function body.
 	

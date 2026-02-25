@@ -23,6 +23,7 @@ var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
 var loaded_artifact: GltfModel
+var current_artifact: ArtifactData
 
 
 
@@ -53,20 +54,21 @@ func display_artifact(index : int):
 
 
 func display_artifact_data(artifact: ArtifactData):
-	if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
-		return
-	
+	#if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
+		#return
+	#
 	var artifact_index = artifacts.find(artifact)
 	current_index = artifact_index
-	
-	if is_instance_valid(loaded_artifact):
-		if not loaded_artifact.load_finished:
-			loaded_artifact.stop_loading()
-		
-		loaded_artifact.queue_free()
-
-	loaded_artifact = RemoteGltfModel.create(artifact)
-	add_child(loaded_artifact)
+	current_artifact = artifact
+	#
+	#if is_instance_valid(loaded_artifact):
+		#if not loaded_artifact.load_finished:
+			#loaded_artifact.stop_loading()
+		#
+		#loaded_artifact.queue_free()
+#
+	#loaded_artifact = RemoteGltfModel.create(artifact)
+	#add_child(loaded_artifact)
 	_on_model_begin_load()
 	loaded_artifact.preview_load_completed.connect(_on_model_preview_load_complete)
 	loaded_artifact.load_completed.connect(_on_model_load_complete)
@@ -134,7 +136,7 @@ func _on_model_preview_load_complete():
 	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 	_place_artifact()
-	artifact_changed.emit(artifacts[current_index])
+	artifact_changed.emit(current_artifact)
 
 func _on_environment_changed(new_environment):
 	if loaded_artifact != null:

@@ -27,10 +27,13 @@ class_name ArtifactConfigButton extends MarginContainer
 @export var expand_icon : CompressedTexture2D
 @export var shrunk_icon : CompressedTexture2D
 
+@export var save_reset: ResetSaveConfig
 var min_zoom = 0.0
 var max_zoom = 50.0
 signal camera_setting_changed(min: float, max: float)
 
+func _ready() -> void:
+	save_reset.reset_button_pressed.connect(_on_reset_button_pressed)
 
 func on_button_open():
 	#print("light made material")
@@ -75,5 +78,11 @@ func _on_min_scroll_bar_value_changed(value: float) -> void:
 	min_label.text = str(min_zoom) + ""
 	camera_setting_changed.emit(min_zoom, max_zoom)
 	
+
+func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved):
+	min_zoom = min_zoom_saved
+	max_zoom = max_zoon_saved
 	min_label.text = str(min_zoom) + ""
+	max_label.text = str(max_zoom) + ""
 	camera_setting_changed.emit(min_zoom, max_zoom)
+	
