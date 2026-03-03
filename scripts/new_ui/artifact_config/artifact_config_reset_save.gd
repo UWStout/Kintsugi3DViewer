@@ -5,7 +5,8 @@ class_name ResetSaveConfig extends Node
 var current_artifact
 signal reset_button_pressed
 
-
+func _ready() -> void:
+	local_controller.artifact_changed.connect(_on_artifact_changed)
 
 func _on_save_button_pressed() -> void:
 	current_artifact = local_controller._get_current_artifact()
@@ -14,4 +15,8 @@ func _on_save_button_pressed() -> void:
 
 func _on_reset_button_pressed() -> void:
 	current_artifact = local_controller._get_current_artifact()
+	reset_button_pressed.emit(current_artifact.min_distance, current_artifact.max_distance)
+
+func _on_artifact_changed(artifact):
+	current_artifact = artifact
 	reset_button_pressed.emit(current_artifact.min_distance, current_artifact.max_distance)
