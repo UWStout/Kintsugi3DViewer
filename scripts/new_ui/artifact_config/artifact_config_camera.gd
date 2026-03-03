@@ -84,5 +84,7 @@ func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved):
 	max_zoom = max_zoon_saved
 	min_label.text = str(min_zoom) + ""
 	max_label.text = str(max_zoom) + ""
+	min_scroll_bar.value = min_zoom
+	max_scroll_bar.value = max_zoom
 	camera_setting_changed.emit(min_zoom, max_zoom)
 	
