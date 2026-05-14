@@ -1,11 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://cr7gvekcb6mjk"]
+[gd_scene load_steps=4 format=3 uid="uid://cr7gvekcb6mjk"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/artifact_config/artifact_config_reset_save.gd" id="1_fbfvo"]
+[ext_resource type="Script" uid="uid://blv7q5kcel164" path="res://scripts/new_ui/artifact_config/artifact_config_reset_save.gd" id="1_fbfvo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ktkqt"]
+bg_color = Color(0.80784315, 0.80784315, 0.80784315, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mit6a"]
+bg_color = Color(0.80784315, 0.80784315, 0.80784315, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [node name="artifact_config_reset_save" type="MarginContainer"]
-custom_minimum_size = Vector2(260, 0)
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(260, 68)
+anchors_preset = -1
+anchor_right = 0.22600001
+anchor_bottom = 0.062000003
+offset_right = -220.35202
+offset_bottom = -0.1760025
 size_flags_horizontal = 3
 script = ExtResource("1_fbfvo")
 
@@ -13,33 +30,39 @@ script = ExtResource("1_fbfvo")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
-layout_mode = 0
-offset_right = 99.0
-offset_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/MarginContainer"]
+[node name="Reset_Button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_ktkqt")
+text = "Revert"
 
-[node name="Reset_Button" type="Button" parent="Panel/HBoxContainer/MarginContainer/CenterContainer"]
-layout_mode = 2
-text = "Reset"
-
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/MarginContainer2"]
+[node name="Save_Button" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
-
-[node name="Save_Button" type="Button" parent="Panel/HBoxContainer/MarginContainer2/CenterContainer"]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.1254902, 0.1254902, 0.1254902, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_mit6a")
 text = "Save"
 
-[connection signal="pressed" from="Panel/HBoxContainer/MarginContainer/CenterContainer/Reset_Button" to="." method="_on_reset_button_pressed"]
-[connection signal="pressed" from="Panel/HBoxContainer/MarginContainer2/CenterContainer/Save_Button" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/Reset_Button" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer2/Save_Button" to="." method="_on_save_button_pressed"]
