@@ -26,7 +26,7 @@ bg_color = Color(0.866108, 0.435504, 0.625633, 1)
 
 [node name="artifact_config_camera" type="MarginContainer" node_paths=PackedStringArray("button", "texture_rect", "min_scroll_bar", "max_scroll_bar", "pan_scroll_bar", "rot_scroll_bar", "min_label", "max_label", "pan_label", "rot_label")]
 offset_right = 260.0
-offset_bottom = 45.0
+offset_bottom = 110.0
 script = ExtResource("1_myoh4")
 button = NodePath("Panel/VBoxContainer/VBoxContainer/Button")
 texture_rect = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
@@ -43,13 +43,13 @@ shrunk_icon = ExtResource("4_sfj25")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(250, 180)
+custom_minimum_size = Vector2(250, 110)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3a8op")
 script = ExtResource("2_e6f2i")
 expand_direction = 0
 minimized_size = 45.0
-maximized_size = 180.0
+maximized_size = 110.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_nmx01")
 
@@ -201,6 +201,7 @@ step = 0.5
 value = 30.0
 
 [node name="panning" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 4
@@ -244,6 +245,7 @@ value = 100.0
 rounded = true
 
 [node name="rotation" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 4

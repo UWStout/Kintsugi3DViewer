@@ -1028,7 +1028,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "ARTIFACT CATALOG"
+text = "CATALOG"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1290,7 +1290,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="artifact_configuration" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("artifact_config_menu", "rotate_artifact_button", "connected_button")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1330,7 +1329,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/header/VBoxContainer2/MarginContainer/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "CONFIGURATION"
+text = "CONFIGURATIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
