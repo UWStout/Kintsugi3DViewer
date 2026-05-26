@@ -1,10 +1,11 @@
-# Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Melissa Kosharek
+# Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek
 #
 # Licensed under GPLv3
 # ( http://www.gnu.org/licenses/gpl-3.0.html )
 #
 # This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 # This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
 extends Node
 
 const _LOCAL_SAVE_FILE : String = "localdata.json"
@@ -36,8 +37,8 @@ func _ready():
 		file.close()
 
 func _is_file_valid(file_path: String) -> bool:
-	var data = get_dict()
-	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ)
+	#var data = get_dict()
+	#var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ)
 	if not FileAccess.file_exists(file_path):
 		return false
 	return true
@@ -161,7 +162,7 @@ func _remove_entry(filepath : String)->void:
 	for artifact in data["artifacts"]:
 		if typeof(artifact) != TYPE_DICTIONARY:
 			continue
-		var file_path = artifact.get("localDir", "")
+		#var file_path = artifact.get("localDir", "")
 		if not artifact["localDir"] == filepath:
 			valid_artifacts.append(artifact)
 	var new_string = JSON.stringify({ "artifacts": valid_artifacts }, "\t")
