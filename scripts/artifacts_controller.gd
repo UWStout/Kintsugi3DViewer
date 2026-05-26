@@ -1,4 +1,4 @@
-# Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Melissa Kosharek
+# Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek
 #
 # Licensed under GPLv3
 # ( http://www.gnu.org/licenses/gpl-3.0.html )
@@ -56,9 +56,11 @@ func display_artifact(index : int):
 func display_artifact_data(artifact: ArtifactData):
 	#if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
 		#return
-	#
+	# 
+	#TOFIX: artifacts[] holds a copy of all data instead of the original data, currently rendering this find useless
 	var artifact_index = artifacts.find(artifact)
 	current_index = artifact_index
+	#this is a manual grab
 	current_artifact = artifact
 	#
 	#if is_instance_valid(loaded_artifact):
