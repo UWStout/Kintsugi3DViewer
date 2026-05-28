@@ -138,10 +138,12 @@ func _on_model_preview_load_complete():
 	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 	_place_artifact()
-	artifact_changed.emit(current_artifact)
+	if(current_artifact != null):
+		artifact_changed.emit(current_artifact)
 
 func _on_environment_changed(new_environment):
 	if loaded_artifact != null:
+		print("loaded_artifact is not null")
 		new_environment.set_artifact_bounds(loaded_artifact.aabb)
 		_place_artifact()
 		
