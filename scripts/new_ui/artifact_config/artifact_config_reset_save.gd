@@ -18,9 +18,14 @@ func _ready() -> void:
 func _on_save_button_pressed() -> void:
 	current_artifact = local_controller._get_current_artifact()
 	LocalSaveData.overwrite_camera_constraints(current_artifact.localDir, config.min_zoom, config.max_zoom)
+	current_artifact.max_distance = config.max_zoom
+	current_artifact.min_distance = config.min_zoom
 	#TODO: re-assign artifact in artifacts_controller with updated artifact data
+	local_controller.refresh_artifacts()
+	
 	#edge case: if you save new constraints and then reset without exiting the configurations menu,
 		#it will visually reset to previous save instead of the current save
+	#LocalArtifactsController
 
 
 func _on_reset_button_pressed() -> void:

@@ -369,9 +369,14 @@ _loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HF
 _environment_controller = NodePath("../../environment_controller")
 _artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
 
-[node name="Camera" parent="." node_paths=PackedStringArray("configSettings") instance=ExtResource("1_degd7")]
+[node name="Camera" parent="." node_paths=PackedStringArray("configSettings", "artifactsManager") instance=ExtResource("1_degd7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
+reset = true
 configSettings = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration")
+artifactsManager = NodePath("../artifacts_manager")
+rot_horiz_limit_enabled = true
+rot_horiz_limit_minAngle = 5.0
+rot_horiz_limit_maxAngle = 175.0
 dolly_initial_distance = 7.0
 
 [node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera", "csg_mesh_3d")]
@@ -1120,7 +1125,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="lights_selection" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus" node_paths=PackedStringArray("rotate_artifact_button", "v_box_container", "new_light_button", "button_group", "connected_button")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1478,9 +1482,10 @@ theme_override_constants/side_margin = 0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_5e1kc")
 theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_niflw")
 theme_override_styles/tab_selected = SubResource("StyleBoxFlat_jp4v3")
-current_tab = 0
+current_tab = 2
 
 [node name="General" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
 metadata/_tab_index = 0
@@ -1780,7 +1785,6 @@ panel_width = 200
 option_height = 30
 
 [node name="Cache" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqsj3")
 metadata/_tab_index = 2

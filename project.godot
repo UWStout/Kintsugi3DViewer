@@ -33,6 +33,7 @@ LocalSaveData="*res://scripts/local_save_data.gd"
 
 [display]
 
+window/size/mode=2
 window/stretch/aspect="expand"
 
 [editor]
