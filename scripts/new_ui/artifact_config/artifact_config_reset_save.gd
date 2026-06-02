@@ -17,9 +17,10 @@ func _ready() -> void:
 
 func _on_save_button_pressed() -> void:
 	current_artifact = local_controller._get_current_artifact()
-	LocalSaveData.overwrite_camera_constraints(current_artifact.localDir, config.min_zoom, config.max_zoom)
+	LocalSaveData.overwrite_camera_constraints(current_artifact.localDir, config.min_zoom, config.max_zoom, config.max_rot)
 	current_artifact.max_distance = config.max_zoom
 	current_artifact.min_distance = config.min_zoom
+	current_artifact.max_rotation = config.max_rot
 	#TODO: re-assign artifact in artifacts_controller with updated artifact data
 	local_controller.refresh_artifacts()
 	
@@ -30,9 +31,9 @@ func _on_save_button_pressed() -> void:
 
 func _on_reset_button_pressed() -> void:
 	current_artifact = local_controller._get_current_artifact()
-	reset_button_pressed.emit(current_artifact.min_distance, current_artifact.max_distance)
+	reset_button_pressed.emit(current_artifact.min_distance, current_artifact.max_distance, current_artifact.max_rotation)
 
 
 func _on_artifact_changed(artifact):
 	current_artifact = artifact
-	reset_button_pressed.emit(current_artifact.min_distance, current_artifact.max_distance)
+	reset_button_pressed.emit(current_artifact.min_distance, current_artifact.max_distance, current_artifact.max_rotation)

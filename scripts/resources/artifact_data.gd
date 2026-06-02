@@ -16,6 +16,7 @@ var voyagerUri: String
 var localDir: String
 var min_distance : float
 var max_distance : float
+var max_rotation : float
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
@@ -46,7 +47,11 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 		out_data.max_distance = data.get("max_distance")
 	#else:
 		#out_data.max_distance = 10.0
-	
+	if data.has("max_rotation"):
+		out_data.max_rotation = data.get("max_rotation")
+		print(out_data.max_rotation)
+	else:
+		out_data.max_rotation = 360.0
 	return out_data
 
 func _to_string() -> String:

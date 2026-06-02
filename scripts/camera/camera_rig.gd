@@ -38,8 +38,8 @@ class_name CameraRig
 @export var rot_horiz_limit_enabled: bool = false
 @export var rot_horiz_limit_minAngle: float
 @export var rot_horiz_limit_maxAngle: float
-@onready var rot_horiz_limit_min = deg_to_rad(rot_horiz_limit_minAngle)
-@onready var rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle)
+@onready var rot_horiz_limit_min = deg_to_rad(rot_horiz_limit_minAngle-180.0)
+@onready var rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
 
 @export_group("Translation", "drag_")
 @export var drag_enabled: bool = true
@@ -71,6 +71,7 @@ class_name CameraRig
 
 #reset
 var rotation_point_start_transform: Transform3D
+var start_position: Vector3
 
 #autopan
 var do_autopan : bool = false
@@ -155,14 +156,16 @@ func _ready():
 	# Set target variables to initial values
 	target_dolly = dolly_initial_distance
 	target_fov = fov_initial_fov
+	rot_initial_rotation = global_rotation
 	var rot_basis = Basis.from_euler(rot_initial_rotation)
 	target_transform = Transform3D(rot_basis, drag_initial_translation)
-	
+	#print(target_transform.basis.get_euler().y)
 	rotationPoint.transform = target_transform
 	camera.position.z = target_dolly
 	camera.fov = target_fov
 	configSettings.camera_setting_changed.connect(_on_camera_settings_changed)
 	rotation_point_start_transform = rotationPoint.transform
+	start_position = Vector3(camera.global_position.x, 0, camera.global_position.z)
 	
 func _process(delta):
 	if not rig_enabled:
@@ -181,12 +184,16 @@ func _process(delta):
 		
 		
 	if rot_enabled:
-		
+		var euler = target_transform.basis.get_euler()
+		#print(euler.y)
 		if rot_horiz_limit_enabled:
-			if rot_horiz_limit_enabled:
-				var euler = target_transform.basis.get_euler()
-				euler.y = clamp(euler.y, rot_horiz_limit_min - PI, rot_horiz_limit_max - PI)
-				target_transform.basis = Basis.from_euler(euler)
+			#if euler.y > rot_horiz_limit_max:
+				#euler.y = rot_horiz_limit_min
+			#if euler.y < rot_horiz_limit_min:
+				#euler.y = rot_horiz_limit_max
+			euler.y = clamp(euler.y, maxf(-90*PI*0.01, rot_horiz_limit_min), minf(90*PI*0.01, rot_horiz_limit_max))
+			
+			target_transform.basis = Basis.from_euler(euler)
 		if rot_vert_limit_enabled:
 			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
 			# Check if Camera is upside down (Limit was overrun in a single frame)
@@ -212,7 +219,6 @@ func _process(delta):
 			new_basis = rotationPoint.transform.basis.slerp(target_transform.basis, rot_rate * delta)
 		else:
 			new_basis = target_transform.basis
-		print(new_basis)
 		
 		rotationPoint.transform.basis = new_basis
 	
@@ -285,6 +291,12 @@ func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
 	if artifact != null:
 		dolly_limit_minDistance = artifact.min_distance
 		dolly_limit_maxDistance = artifact.max_distance
+		if artifact.max_rotation < 359.9:
+			rot_horiz_limit_enabled = true
+			rot_horiz_limit_maxAngle = artifact.max_rotation
+			rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
+		else:
+			rot_horiz_limit_enabled = false
 		if reset == true:
 			reset_for_new_artifact()
 		print("max distance:", dolly_limit_maxDistance)
@@ -296,7 +308,15 @@ func reset_for_new_artifact() -> void:
 	set_rig_transform(rotation_point_start_transform)
 	set_zoom(dolly_initial_distance) 
 	apply_yaw(PI)
+	#artifactsManager.active_controller.loaded_artifact.rotate_y(-(PI/2))
+	
 
-func _on_camera_settings_changed(minDistance: float, maxDistance: float) -> void:
+func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxRotation) -> void:
 	dolly_limit_minDistance = minDistance
 	dolly_limit_maxDistance = maxDistance
+	if maxRotation < 359.9:
+		rot_horiz_limit_enabled = true
+		rot_horiz_limit_maxAngle = maxRotation
+		rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
+	else:
+		rot_horiz_limit_enabled = false
