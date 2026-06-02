@@ -30,7 +30,8 @@ class_name ArtifactConfigButton extends MarginContainer
 @export var save_reset: ResetSaveConfig
 var min_zoom = 0.0
 var max_zoom = 50.0
-signal camera_setting_changed(min: float, max: float)
+var max_rot = 360.0
+signal camera_setting_changed(min: float, max: float, max_rotation: float)
 
 func _ready() -> void:
 	save_reset.reset_button_pressed.connect(_on_reset_button_pressed)
@@ -52,6 +53,9 @@ func on_button_close():
 
 func _on_rot_scroll_bar_value_changed(value: float) -> void:
 	rot_label.text = str(value) + "°"
+	max_rot = value
+	print("Max rotation: ", max_rot, " ", value)
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot)
 
 
 func _on_pan_scroll_bar_value_changed(value: float) -> void:
@@ -66,7 +70,7 @@ func _on_max_scroll_bar_value_changed(value: float) -> void:
 		max_scroll_bar.value = max_zoom
 		
 	max_label.text = str(max_zoom) + ""
-	camera_setting_changed.emit(min_zoom, max_zoom)
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot)
 
 func _on_min_scroll_bar_value_changed(value: float) -> void:
 	if value < max_zoom:
@@ -76,15 +80,19 @@ func _on_min_scroll_bar_value_changed(value: float) -> void:
 		min_scroll_bar.value = min_zoom
 		
 	min_label.text = str(min_zoom) + ""
-	camera_setting_changed.emit(min_zoom, max_zoom)
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot)
 	
 
-func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved):
+
+func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_rot_saved):
 	min_zoom = min_zoom_saved
 	max_zoom = max_zoon_saved
+	max_rot = max_rot_saved
 	min_label.text = str(min_zoom) + ""
 	max_label.text = str(max_zoom) + ""
+	rot_label.text = str(max_rot) + "°"  
 	min_scroll_bar.value = min_zoom
 	max_scroll_bar.value = max_zoom
-	camera_setting_changed.emit(min_zoom, max_zoom)
+	rot_scroll_bar.value = max_rot
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot)
 	

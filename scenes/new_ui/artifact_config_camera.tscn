@@ -43,13 +43,13 @@ shrunk_icon = ExtResource("4_sfj25")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(250, 110)
+custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3a8op")
 script = ExtResource("2_e6f2i")
 expand_direction = 0
 minimized_size = 45.0
-maximized_size = 110.0
+maximized_size = 150.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_nmx01")
 
@@ -245,7 +245,6 @@ value = 100.0
 rounded = true
 
 [node name="rotation" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 4
@@ -259,7 +258,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
-text = "Rotation"
+text = "Max Rotation"
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer"]
 layout_mode = 2
@@ -287,7 +286,66 @@ max_value = 360.0
 value = 360.0
 rounded = true
 
+[node name="rotation2" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/rotation2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+text = "Max Rotation"
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="rot_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer/CenterContainer/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "360.0°"
+horizontal_alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="rot_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer/MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(120, 16)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+max_value = 360.0
+value = 360.0
+rounded = true
+
+[node name="OptionButton" type="OptionButton" parent="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "360"
+popup/item_0/id = 0
+popup/item_1/text = "270"
+popup/item_1/id = 1
+popup/item_2/text = "180"
+popup/item_2/id = 2
+popup/item_3/text = "90"
+popup/item_3/id = 3
+
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer/min_scroll_bar" to="." method="_on_min_scroll_bar_value_changed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer/max_scroll_bar" to="." method="_on_max_scroll_bar_value_changed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/MarginContainer/pan_scroll_bar" to="." method="_on_pan_scroll_bar_value_changed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/rotation/HBoxContainer/MarginContainer/rot_scroll_bar" to="." method="_on_rot_scroll_bar_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/rotation2/HBoxContainer/MarginContainer/rot_scroll_bar" to="." method="_on_rot_scroll_bar_value_changed"]

@@ -370,13 +370,11 @@ _environment_controller = NodePath("../../environment_controller")
 _artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
 
 [node name="Camera" parent="." node_paths=PackedStringArray("configSettings", "artifactsManager") instance=ExtResource("1_degd7")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 0)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 2, 0)
 reset = true
 configSettings = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration")
 artifactsManager = NodePath("../artifacts_manager")
-rot_horiz_limit_enabled = true
-rot_horiz_limit_minAngle = 5.0
-rot_horiz_limit_maxAngle = 175.0
+rot_horiz_limit_maxAngle = 360.0
 dolly_initial_distance = 7.0
 
 [node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera", "csg_mesh_3d")]
