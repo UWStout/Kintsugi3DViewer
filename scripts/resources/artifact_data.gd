@@ -17,6 +17,7 @@ var localDir: String
 var min_distance : float
 var max_distance : float
 var max_rotation : float
+var panning_distance : float 
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
@@ -52,6 +53,12 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 		print(out_data.max_rotation)
 	else:
 		out_data.max_rotation = 360.0
+		
+	if data.has("panning_distance"):
+		out_data.panning_distance = data.get("panning_distance")
+	else:
+		out_data.panning_distance = 10.0
+	
 	return out_data
 
 func _to_string() -> String:

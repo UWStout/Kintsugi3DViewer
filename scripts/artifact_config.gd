@@ -14,13 +14,13 @@ class_name ArtifactConfigUI extends ContextMenu
 @onready var v_box_container = $ScrollContainer/VBoxContainer
 @onready var button_group = $button_group
 
-signal camera_setting_changed(minDistance: float, maxDistance: float, maxRotation: float)
+signal camera_setting_changed(minDistance: float, maxDistance: float, maxRotation: float, panDistance: float)
 
 func _ready() -> void:
 	artifact_config_menu.camera_setting_changed.connect(_on_camera_setting_changed)
 
-func _on_camera_setting_changed(minimum: float, maximum: float, rmax: float) -> void:
-	camera_setting_changed.emit(minimum, maximum, rmax)
+func _on_camera_setting_changed(minimum: float, maximum: float, rmax: float, pdistance: float) -> void:
+	camera_setting_changed.emit(minimum, maximum, rmax, pdistance)
 #func initialize_list(environments : Array[DisplayEnvironment]):
 	#for i in range(0, environments.size()):
 		#create_button(i, environments[i].environment_name)
