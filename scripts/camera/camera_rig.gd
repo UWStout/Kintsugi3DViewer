@@ -40,12 +40,15 @@ class_name CameraRig
 @export var rot_horiz_limit_maxAngle: float
 @onready var rot_horiz_limit_min = deg_to_rad(rot_horiz_limit_minAngle-180.0)
 @onready var rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
+var last_frame_rotation : float = 0.0;
 
 @export_group("Translation", "drag_")
 @export var drag_enabled: bool = true
 @export var drag_interpolate: bool = true
+@export var drag_panning_distance: float = 1
 @export_range(0, 25, 0.01) var drag_rate: float = 10
 @export var drag_initial_translation: Vector3
+var oldOrigin: Vector3
 
 @export_group("Dolly Zoom", "dolly_")
 @export var dolly_enabled: bool = true
@@ -184,16 +187,17 @@ func _process(delta):
 		
 		
 	if rot_enabled:
+		#print("last franes y axis rotation: ", last_frame_rotation)
 		var euler = target_transform.basis.get_euler()
-		#print(euler.y)
 		if rot_horiz_limit_enabled:
-			#if euler.y > rot_horiz_limit_max:
-				#euler.y = rot_horiz_limit_min
-			#if euler.y < rot_horiz_limit_min:
-				#euler.y = rot_horiz_limit_max
-			euler.y = clamp(euler.y, maxf(-90*PI*0.01, rot_horiz_limit_min), minf(90*PI*0.01, rot_horiz_limit_max))
-			
+			#clamp the rotation between pi and -pi 
+			euler.y = clamp(euler.y, maxf(-99*PI*0.01, rot_horiz_limit_min), minf(99*PI*0.01, rot_horiz_limit_max))
+			#account for the wrap around that occurs once you rotatate past -pi
+			if is_equal_approx(euler.y, rot_horiz_limit_max) && last_frame_rotation < -2:
+				euler.y = rot_horiz_limit_min
+				
 			target_transform.basis = Basis.from_euler(euler)
+			last_frame_rotation = euler.y
 		if rot_vert_limit_enabled:
 			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
 			# Check if Camera is upside down (Limit was overrun in a single frame)
@@ -223,7 +227,15 @@ func _process(delta):
 		rotationPoint.transform.basis = new_basis
 	
 	if drag_enabled:
+		#oldOrigin = rotationPoint.transform.origin
+		var offset_from_origin =  target_transform.origin - rotation_point_start_transform.origin
+		
+		if offset_from_origin.length() > drag_panning_distance:
+			target_transform.origin = rotation_point_start_transform.origin + offset_from_origin.normalized() * 1
+		else: 
+			pass
 		var weight = drag_rate * delta if drag_interpolate else 1
+		
 		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
 		
 	# if autopanning, lerp the camera towards the target point
@@ -291,6 +303,7 @@ func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
 	if artifact != null:
 		dolly_limit_minDistance = artifact.min_distance
 		dolly_limit_maxDistance = artifact.max_distance
+		drag_panning_distance = artifact.panning_distance
 		if artifact.max_rotation < 359.9:
 			rot_horiz_limit_enabled = true
 			rot_horiz_limit_maxAngle = artifact.max_rotation
@@ -311,7 +324,8 @@ func reset_for_new_artifact() -> void:
 	#artifactsManager.active_controller.loaded_artifact.rotate_y(-(PI/2))
 	
 
-func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxRotation) -> void:
+func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxRotation: float, pannDistance: float) -> void:
+	drag_panning_distance = pannDistance
 	dolly_limit_minDistance = minDistance
 	dolly_limit_maxDistance = maxDistance
 	if maxRotation < 359.9:
