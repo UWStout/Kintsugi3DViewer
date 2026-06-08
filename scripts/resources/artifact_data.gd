@@ -42,12 +42,14 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 	
 	if data.has("min_distance"):
 		out_data.min_distance = data.get("min_distance")
-	#else:
-		#out_data.min_distance = 0.0
+	else:
+		out_data.min_distance = 0.0
+		
 	if data.has("max_distance"):
 		out_data.max_distance = data.get("max_distance")
-	#else:
-		#out_data.max_distance = 10.0
+	else:
+		out_data.max_distance = 10.0
+		
 	if data.has("max_rotation"):
 		out_data.max_rotation = data.get("max_rotation")
 		print(out_data.max_rotation)
