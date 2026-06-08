@@ -2148,9 +2148,10 @@ theme_override_constants/margin_bottom = 15
 layout_mode = 2
 theme_override_colors/font_color = Color(0.654902, 0.654902, 0.654902, 1)
 theme_override_font_sizes/font_size = 12
-text = "Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek.
+text = "Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek, Seth Kendrick, Chloe Ferguson.
 Licensed under GPLv3
 ( http://www.gnu.org/licenses/gpl-3.0.html )"
+autowrap_mode = 3
 
 [node name="filetype_warning" type="CenterContainer" parent="new_ui_root/MarginContainer"]
 visible = false
