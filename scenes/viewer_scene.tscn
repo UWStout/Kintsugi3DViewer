@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=137 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -65,6 +65,7 @@
 [ext_resource type="Texture2D" uid="uid://b85lkvh1xrnqy" path="res://assets/UI 2D/Icons/Top Dock/UI Visability/V2/UIVisability_Shown_White_V2.svg" id="51_mf5bh"]
 [ext_resource type="Script" uid="uid://b2g4dghift2lq" path="res://scripts/dissappearing_plane.gd" id="53_2n2wg"]
 [ext_resource type="Script" uid="uid://c5o6ov4cmgu81" path="res://scripts/new_ui/buttons/preferences/reduce_cache_button.gd" id="53_am6aw"]
+[ext_resource type="Texture2D" uid="uid://85ywduqn42n1" path="res://assets/UI 2D/Icons/Top Dock/Settings/ObjectSettings_White_V1.svg" id="53_ili8e"]
 [ext_resource type="Texture2D" uid="uid://bptwx56fa5640" path="res://assets/UI 2D/Icons/Top Dock/Screenshot/Screenshot_White_V2.svg" id="54_78aod"]
 [ext_resource type="PackedScene" uid="uid://c8b616pdkad77" path="res://scenes/new_ui/confirmation_panel.tscn" id="54_5763k"]
 [ext_resource type="Script" uid="uid://c5m2vyklkbs6f" path="res://scripts/ui/select_artifact_button.gd" id="56_1pv8i"]
@@ -975,7 +976,7 @@ grow_vertical = 2
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-texture = ExtResource("11_14ide")
+texture = ExtResource("53_ili8e")
 expand_mode = 5
 
 [node name="sidebar_context_menus" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock"]
