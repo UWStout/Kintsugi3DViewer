@@ -132,9 +132,9 @@ func _place_artifact():
 		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
 		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
 		loaded_artifact.global_position = target_pos
-		print("really ", loaded_artifact.rotation.y)
-		print("really ", loaded_artifact.rotation.y)
-		print(loaded_artifact.transform.basis )
+		#print("really ", loaded_artifact.rotation.y)
+		#print("really ", loaded_artifact.rotation.y)
+		#print(loaded_artifact.transform.basis )
 		
 		
 func _on_model_preview_load_complete():
