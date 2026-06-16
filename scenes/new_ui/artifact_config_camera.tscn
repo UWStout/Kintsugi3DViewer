@@ -53,7 +53,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3a8op")
 script = ExtResource("2_e6f2i")
 expand_direction = 0
 minimized_size = 45.0
-maximized_size = 150.0
+maximized_size = 275.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_nmx01")
 
@@ -62,6 +62,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -10.0
+offset_right = 10.0
 offset_bottom = 429.0
 grow_horizontal = 2
 grow_vertical = 2

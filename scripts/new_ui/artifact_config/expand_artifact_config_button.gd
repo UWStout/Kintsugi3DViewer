@@ -9,7 +9,7 @@
 extends ExclusiveToggleButton
 
 @export var parent_panel : ExpandingPanel
-@export var parent_config_button : ArtifactConfigButton
+@export var parent_config_button : MarginContainer
 
 func _on_toggle_on():
 	parent_panel.expand()
