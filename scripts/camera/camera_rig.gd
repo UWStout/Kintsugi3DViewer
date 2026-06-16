@@ -229,13 +229,12 @@ func _process(delta):
 	if drag_enabled:
 		#oldOrigin = rotationPoint.transform.origin
 		var offset_from_origin =  target_transform.origin - rotation_point_start_transform.origin
-		
+		var weightOffset : float =  1.0
 		if offset_from_origin.length() > drag_panning_distance:
 			target_transform.origin = rotation_point_start_transform.origin + offset_from_origin.normalized() * 1
-		else: 
-			pass
+
 		var weight = drag_rate * delta if drag_interpolate else 1
-		
+		#print("weight times offset " , weight*weightOffset)
 		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
 		
 	# if autopanning, lerp the camera towards the target point
@@ -312,8 +311,8 @@ func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
 			rot_horiz_limit_enabled = false
 		if reset == true:
 			reset_for_new_artifact()
-		print("max distance:", dolly_limit_maxDistance)
-		print("min distance:", dolly_limit_minDistance)
+		#print("max distance:", dolly_limit_maxDistance)
+		#print("min distance:", dolly_limit_minDistance)
 	#print(dolly_limit_maxDistance)
 	#pass # Replace with function body.
 	
@@ -324,13 +323,16 @@ func reset_for_new_artifact() -> void:
 	#artifactsManager.active_controller.loaded_artifact.rotate_y(-(PI/2))
 	
 
-func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxRotation: float, pannDistance: float) -> void:
+func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHorizRotation: float, minVertRotation: float, maxVertRotation: float, pannDistance: float) -> void:
 	drag_panning_distance = pannDistance
 	dolly_limit_minDistance = minDistance
 	dolly_limit_maxDistance = maxDistance
-	if maxRotation < 359.9:
+	if maxHorizRotation < 359.9:
 		rot_horiz_limit_enabled = true
-		rot_horiz_limit_maxAngle = maxRotation
+		rot_horiz_limit_maxAngle = maxHorizRotation
 		rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
 	else:
 		rot_horiz_limit_enabled = false
+	
+	rot_vert_limit_min = deg_to_rad(90 - minVertRotation)
+	rot_vert_limit_max = deg_to_rad(90 + maxVertRotation)

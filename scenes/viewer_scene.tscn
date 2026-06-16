@@ -1853,7 +1853,7 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer/CenterContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
-text = "ARTIFACT NAME"
+text = "NAME"
 
 [node name="Panel" type="Panel" parent="new_ui_root/MarginContainer/settings_menu/settings_menu/VBoxContainer/TabContainer/Cache/MarginContainer/HBoxContainer/VBoxContainer/Panel2/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(5, 0)
