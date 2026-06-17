@@ -20,6 +20,7 @@ var max_rotation : float
 var panning_distance : float 
 var min_vert_rotation : float
 var max_vert_rotation : float
+var display_opt : int
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
@@ -72,6 +73,11 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 		out_data.max_vert_rotation =  data.get("max_vert_rotation")
 	else:
 		out_data.max_vert_rotation = 85.0	
+
+	if data.has("display_opt"):
+		out_data.display_opt =  data.get("display_opt")
+	else:
+		out_data.display_opt = 0
 	return out_data
 
 func _to_string() -> String:

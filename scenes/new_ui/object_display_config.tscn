@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://cy5xyvfycs66a"]
+[gd_scene load_steps=13 format=3 uid="uid://cy5xyvfycs66a"]
 
 [ext_resource type="Script" uid="uid://0ses1bbiotfs" path="res://scripts/new_ui/artifact_config/object_display_config.gd" id="1_1m7kx"]
+[ext_resource type="Texture2D" uid="uid://dv0minaroyaff" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg" id="2_47c30"]
 [ext_resource type="Script" uid="uid://cojjswxbw3hug" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="2_lwtgl"]
 [ext_resource type="Script" uid="uid://coea26ld8qo2q" path="res://scripts/new_ui/artifact_config/expand_artifact_config_button.gd" id="3_47c30"]
 [ext_resource type="Texture2D" uid="uid://bsbp1i4e881g4" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg" id="4_02c4f"]
@@ -23,13 +24,18 @@ bg_color = Color(0.866108, 0.435504, 0.625633, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbt0l"]
 
-[node name="ObjectDisplayConfig" type="MarginContainer" node_paths=PackedStringArray("button", "texture_rect")]
+[node name="ObjectDisplayConfig" type="MarginContainer" node_paths=PackedStringArray("button", "texture_rect", "pedistal_check_box", "floating_check_box", "check_box_list")]
 clip_contents = true
 offset_right = 260.0
 offset_bottom = 150.0
 script = ExtResource("1_1m7kx")
-button = NodePath("")
-texture_rect = NodePath("")
+button = NodePath("Panel/VBoxContainer/VBoxContainer/Button")
+texture_rect = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
+pedistal_check_box = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/PedestalCheckBox")
+floating_check_box = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/FloatingCheckBox")
+check_box_list = [NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/PedestalCheckBox"), NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/FloatingCheckBox")]
+expand_icon = ExtResource("2_47c30")
+shrunk_icon = ExtResource("4_02c4f")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -119,7 +125,7 @@ theme_override_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="PedestalCheckBox" type="CheckBox" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 button_pressed = true
 
@@ -139,7 +145,7 @@ theme_override_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer2"]
 layout_mode = 2
 
-[node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="FloatingCheckBox" type="CheckBox" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
@@ -147,3 +153,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Floating"
+
+[connection signal="button_up" from="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/PedestalCheckBox" to="." method="_on_pedestal_check_box_button_up"]
+[connection signal="button_up" from="Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/FloatingCheckBox" to="." method="_on_floating_check_box_button_up"]

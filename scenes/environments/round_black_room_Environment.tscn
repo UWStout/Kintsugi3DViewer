@@ -19,10 +19,11 @@ sky_material = SubResource("ProceduralSkyMaterial_7ryrn")
 background_mode = 2
 sky = SubResource("Sky_fex53")
 
-[node name="RoundBlackRoom" type="Node3D"]
+[node name="RoundBlackRoom" type="Node3D" node_paths=PackedStringArray("podium")]
 script = ExtResource("1_oglhx")
 environment_name = "Round BLack Room"
 environment_graphics = SubResource("Environment_lexgf")
+podium = NodePath("Object_Pedestal_BlackRoundModern")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_lexgf")

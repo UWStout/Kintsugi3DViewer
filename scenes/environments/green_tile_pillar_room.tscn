@@ -18,10 +18,11 @@ sky_material = SubResource("ProceduralSkyMaterial_oqij1")
 background_mode = 2
 sky = SubResource("Sky_fbvfj")
 
-[node name="GreenTilePillarRoom" type="Node3D"]
+[node name="GreenTilePillarRoom" type="Node3D" node_paths=PackedStringArray("podium")]
 script = ExtResource("1_2g17x")
 environment_name = "Green Tile Pillar Room"
 environment_graphics = SubResource("Environment_4jilq")
+podium = NodePath("Object_Pedestal_TanModern2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4jilq")

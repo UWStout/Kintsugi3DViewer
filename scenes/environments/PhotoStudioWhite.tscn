@@ -22,10 +22,11 @@ sky = SubResource("Sky_1yqgd")
 ambient_light_source = 3
 reflected_light_source = 2
 
-[node name="PhotoStudio_White" type="Node3D"]
+[node name="PhotoStudio_White" type="Node3D" node_paths=PackedStringArray("podium")]
 script = ExtResource("1_fgp6x")
 environment_name = "White Studio"
 environment_graphics = SubResource("Environment_rn7ny")
+podium = NodePath("Object_Pedestal_WhitePlain")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_rn7ny")

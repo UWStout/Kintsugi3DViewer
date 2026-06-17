@@ -18,10 +18,11 @@ fog_enabled = true
 fog_light_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
 fog_density = 0.05
 
-[node name="test_environment" type="Node3D"]
+[node name="test_environment" type="Node3D" node_paths=PackedStringArray("podium")]
 script = ExtResource("1_koh4i")
 environment_name = "Test Environment"
 environment_graphics = SubResource("Environment_cgq03")
+podium = NodePath("world_geometry/podium")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cgq03")

@@ -13,6 +13,7 @@ class_name DisplayEnvironment
 
 @export var environment_name : String
 @export var environment_graphics : Environment
+@export var podium : Node3D
 
 var light_widget_scene : PackedScene = ResourceLoader.load("res://scenes/lighting/new_light_widget.tscn")
 

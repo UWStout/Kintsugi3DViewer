@@ -23,11 +23,12 @@ ambient_light_color = Color(0.76, 0.872, 1, 1)
 ambient_light_sky_contribution = 0.83
 reflected_light_source = 2
 
-[node name="BeigeRoom" type="Node3D"]
+[node name="BeigeRoom" type="Node3D" node_paths=PackedStringArray("podium")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.101253, -1.09972, -0.0256984)
 script = ExtResource("1_4vv0j")
 environment_name = "Beige Room"
 environment_graphics = SubResource("Environment_yvjqd")
+podium = NodePath("Object_Pedestal_BrownModern1")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yvjqd")

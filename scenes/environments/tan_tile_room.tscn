@@ -19,11 +19,12 @@ sky_material = SubResource("ProceduralSkyMaterial_f2n4i")
 background_mode = 2
 sky = SubResource("Sky_ab6hd")
 
-[node name="TanTileRoom" type="Node3D"]
+[node name="TanTileRoom" type="Node3D" node_paths=PackedStringArray("podium")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.60865, 0)
 script = ExtResource("1_8od0m")
 environment_name = "Tan Tile Room"
 environment_graphics = SubResource("Environment_wtict")
+podium = NodePath("Object_Pedestal_TanModern7")
 
 [node name="Object_Pedestal_TanModern7" parent="." instance=ExtResource("2_u7vov")]
 transform = Transform3D(1.376, 0, 0, 0, 1.376, 0, 0, 0, 1.376, 0, -2.02129, 0)

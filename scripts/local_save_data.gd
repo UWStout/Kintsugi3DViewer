@@ -137,7 +137,7 @@ func overwrite_exisitng_filename(filepath, new_name) -> void:
 	print("Overwrite sucessful!")
 	file.close()
 
-func overwrite_camera_constraints(filepath, min_distance, max_distance, max_rotation, min_vert_rotation, max_vert_rotation,  pan_dist) -> void:
+func overwrite_camera_constraints(filepath, min_distance, max_distance, max_rotation, min_vert_rotation, max_vert_rotation,  pan_dist, display_option) -> void:
 	var data = get_dict()
 	for i in data["artifacts"].size():
 		if data["artifacts"][i]["localDir"] == filepath:
@@ -147,6 +147,7 @@ func overwrite_camera_constraints(filepath, min_distance, max_distance, max_rota
 			data["artifacts"][i]["min_vert_rotation"] = min_vert_rotation
 			data["artifacts"][i]["max_vert_rotation"] = max_vert_rotation
 			data["artifacts"][i]["panning_distance"] = pan_dist
+			data["artifacts"][i]["display_opt"] = display_option
 	var new_string = JSON.stringify(data, "\t")
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 	file.store_string(new_string)
