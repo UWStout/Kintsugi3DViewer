@@ -17,6 +17,7 @@ var loaded_scenes : Array[DisplayEnvironment]
 
 @export var light_selection_ui : LightSelectionUI
 @export var environment_selection_ui : EnvironmentSelectionUI
+@export var display_config : ObjectDisplayConfigButton
 
 signal environment_changed(new_environment : DisplayEnvironment)
 
@@ -25,6 +26,7 @@ var selected_light : LightWidget
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	display_config.display_setting_changed.connect(change_display_mode)
 	# Give the camera this object as a reference
 	if not scene_camera == null:
 		scene_camera.environment_controller = self
@@ -143,6 +145,14 @@ func show_light(light_index : int):
 		pass
 	pass
 
+func change_display_mode(display_opt: int):
+	var current_environment = get_current_environment()
+	if display_opt != 0:
+		current_environment.podium.visible = false
+	
+	else:
+		current_environment.podium.visible = true
+	
 func get_current_environment():
 	if selected_index >= 0 and selected_index < loaded_scenes.size():
 		return loaded_scenes[selected_index]

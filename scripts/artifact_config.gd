@@ -9,18 +9,24 @@
 class_name ArtifactConfigUI extends ContextMenu
 
 @export var artifact_config_menu : ArtifactConfigButton
+@export var display_config_menu : ObjectDisplayConfigButton
 @export var rotate_artifact_button : RotateArtifactButton
 
 @onready var v_box_container = $ScrollContainer/VBoxContainer
 @onready var button_group = $button_group
 
 signal camera_setting_changed(minDistance: float, maxDistance: float,maxHorizRotation: float, minVertRotation: float, maxVertRotation: float, panDistance: float)
+signal display_setting_changed(display_option: int)
 
 func _ready() -> void:
 	artifact_config_menu.camera_setting_changed.connect(_on_camera_setting_changed)
+	display_config_menu.display_setting_changed.connect(_on_display_setting_changed)
 
 func _on_camera_setting_changed(minimum: float, maximum: float, rHmax: float, rVmin: float, rVmax: float, pdistance: float) -> void:
 	camera_setting_changed.emit(minimum, maximum, rHmax, rVmin, rVmax, pdistance)
+	
+func _on_display_setting_changed(do: int) -> void:
+	display_setting_changed.emit(do)
 #func initialize_list(environments : Array[DisplayEnvironment]):
 	#for i in range(0, environments.size()):
 		#create_button(i, environments[i].environment_name)

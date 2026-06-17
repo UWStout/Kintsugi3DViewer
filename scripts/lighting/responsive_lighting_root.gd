@@ -7,4 +7,5 @@ func _on_artifact_bounds_changed(aabb : AABB):
 	var dynamic_lights = find_child("dynamics").get_children()
 	for light in dynamic_lights:
 		if light is LightWidget:
+			print("axis size ", aabb.get_longest_axis_size())
 			light.set_environment_scale(aabb.get_longest_axis_size())
