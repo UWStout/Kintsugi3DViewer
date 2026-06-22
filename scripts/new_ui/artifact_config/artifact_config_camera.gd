@@ -92,16 +92,24 @@ func _on_min_scroll_bar_value_changed(value: float) -> void:
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
 func _on_vert_max_rot_scroll_bar_value_changed(value: float) -> void:
-	vert_max_rot_label.text = str(value) + "°"
-	max_vert_rot = value
+	if value < min_vert_rot:
+		max_vert_rot = value
+	else:
+		max_vert_rot = min_vert_rot
+		vert_max_rot_scroll_bar.value = min_vert_rot
+	vert_max_rot_label.text = str(90 - max_vert_rot) + "°"
 	#print("Max rotation: ", max_rot, " ", value)
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
 
 func _on_vert_min_rot_scroll_bar_value_changed(value: float) -> void:
-	vert_min_rot_label.text = str(value) + "°"
-	min_vert_rot = value
+	if value > max_vert_rot:
+		min_vert_rot = value
+	else:
+		min_vert_rot = max_vert_rot
+		vert_min_rot_scroll_bar.value = max_vert_rot
 	#print("Max rotation: ", max_rot, " ", value)
+	vert_min_rot_label.text = str(90 - min_vert_rot) + "°"
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
 func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_saved, min_vert_rot_saved, max_vert_rot_saved,  pan_dist_saved):
@@ -114,8 +122,8 @@ func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_save
 	min_label.text = str(min_zoom) + ""
 	max_label.text = str(max_zoom) + ""
 	rot_label.text = str(max_rot) + "°"  
-	vert_min_rot_label.text = str(min_vert_rot) + "°"
-	vert_max_rot_label.text = str(max_vert_rot) + "°"
+	vert_min_rot_label.text = str(90-min_vert_rot) + "°"
+	vert_max_rot_label.text = str(90-max_vert_rot) + "°"
 	pan_label.text = str(pan_dist) + ""
 	min_scroll_bar.value = min_zoom
 	max_scroll_bar.value = max_zoom

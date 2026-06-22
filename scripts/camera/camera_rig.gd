@@ -31,8 +31,9 @@ class_name CameraRig
 @export var rot_vert_limit_fix_roll: bool = true
 @export var rot_vert_limit_top_angle: float = 5
 @export var rot_vert_limit_bottom_angle: float = 5
-@onready var rot_vert_limit_min = deg_to_rad(rot_vert_limit_top_angle)
-@onready var rot_vert_limit_max = deg_to_rad(180 - rot_vert_limit_bottom_angle)
+@onready var rot_vert_limit_min = deg_to_rad(180 - rot_vert_limit_bottom_angle) 
+@onready var rot_vert_limit_max = deg_to_rad(rot_vert_limit_top_angle)
+var last_frame_atn : float
 # Not Implemented
 @export_subgroup("Horizontal Limits", "rot_horiz_limit_")
 @export var rot_horiz_limit_enabled: bool = false
@@ -201,21 +202,32 @@ func _process(delta):
 		if rot_vert_limit_enabled:
 			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
 			# Check if Camera is upside down (Limit was overrun in a single frame)
+			print(target_transform.basis.y.dot(transform.basis.y))
+			print("max ", rot_vert_limit_max)
+			print("min ",rot_vert_limit_min)
+
 			if target_transform.basis.y.dot(transform.basis.y) < 0:
+				
 				# Camera is in northern hemisphere (Overran min angle)
 				if target_transform.basis.z.dot(transform.basis.y) > 0:
-					var err_angle = angle_to_north + rot_vert_limit_min
+					var err_angle = angle_to_north + rot_vert_limit_max
+					printerr("north ", err_angle)
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
+					
 				else: # Camera is in southern hemisphere (Overran max angle)
-					var err_angle = angle_to_north-PI + rot_vert_limit_max-PI
+					var err_angle = angle_to_north-PI + rot_vert_limit_min-PI
+					printerr("south ", err_angle)
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
+				
 			else: # Do normal limit calculations
-				if angle_to_north < rot_vert_limit_min:
+				if angle_to_north > rot_vert_limit_min:
 					var err_angle = angle_to_north - rot_vert_limit_min
 					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
-				if angle_to_north > rot_vert_limit_max:
+				elif angle_to_north < rot_vert_limit_max:
 					var err_angle = angle_to_north - rot_vert_limit_max
 					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
+		
+			last_frame_atn = euler.x
 		
 			
 		var new_basis: Basis
@@ -311,10 +323,8 @@ func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
 			rot_horiz_limit_enabled = false
 		if reset == true:
 			reset_for_new_artifact()
-		#print("max distance:", dolly_limit_maxDistance)
-		#print("min distance:", dolly_limit_minDistance)
-	#print(dolly_limit_maxDistance)
-	#pass # Replace with function body.
+		
+		
 	
 func reset_for_new_artifact() -> void:
 	set_rig_transform(rotation_point_start_transform)
@@ -333,6 +343,5 @@ func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHori
 		rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
 	else:
 		rot_horiz_limit_enabled = false
-	
-	rot_vert_limit_min = deg_to_rad(90 - minVertRotation)
-	rot_vert_limit_max = deg_to_rad(90 + maxVertRotation)
+	rot_vert_limit_min = deg_to_rad(minVertRotation)
+	rot_vert_limit_max = deg_to_rad(maxVertRotation)

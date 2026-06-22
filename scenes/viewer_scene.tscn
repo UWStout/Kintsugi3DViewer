@@ -1355,9 +1355,10 @@ save_reset = NodePath("../reset_save")
 [node name="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/artifact_config_camera/Panel/VBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("toggle_group")]
 toggle_group = NodePath("../../../../../../../button_group")
 
-[node name="ObjectDisplayConfig" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("save_reset") instance=ExtResource("67_8jy57")]
+[node name="ObjectDisplayConfig" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("save_reset", "enviroment_controller") instance=ExtResource("67_8jy57")]
 layout_mode = 2
 save_reset = NodePath("../reset_save")
+enviroment_controller = NodePath("../../../../../../../../../environment_controller")
 
 [node name="reset_save" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("config", "display_config", "local_controller") instance=ExtResource("66_70iam")]
 layout_mode = 2

@@ -20,13 +20,17 @@ class_name ObjectDisplayConfigButton extends MarginContainer
 @export var save_reset: ResetSaveConfig
 
 var display_option : int 
+@export var enviroment_controller : EnvironmentController
 signal display_setting_changed(dis_option: int)
 
 func _ready() -> void:
+	enviroment_controller.environment_changed.connect(_on_new_scene_load)
 	check_box_list = [pedistal_check_box, floating_check_box]
 	display_option = 0
 	save_reset.display_rbp.connect(_on_reset_button_pressed)
 
+func _on_new_scene_load(de :DisplayEnvironment) -> void:
+	display_setting_changed.emit(display_option)
 
 func _on_pedestal_check_box_button_up() -> void:
 	if display_option != 0:
