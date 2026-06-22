@@ -202,21 +202,14 @@ func _process(delta):
 		if rot_vert_limit_enabled:
 			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
 			# Check if Camera is upside down (Limit was overrun in a single frame)
-			print(target_transform.basis.y.dot(transform.basis.y))
-			print("max ", rot_vert_limit_max)
-			print("min ",rot_vert_limit_min)
-
 			if target_transform.basis.y.dot(transform.basis.y) < 0:
-				
 				# Camera is in northern hemisphere (Overran min angle)
 				if target_transform.basis.z.dot(transform.basis.y) > 0:
 					var err_angle = angle_to_north + rot_vert_limit_max
-					printerr("north ", err_angle)
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
 					
 				else: # Camera is in southern hemisphere (Overran max angle)
 					var err_angle = angle_to_north-PI + rot_vert_limit_min-PI
-					printerr("south ", err_angle)
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
 				
 			else: # Do normal limit calculations
