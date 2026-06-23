@@ -62,7 +62,7 @@ func load_artifact() -> int:
 	mesh.set_surface_override_material(0, mat_loader)
 	
 	mat_loader.load(mesh)
-	
+	print(mesh.global_position)
 	return 0
 
 func _on_material_load_complete():

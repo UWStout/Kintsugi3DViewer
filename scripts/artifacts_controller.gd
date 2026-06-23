@@ -144,12 +144,14 @@ func _on_model_preview_load_complete():
 	_place_artifact()
 	if(current_artifact != null):
 		artifact_changed.emit(current_artifact)
+		
 
 func _on_environment_changed(new_environment):
 	if loaded_artifact != null:
 		print("loaded_artifact is not null")
 		new_environment.set_artifact_bounds(loaded_artifact.aabb)
 		_place_artifact()
+		print("new Pos", loaded_artifact.global_position)
 		
 func _on_model_load_complete():
 	if is_instance_valid(_loader):

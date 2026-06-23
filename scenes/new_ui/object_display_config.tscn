@@ -96,7 +96,7 @@ theme_override_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 12
+theme_override_constants/margin_left = 15
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2

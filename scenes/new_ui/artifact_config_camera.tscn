@@ -101,7 +101,7 @@ theme_override_constants/separation = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 12
+theme_override_constants/margin_left = 15
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -133,6 +133,9 @@ theme_override_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance"]
 layout_mode = 2
 
+[node name="MarginContainer8" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer"]
+layout_mode = 2
+
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -144,17 +147,21 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_right = -1
 
 [node name="min_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "0.0"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
 
 [node name="min_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(120, 16)
@@ -164,6 +171,9 @@ size_flags_vertical = 1
 max_value = 20.0
 step = 0.5
 
+[node name="MarginContainer7" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer"]
+layout_mode = 2
+
 [node name="max distance" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
@@ -172,6 +182,9 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance"]
+layout_mode = 2
+
+[node name="MarginContainer7" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer"]
@@ -185,17 +198,21 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_right = -1
 
 [node name="max_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "50.0"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
 
 [node name="max_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(120, 16)
@@ -207,6 +224,9 @@ max_value = 30.0
 step = 0.5
 value = 30.0
 
+[node name="MarginContainer6" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer"]
+layout_mode = 2
+
 [node name="panning" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
@@ -215,6 +235,9 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/panning"]
+layout_mode = 2
+
+[node name="MarginContainer6" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer"]
@@ -228,17 +251,21 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_right = -1
 
 [node name="pan_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = "100.0"
-horizontal_alignment = 2
+text = "10.0"
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
 
 [node name="pan_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(120, 16)
@@ -249,6 +276,9 @@ min_value = 0.1
 max_value = 10.0
 step = 0.1
 value = 10.0
+
+[node name="MarginContainer5" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer"]
+layout_mode = 2
 
 [node name="Rotation" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -277,6 +307,9 @@ theme_override_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation"]
 layout_mode = 2
 
+[node name="MarginContainer5" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation/HBoxContainer"]
+layout_mode = 2
+
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -288,17 +321,21 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation/HBoxContainer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_right = -1
 
 [node name="rot_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation/HBoxContainer/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "360.0°"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
 
 [node name="rot_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(120, 16)
@@ -309,6 +346,9 @@ max_value = 360.0
 value = 360.0
 rounded = true
 
+[node name="MarginContainer4" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/HorizontalRotation/HBoxContainer"]
+layout_mode = 2
+
 [node name="VertRotationMin" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
@@ -317,6 +357,9 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin"]
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer"]
@@ -330,17 +373,21 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_right = -1
 
 [node name="rot_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "85.0°"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
 
 [node name="vert_min_rot_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(120, 16)
@@ -352,6 +399,9 @@ max_value = 175.0
 value = 5.0
 rounded = true
 
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer"]
+layout_mode = 2
+
 [node name="VertRotationMax" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 12
@@ -360,6 +410,9 @@ theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax"]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer"]
@@ -373,17 +426,21 @@ layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer/CenterContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = -1
+theme_override_constants/margin_right = -1
 
 [node name="rot_label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer/CenterContainer/MarginContainer"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "85.0°"
-horizontal_alignment = 2
+horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 0
 
 [node name="vert_max_rot_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(120, 16)
@@ -394,6 +451,9 @@ min_value = 5.0
 max_value = 175.0
 value = 85.0
 rounded = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer"]
+layout_mode = 2
 
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer/min_scroll_bar" to="." method="_on_min_scroll_bar_value_changed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer/max_scroll_bar" to="." method="_on_max_scroll_bar_value_changed"]
