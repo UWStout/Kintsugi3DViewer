@@ -172,6 +172,7 @@ func _ready():
 	start_position = Vector3(camera.global_position.x, 0, camera.global_position.z)
 	
 func _process(delta):
+	#print("distance to Rotation point ", (camera.global_position - rotationPoint.global_position).length())
 	if not rig_enabled:
 		return
 	

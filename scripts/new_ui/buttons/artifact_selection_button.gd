@@ -48,6 +48,7 @@ func _on_toggle_off():
 	super._on_toggle_off()
 
 func _display_toggled_on():
+	print("on")
 	artifact_label.self_modulate = Color8(36, 36, 36, 255)
 	artifact_preview.self_modulate = Color8(36, 36, 36, 255)
 	artifact_status.self_modulate = Color8(36, 36, 36, 255)
