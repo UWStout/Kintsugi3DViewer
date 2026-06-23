@@ -1,4 +1,4 @@
-[gd_scene load_steps=138 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=139 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -254,6 +254,8 @@ bg_color = Color(0.654902, 0.654902, 0.654902, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
 bg_color = Color(0.733333, 0.733333, 0.733333, 1)
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_8jy57"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_116h6"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -1310,6 +1312,9 @@ connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContaine
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
 script = ExtResource("28_7jo5e")
 
+[node name="button_group2" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
+script = ExtResource("28_7jo5e")
+
 [node name="header" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
@@ -1359,6 +1364,15 @@ toggle_group = NodePath("../../../../../../../button_group")
 layout_mode = 2
 save_reset = NodePath("../reset_save")
 enviroment_controller = NodePath("../../../../../../../../../environment_controller")
+
+[node name="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig/Panel/VBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("toggle_group")]
+toggle_group = NodePath("../../../../../../../button_group2")
+
+[node name="PedestalCheckBox" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig/Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer" index="0"]
+button_group = SubResource("ButtonGroup_8jy57")
+
+[node name="FloatingCheckBox" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig/Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" index="0"]
+button_group = SubResource("ButtonGroup_8jy57")
 
 [node name="reset_save" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("config", "display_config", "local_controller") instance=ExtResource("66_70iam")]
 layout_mode = 2
@@ -2831,3 +2845,4 @@ script = ExtResource("29_4k4a7")
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]
 
 [editable path="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/artifact_config_camera"]
+[editable path="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig"]

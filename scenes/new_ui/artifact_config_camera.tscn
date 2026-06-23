@@ -82,6 +82,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_pbt0l")
 script = ExtResource("3_neaxx")
 parent_panel = NodePath("../../..")
 parent_config_button = NodePath("../../../..")
+_start_toggled = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/Button"]
 layout_mode = 1
@@ -119,7 +120,7 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-texture = ExtResource("4_sfj25")
+texture = ExtResource("3_oioad")
 expand_mode = 3
 
 [node name="min distance" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
