@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cy5xyvfycs66a"]
+[gd_scene load_steps=14 format=3 uid="uid://cy5xyvfycs66a"]
 
 [ext_resource type="Script" uid="uid://0ses1bbiotfs" path="res://scripts/new_ui/artifact_config/object_display_config.gd" id="1_1m7kx"]
 [ext_resource type="Texture2D" uid="uid://dv0minaroyaff" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg" id="2_47c30"]
@@ -23,6 +23,8 @@ point_count = 2
 bg_color = Color(0.866108, 0.435504, 0.625633, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pbt0l"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_lwtgl"]
 
 [node name="ObjectDisplayConfig" type="MarginContainer" node_paths=PackedStringArray("button", "texture_rect", "pedistal_check_box", "floating_check_box", "check_box_list")]
 clip_contents = true
@@ -74,6 +76,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_pbt0l")
 script = ExtResource("3_47c30")
 parent_panel = NodePath("../../..")
 parent_config_button = NodePath("../../../..")
+_start_toggled = true
 metadata/_custom_type_script = "uid://dhfcql7k75bw7"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/Button"]
@@ -112,7 +115,7 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-texture = ExtResource("4_02c4f")
+texture = ExtResource("2_47c30")
 expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
@@ -128,6 +131,7 @@ layout_mode = 2
 [node name="PedestalCheckBox" type="CheckBox" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 button_pressed = true
+button_group = SubResource("ButtonGroup_lwtgl")
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -147,6 +151,7 @@ layout_mode = 2
 
 [node name="FloatingCheckBox" type="CheckBox" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
+button_group = SubResource("ButtonGroup_lwtgl")
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
