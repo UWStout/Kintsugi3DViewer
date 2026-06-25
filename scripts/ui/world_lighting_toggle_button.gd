@@ -12,9 +12,9 @@ extends Button
 @export var backlight : DirectionalLight3D
 @export var world_environment : WorldEnvironment
 
-@onready var full_light_icon = preload("res://assets/ui/light_full.png")
-@onready var ambient_light_icon = preload("res://assets/ui/light_ambient.png")
-@onready var no_light_icon = preload("res://assets/ui/light_none.png")
+@export var full_light_icon = preload("res://assets/UI 2D/light_full.png")
+@export var ambient_light_icon = preload("res://assets/UI 2D/light_ambient.png")
+@export var no_light_icon = preload("res://assets/UI 2D/light_none.png")
 
 # state 0 is full lighting (only main and backlight on)
 # state 1 is ambient lighting (only ambient light in)

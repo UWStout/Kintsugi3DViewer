@@ -8,11 +8,11 @@
 
 extends MarginContainer
 
-@onready var name_label = $Panel/HBoxContainer/CenterContainer/HBoxContainer/name_label
-@onready var size_label = $Panel/HBoxContainer/CenterContainer/HBoxContainer/size_label
+@export var name_label : Label
+@export var size_label : Label
 
-@onready var delete_button = $Panel/HBoxContainer/CenterContainer2/delete_button
-@onready var favorite_button = $Panel/HBoxContainer/CenterContainer3/favorite_button
+@export var delete_button = Button
+@export var favorite_button : ToggleButton
 
 var artifact_name : String
 var artifact_url_name : String

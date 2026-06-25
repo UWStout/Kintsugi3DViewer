@@ -1,0 +1,134 @@
+# Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Melissa Kosharek
+#
+# Licensed under GPLv3
+# ( http://www.gnu.org/licenses/gpl-3.0.html )
+#
+# This code is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+# This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+class_name ArtifactConfigButton extends MarginContainer
+
+
+
+@export var button : Button
+@export var texture_rect : TextureRect
+
+@export var min_scroll_bar : ScrollBar
+@export var max_scroll_bar : ScrollBar
+@export var pan_scroll_bar : ScrollBar
+@export var rot_scroll_bar : ScrollBar
+@export var vert_min_rot_scroll_bar : ScrollBar
+@export var vert_max_rot_scroll_bar : ScrollBar
+
+@export var min_label : Label
+@export var max_label : Label
+@export var pan_label : Label
+@export var rot_label : Label
+@export var vert_min_rot_label : Label
+@export var vert_max_rot_label : Label
+
+@export var expand_icon : CompressedTexture2D
+@export var shrunk_icon : CompressedTexture2D
+
+@export var save_reset: ResetSaveConfig
+var min_zoom = 0.0
+var max_zoom = 50.0
+var max_rot = 360.0
+var pan_dist = 10
+var max_vert_rot = 5.0
+var min_vert_rot = 5.0
+signal camera_setting_changed(min: float, max: float, max_rotation: float, min_vert_rotation: float, max_vert_rotation: float, pan_dist: float)
+
+func _ready() -> void:
+	save_reset.reset_button_pressed.connect(_on_reset_button_pressed)
+
+func on_button_open():
+	#print("light made material")
+	#connected_light.make_material()
+	texture_rect.texture = expand_icon
+	#connected_light.controller.select_light(null)
+	pass
+
+func on_button_close():
+	#print("light made immaterial")
+	#connected_light.make_immaterial()
+	#connected_light.controller.force_hide_lights()
+	texture_rect.texture = shrunk_icon
+	pass
+
+
+func _on_rot_scroll_bar_value_changed(value: float) -> void:
+	rot_label.text = str(value) + "°"
+	max_rot = value
+	#print("Max rotation: ", max_rot, " ", value)
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
+
+
+
+func _on_pan_scroll_bar_value_changed(value: float) -> void:
+	pan_label.text = str(value) + ""
+	pan_dist = value
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
+
+
+func _on_max_scroll_bar_value_changed(value: float) -> void:
+	if value > min_zoom:
+		max_zoom = value
+	else:
+		max_zoom = min_zoom
+		max_scroll_bar.value = max_zoom
+		
+	max_label.text = str(max_zoom) + ""
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
+
+func _on_min_scroll_bar_value_changed(value: float) -> void:
+	if value < max_zoom:
+		min_zoom = value
+	else:
+		min_zoom = max_zoom
+		min_scroll_bar.value = min_zoom
+		
+	min_label.text = str(min_zoom) + ""
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
+
+func _on_vert_max_rot_scroll_bar_value_changed(value: float) -> void:
+	if value < min_vert_rot:
+		max_vert_rot = value
+	else:
+		max_vert_rot = min_vert_rot
+		vert_max_rot_scroll_bar.value = min_vert_rot
+	vert_max_rot_label.text = str(90 - max_vert_rot) + "°"
+	#print("Max rotation: ", max_rot, " ", value)
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
+
+
+func _on_vert_min_rot_scroll_bar_value_changed(value: float) -> void:
+	if value > max_vert_rot:
+		min_vert_rot = value
+	else:
+		min_vert_rot = max_vert_rot
+		vert_min_rot_scroll_bar.value = max_vert_rot
+	#print("Max rotation: ", max_rot, " ", value)
+	vert_min_rot_label.text = str(90 - min_vert_rot) + "°"
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
+
+func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_saved, min_vert_rot_saved, max_vert_rot_saved,  pan_dist_saved):
+	min_zoom = min_zoom_saved
+	max_zoom = max_zoon_saved
+	max_rot = max_horiz_rot_saved
+	pan_dist = pan_dist_saved
+	min_vert_rot = min_vert_rot_saved
+	max_vert_rot = max_vert_rot_saved
+	min_label.text = str(min_zoom) + ""
+	max_label.text = str(max_zoom) + ""
+	rot_label.text = str(max_rot) + "°"  
+	vert_min_rot_label.text = str(90-min_vert_rot) + "°"
+	vert_max_rot_label.text = str(90-max_vert_rot) + "°"
+	pan_label.text = str(pan_dist) + ""
+	min_scroll_bar.value = min_zoom
+	max_scroll_bar.value = max_zoom
+	rot_scroll_bar.value = max_rot
+	pan_scroll_bar.value = pan_dist
+	vert_min_rot_scroll_bar.value = min_vert_rot
+	vert_max_rot_scroll_bar.value = max_vert_rot
+	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)

@@ -4,20 +4,23 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://blyfu4duxrv0v"
-path="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-5d5f48ba3a0e5582709a2bf7ee1ad91b.scn"
+path="res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-aa3c62b62dd4d035e4ad42c127e68d03.scn"
 
 [deps]
 
-source_file="res://assets/environments/Ceiling/Environment_CeilingSquares_DarkBrownWood.glb"
-dest_files=["res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-5d5f48ba3a0e5582709a2bf7ee1ad91b.scn"]
+source_file="res://assets/Environments/Ceiling/Environment_CeilingSquares_DarkBrownWood.glb"
+dest_files=["res://.godot/imported/Environment_CeilingSquares_DarkBrownWood.glb-aa3c62b62dd4d035e4ad42c127e68d03.scn"]
 
 [params]
 
 nodes/root_type="Node3D"
 nodes/root_name="Scene Root"
+nodes/root_script=null
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -31,6 +34,9 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
+materials/extract=0
+materials/extract_format=0
+materials/extract_path=""
 _subresources={}
 gltf/naming_version=0
 gltf/embedded_image_handling=1

@@ -27,7 +27,7 @@ vec3 evaluateBasisFunction(float w, int b)
 	int x0 = int(floor(x));
 	int x1 = x0 + 1;
 	float alpha = x - float(x0);
-	
+
 	return mix(texelFetch(basisFunctions, ivec2(x0, b), 0),
 		texelFetch(basisFunctions, ivec2(x1, b), 0), alpha).rgb;
 }
@@ -41,7 +41,7 @@ vec3 getMFDEstimateRaw(vec3 uvw)
     {
         estimate += weightsLookup0123[b] * evaluateBasisFunction(uvw[2], b);
     }
-	
+
 	vec4 weightsLookup4567 = texture(weights4567, uvw.xy);
 	for (int b = 4; b < 8; b++)
     {
@@ -57,21 +57,26 @@ vec3 getMFDEstimate(vec2 uv, float nDotH)
     return getMFDEstimateRaw(vec3(uv, w));
 }
 
-void fragment() 
+void fragment()
 {
-	// Godot 4 is different than Godot 3 in that the diffuse texture is NOT automatically decoded
+	// TODO gamma decoding behavior may have changed circa Godot 4.5?
+
+
+	// On older versions of Godot 4 (<4.5?) it seemed to need gamma decoding here but that may no longer be the case?
+	// Verified that this is true in light(), not sure about in fragment()
+	// PREVIOUSLY: Godot 4 is different than Godot 3 in that the diffuse texture is NOT automatically decoded
 	// -- this is because it wants ALBEDO to be passed through gamma-encoded.
 	// To use it for other purposes (like the hacky metallic heuristic), we need to decode it.
-	vec3 diffuse = texture(diffuseMap, UV).rgb;
-	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
-	
+	vec3 diffuseLinear = texture(diffuseMap, UV).rgb;
+
 	// Specular texture is not designated as sRGB.
+	// TODO verify that gamma decoding is still needed, and if so use the true sRGB conversion rather than pow(x,2.2)
 	vec3 specularLinear = pow(texture(specularMap, UV).rgb, vec3(2.2));
-	
+
 	NORMAL_MAP = texture(normalMap, UV).xyz;
-	
+
 	vec3 diffusePlusSpecular = diffuseLinear + specularLinear;
-	
+
 //	// Adjust for dielectic specular (i.e. 0.04 for non-metallic)
 //    // See derivation above
 //    // Initially, calculate albedo assuming metallicity could be different for each RGB channel (for simplicity)
@@ -87,23 +92,23 @@ void fragment()
 //    albedoLinear = diffusePlusSpecular - 0.04 * (1.0 - maxMetallicity);
 
     vec3 albedoLinear = diffusePlusSpecular;
-	
+
 	vec3 metallicHeuristic = (specularLinear - 0.04) / (diffuseLinear + specularLinear - 0.04);
 	METALLIC = // 0.0;
 		//maxMetallicity;
 		clamp(dot(vec3(1.0 / 3.0), metallicHeuristic), 0.0, 1.0);
 		//max(0.0, min(metallicHeuristic.r, min(metallicHeuristic.g, metallicHeuristic.b)));
 	ALBEDO = //vec3(0.0);
-		pow(albedoLinear, vec3(1.0 / 2.2));
+		pow(albedoLinear, vec3(1.0 / 2.2)); // TODO confirm gamma-correctness and use true sRGB conversion rather than pow(x,1/2.2)
 		//diffuse / pow(1.0 - METALLIC, 1.0/2.2);
 
 	ROUGHNESS = texture(roughnessMap, UV)[0]; // roughness = sqrt(m)
-	
+
 //	// Hard-coded for reverse-engineering BRDF
 //	METALLIC = 1.0;
 //	ALBEDO = pow(vec3(0.15, 0.05, 0.1),vec3(1.0/2.2));  // Godot 4 expects albedo to be gamma-encoded
 //	ROUGHNESS = 0.5;  // roughness = sqrt(m)
-	
+
 //	// For testing
 //	IRRADIANCE = vec4(0, 0, 0, 1);
 //	RADIANCE = vec4(0, 0, 0, 1);
@@ -124,8 +129,9 @@ void light()
 	vec3 mfdTimesFresnel = getMFDEstimate(UV, nDotH);
 	float geomRatio = 0.5 / max(0.05, nDotV * sqrt(mix(nDotL * nDotL, 1, mSq) + nDotL * sqrt(mix(nDotV * nDotV, 1, mSq))));
 
-	vec3 diffuse = texture(diffuseMap, UV).rgb;
-	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
+	// Get more accurate diffuse estimate that isn't combined with specular, for discrete lights
+	// On older versions of Godot 4 (<4.5?) it seemed to need gamma decoding here but that no longer appears to be the case.
+	vec3 diffuseLinear = texture(diffuseMap, UV).rgb;
 
 	// Godot appears to divide by PI for normalized Lambertian
 	DIFFUSE_LIGHT += diffuseLinear / (PI * ALBEDO * (1.0 - METALLIC) + step(1.0, METALLIC)) * irradiance; // Godot expects this to not be divided by pi
@@ -142,7 +148,7 @@ void light()
 //	mfdTimesFresnel = f0 * mSq / (PI * sqrtDen * sqrtDen);
 
 	// Godot does not automatically / implicitly divide by pi, so no multiplication by PI is necessary.
-	SPECULAR_LIGHT += 
+	SPECULAR_LIGHT +=
 //		mfdTimesFresnel
 	  	mix(mfdTimesFresnel, vec3(dot(mfdTimesFresnel / f0, vec3(1.0/3.0))), oneMinusHDotVSq * oneMinusHDotVSq * oneMinusHDotV)
 			* geomRatio * irradiance;

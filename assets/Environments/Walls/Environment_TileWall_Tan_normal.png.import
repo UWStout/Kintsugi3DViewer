@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b3gbilqy0v3lc"
-path.s3tc="res://.godot/imported/Environment_TileWall_Tan_normal.png-af9766257cbc21389e8f07cae660ff9c.s3tc.ctex"
-path.etc2="res://.godot/imported/Environment_TileWall_Tan_normal.png-af9766257cbc21389e8f07cae660ff9c.etc2.ctex"
+path.s3tc="res://.godot/imported/Environment_TileWall_Tan_normal.png-7c0a5bbaf09fca930b84d2b9967d630c.s3tc.ctex"
+path.etc2="res://.godot/imported/Environment_TileWall_Tan_normal.png-7c0a5bbaf09fca930b84d2b9967d630c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,14 +13,16 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://assets/environments/Walls/Environment_TileWall_Tan_normal.png"
-dest_files=["res://.godot/imported/Environment_TileWall_Tan_normal.png-af9766257cbc21389e8f07cae660ff9c.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_normal.png-af9766257cbc21389e8f07cae660ff9c.etc2.ctex"]
+source_file="res://assets/Environments/Walls/Environment_TileWall_Tan_normal.png"
+dest_files=["res://.godot/imported/Environment_TileWall_Tan_normal.png-7c0a5bbaf09fca930b84d2b9967d630c.s3tc.ctex", "res://.godot/imported/Environment_TileWall_Tan_normal.png-7c0a5bbaf09fca930b84d2b9967d630c.etc2.ctex"]
 
 [params]
 
 compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=1
 compress/channel_pack=0
@@ -28,6 +30,10 @@ mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
 roughness/src_normal="res://Environment_TileWall_Tan_normal.png"
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

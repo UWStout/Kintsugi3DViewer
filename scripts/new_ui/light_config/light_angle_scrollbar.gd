@@ -8,7 +8,7 @@
 
 extends HScrollBar
 
-@onready var light_config_button = $"../../../../../../.."
+@export var light_config_button : LightConfigButton
 
 
 func _value_changed(new_value):

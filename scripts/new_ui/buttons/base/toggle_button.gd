@@ -17,13 +17,25 @@ var _is_toggled : bool = false
 @export var toggled_off_style : StyleBox
 @export var toggled_off_hover_style : StyleBox
 
+@export var toggled_on_text: Color
+@export var toggled_on_hover_text: Color
+@export var toggled_off_text: Color
+@export var toggled_off_hover_text: Color
+
 func _ready():
-	set_normal_style(toggled_off_style)
-	set_hover_style(toggled_off_hover_style)
-	set_pressed_style(toggled_on_style)
-	
 	if _start_toggled and not _is_toggled:
 		toggle_on()
+	else:
+		set_normal_style(toggled_off_style)
+		set_hover_style(toggled_off_hover_style)
+		set_pressed_style(toggled_on_style)
+		
+		set_font_normal_color(toggled_off_text)
+		set_font_hover_color(toggled_off_hover_text)
+		set_font_pressed_color(toggled_on_text)
+	
+	
+	
 
 func _pressed():
 	if _is_toggled:
@@ -50,8 +62,19 @@ func _display_toggled_on():
 	set_disabled_style(toggled_on_style)
 	set_hover_style(toggled_on_hover_style)
 	set_pressed_style(toggled_off_style)
+	
+	set_font_normal_color(toggled_on_text)
+	set_font_disabled_color(toggled_on_text)
+	set_font_hover_color(toggled_on_hover_text)
+	set_font_pressed_color(toggled_off_text)
+	
 
 func _display_toggled_off():
 	set_normal_style(toggled_off_style)
 	set_hover_style(toggled_off_hover_style)
 	set_pressed_style(toggled_on_style)
+	
+	set_font_normal_color(toggled_off_text)
+	set_font_hover_color(toggled_off_hover_text)
+	set_font_pressed_color(toggled_on_text)
+	

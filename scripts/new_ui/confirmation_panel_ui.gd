@@ -8,11 +8,11 @@
 
 class_name ConfirmationPanel extends CenterContainer
 
-@onready var header = $confirmation_panel/VBoxContainer/MarginContainer/CenterContainer/header
-@onready var description = $confirmation_panel/VBoxContainer/MarginContainer2/CenterContainer/description
+@export var header : Label
+@export var description : Label
 
-@onready var cancel_button = $confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/cancel_button
-@onready var confirm_button = $confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/confirm_button
+@export var cancel_button : Button
+@export var confirm_button : Button
 
 var canceled_call : Callable
 var confirmed_call : Callable

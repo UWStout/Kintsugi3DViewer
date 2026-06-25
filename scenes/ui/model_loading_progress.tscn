@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cgdmv6pdnvrlc"]
 
-[ext_resource type="Script" path="res://scripts/ui/model_loader_progress.gd" id="1_yscae"]
+[ext_resource type="Script" uid="uid://d022r2t31jgpq" path="res://scripts/ui/model_loader_progress.gd" id="1_yscae"]
 
 [node name="LoaderContainer" type="CenterContainer" node_paths=PackedStringArray("progressBar")]
 anchors_preset = 15

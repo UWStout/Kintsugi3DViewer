@@ -12,36 +12,23 @@ var light_strength : float
 var light_angle : int
 var light_color : Color
 
-#@onready var light_strength_label = $Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer/light_strength_label
-#@onready var light_angle_label = $Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer/light_angle_label
-#@onready var miniature_color_display = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/miniature_color_display
-#@onready var label = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/Label
-#@onready var button = $Panel/VBoxContainer/VBoxContainer/Button
+@export var light_strength_label : Label
+@export var light_angle_label : Label
+@export var miniature_color_display : Control
+@export var label : Label
+@export var button : Button
+@export var texture_rect : TextureRect
 
+@export var color_picker : ColorPicker
+@export var text_edit : LineEdit
+@export var strength_scroll_bar : ScrollBar
+@export var angle_scroll_bar : ScrollBar
+@export var value_scroll_bar : ScrollBar
 
-@onready var light_strength_label = $Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer/MarginContainer/light_strength_label
-@onready var light_angle_label = $Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer/MarginContainer/light_angle_label
-@onready var miniature_color_display = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/inner
-@onready var label = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/Label
-@onready var button = $Panel/VBoxContainer/VBoxContainer/Button
-@onready var texture_rect = $Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect
+@export var expand_icon : CompressedTexture2D
+@export var shrunk_icon : CompressedTexture2D
 
-
-#@onready var color_picker = $Panel/VBoxContainer/VBoxContainer/MarginContainer/ColorPicker
-#@onready var text_edit = $Panel/VBoxContainer/VBoxContainer/MarginContainer2/TextEdit
-#@onready var strength_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer2/MarginContainer/strength_scroll_bar
-#@onready var angle_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer2/MarginContainer/angle_scroll_bar
-#@onready var value_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer/MarginContainer/value_scroll_bar
-@onready var color_picker = $Panel/VBoxContainer/VBoxContainer/MarginContainer/ColorPicker
-@onready var text_edit = $Panel/VBoxContainer/VBoxContainer/MarginContainer2/TextEdit
-@onready var strength_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer/strength_scroll_bar
-@onready var angle_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer/angle_scroll_bar
-@onready var value_scroll_bar = $Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/value_scroll_bar
-
-var expand_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg")
-var shrunk_icon = preload("res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg")
-
-var connected_light : NewLightWidget
+var connected_light : LightWidget
 
 func set_button_name(new_name : String):
 	label.text = new_name
@@ -77,7 +64,7 @@ func update_light_color(new_color : Color):
 	if not connected_light == null:
 		connected_light._set_color_UTIL(light_color)
 
-func set_color_from_light(light : NewLightWidget):
+func set_color_from_light(light : LightWidget):
 	light_color = light.color
 	light_strength = light.get_color_strength()
 	light_angle = light.get_light_angle()
@@ -94,7 +81,7 @@ func set_color_from_light(light : NewLightWidget):
 func set_toggle_group(group : ExclusiveToggleGroup):
 	group.register_button(button)
 
-func set_connected_light(light : NewLightWidget):
+func set_connected_light(light : LightWidget):
 	connected_light = light
 
 func on_button_open():

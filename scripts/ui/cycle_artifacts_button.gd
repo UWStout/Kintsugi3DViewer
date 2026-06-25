@@ -10,8 +10,7 @@ extends Button
 
 @export var move_forward : bool = true
 
-@onready var artifacts_controller: ArtifactsController = $"../../artifacts_controller" 
-
+@export var artifacts_controller: ArtifactsController
 
 func _pressed():
 	pass

@@ -84,4 +84,3 @@ func shrink():
 
 func is_animating():
 	return _expanding or _shrinking
-

@@ -1,15 +1,18 @@
-[gd_scene load_steps=16 format=3 uid="uid://2kcde1sv8k6i"]
+[gd_scene load_steps=19 format=3 uid="uid://2kcde1sv8k6i"]
 
 [ext_resource type="Script" path="res://scripts/new_ui/buttons/artifact_selection_button.gd" id="1_em5rn"]
 [ext_resource type="Texture2D" uid="uid://70p6ny2wqfts" path="res://assets/UI 2D/toggle_annotations_on.png" id="2_8m8pc"]
+[ext_resource type="Texture2D" uid="uid://bnv0astdcyxjx" path="res://assets/UI 2D/Icons/Favorites/Favorites Download/FavoritesDownload_White_V1.svg" id="2_jyq3d"]
+[ext_resource type="Texture2D" uid="uid://wdxfsqy4011o" path="res://assets/UI 2D/Icons/Favorites/FavoritesUnfavorited_White_V2.svg" id="3_kd51n"]
+[ext_resource type="Texture2D" uid="uid://dmc2uugakyhj0" path="res://assets/UI 2D/Icons/Favorites/FavoritesFavorited_White_V2.svg" id="4_nimn3"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ers81"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q2ihn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7r1xo"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ers81"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gp8r4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4j1w0"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
@@ -22,24 +25,31 @@ bg_color = Color(0.423529, 0.423529, 0.423529, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ljd0"]
 bg_color = Color(0.423529, 0.423529, 0.423529, 1)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdb5w"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5204q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8tqim"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_whwcx"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ca6en"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8tqim"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdb5w"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5204q"]
-
-[node name="artifact_selection_button" type="Button"]
+[node name="artifact_selection_button" type="Button" node_paths=PackedStringArray("artifact_label", "artifact_preview", "artifact_status", "favorite_artifact_button")]
 custom_minimum_size = Vector2(250, 60)
-theme_override_styles/normal = SubResource("StyleBoxEmpty_gp8r4")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_ers81")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_q2ihn")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_7r1xo")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_ers81")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gp8r4")
 expand_icon = true
 script = ExtResource("1_em5rn")
+artifact_label = NodePath("HBoxContainer/artifact_label")
+artifact_preview = NodePath("HBoxContainer/MarginContainer/CenterContainer/artifact_preview")
+artifact_status = NodePath("HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/artifact_status")
+favorite_artifact_button = NodePath("HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/favorite_artifact_button")
+not_downloaded_icon = ExtResource("2_jyq3d")
+downloaded_icon = ExtResource("3_kd51n")
+favorited_icon = ExtResource("4_nimn3")
 toggled_on_style = SubResource("StyleBoxFlat_4j1w0")
 toggled_on_hover_style = SubResource("StyleBoxFlat_pvtpl")
 toggled_off_style = SubResource("StyleBoxEmpty_moyju")
@@ -74,10 +84,11 @@ expand_mode = 5
 
 [node name="artifact_label" type="Label" parent="HBoxContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(130, 23)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "ARTIFACT A"
-autowrap_mode = 2
+autowrap_mode = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -103,10 +114,10 @@ expand_mode = 5
 [node name="favorite_artifact_button" type="Button" parent="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxEmpty_gdb5w")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5204q")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_8tqim")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_whwcx")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_ca6en")
-theme_override_styles/disabled = SubResource("StyleBoxEmpty_8tqim")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_5204q")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_gdb5w")
 
 [connection signal="pressed" from="HBoxContainer/HBoxContainer/MarginContainer2/CenterContainer/favorite_artifact_button" to="." method="_on_favorite_artifact_button_pressed"]

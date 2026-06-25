@@ -16,11 +16,11 @@ class_name AnnotationTextbox
 @export_multiline var annotation_text : String = "EMPTY ANNOTATION TEXT"
 @export var recalculate_text : bool = false : set = recalc_text
 
-@onready var sub_viewport_container = $SubViewportContainer
-@onready var sub_viewport = $SubViewportContainer/SubViewport
+@export var sub_viewport_container : SubViewportContainer
+@export var sub_viewport : SubViewport
 
-@onready var title_text = $SubViewportContainer/SubViewport/Panel/VBoxContainer/TitleText
-@onready var content_text = $SubViewportContainer/SubViewport/Panel/VBoxContainer/ContentText
+@export var title_text : RichTextLabel
+@export var content_text : RichTextLabel
 
 func recalc_text(new_value):
 	# Update the text in the UI to match the properties of this object.

@@ -16,7 +16,14 @@ var _is_grabbed = false
 @export var _lerp_speed : float = 0.5
 @export var _scene_camera_rig : CameraRig
 @export var _artifacts_controller : ArtifactsController
+@export var _artifacts_manager : ArtifactsManager
 @export var _customize_lighting_button : CustomizeLightingButton
+
+func _ready() -> void:
+	#await _artifacts_controller._ready()
+	#_artifacts_controller = _artifacts_controller.get_current_controller()
+	_artifacts_manager.active_controller_changed.connect(_on_active_controller_changed)
+	_on_active_controller_changed(_artifacts_manager.active_controller)
 
 func _pressed():
 	_customize_lighting_button.override_stop_customizing()
@@ -73,3 +80,7 @@ func force_quit():
 	_is_grabbed = false
 	text = "Turntable: OFF"
 	_scene_camera_rig.rig_enabled = true
+	
+
+func _on_active_controller_changed(new_controller: ArtifactsController):
+	_artifacts_controller = new_controller

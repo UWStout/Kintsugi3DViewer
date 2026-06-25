@@ -3,21 +3,23 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ykv5icx2ayth"
-path="res://.godot/imported/pork_Base_color.png-80983a30312c9e450f7205acb71b47ee.ctex"
+path="res://.godot/imported/pork_Base_color.png-dadf8825a607a655a156461f60d79a01.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environments/storytellingprops/pork_Base_color.png"
-dest_files=["res://.godot/imported/pork_Base_color.png-80983a30312c9e450f7205acb71b47ee.ctex"]
+source_file="res://assets/Environments/storytellingprops/pork_Base_color.png"
+dest_files=["res://.godot/imported/pork_Base_color.png-dadf8825a607a655a156461f60d79a01.ctex"]
 
 [params]
 
 compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
+compress/uastc_level=0
+compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
@@ -25,6 +27,10 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
+process/channel_remap/red=0
+process/channel_remap/green=1
+process/channel_remap/blue=2
+process/channel_remap/alpha=3
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

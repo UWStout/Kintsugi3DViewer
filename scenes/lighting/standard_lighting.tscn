@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c75pmtmqbakeb"]
 
-[ext_resource type="Script" path="res://scripts/lighting/responsive_lighting_root.gd" id="1_45lt8"]
+[ext_resource type="Script" uid="uid://b5qdyfx3k07sm" path="res://scripts/lighting/responsive_lighting_root.gd" id="1_45lt8"]
 [ext_resource type="PackedScene" uid="uid://c72ra7k2av6rs" path="res://scenes/lighting/new_light_widget.tscn" id="2_np112"]
 
 [node name="lighting" type="Node3D"]

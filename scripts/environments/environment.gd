@@ -13,6 +13,7 @@ class_name DisplayEnvironment
 
 @export var environment_name : String
 @export var environment_graphics : Environment
+@export var podium : Node3D
 
 var light_widget_scene : PackedScene = ResourceLoader.load("res://scenes/lighting/new_light_widget.tscn")
 
@@ -75,7 +76,7 @@ func show_light(light_index : int):
 	if light_index < 0 or light_index >= get_dynamic_lighting().get_children().size():
 		return
 	
-	if get_dynamic_lighting().get_children()[light_index] is NewLightWidget:
+	if get_dynamic_lighting().get_children()[light_index] is LightWidget:
 		get_dynamic_lighting().get_children()[light_index].make_material()
 
 func add_dynamic_light():
