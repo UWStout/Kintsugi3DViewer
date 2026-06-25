@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+# Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek
 #
 # Licensed under GPLv3
 # ( http://www.gnu.org/licenses/gpl-3.0.html )
@@ -10,11 +10,11 @@ extends Node3D
 class_name ArtifactsController
 
 signal artifacts_refreshed(artifacts: Array[ArtifactData])
+signal artifact_loaded()
+signal artifact_changed(artifact: ArtifactData)
 
 @export var _fetcher: ResourceFetcher
 @export var _loader: ModelLoaderProgress
-
-@export var _ibr_shader : Shader
 
 @export var _environment_controller : EnvironmentController
 @export var _artifact_catalog_ui : ArtifactCatalogUI
@@ -22,13 +22,16 @@ signal artifacts_refreshed(artifacts: Array[ArtifactData])
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
-var loaded_artifact: LoadableArtifact
+var loaded_artifact1: LoadableArtifact
 
 ## TESTING MODEL
 #var example_guan: Node3D
+var loaded_artifact: GltfModel
+var current_artifact: ArtifactData
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+
+
+func assign_fetcher():
 	if not is_instance_valid(_fetcher):
 		_fetcher = GlobalFetcher
 		if not is_instance_valid(_fetcher):
@@ -53,16 +56,17 @@ func _ready():
 	## TESTING MODEL
 	#example_guan = get_parent().get_node("guan_model")
 
-func refresh_artifacts() -> Array[ArtifactData]:
-	if(Preferences.read_pref("offline mode")):
-		artifacts = CacheManager.get_artifact_data()
-	else:
-		artifacts = await _fetcher.fetch_artifacts()
-		artifacts_refreshed.emit(artifacts)
-		
-		if artifacts.size() == 0:
-			artifacts = CacheManager.get_artifact_data()
-	return artifacts
+
+#func refresh_artifacts() -> Array[ArtifactData]:
+	#if(Preferences.read_pref("offline mode")):
+		#artifacts = CacheManager.get_artifact_data()
+	#else:
+		#artifacts = await _fetcher.fetch_artifacts()
+		#artifacts_refreshed.emit(artifacts)
+		#
+		#if artifacts.size() == 0:
+			#artifacts = CacheManager.get_artifact_data()
+	#return artifacts
 
 
 func display_artifact(index : int):
@@ -75,9 +79,10 @@ func display_artifact(index : int):
 	pass
 
 func display_artifact_data(artifact: ArtifactData):
-	if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
-		return
-	
+	#if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
+		#return
+	# 
+	#TOFIX: artifacts[] holds a copy of all data instead of the original data, currently rendering this find useless
 	var artifact_index = artifacts.find(artifact)
 	current_index = artifact_index
 	
@@ -93,6 +98,17 @@ func display_artifact_data(artifact: ArtifactData):
 		loaded_artifact = RemoteGltfModel.create(artifact)
 		
 	add_child(loaded_artifact)
+	#this is a manual grab
+	current_artifact = artifact
+	#
+	#if is_instance_valid(loaded_artifact):
+		#if not loaded_artifact.load_finished:
+			#loaded_artifact.stop_loading()
+		#
+		#loaded_artifact.queue_free()
+#
+	#loaded_artifact = RemoteGltfModel.create(artifact)
+	#add_child(loaded_artifact)
 	_on_model_begin_load()
 	loaded_artifact.preview_load_completed.connect(_on_model_preview_load_complete)
 	loaded_artifact.load_completed.connect(_on_model_load_complete)
@@ -165,14 +181,22 @@ func _place_artifact():
 		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
 		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
 		loaded_artifact.global_position = target_pos
+		#print("really ", loaded_artifact.rotation.y)
+		#print("really ", loaded_artifact.rotation.y)
+		#print(loaded_artifact.transform.basis )
+		
 		
 func _on_model_preview_load_complete():
-	if loaded_artifact != null and loaded_artifact:
+	print("_environment_controller: ", _environment_controller)
+	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
-		_place_artifact()
+	_place_artifact()
+	if(current_artifact != null):
+		artifact_changed.emit(current_artifact)
 
 func _on_environment_changed(new_environment):
-	if loaded_artifact != null and loaded_artifact:
+	if loaded_artifact != null:
+		print("loaded_artifact is not null")
 		new_environment.set_artifact_bounds(loaded_artifact.aabb)
 		_place_artifact()
 		

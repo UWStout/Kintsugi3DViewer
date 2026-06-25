@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bucbvke7el4el" path="res://assets/Environments/Objects/Benches/Object_Bench_DarkBrownWoodPlain.glb" id="5_rymog"]
 
 [node name="TanRoom" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.44276)
 
 [node name="Environment_TileFloor_Tan" parent="." instance=ExtResource("1_nlrhy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.704378, 0.383003, -13.1138)

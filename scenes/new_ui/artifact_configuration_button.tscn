@@ -1,0 +1,173 @@
+[gd_scene load_steps=2 format=3 uid="uid://1chr0ucy4rvr"]
+
+[ext_resource type="Texture2D" uid="uid://dv0minaroyaff" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg" id="1_53kk0"]
+
+[node name="MarginContainer" type="MarginContainer"]
+offset_right = 338.0
+offset_bottom = 200.0
+
+[node name="header" type="Panel" parent="."]
+custom_minimum_size = Vector2(338, 100)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="header"]
+layout_mode = 2
+offset_right = 338.0
+offset_bottom = 38.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="header/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="header/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 18
+text = "Camera"
+vertical_alignment = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer/MarginContainer3"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="header/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer/MarginContainer3/CenterContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+flat = true
+
+[node name="CenterContainer" type="CenterContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer/MarginContainer3/CenterContainer/Button"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 30.0
+
+[node name="TextureRect" type="TextureRect" parent="header/MarginContainer/VBoxContainer2/MarginContainer/HBoxContainer/MarginContainer3/CenterContainer/Button/CenterContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_53kk0")
+expand_mode = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="header/MarginContainer/VBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Min Zoom"
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="header/MarginContainer/VBoxContainer2/MarginContainer2/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer3"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="header/MarginContainer/VBoxContainer2/MarginContainer3/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Max Zoom"
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="header/MarginContainer/VBoxContainer2/MarginContainer3/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer4"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer4/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="header/MarginContainer/VBoxContainer2/MarginContainer4/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Panning"
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="header/MarginContainer/VBoxContainer2/MarginContainer4/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer5" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer5"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer5/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="header/MarginContainer/VBoxContainer2/MarginContainer5/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Rotation"
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="header/MarginContainer/VBoxContainer2/MarginContainer5/HBoxContainer"]
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="header/MarginContainer/VBoxContainer2/MarginContainer5/HBoxContainer/MarginContainer2"]
+layout_mode = 2

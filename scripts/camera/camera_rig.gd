@@ -12,10 +12,14 @@ class_name CameraRig
 
 @export_category("Camera Rig")
 @export var rig_enabled: bool = true
+# reset is a boolean to determine if the camera should snap back when the current artifact is switched
+@export var reset: bool
 @export_group("Node References")
 @export var camera: Camera3D
 @export var rotationPoint: Node3D
 @export var spotLight : SpotLight3D
+@export var configSettings: ArtifactConfigUI
+@export var artifactsManager: ArtifactsManager
 
 @export_group("Rotation", "rot_")
 @export var rot_enabled: bool = true
@@ -27,19 +31,25 @@ class_name CameraRig
 @export var rot_vert_limit_fix_roll: bool = true
 @export var rot_vert_limit_top_angle: float = 5
 @export var rot_vert_limit_bottom_angle: float = 5
-@onready var rot_limit_min = deg_to_rad(rot_vert_limit_top_angle)
-@onready var rot_limit_max = deg_to_rad(180 - rot_vert_limit_bottom_angle)
+@onready var rot_vert_limit_min = deg_to_rad(180 - rot_vert_limit_bottom_angle) 
+@onready var rot_vert_limit_max = deg_to_rad(rot_vert_limit_top_angle)
+var last_frame_atn : float
 # Not Implemented
-#@export_subgroup("Horizontal Limits", "rot_horiz_limit_")
-#@export var rot_horiz_limit_enabled: bool = false
-#@export var rot_horiz_limit_minAngle: float
-#@export var rot_horiz_limit_maxAngle: float
+@export_subgroup("Horizontal Limits", "rot_horiz_limit_")
+@export var rot_horiz_limit_enabled: bool = false
+@export var rot_horiz_limit_minAngle: float
+@export var rot_horiz_limit_maxAngle: float
+@onready var rot_horiz_limit_min = deg_to_rad(rot_horiz_limit_minAngle-180.0)
+@onready var rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
+var last_frame_rotation : float = 0.0;
 
 @export_group("Translation", "drag_")
 @export var drag_enabled: bool = true
 @export var drag_interpolate: bool = true
+@export var drag_panning_distance: float = 1
 @export_range(0, 25, 0.01) var drag_rate: float = 10
 @export var drag_initial_translation: Vector3
+var oldOrigin: Vector3
 
 @export_group("Dolly Zoom", "dolly_")
 @export var dolly_enabled: bool = true
@@ -48,8 +58,8 @@ class_name CameraRig
 @export var dolly_initial_distance: float = 10
 @export_subgroup("Limits", "dolly_limit_")
 @export var dolly_limit_enabled: bool = true
-@export var dolly_limit_minDistance: float = 1
-@export var dolly_limit_maxDistance: float = 100
+@export var dolly_limit_minDistance: float = 0
+@export var dolly_limit_maxDistance: float = 50
 
 @export_group("FOV Zoom", "fov_")
 @export var fov_enabled: bool = false
@@ -61,6 +71,11 @@ class_name CameraRig
 @export var raycast_enabled : bool = true
 @export var raycast_distance : float = 1000
 @export_flags_2d_physics var raycast_collision_mask
+
+
+#reset
+var rotation_point_start_transform: Transform3D
+var start_position: Vector3
 
 #autopan
 var do_autopan : bool = false
@@ -74,6 +89,9 @@ var target_fov: float
 
 #lights
 var environment_controller : EnvironmentController
+
+func get_dolly():
+	return target_dolly
 
 func set_fov(new_fov: float):
 	if rig_enabled:
@@ -142,12 +160,16 @@ func _ready():
 	# Set target variables to initial values
 	target_dolly = dolly_initial_distance
 	target_fov = fov_initial_fov
+	rot_initial_rotation = global_rotation
 	var rot_basis = Basis.from_euler(rot_initial_rotation)
 	target_transform = Transform3D(rot_basis, drag_initial_translation)
-	
+	#print(target_transform.basis.get_euler().y)
 	rotationPoint.transform = target_transform
 	camera.position.z = target_dolly
 	camera.fov = target_fov
+	configSettings.camera_setting_changed.connect(_on_camera_settings_changed)
+	rotation_point_start_transform = rotationPoint.transform
+	start_position = Vector3(camera.global_position.x, 0, camera.global_position.z)
 	
 func _process(delta):
 	if not rig_enabled:
@@ -164,26 +186,43 @@ func _process(delta):
 		var weight = dolly_rate * delta if dolly_interpolate else 1
 		camera.position.z = lerp(camera.position.z, target_dolly, weight)
 		
+		
 	if rot_enabled:
+		#print("last franes y axis rotation: ", last_frame_rotation)
+		var euler = target_transform.basis.get_euler()
+		if rot_horiz_limit_enabled:
+			#clamp the rotation between pi and -pi 
+			euler.y = clamp(euler.y, maxf(-99*PI*0.01, rot_horiz_limit_min), minf(99*PI*0.01, rot_horiz_limit_max))
+			#account for the wrap around that occurs once you rotatate past -pi
+			if is_equal_approx(euler.y, rot_horiz_limit_max) && last_frame_rotation < -2:
+				euler.y = rot_horiz_limit_min
+				
+			target_transform.basis = Basis.from_euler(euler)
+			last_frame_rotation = euler.y
 		if rot_vert_limit_enabled:
 			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
 			# Check if Camera is upside down (Limit was overrun in a single frame)
 			if target_transform.basis.y.dot(transform.basis.y) < 0:
 				# Camera is in northern hemisphere (Overran min angle)
 				if target_transform.basis.z.dot(transform.basis.y) > 0:
-					var err_angle = angle_to_north + rot_limit_min
+					var err_angle = angle_to_north + rot_vert_limit_max
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
+					
 				else: # Camera is in southern hemisphere (Overran max angle)
-					var err_angle = angle_to_north-PI + rot_limit_max-PI
+					var err_angle = angle_to_north-PI + rot_vert_limit_min-PI
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
+				
 			else: # Do normal limit calculations
-				if angle_to_north < rot_limit_min:
-					var err_angle = angle_to_north - rot_limit_min
+				if angle_to_north > rot_vert_limit_min:
+					var err_angle = angle_to_north - rot_vert_limit_min
 					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
-				if angle_to_north > rot_limit_max:
-					var err_angle = angle_to_north - rot_limit_max
+				elif angle_to_north < rot_vert_limit_max:
+					var err_angle = angle_to_north - rot_vert_limit_max
 					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
-	
+		
+			last_frame_atn = euler.x
+		
+			
 		var new_basis: Basis
 		if rot_interpolate:
 			new_basis = rotationPoint.transform.basis.slerp(target_transform.basis, rot_rate * delta)
@@ -193,7 +232,14 @@ func _process(delta):
 		rotationPoint.transform.basis = new_basis
 	
 	if drag_enabled:
+		#oldOrigin = rotationPoint.transform.origin
+		var offset_from_origin =  target_transform.origin - rotation_point_start_transform.origin
+		var weightOffset : float =  1.0
+		if offset_from_origin.length() > drag_panning_distance:
+			target_transform.origin = rotation_point_start_transform.origin + offset_from_origin.normalized() * 1
+
 		var weight = drag_rate * delta if drag_interpolate else 1
+		#print("weight times offset " , weight*weightOffset)
 		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
 		
 	# if autopanning, lerp the camera towards the target point
@@ -256,3 +302,39 @@ func enable_flashlight():
 	
 func disable_flashlight():
 	spotLight.visible = false
+	
+func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
+	if artifact != null:
+		dolly_limit_minDistance = artifact.min_distance
+		dolly_limit_maxDistance = artifact.max_distance
+		drag_panning_distance = artifact.panning_distance
+		if artifact.max_rotation < 359.9:
+			rot_horiz_limit_enabled = true
+			rot_horiz_limit_maxAngle = artifact.max_rotation
+			rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
+		else:
+			rot_horiz_limit_enabled = false
+		if reset == true:
+			reset_for_new_artifact()
+		
+		
+	
+func reset_for_new_artifact() -> void:
+	set_rig_transform(rotation_point_start_transform)
+	set_zoom(dolly_initial_distance) 
+	apply_yaw(PI)
+	#artifactsManager.active_controller.loaded_artifact.rotate_y(-(PI/2))
+	
+
+func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHorizRotation: float, minVertRotation: float, maxVertRotation: float, pannDistance: float) -> void:
+	drag_panning_distance = pannDistance
+	dolly_limit_minDistance = minDistance
+	dolly_limit_maxDistance = maxDistance
+	if maxHorizRotation < 359.9:
+		rot_horiz_limit_enabled = true
+		rot_horiz_limit_maxAngle = maxHorizRotation
+		rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
+	else:
+		rot_horiz_limit_enabled = false
+	rot_vert_limit_min = deg_to_rad(minVertRotation)
+	rot_vert_limit_max = deg_to_rad(maxVertRotation)

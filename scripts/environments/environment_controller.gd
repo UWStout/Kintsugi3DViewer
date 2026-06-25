@@ -17,14 +17,16 @@ var loaded_scenes : Array[DisplayEnvironment]
 
 @export var light_selection_ui : LightSelectionUI
 @export var environment_selection_ui : EnvironmentSelectionUI
+@export var display_config : ObjectDisplayConfigButton
 
 signal environment_changed(new_environment : DisplayEnvironment)
 
 var selected_index : int = -1
-var selected_light : NewLightWidget
+var selected_light : LightWidget
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	display_config.display_setting_changed.connect(change_display_mode)
 	# Give the camera this object as a reference
 	if not scene_camera == null:
 		scene_camera.environment_controller = self
@@ -55,7 +57,7 @@ func preload_all_scenes():
 		# Let all the dynamic lights in the scene know that this object is their controller,
 		# and hide them all
 		for dynamic_light in loaded_scene.get_dynamic_lighting().get_children():
-			dynamic_light = dynamic_light as NewLightWidget
+			dynamic_light = dynamic_light as LightWidget
 			dynamic_light.controller = self
 			dynamic_light.make_immaterial()
 			dynamic_light.init_widget()
@@ -78,8 +80,8 @@ func open_scene(index : int):
 		loaded_scenes[selected_index].visible = true
 		
 		for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
-			if dynamic_light is NewLightWidget:
-				light_selection_ui.create_button_for_light(dynamic_light as NewLightWidget)
+			if dynamic_light is LightWidget:
+				light_selection_ui.create_button_for_light(dynamic_light as LightWidget)
 		
 		# Fire signal
 		environment_changed.emit(loaded_scenes[selected_index])
@@ -89,7 +91,7 @@ func show_scene_lighting(index : int):
 		return
 	
 	for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
-		dynamic_light = dynamic_light as NewLightWidget
+		dynamic_light = dynamic_light as LightWidget
 		dynamic_light.make_material()
 	
 func hide_scene_lighting(index : int):
@@ -97,7 +99,7 @@ func hide_scene_lighting(index : int):
 		return
 	
 	for dynamic_light in loaded_scenes[selected_index].get_dynamic_lighting().get_children():
-		dynamic_light = dynamic_light as NewLightWidget
+		dynamic_light = dynamic_light as LightWidget
 		dynamic_light.make_immaterial()
 
 func begin_customizing_lights():
@@ -109,7 +111,7 @@ func stop_customizing_lights():
 	#if not connected_customize_lighting_button == null:
 		#connected_customize_lighting_button.override_stop_customizing()
 
-func select_light(light : NewLightWidget):
+func select_light(light : LightWidget):
 	if light == null:
 		#if not connected_color_picker == null:
 			#connected_color_picker.visible = false
@@ -143,6 +145,14 @@ func show_light(light_index : int):
 		pass
 	pass
 
+func change_display_mode(display_opt: int):
+	var current_environment = get_current_environment()
+	if display_opt != 0:
+		current_environment.podium.visible = false
+	
+	else:
+		current_environment.podium.visible = true
+	
 func get_current_environment():
 	if selected_index >= 0 and selected_index < loaded_scenes.size():
 		return loaded_scenes[selected_index]

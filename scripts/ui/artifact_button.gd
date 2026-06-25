@@ -17,8 +17,10 @@ func _pressed():
 func setup(artifact_data: ArtifactData):
 	data = artifact_data
 	text = data.name
-	var placeholder = icon.get_image()
-	icon = HTTPImageTexture.new()
-	icon.set_image(placeholder)
-	icon.set_url(data.iconUri)
-	icon.load(self)
+	
+	# Below code doesn't work since HTTPImageTexture is no longer a thing
+	#var placeholder = icon.get_image()
+	#icon = HTTPImageTexture.new()
+	#icon.set_image(placeholder)
+	#icon.set_url(data.iconUri)
+	#icon.load(self)

@@ -1,15 +1,16 @@
-[gd_scene load_steps=22 format=3 uid="uid://ccsu2er238wo6"]
+[gd_scene load_steps=23 format=3 uid="uid://ccsu2er238wo6"]
 
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/light_config_button.gd" id="1_p3eq6"]
-[ext_resource type="Script" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="1_um2c1"]
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/expand_light_config_button.gd" id="3_ecn13"]
+[ext_resource type="Script" uid="uid://bfy01s3ldk0pk" path="res://scripts/new_ui/light_config/light_config_button.gd" id="1_p3eq6"]
+[ext_resource type="Script" uid="uid://cojjswxbw3hug" path="res://scripts/new_ui/panels/base/expanding_panel.gd" id="1_um2c1"]
+[ext_resource type="Texture2D" uid="uid://dv0minaroyaff" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg" id="3_eck74"]
+[ext_resource type="Script" uid="uid://dxkqjlryftktk" path="res://scripts/new_ui/light_config/expand_light_config_button.gd" id="3_ecn13"]
 [ext_resource type="Texture2D" uid="uid://bsbp1i4e881g4" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_Out_White_V2.svg" id="4_lxyto"]
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/light_strength_scrollbar.gd" id="5_dxtfb"]
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/light_value_scrollbar.gd" id="5_rfsx3"]
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/light_config_color_picker.gd" id="5_ycabp"]
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/light_angle_scrollbar.gd" id="6_e7rxa"]
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/light_hex_text_edit.gd" id="6_o78tx"]
-[ext_resource type="Script" path="res://scripts/new_ui/light_config/delete_light_button.gd" id="10_albex"]
+[ext_resource type="Script" uid="uid://dvpte42gdmpta" path="res://scripts/new_ui/light_config/light_strength_scrollbar.gd" id="5_dxtfb"]
+[ext_resource type="Script" uid="uid://dg556yc0dl4ae" path="res://scripts/new_ui/light_config/light_value_scrollbar.gd" id="5_rfsx3"]
+[ext_resource type="Script" uid="uid://6imu2mks80ok" path="res://scripts/new_ui/light_config/light_config_color_picker.gd" id="5_ycabp"]
+[ext_resource type="Script" uid="uid://brptt7m7o2a81" path="res://scripts/new_ui/light_config/light_angle_scrollbar.gd" id="6_e7rxa"]
+[ext_resource type="Script" uid="uid://bt2xjs4xmk41c" path="res://scripts/new_ui/light_config/light_hex_text_edit.gd" id="6_o78tx"]
+[ext_resource type="Script" uid="uid://br0bv3dnwneyd" path="res://scripts/new_ui/light_config/delete_light_button.gd" id="10_albex"]
 [ext_resource type="Texture2D" uid="uid://v5ktf2y250s4" path="res://assets/UI 2D/Icons/Expanded Light Customization/Trash/Trash_White_V1.svg" id="11_dq7r0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m86o"]
@@ -30,9 +31,9 @@ point_count = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yickx"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qah2i"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_okix6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qah2i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3qa24"]
 
@@ -71,13 +72,26 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="light_config_button" type="MarginContainer"]
+[node name="light_config_button" type="MarginContainer" node_paths=PackedStringArray("light_strength_label", "light_angle_label", "miniature_color_display", "label", "button", "texture_rect", "color_picker", "text_edit", "strength_scroll_bar", "angle_scroll_bar", "value_scroll_bar")]
 offset_right = 260.0
 offset_bottom = 60.0
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 5
 script = ExtResource("1_p3eq6")
+light_strength_label = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/CenterContainer/MarginContainer/light_strength_label")
+light_angle_label = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/CenterContainer/MarginContainer/light_angle_label")
+miniature_color_display = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/MarginContainer/CenterContainer/inner")
+label = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer/Label")
+button = NodePath("Panel/VBoxContainer/VBoxContainer/Button")
+texture_rect = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
+color_picker = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer/ColorPicker")
+text_edit = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer2/TextEdit")
+strength_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer/strength_scroll_bar")
+angle_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer/angle_scroll_bar")
+value_scroll_bar = NodePath("Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer/value_scroll_bar")
+expand_icon = ExtResource("3_eck74")
+shrunk_icon = ExtResource("4_lxyto")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
@@ -109,8 +123,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_yickx")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_qah2i")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_okix6")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qah2i")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_3qa24")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ths8o")
 script = ExtResource("3_ecn13")
@@ -172,9 +186,10 @@ expand_mode = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = -40
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 18
 
-[node name="ColorPicker" type="ColorPicker" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
+[node name="ColorPicker" type="ColorPicker" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer" node_paths=PackedStringArray("light_config_button", "text_edit")]
 layout_mode = 2
 theme_override_constants/sv_width = 175
 theme_override_constants/sv_height = 175
@@ -187,6 +202,8 @@ sliders_visible = false
 hex_visible = false
 presets_visible = false
 script = ExtResource("5_ycabp")
+light_config_button = NodePath("../../../../..")
+text_edit = NodePath("../../MarginContainer2/TextEdit")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -198,9 +215,10 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_right = 25
 
-[node name="value_scroll_bar" type="VScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="value_scroll_bar" type="VScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer" node_paths=PackedStringArray("color_picker")]
 layout_mode = 2
 script = ExtResource("5_rfsx3")
+color_picker = NodePath("../../../ColorPicker")
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -240,13 +258,14 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 10
 
-[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer"]
+[node name="strength_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer/MarginContainer" node_paths=PackedStringArray("light_config_button")]
 custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 max_value = 1000.0
 value = 335.0
 script = ExtResource("5_dxtfb")
+light_config_button = NodePath("../../../../../../..")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer4/HBoxContainer"]
 layout_mode = 2
@@ -285,12 +304,13 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 11
 theme_override_constants/margin_right = 10
 
-[node name="angle_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer"]
+[node name="angle_scroll_bar" type="HScrollBar" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer" node_paths=PackedStringArray("light_config_button")]
 custom_minimum_size = Vector2(155, 0)
 layout_mode = 2
 max_value = 90.0
 value = 90.0
 script = ExtResource("6_e7rxa")
+light_config_button = NodePath("../../../../../../..")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer6/HBoxContainer"]
 layout_mode = 2

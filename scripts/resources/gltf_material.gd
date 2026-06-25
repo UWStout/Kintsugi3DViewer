@@ -17,8 +17,8 @@ var _parent : Node
 var images : Array
 var _resources_loaded : Dictionary
 
-const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader")
-const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader")
+const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader") # TODO non-ORM shader may not be doing gamma decoding correclty
+const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader") 
 const SHADER_STANDARD = preload("res://shaders/standard_shader.gdshader")
 
 func _init(p_gltf : GLTFObject):
@@ -113,9 +113,10 @@ func _load_shader_image(image : Image, shader_key : String):
 func select_shader(material):
 	if (material.has("extras") and
 	material["extras"].has_all(["basisFunctionsUri", "specularWeights"])):
-		if material["extras"].has("roughnessTexture"):
-			shader = SHADER_IBR
-		else:
+		# TODO: non-ORM models are extremely atypical and the shader may not be doing game decoding correctly
+		#if material["extras"].has("roughnessTexture"):
+			#shader = SHADER_IBR
+		#else:
 			shader = SHADER_ORM_IBR
 	else:
 		shader = SHADER_STANDARD
@@ -149,20 +150,29 @@ func _basis_csv_to_image(in_csv: Array) -> Image:
 	var width = 0
 	var data = PackedFloat32Array()
 	
+	var basis_count = in_csv.size() / 3
+	
 	for l in range(0, in_csv.size(), 3):
 		var red = in_csv[l]
+		
+		var tag : String = red[0]
+		if tag.begins_with("Diffuse"):
+			basis_count = l / 3
+			break  # Ignore diffuse colors only used by Kintsugi 3D Builder
+		
 		var green = in_csv[l + 1]
 		var blue = in_csv[l + 2]
 		
 		if width == 0:
 			width = red.size() - 1
-		
+			
 		if red.size() >= 2:
 			for i in width:
 				data.append(float(red[i + 1]))
 				data.append(float(green[i + 1]))
 				data.append(float(blue[i + 1]))
-	return Image.create_from_data(width, in_csv.size() / 3, false, Image.FORMAT_RGBF, data.to_byte_array())
+				
+	return Image.create_from_data(width, basis_count, false, Image.FORMAT_RGBF, data.to_byte_array())
 
 func _get_self_mesh_index(parent: Node, state: GLTFState) -> int:
 	for mesh in state.meshes:

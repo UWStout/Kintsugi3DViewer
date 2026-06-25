@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith
+# Copyright (c) 2026 Michael Tetzlaff, Tyler Betanski, Jacob Buelow, Victor Mondragon, Isabel Smith, Kyle Boatwright, Melissa Kosharek
 #
 # Licensed under GPLv3
 # ( http://www.gnu.org/licenses/gpl-3.0.html )
@@ -13,6 +13,14 @@ var name: String
 var iconUri: String
 var gltfUri: String
 var voyagerUri: String
+var localDir: String
+var min_distance : float
+var max_distance : float
+var max_rotation : float
+var panning_distance : float 
+var min_vert_rotation : float
+var max_vert_rotation : float
+var display_opt : int
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
@@ -31,7 +39,45 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 	
 	if data.has("voyagerUri"):
 		out_data.voyagerUri = data.get("voyagerUri")
+		
+	if data.has("localDir"):
+		out_data.localDir = data.get("localDir") 
 	
+	if data.has("min_distance"):
+		out_data.min_distance = data.get("min_distance")
+	else:
+		out_data.min_distance = 0.0
+		
+	if data.has("max_distance"):
+		out_data.max_distance = data.get("max_distance")
+	else:
+		out_data.max_distance = 10.0
+		
+	if data.has("max_rotation"):
+		out_data.max_rotation = data.get("max_rotation")
+		print(out_data.max_rotation)
+	else:
+		out_data.max_rotation = 360.0
+		
+	if data.has("panning_distance"):
+		out_data.panning_distance = data.get("panning_distance")
+	else:
+		out_data.panning_distance = 10.0
+		
+	if data.has("min_vert_rotation"):
+		out_data.min_vert_rotation =  data.get("min_vert_rotation")
+	else:
+		out_data.min_vert_rotation = 85.0	
+		
+	if data.has("max_vert_rotation"):
+		out_data.max_vert_rotation =  data.get("max_vert_rotation")
+	else:
+		out_data.max_vert_rotation = 85.0	
+
+	if data.has("display_opt"):
+		out_data.display_opt =  data.get("display_opt")
+	else:
+		out_data.display_opt = 0
 	return out_data
 
 func _to_string() -> String:

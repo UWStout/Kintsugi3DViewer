@@ -58,12 +58,6 @@ vec3 getMFDEstimate(vec2 uv, float nDotH)
 
 void fragment() 
 {
-//	// Godot 4 is different than Godot 3 in that the diffuse texture is NOT automatically decoded
-//	// -- this is because it wants ALBEDO to be passed through gamma-encoded.
-//	// To use it for other purposes (like the hacky metallic heuristic), we need to decode it.
-//	vec3 diffuse = texture(diffuseMap, UV).rgb;
-//	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
-	
 	ALBEDO = texture(albedoMap, UV).rgb;
 	NORMAL_MAP = texture(normalMap, UV).xyz;
 
@@ -96,8 +90,8 @@ void light()
 	float geomRatio = 0.5 / max(0.05, nDotV * sqrt(mix(nDotL * nDotL, 1, mSq) + nDotL * sqrt(mix(nDotV * nDotV, 1, mSq))));
 
 	// Get more accurate diffuse estimate that isn't combined with specular, for discrete lights
-	vec3 diffuse = texture(diffuseMap, UV).rgb;
-	vec3 diffuseLinear = pow(diffuse, vec3(2.2));
+	// On older versions of Godot 4 (<4.5?) it seemed to need gamma decoding here but that no longer appears to be the case.
+	vec3 diffuseLinear = texture(diffuseMap, UV).rgb;
 	
 	// Fresnel effect
 	vec3 f0 = mix(vec3(0.04), ALBEDO, METALLIC);
