@@ -124,4 +124,7 @@ func _on_server_controller_artifact_loaded() -> void:
 			loaded_artifact.queue_free()
 
 func _get_current_artifact() -> ArtifactData:
-	return current_artifact
+	if current_artifact == null:
+		return artifacts[current_index]
+	else:
+		return current_artifact
