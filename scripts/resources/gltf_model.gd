@@ -31,6 +31,8 @@ func _create_material() -> GltfMaterial:
 
 func load_artifact() -> int:
 	obj = await _load_gltf()
+	print(obj.document)
+	print(obj.sourceUri)
 	if obj == null:
 		return -1
 	
@@ -48,10 +50,23 @@ func load_artifact() -> int:
 	# since 1 unit = 1m is more typical, just scale up imported models.
 	mesh.scale = Vector3(2.0, 2.0, 2.0)
 	
-	if not mesh.get_aabb() == null:
+	if mesh is MeshInstance3D:
 		aabb = mesh.get_aabb() * mesh.global_transform
+		print("there")
 	else:
-		aabb = AABB() * mesh.global_transform
+		# Search children for the actual mesh
+		var mesh_instance = mesh.find_child("*", true, false)
+		if mesh_instance is MeshInstance3D:
+			aabb = mesh_instance.get_aabb() * mesh_instance.global_transform
+			mesh = mesh_instance
+			print("here")
+		else:
+			aabb = AABB() * mesh.global_transform
+			print("not here")
+	#if not mesh.get_aabb() == null:
+		#aabb = mesh.get_aabb() * mesh.global_transform
+	#else:
+		#aabb = AABB() * mesh.global_transform
 		
 	preview_load_completed.emit();
 	

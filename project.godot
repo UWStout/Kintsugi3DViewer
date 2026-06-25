@@ -30,6 +30,7 @@ UrlReader="*res://scripts/url_reader.gd"
 ResponsiveLightingRoot="*res://scripts/lighting/responsive_lighting_root.gd"
 UiScaling="*res://scripts/new_ui/ui_scaling.gd"
 LocalSaveData="*res://scripts/local_save_data.gd"
+JsonReader="*res://scripts/resources/JsonReader.gd"
 
 [display]
 
