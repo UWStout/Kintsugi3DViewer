@@ -79,7 +79,7 @@
 [ext_resource type="PackedScene" uid="uid://cr7gvekcb6mjk" path="res://scenes/new_ui/artifact_config_reset_save.tscn" id="66_70iam"]
 [ext_resource type="Script" uid="uid://biok10no4ariy" path="res://scripts/debug_local_open.gd" id="66_m30np"]
 [ext_resource type="PackedScene" uid="uid://cum2pa85altu4" path="res://scenes/environments/Beige_Room_Environment.tscn" id="67_6ljs3"]
-[ext_resource type="PackedScene" uid="uid://cy5xyvfycs66a" path="res://scenes/new_ui/object_display_config.tscn" id="67_8jy57"]
+[ext_resource type="PackedScene" uid="uid://dbriikwefddq" path="res://scenes/new_ui/object_display_config.tscn" id="67_8jy57"]
 [ext_resource type="Texture2D" uid="uid://dp7md5bqtxlvy" path="res://assets/UI 2D/Icons/Expanded Light Customization/Add Light/AddLight_White_V2.svg" id="67_63m5u"]
 [ext_resource type="Script" uid="uid://cco3bvvcgm7p4" path="res://scripts/save_file.gd" id="67_rdhqw"]
 [ext_resource type="PackedScene" uid="uid://b0ifr0bsst2vi" path="res://scenes/environments/Green_Square_Room.tscn" id="68_gxb4g"]
