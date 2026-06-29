@@ -85,8 +85,8 @@ func open_artifact(data : ArtifactData):
 
 	
 	if is_instance_valid(loaded_artifact):
-		if not loaded_artifact.load_finished:
-			loaded_artifact.stop_loading()
+		#if not loaded_artifact.load_finished:
+			#loaded_artifact.stop_loading()
 		loaded_artifact.queue_free()
 		
 	data.gltfUri = gltf_file_path

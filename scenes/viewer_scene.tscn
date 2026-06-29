@@ -760,12 +760,12 @@ layout_mode = 2
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("26_ebyjk")
+_lerp_speed = 2.0
 artifacts_manager = NodePath("../../../../../../../../../../artifacts_manager")
 artifacts_controller = NodePath("../../../../../../../../../../artifacts_manager/local_controller")
 scene_camera = NodePath("../../../../../../../../../../Camera")
 sidebar_context_menu = NodePath("../../../../../../../side_dock/sidebar_context_menus")
 light_selection_ui = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
-_lerp_speed = 2.0
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button"]
 layout_mode = 1
@@ -2814,10 +2814,6 @@ script = ExtResource("29_4k4a7")
 
 [connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
 [connection signal="environment_changed" from="environment_controller" to="artifacts_manager" method="_on_environment_changed"]
-[connection signal="artifact_changed" from="artifacts_manager/local_controller" to="Camera" method="_on_artifacts_controller_artifact_changed"]
-[connection signal="artifact_loaded" from="artifacts_manager/local_controller" to="artifacts_manager/server_controller" method="_on_local_controller_artifact_loaded"]
-[connection signal="artifact_changed" from="artifacts_manager/server_controller" to="Camera" method="_on_artifacts_controller_artifact_changed"]
-[connection signal="artifact_loaded" from="artifacts_manager/server_controller" to="artifacts_manager/local_controller" method="_on_server_controller_artifact_loaded"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
 [connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" method="_on_pressed"]
 [connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/ArtifactServerToggle" method="_on_pressed"]
