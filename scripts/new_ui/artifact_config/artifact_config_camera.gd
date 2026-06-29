@@ -92,22 +92,34 @@ func _on_min_scroll_bar_value_changed(value: float) -> void:
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
 func _on_vert_max_rot_scroll_bar_value_changed(value: float) -> void:
+	# We invert the values in order to have the min and max vertical 
+	# scroll bars to deplay valuse from left to right
+	value *= -1
 	if value < min_vert_rot:
-		max_vert_rot = value
+		# this may also seem back ward but is done in order to match 
+		# godot rotation systems while also making sense logically to us
+		# with max rotation being up and min being down
+		max_vert_rot = value 
 	else:
 		max_vert_rot = min_vert_rot
-		vert_max_rot_scroll_bar.value = min_vert_rot
+		vert_max_rot_scroll_bar.value = min_vert_rot *-1
 	vert_max_rot_label.text = str(90 - max_vert_rot) + "°"
 	#print("Max rotation: ", max_rot, " ", value)
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
 
 func _on_vert_min_rot_scroll_bar_value_changed(value: float) -> void:
+	value *= -1
+	# We invert the values in order to have the min and max vertical 
+	# scroll bars to deplay valuse from left to right
 	if value > max_vert_rot:
+		# this may also seem back ward but is done in order to match 
+		# godot rotation systems while also making sense logically to us
+		# with max rotation being up and min being down
 		min_vert_rot = value
 	else:
 		min_vert_rot = max_vert_rot
-		vert_min_rot_scroll_bar.value = max_vert_rot
+		vert_min_rot_scroll_bar.value = max_vert_rot*-1
 	#print("Max rotation: ", max_rot, " ", value)
 	vert_min_rot_label.text = str(90 - min_vert_rot) + "°"
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
@@ -129,6 +141,6 @@ func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_save
 	max_scroll_bar.value = max_zoom
 	rot_scroll_bar.value = max_rot
 	pan_scroll_bar.value = pan_dist
-	vert_min_rot_scroll_bar.value = min_vert_rot
-	vert_max_rot_scroll_bar.value = max_vert_rot
+	vert_min_rot_scroll_bar.value = min_vert_rot_saved
+	vert_max_rot_scroll_bar.value = max_vert_rot_saved
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
