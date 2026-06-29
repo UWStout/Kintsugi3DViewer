@@ -402,9 +402,9 @@ theme_override_constants/margin_right = 0
 custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_vertical = 1
-min_value = 5.0
-max_value = 175.0
-value = 5.0
+min_value = -175.0
+max_value = -5.0
+value = -175.0
 rounded = true
 
 [node name="MarginContainer3" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMin/HBoxContainer"]
@@ -454,9 +454,9 @@ theme_override_constants/margin_right = 0
 custom_minimum_size = Vector2(120, 16)
 layout_mode = 2
 size_flags_vertical = 1
-min_value = 5.0
-max_value = 175.0
-value = 85.0
+min_value = -175.0
+max_value = -5.0
+value = -5.0
 rounded = true
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer"]
