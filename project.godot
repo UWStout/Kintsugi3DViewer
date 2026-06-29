@@ -26,6 +26,7 @@ Preferences="*res://scripts/preferences.gd"
 CacheManager="*res://scripts/resources/cache_manager.gd"
 GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
+JsonReader="*res://scripts/JsonReader.gd"
 UrlReader="*res://scripts/url_reader.gd"
 ResponsiveLightingRoot="*res://scripts/lighting/responsive_lighting_root.gd"
 UiScaling="*res://scripts/new_ui/ui_scaling.gd"
@@ -33,7 +34,6 @@ LocalSaveData="*res://scripts/local_save_data.gd"
 
 [display]
 
-window/size/mode=2
 window/stretch/aspect="expand"
 
 [editor]
