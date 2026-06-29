@@ -58,8 +58,8 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	
 	
 	var img = Image.create_from_data(width, count, false, Image.FORMAT_RGBF, data.to_byte_array())
-	print(img.get_width())
-	print(img.get_height())
+	#print(img.get_width())
+	#print(img.get_height())
 	var texture = ImageTexture.create_from_image(img)
 	print("%s.%s" % [save_path, _get_save_extension()])
 	var error = ResourceSaver.save(texture, "%s.%s" % [save_path, _get_save_extension()]);

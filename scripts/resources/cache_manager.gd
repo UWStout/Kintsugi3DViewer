@@ -90,11 +90,18 @@ func import_gltf(dir_name : String, name : String):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
 	
 	if dir == null:
-		#print("directory " + dir_path + " does not exist")
-		return null
+		print("directory " + dir_path + " does not exist")
+		print("trying again")
+		dir = DirAccess.open(dir_name)
+		if dir == null:
+			print("failed")
+			return null
+		else:
+			print("sucsess")
+			dir_path = dir_name + "/"
 	
 	if not dir.file_exists(file_name):
-		#print("could not locate file " + file_name + " in directory " + dir_path)
+		print("could not locate file " + file_name + " in directory " + dir_path)
 		return null
 	
 	# Import the GLTF
@@ -106,15 +113,15 @@ func import_gltf(dir_name : String, name : String):
 	var object = GLTFObject.from_buffer(buffer)
 	
 	if object == null:
-		#var err_message = "there was an error while attempting to import file "
-		#err_message += file_name + " from directory " + dir_path  + ". error " + error_string(error)
-		#print(err_message)
+		var err_message = "there was an error while attempting to import file "
+		err_message += file_name + " from directory " + dir_path  + ". error " 
+		print(err_message)
 		return null
 	
 	# Import the JSON
 	file_name = name + ".json"
 	if not dir.file_exists(file_name):
-		#print("could not locate file " + file_name + " in directory " + dir_path)
+		print("could not locate file " + file_name + " in directory " + dir_path)
 		return null
 	
 	file_path = dir_path + file_name

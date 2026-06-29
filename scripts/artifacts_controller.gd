@@ -57,16 +57,16 @@ func assign_fetcher():
 	#example_guan = get_parent().get_node("guan_model")
 
 
-#func refresh_artifacts() -> Array[ArtifactData]:
-	#if(Preferences.read_pref("offline mode")):
-		#artifacts = CacheManager.get_artifact_data()
-	#else:
-		#artifacts = await _fetcher.fetch_artifacts()
-		#artifacts_refreshed.emit(artifacts)
-		#
-		#if artifacts.size() == 0:
-			#artifacts = CacheManager.get_artifact_data()
-	#return artifacts
+func refresh_artifacts() -> Array[ArtifactData]:
+	if(Preferences.read_pref("offline mode")):
+		artifacts = CacheManager.get_artifact_data()
+	else:
+		artifacts = await _fetcher.fetch_artifacts()
+		artifacts_refreshed.emit(artifacts)
+		
+		if artifacts.size() == 0:
+			artifacts = CacheManager.get_artifact_data()
+	return artifacts
 
 
 func display_artifact(index : int):
@@ -180,8 +180,11 @@ func _place_artifact():
 		target_pos -= self.position # account for arbitrary position of artifacts controller node
 		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
 		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
-		loaded_artifact.global_position = target_pos
-		#print("really ", loaded_artifact.rotation.y)
+		if loaded_artifact is RemoteVoyagerStory:
+			loaded_artifact.global_position.y = target_pos.y
+		else:
+			loaded_artifact.global_position = target_pos
+		#print(loaded_artifact.global_position)
 		#print("really ", loaded_artifact.rotation.y)
 		#print(loaded_artifact.transform.basis )
 		

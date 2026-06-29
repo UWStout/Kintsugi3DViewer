@@ -55,7 +55,7 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 		
 	if data.has("max_rotation"):
 		out_data.max_rotation = data.get("max_rotation")
-		print(out_data.max_rotation)
+		#print("max rot ", out_data.max_rotation)
 	else:
 		out_data.max_rotation = 360.0
 		

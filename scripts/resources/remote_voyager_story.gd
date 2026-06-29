@@ -1,4 +1,4 @@
-extends LoadableArtifact
+extends GltfModel
 class_name RemoteVoyagerStory
 
 @export var fetcher: ResourceFetcher

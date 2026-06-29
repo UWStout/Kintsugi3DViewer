@@ -37,22 +37,31 @@ func load_artifact() -> int:
 	# since 1 unit = 1m is more typical, just scale up imported models.
 	mesh.scale = Vector3(2.0, 2.0, 2.0)
 	
-	if not mesh.get_aabb() == null:
+	if mesh is MeshInstance3D:
 		aabb = mesh.get_aabb() * mesh.global_transform
+		
 	else:
-		aabb = AABB() * mesh.global_transform
+		# Search children for the actual mesh
+		var mesh_instance = mesh.find_child("*", true, false)
+		if mesh_instance is MeshInstance3D:
+			aabb = mesh_instance.get_aabb() * mesh_instance.global_transform
+			mesh = mesh_instance
+			
+		else:
+			aabb = AABB() * mesh.global_transform
+			
 		
 	preview_load_completed.emit();
 	
 	var meshes = scene.find_children("*", "MeshInstance3D")
-	for mesh : MeshInstance3D in meshes:
+	for mesh1 : MeshInstance3D in meshes:
 		var has_empty_materials
-		if mesh.mesh != null:
+		if mesh1.mesh != null:
 			# only replace empty materials
 			# skip material load step completely if there are no empty materials
-			var surface_count = mesh.mesh.get_surface_count()
+			var surface_count = mesh1.mesh.get_surface_count()
 			for i in surface_count:
-				has_empty_materials = has_empty_materials || mesh.mesh.surface_get_material(i) == null
+				has_empty_materials = has_empty_materials || mesh1.mesh.surface_get_material(i) == null
 		
 			if has_empty_materials:
 				print("loading external materials")
@@ -61,10 +70,10 @@ func load_artifact() -> int:
 				mat_loader.load_progress.connect(_on_material_load_progress)
 				
 				for i in surface_count:
-					if mesh.mesh.surface_get_material(i) == null:
-						mesh.set_surface_override_material(i, mat_loader)
+					if mesh1.mesh.surface_get_material(i) == null:
+						mesh1.set_surface_override_material(i, mat_loader)
 					
-				mat_loader.load(mesh)
+				mat_loader.load(mesh1)
 			else:
 				load_completed.emit() # no materials, done loading
 		else:
