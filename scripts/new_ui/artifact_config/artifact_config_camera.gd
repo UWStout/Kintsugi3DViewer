@@ -141,6 +141,6 @@ func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_save
 	max_scroll_bar.value = max_zoom
 	rot_scroll_bar.value = max_rot
 	pan_scroll_bar.value = pan_dist
-	vert_min_rot_scroll_bar.value = min_vert_rot_saved
-	vert_max_rot_scroll_bar.value = max_vert_rot_saved
+	vert_min_rot_scroll_bar.value = -1 * min_vert_rot_saved
+	vert_max_rot_scroll_bar.value = -1 * max_vert_rot_saved
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
