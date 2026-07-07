@@ -37,10 +37,8 @@ func load_artifact() -> int:
 	if mesh == null:
 		return -1
 	
-	# Most environments seem to be authored with a scale assumption of 1 unit = 50cm
-	# since 1 unit = 1m is more typical, just scale up imported models.
 	if not skip_scale:
-		mesh.scale = Vector3(2.0, 2.0, 2.0)
+		mesh.scale = Vector3(1.0, 1.0, 1.0)
 # Find the actual MeshInstance3D regardless of nesting depth
 	var mesh_instances = scene.find_children("*", "MeshInstance3D", true, false)
 	if mesh_instances.size() > 0:
@@ -55,7 +53,7 @@ func load_artifact() -> int:
 	var meshes = scene.find_children("*", "MeshInstance3D")
 	var mesh_count : int = 1
 	for mesh1 : MeshInstance3D in meshes:
-		#print("mesh_count ", mesh_count)
+		print("mesh_count ", mesh_count)
 		mesh_count += 1
 		var has_empty_materials
 		if mesh1.mesh != null:

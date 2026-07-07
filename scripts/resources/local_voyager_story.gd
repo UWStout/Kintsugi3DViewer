@@ -68,6 +68,15 @@ func load_artifact():
 
 		if JsonReader.is_voyager_node_model(i):
 			nodes[i].add_child(models[JsonReader.get_voyager_node_model_index(i)])
+		
+		if JsonReader.is_voyager_node_light(i):
+			var spotlight = SpotLight3D.new()
+			spotlight.global_position = nodes[i].position
+			spotlight.global_rotation = nodes[i].rotation 
+			spotlight.light_color = JsonReader.get_light_color(0)
+			spotlight.spot_range = 10
+			add_sibling(spotlight)
+			#nodes[i].add_child(spotlight)
 
 	for i in JsonReader.get_voyager_node_count():
 		for k in JsonReader.get_voyager_node_child_indices(i):

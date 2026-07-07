@@ -26,6 +26,8 @@ func update_with_json(jsonData : Dictionary):
 		# Assigns colors from each light in Voyager Story scene to new light
 		for light in sceneData["lights"]:
 			light_colors.append(Color(light["color"][0], light["color"][1], light["color"][2], 1))
+			
+		
 
 	# Assigns annotation title and text in Voyager Story scene to new text objects
 	#annotation_title = Label.new()
