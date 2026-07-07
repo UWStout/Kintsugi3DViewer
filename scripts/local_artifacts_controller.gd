@@ -85,7 +85,8 @@ func open_artifact(data : ArtifactData):
 	#print("local")
 	var gltf_file_path = data.localDir
 	#Check the file can be opened
-	if (not(gltf_file_path.ends_with(".gltf") and gltf_file_path.ends_with(".glb")) and not gltf_file_path.ends_with(".svx.json")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):
+	var condition = gltf_file_path.ends_with(".gltf") or gltf_file_path.ends_with(".glb")
+	if (not(condition) and not gltf_file_path.ends_with(".svx.json")) or (not LocalSaveData._is_file_valid(gltf_file_path)):
 		_invalid_file_popup.visible = true
 		_invalid_file_popup.mouse_filter = Control.MOUSE_FILTER_STOP
 		LocalSaveData._remove_entry(gltf_file_path) #- bug found where it deletes all the data
@@ -102,11 +103,15 @@ func open_artifact(data : ArtifactData):
 	
 	if data.voyagerUri != null and not data.voyagerUri.is_empty():
 		loaded_artifact = LocalVoyagerStory.new(data)
+	elif gltf_file_path.ends_with(".svx.json"):
+		data.voyagerUri = gltf_file_path
+		loaded_artifact = LocalVoyagerStory.new(data)
 	else:
 		loaded_artifact = LocalGltfModel.create(data)
 
 
 	add_child(loaded_artifact)
+	current_artifact = data
 	emit_signal("artifact_loaded")
 	#_on_model_begin_load()
 	display_artifact_data(data)
