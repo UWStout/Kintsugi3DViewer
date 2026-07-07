@@ -37,8 +37,8 @@ func load(parent : Node):
 	if material_index == null:
 		material_index = 0
 	var material = _gltf.state.json.get("materials")[material_index]
-	print("material JSON: ", material)  # add this
-	print("images JSON: ", _gltf.state.json.get("images"))  # add this
+	#print("material JSON: ", material)  # add this
+	#print("images JSON: ", _gltf.state.json.get("images"))  # add this
 	images = _gltf.state.json.get("images")
 	
 	# Load the correct shader

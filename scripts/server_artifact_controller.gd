@@ -36,7 +36,7 @@ func _on_local_controller_artifact_loaded() -> void:
 func display_artifact_data(artifact: ArtifactData):
 	if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
 		return
-	print("server") 
+	#print("server") 
 	var artifact_index = artifacts.find(artifact)
 	current_index = artifact_index
 	

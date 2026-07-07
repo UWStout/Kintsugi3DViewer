@@ -66,7 +66,7 @@ func _load_specular_weights(weights: Dictionary):
 		converter.combine()
 
 func _start_tex_load(texture: Dictionary, key: String):
-	print("Starting texture load for " + key)
+	#print("Starting texture load for " + key)
 	_resources_loaded[key] = false
 	var texture_loader = RemoteGltfTexture.new(self, texture, key)
 	_parent.add_child(texture_loader)

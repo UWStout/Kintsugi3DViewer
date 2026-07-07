@@ -31,7 +31,7 @@ func refresh_artifacts() -> Array[ArtifactData]:
 	return artifacts
 
 func _open_artifact_through_file(gltf_file_path : String):
-	print("opening through file")
+	#print("opening through file")
 	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) and not gltf_file_path.ends_with(".svx.json"):
 		return
 	
@@ -57,7 +57,7 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
-	print("model loaded")
+	#print("model loaded")
 	#after model loads, show prompt to name filepath
 	_save_import_panel.visible = true
 	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -82,7 +82,7 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 
 func open_artifact(data : ArtifactData):
-	print("local")
+	#print("local")
 	var gltf_file_path = data.localDir
 	#Check the file can be opened
 	if (not(gltf_file_path.ends_with(".gltf") and gltf_file_path.ends_with(".glb")) and not gltf_file_path.ends_with(".svx.json")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):

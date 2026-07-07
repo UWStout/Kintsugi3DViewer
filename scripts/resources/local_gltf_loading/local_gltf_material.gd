@@ -20,11 +20,11 @@ func _load_extensions(extensions: Dictionary):
 func _load_image(texture_info : Dictionary, shader_key : String):
 	var tex_info = _info_to_tex(texture_info)
 	var index = tex_info.get("source")
-	print("Loading texture for shader key: %s, image index: %s" % [shader_key, index])
+	#print("Loading texture for shader key: %s, image index: %s" % [shader_key, index])
 
 	
 	if index == null or index >= images.size():
-		print("  → index out of range, images size: %s" % images.size())
+		#print("  → index out of range, images size: %s" % images.size())
 		if _resources_loaded.has(shader_key):
 			_resources_loaded[shader_key] = true
 		_update_progress()
@@ -178,8 +178,8 @@ func get_image(images : Array, index : int) -> Image:
 	return null
 
 func _get_buffer_view_data(buffer_view_index : int) -> PackedByteArray:
-	print("buffers count: ", _gltf.state.buffers.size())
-	print("bufferViews count: ", _gltf.state.json["bufferViews"].size())
+	#print("buffers count: ", _gltf.state.buffers.size())
+	#print("bufferViews count: ", _gltf.state.json["bufferViews"].size())
 	var buffer_view = _gltf.state.json["bufferViews"][buffer_view_index]
 	var buffer_index = buffer_view.get("buffer", 0)
 	var byte_offset = buffer_view.get("byteOffset", 0)
