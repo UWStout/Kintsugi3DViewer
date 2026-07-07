@@ -10,13 +10,73 @@ class_name LocalGltfMaterial extends GltfMaterial
 
 func _init(p_gltf : GLTFObject):
 	_gltf = p_gltf
-
+	
+func _load_extensions(extensions: Dictionary):
+	if extensions.has("KHR_materials_specular"):
+		var spec = extensions["KHR_materials_specular"]
+		if spec.has("specularColorTexture"):
+			_load_image(spec["specularColorTexture"], "specularMap")
+			
 func _load_image(texture_info : Dictionary, shader_key : String):
 	var tex_info = _info_to_tex(texture_info)
 	var index = tex_info.get("source")
+	print("Loading texture for shader key: %s, image index: %s" % [shader_key, index])
+
+	
+	if index == null or index >= images.size():
+		print("  → index out of range, images size: %s" % images.size())
+		if _resources_loaded.has(shader_key):
+			_resources_loaded[shader_key] = true
+		_update_progress()
+		return
+	
+	var image_entry = images[index]
+	
+	# Buffer embedded texture
+	if not image_entry.has("uri") and image_entry.has("bufferView"):
+		var buffer_view_index = image_entry.get("bufferView")
+		var mime_type = image_entry.get("mimeType", "")
+		var buffer_data = _get_buffer_view_data(buffer_view_index)
+		
+		if buffer_data.is_empty():
+			if _resources_loaded.has(shader_key):
+				_resources_loaded[shader_key] = true
+			_update_progress()
+			return
+		
+		var image = Image.new()
+		var err : int
+		if mime_type == "image/png":
+			err = image.load_png_from_buffer(buffer_data)
+		elif mime_type == "image/jpeg":
+			err = image.load_jpg_from_buffer(buffer_data)
+		elif mime_type == "image/webp":
+			err = image.load_webp_from_buffer(buffer_data)
+		else:
+			push_error("Unsupported embedded image MIME type: %s" % mime_type)
+			if _resources_loaded.has(shader_key):
+				_resources_loaded[shader_key] = true
+			_update_progress()
+			return
+		
+		if err != OK:
+			push_error("Failed to decode embedded image at bufferView %s" % buffer_view_index)
+			if _resources_loaded.has(shader_key):
+				_resources_loaded[shader_key] = true
+			_update_progress()
+			return
+		
+		_load_shader_image(image, shader_key)
+		return
+	
+	# External file texture
 	var image = get_image(images, index)
 	if image:
 		_load_shader_image(image, shader_key)
+	else:
+		if _resources_loaded.has(shader_key):
+			_resources_loaded[shader_key] = true
+		_update_progress()
 
 func _load_basis_functions(ibr : Dictionary):
 	var basis_functions_image = get_basis_functions_image()
@@ -78,17 +138,55 @@ func _load_specular_weights(weights : Dictionary):
 		converter.combine_local(images_to_convert)
 
 func get_image(images : Array, index : int) -> Image:
+	
 	if index < 0 or index >= images.size():
 		return null
-	
-	var image_uri = images[index].get("uri")
-	var file_path = _gltf.sourceUri.get_base_dir() + "\\" + image_uri
-	
-	var file = FileAccess.open(file_path, FileAccess.READ)
-	if not file:
-		return null
-	
-	return Image.load_from_file(file_path)
+
+	var image_entry = images[index]
+
+	# Case 1: external file reference
+	if image_entry.has("uri") and image_entry.get("uri") != null:
+		var image_uri = image_entry.get("uri")
+		var file_path = _gltf.sourceUri.get_base_dir() + "/" + image_uri
+		var file = FileAccess.open(file_path, FileAccess.READ)
+		if not file:
+			return null
+		return Image.load_from_file(file_path)
+
+	# Case 2: embedded in a glTF buffer view
+	if image_entry.has("bufferView"):
+		var buffer_view_index = image_entry.get("bufferView")
+		var mime_type = image_entry.get("mimeType", "")
+		var buffer_data = _get_buffer_view_data(buffer_view_index)
+
+		var image = Image.new()
+		var err : int
+		if mime_type == "image/png":
+			err = image.load_png_from_buffer(buffer_data)
+		elif mime_type == "image/jpeg":
+			err = image.load_jpg_from_buffer(buffer_data)
+		else:
+			push_error("Unsupported embedded image MIME type: %s" % mime_type)
+			return null
+
+		if err != OK:
+			push_error("Failed to decode embedded image at bufferView %s" % buffer_view_index)
+			return null
+		return image
+
+	push_error("Image entry has neither 'uri' nor 'bufferView': %s" % image_entry)
+	return null
+
+func _get_buffer_view_data(buffer_view_index : int) -> PackedByteArray:
+	print("buffers count: ", _gltf.state.buffers.size())
+	print("bufferViews count: ", _gltf.state.json["bufferViews"].size())
+	var buffer_view = _gltf.state.json["bufferViews"][buffer_view_index]
+	var buffer_index = buffer_view.get("buffer", 0)
+	var byte_offset = buffer_view.get("byteOffset", 0)
+	var byte_length = buffer_view.get("byteLength", 0)
+
+	var full_buffer : PackedByteArray = _gltf.state.buffers[buffer_index]
+	return full_buffer.slice(byte_offset, byte_offset + byte_length)
 
 func get_basis_functions_image():
 	var basis_functions_image_path = _gltf.sourceUri.get_base_dir() + "\\basisFunctions.png"

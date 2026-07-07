@@ -9,7 +9,8 @@
 class_name GltfModel extends LoadableArtifact
 
 var obj : GLTFObject
-
+var skip_scale: bool = false
+var parent : Node3D
 @export var artifactGltfUrl : String
 
 func _load_gltf() -> GLTFObject:
@@ -17,6 +18,9 @@ func _load_gltf() -> GLTFObject:
 
 func _create_material() -> GltfMaterial:
 	return GltfMaterial.new(obj)
+	
+func set_up_load_artifact(par: Node3D):
+	parent = par
 
 func load_artifact() -> int:
 	obj = await _load_gltf()
@@ -35,26 +39,24 @@ func load_artifact() -> int:
 	
 	# Most environments seem to be authored with a scale assumption of 1 unit = 50cm
 	# since 1 unit = 1m is more typical, just scale up imported models.
-	mesh.scale = Vector3(2.0, 2.0, 2.0)
-	
-	if mesh is MeshInstance3D:
-		aabb = mesh.get_aabb() * mesh.global_transform
-		
+	if not skip_scale:
+		mesh.scale = Vector3(2.0, 2.0, 2.0)
+# Find the actual MeshInstance3D regardless of nesting depth
+	var mesh_instances = scene.find_children("*", "MeshInstance3D", true, false)
+	if mesh_instances.size() > 0:
+		var first_mesh : MeshInstance3D = mesh_instances[0]
+		aabb = first_mesh.get_aabb()
+		for m in mesh_instances:
+			aabb = aabb.merge(m.get_aabb())
 	else:
-		# Search children for the actual mesh
-		var mesh_instance = mesh.find_child("*", true, false)
-		if mesh_instance is MeshInstance3D:
-			aabb = mesh_instance.get_aabb() * mesh_instance.global_transform
-			mesh = mesh_instance
-			
-		else:
-			aabb = AABB() * mesh.global_transform
-			
-		
-	preview_load_completed.emit();
+		aabb = AABB(Vector3(-0.5, -0.5, -0.5), Vector3(1.0, 1.0, 1.0)) # fallback unit box
+	preview_load_completed.emit()
 	
 	var meshes = scene.find_children("*", "MeshInstance3D")
+	var mesh_count : int = 1
 	for mesh1 : MeshInstance3D in meshes:
+		print("mesh_count ", mesh_count)
+		mesh_count += 1
 		var has_empty_materials
 		if mesh1.mesh != null:
 			# only replace empty materials
@@ -62,6 +64,7 @@ func load_artifact() -> int:
 			var surface_count = mesh1.mesh.get_surface_count()
 			for i in surface_count:
 				has_empty_materials = has_empty_materials || mesh1.mesh.surface_get_material(i) == null
+				
 		
 			if has_empty_materials:
 				print("loading external materials")

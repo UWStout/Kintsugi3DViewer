@@ -21,7 +21,7 @@ func update_with_json(jsonData : Dictionary):
 	# Loads dictionary object so that it could be accessed
 	#sceneData = load_json_file(data_file_path)
 	sceneData = jsonData
-	
+	light_colors.clear() 
 	if sceneData["lights"] != null:
 		# Assigns colors from each light in Voyager Story scene to new light
 		for light in sceneData["lights"]:
@@ -53,7 +53,7 @@ func get_server_json(artifactIndex : int) -> Dictionary:
 	#return data_file_path2.artifacts_cache
 
 func get_model_count():
-	if sceneData["models"] != null:
+	if sceneData.has("models") && sceneData["models"] != null:
 		return sceneData["models"].size()
 	else:
 		return 0
@@ -72,7 +72,7 @@ func get_light_color(light : int):
 		print("Chosen light doesn't exist!")
 
 func get_voyager_node_count():
-	if sceneData["nodes"] != null:
+	if sceneData.has("nodes") && sceneData["nodes"] != null:
 		return sceneData["nodes"].size()
 	else:
 		return 0
@@ -108,6 +108,62 @@ func get_voyager_node_scale (nodeIndex : int) -> Vector3:
 	# default
 	return Vector3(1, 1, 1)
 		
+func get_model_units_to_meters(modelIndex: int) -> float:
+	if sceneData["models"] == null or modelIndex >= sceneData["models"].size():
+		return get_units_to_meters()  # fall back to scene units
+	
+	var units = sceneData["models"][modelIndex].get("units", "")
+	
+	if units.is_empty():
+		return get_units_to_meters()  # fall back to scene units
+	
+	match units:
+		"mm":
+			return 0.001
+		"cm":
+			return 0.01
+		"dm":
+			return 0.1
+		"m":
+			return 1.0
+		"km":
+			return 1000.0
+		"in":
+			return 0.0254
+		"ft":
+			return 0.3048
+		"yd":
+			return 0.9144
+		_:
+			push_error("Unknown unit type in Voyager model %s: %s" % [modelIndex, units])
+			return get_units_to_meters()  # fall back to scene units
+
+func get_units_to_meters() -> float:
+	var scenes = sceneData.get("scenes", [])
+	if scenes.is_empty():
+		return 0.001  # fallback to mm
+	var units = scenes[0].get("units", "mm")
+	match units:
+		"mm":
+			return 0.001
+		"cm":
+			return 0.01
+		"dm":
+			return 0.1
+		"m":
+			return 1.0
+		"km":
+			return 1000.0
+		"in":
+			return 0.0254
+		"ft":
+			return 0.3048
+		"yd":
+			return 0.9144
+		_:
+			push_error("Unknown unit type in Voyager scene: %s" % units)
+			return 0.001  # fallback
+
 func get_voyager_node_translation(nodeIndex : int) -> Vector3:
 	if sceneData["nodes"] != null and nodeIndex < get_voyager_node_count() \
 			and sceneData["nodes"][nodeIndex].has("translation"):
@@ -116,7 +172,7 @@ func get_voyager_node_translation(nodeIndex : int) -> Vector3:
 		var z = sceneData["nodes"][nodeIndex]["translation"][2]
 		
 		if x != null and y != null and z != null:
-			return Vector3(x, y, z) * 0.1 # TODO figure out more robust unit conversion
+			return Vector3(x, y, z) * get_units_to_meters() # TODO figure out more robust unit conversion
 	
 	# default
 	return Vector3(0, 0, 0)

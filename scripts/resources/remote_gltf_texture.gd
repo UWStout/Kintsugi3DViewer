@@ -127,9 +127,37 @@ func _load_image(image: Dictionary, callback: Callable = _load_shader_image):
 		ImageSource.BASE64:
 			callback.call(_decode_b64_image(image["uri"]))
 		ImageSource.BUFFER:
-			#var image_data = _decode_buffer_image(_material._gltf.state.json["bufferViews"][image["bufferView"]], image)
-			#callback.call(image_data)
-			pass
+			var buffer_view_index = image.get("bufferView")
+			var mime_type = image.get("mimeType", "")
+
+			# Extract buffer data directly from the GLTFState
+			var buffer_view = _material._gltf.state.json["bufferViews"][int(buffer_view_index)]
+			var buffer_index = buffer_view.get("buffer", 0)
+			var byte_offset = buffer_view.get("byteOffset", 0)
+			var byte_length = buffer_view.get("byteLength", 0)
+
+			var full_buffer : PackedByteArray = _material._gltf.state.buffers[buffer_index]
+			var buffer_data = full_buffer.slice(byte_offset, byte_offset + byte_length)
+
+			var decoded_image = Image.new()
+			var err : int
+			if mime_type == "image/png":
+				err = decoded_image.load_png_from_buffer(buffer_data)
+			elif mime_type == "image/jpeg":
+				err = decoded_image.load_jpg_from_buffer(buffer_data)
+			elif mime_type == "image/webp":
+				err = decoded_image.load_webp_from_buffer(buffer_data)
+			else:
+				push_error("Unsupported buffer image MIME type: %s" % mime_type)
+				texture_loaded.emit(_shader_key)
+				return
+
+			if err != OK:
+				push_error("Failed to decode buffer image for %s" % _shader_key)
+				texture_loaded.emit(_shader_key)
+				return
+
+			callback.call(decoded_image)
 		_:
 			push_error("Image could not be decoded: No uri or bufferView!\n%s" % image)
 
