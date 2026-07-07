@@ -19,6 +19,7 @@ signal artifact_changed(artifact: ArtifactData)
 @export var _environment_controller : EnvironmentController
 @export var _artifact_catalog_ui : ArtifactCatalogUI
 
+@export var object_manager: ArtifactsManager
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
@@ -79,27 +80,31 @@ func display_artifact(index : int):
 	pass
 
 func display_artifact_data(artifact: ArtifactData):
-	#if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
-		#return
-	# 
-	#TOFIX: artifacts[] holds a copy of all data instead of the original data, currently rendering this find useless
-	var artifact_index = artifacts.find(artifact)
-	current_index = artifact_index
-	
-	if is_instance_valid(loaded_artifact):
-		#if not loaded_artifact.load_finished:
-			#loaded_artifact.stop_loading()
-		
-		loaded_artifact.queue_free()
-
-	if artifact["voyagerUri"] != null and not artifact["voyagerUri"].is_empty():
-		loaded_artifact = RemoteVoyagerStory.new(artifact)
-	else:
-		loaded_artifact = RemoteGltfModel.create(artifact)
-		
-	add_child(loaded_artifact)
-	#this is a manual grab
-	current_artifact = artifact
+	##if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
+		##return
+	## 
+	##TOFIX: artifacts[] holds a copy of all data instead of the original data, currently rendering this find useless
+	#var artifact_index = artifacts.find(artifact)
+	#current_index = artifact_index
+	#
+	#if is_instance_valid(loaded_artifact):
+		##if not loaded_artifact.load_finished:
+			##loaded_artifact.stop_loading()
+		#
+		#loaded_artifact.queue_free()
+#
+	#if artifact["voyagerUri"] != null and not artifact["voyagerUri"].is_empty():
+		#loaded_artifact = RemoteVoyagerStory.new(artifact)
+	#elif artifact["localDir"] != null and not artifact["localDir"].is_empty():
+		#loaded_artifact = LocalGltfModel.create(artifact)
+	#else:
+		#loaded_artifact = RemoteGltfModel.create(artifact)
+		#
+		#
+		#
+	#add_child(loaded_artifact)
+	##this is a manual grab
+	#current_artifact = artifact
 	#
 	#if is_instance_valid(loaded_artifact):
 		#if not loaded_artifact.load_finished:
@@ -189,6 +194,10 @@ func _place_artifact():
 		#print(loaded_artifact.transform.basis )
 		
 		
+func _clean_up():
+	if is_instance_valid(loaded_artifact):
+		loaded_artifact.queue_free()
+		
 func _on_model_preview_load_complete():
 	print("_environment_controller: ", _environment_controller)
 	if _environment_controller.get_current_environment() != null:
@@ -239,6 +248,7 @@ func _look_for_mesh(node : Node3D):
 		return null
 	else:
 		return results.pop_front()
+
 
 #func change_scale():
 	##print("HELLO THERE")

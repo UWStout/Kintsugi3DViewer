@@ -32,7 +32,7 @@ func refresh_artifacts() -> Array[ArtifactData]:
 
 func _open_artifact_through_file(gltf_file_path : String):
 	print("opening through file")
-	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
+	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) and not gltf_file_path.ends_with(".svx.json"):
 		return
 	
 	if is_instance_valid(loaded_artifact):
@@ -41,7 +41,14 @@ func _open_artifact_through_file(gltf_file_path : String):
 	var data = ArtifactData.new()
 	data.gltfUri = gltf_file_path
 	
-	var model = LocalGltfModel.create(data)
+	var model : GltfModel
+	if gltf_file_path.ends_with(".svx.json"):
+		data.voyagerUri = gltf_file_path
+		model = LocalVoyagerStory.new(data)
+	else:
+		data.gltfUri = gltf_file_path
+		model = LocalGltfModel.create(data)
+
 	add_child(model)
 	#_on_model_begin_load()
 	model.preview_load_completed.connect(_on_model_preview_load_complete)
@@ -75,9 +82,10 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 
 func open_artifact(data : ArtifactData):
+	print("local")
 	var gltf_file_path = data.localDir
 	#Check the file can be opened
-	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):
+	if (not(gltf_file_path.ends_with(".gltf") and gltf_file_path.ends_with(".glb")) and not gltf_file_path.ends_with(".svx.json")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):
 		_invalid_file_popup.visible = true
 		_invalid_file_popup.mouse_filter = Control.MOUSE_FILTER_STOP
 		LocalSaveData._remove_entry(gltf_file_path) #- bug found where it deletes all the data
@@ -91,11 +99,18 @@ func open_artifact(data : ArtifactData):
 		
 	data.gltfUri = gltf_file_path
 	
-	loaded_artifact = LocalGltfModel.create(data)
+	
+	if data.voyagerUri != null and not data.voyagerUri.is_empty():
+		loaded_artifact = LocalVoyagerStory.new(data)
+	else:
+		loaded_artifact = LocalGltfModel.create(data)
+
+
 	add_child(loaded_artifact)
 	emit_signal("artifact_loaded")
 	#_on_model_begin_load()
 	display_artifact_data(data)
+	
 	#model.preview_load_completed.connect(_on_model_preview_load_complete)
 	#model.load_completed.connect(_on_model_load_complete)
 	#model.load_progress.connect(_on_model_load_progress)

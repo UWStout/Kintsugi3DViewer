@@ -60,8 +60,9 @@ func _display_toggled_off():
 	super._display_toggled_off()
 
 func make_inactive():
-	if controller.loaded_artifact.load_finished:
-		return
+	if controller.loaded_artifact != null :
+		if controller.loaded_artifact.load_finished:
+			return
 	
 	artifact_label.self_modulate = Color8(167, 167, 167, 255)
 	artifact_preview.self_modulate = Color8(167, 167, 167, 255)

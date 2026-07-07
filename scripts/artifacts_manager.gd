@@ -20,6 +20,8 @@ func _ready() -> void:
 func set_active_controller(controller: ArtifactsController):
 	if active_controller == controller:
 		return
+	if active_controller != null:
+		active_controller._clean_up()
 	active_controller = controller
 	emit_signal("active_controller_changed", active_controller)
 

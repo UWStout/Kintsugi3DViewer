@@ -355,7 +355,7 @@ script = ExtResource("3_e3ejb")
 local = NodePath("local_controller")
 server = NodePath("server_controller")
 
-[node name="local_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui")]
+[node name="local_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui", "object_manager")]
 script = ExtResource("4_e3ejb")
 _save_import_panel = NodePath("../../new_ui_root/MarginContainer/save_file")
 _save_import_button = NodePath("../../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
@@ -365,12 +365,14 @@ _invalid_file_popup = NodePath("../../new_ui_root/MarginContainer/broken_file/pa
 _loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
 _environment_controller = NodePath("../../environment_controller")
 _artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
+object_manager = NodePath("..")
 
-[node name="server_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
+[node name="server_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui", "object_manager")]
 script = ExtResource("3_rwtoy")
 _loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/MarginContainer/new_loading_container")
 _environment_controller = NodePath("../../environment_controller")
 _artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
+object_manager = NodePath("..")
 
 [node name="Camera" parent="." node_paths=PackedStringArray("configSettings", "artifactsManager") instance=ExtResource("1_degd7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 2, 0)
@@ -760,12 +762,12 @@ layout_mode = 2
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 script = ExtResource("26_ebyjk")
-_lerp_speed = 2.0
 artifacts_manager = NodePath("../../../../../../../../../../artifacts_manager")
 artifacts_controller = NodePath("../../../../../../../../../../artifacts_manager/local_controller")
 scene_camera = NodePath("../../../../../../../../../../Camera")
 sidebar_context_menu = NodePath("../../../../../../../side_dock/sidebar_context_menus")
 light_selection_ui = NodePath("../../../../../../../side_dock/sidebar_context_menus/lights_selection")
+_lerp_speed = 2.0
 
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer4/CenterContainer/rotate_artifact_button"]
 layout_mode = 1
@@ -2768,6 +2770,7 @@ offset_bottom = 40.0
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_manager", "artifacts_controller", "v_box_container")]
 disable_3d = true
 transparent_bg = true
+oversampling_override = 1.0
 title = "Select Artifact"
 position = Vector2i(432, 81)
 size = Vector2i(288, 486)
@@ -2806,6 +2809,7 @@ parent_window = NodePath("../../..")
 artifacts_manager = NodePath("../../../../artifacts_manager")
 
 [node name="save_screenshot_popup_window" type="FileDialog" parent="."]
+oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(1152, 648)
 access = 2
