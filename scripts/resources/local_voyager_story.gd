@@ -5,7 +5,7 @@ func _init(p_artifact: ArtifactData):
 	is_local = true
 
 func load_artifact():
-	print("=== load_artifact called, instance: ", self)
+	#print("=== load_artifact called, instance: ", self)
 	var voyager_json_path = artifact.voyagerUri
 	if not FileAccess.file_exists(voyager_json_path):
 		push_error("Voyager scene file not found: %s" % voyager_json_path)
@@ -19,7 +19,7 @@ func load_artifact():
 		return
 
 	JsonReader.update_with_json(parsed)
-	print("local voyager")
+
 
 	var models: Array[GltfModel] = []
 	var preview_loaded: Array[bool] = []

@@ -106,7 +106,7 @@ func _load_gltf() -> GLTFObject:
 		gltf_obj.sourceUri = artifact.gltfUri
 		return gltf_obj
 	elif not Preferences.read_pref("offline mode"):
-		print(Preferences.read_pref("offline mode"))
+		#print(Preferences.read_pref("offline mode"))
 		var gltf_obj = await fetcher.fetch_gltf(artifact)
 		CacheManager.export_artifact_data(dir_name, artifact)
 		CacheManager.export_gltf_async(dir_name, file_name, gltf_obj.document, gltf_obj.state.duplicate(true))

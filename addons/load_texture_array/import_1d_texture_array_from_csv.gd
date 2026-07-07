@@ -61,7 +61,7 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	#print(img.get_width())
 	#print(img.get_height())
 	var texture = ImageTexture.create_from_image(img)
-	print("%s.%s" % [save_path, _get_save_extension()])
+	#print("%s.%s" % [save_path, _get_save_extension()])
 	var error = ResourceSaver.save(texture, "%s.%s" % [save_path, _get_save_extension()]);
 	print(error)
 	return error	

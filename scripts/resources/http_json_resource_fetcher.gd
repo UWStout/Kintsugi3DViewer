@@ -51,7 +51,7 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	var url = _format_relative_url(artifact.gltfUri)
 	var headers = PackedStringArray(["Accept: model/gltf-binary, model/gltf+json"])
 	var raw_data = await _fetch_url_raw(url, headers)
-	print("Downloaded bytes: ", raw_data.size())
+	#print("Downloaded bytes: ", raw_data.size())
 	
 	var document = GLTFDocument.new()
 	var state = GLTFState.new()
@@ -60,13 +60,13 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	# Check if this is a binary GLB or a JSON GLTF
 	# GLB files start with magic bytes 0x46546C67 ("glTF")
 	if raw_data.size() >= 4 and raw_data.decode_u32(0) == 0x46546C67:
-		print("Parsing as GLB")
+		#print("Parsing as GLB")
 		gltf_error = document.append_from_buffer(raw_data, "", state, 0x20)
 	else:
-		print("Parsing as GLTF, writing temp file")
+		#print("Parsing as GLTF, writing temp file")
 		var temp_path = "user://temp_gltf_%s.gltf" % Time.get_ticks_msec()
 		
-		print("raw_data size before write: ", raw_data.size())
+		#print("raw_data size before write: ", raw_data.size())
 		var temp_file = FileAccess.open(temp_path, FileAccess.WRITE)
 		if temp_file == null:
 			push_error("Failed to open temp file: %s" % FileAccess.get_open_error())
@@ -74,13 +74,13 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 		
 		temp_file.store_buffer(raw_data)
 		var bytes_written = temp_file.get_position()
-		print("Bytes written: ", bytes_written)
+		#print("Bytes written: ", bytes_written)
 		temp_file.close()
 		temp_file = null
 		
 		# Verify file on disk
 		var verify_size = FileAccess.get_file_as_bytes(temp_path).size()
-		print("Verified temp file size on disk: ", verify_size)
+		#print("Verified temp file size on disk: ", verify_size)
 		
 		if verify_size == 0:
 			push_error("Temp file is empty after write!")
@@ -88,11 +88,11 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 			return GLTFObject.new()
 		
 		gltf_error = document.append_from_file(temp_path, state, 0x20)
-		print("gltf_error: ", gltf_error)
-		print("buffers count: ", state.buffers.size())
-		print("images count: ", state.json.get("images", []).size())
-		if state.json.has("materials"):
-			print("material 0: ", state.json["materials"][0].get("pbrMetallicRoughness", {}))
+		#print("gltf_error: ", gltf_error)
+		#print("buffers count: ", state.buffers.size())
+		#print("images count: ", state.json.get("images", []).size())
+		#if state.json.has("materials"):
+			#print("material 0: ", state.json["materials"][0].get("pbrMetallicRoughness", {}))
 		
 		DirAccess.remove_absolute(temp_path)
 	
@@ -165,7 +165,7 @@ func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> 
 	# Wait for the request to complete and fetch signal parameters
 	var response = await request.request_completed
 	
-	print ("HTTP request complete: " + url)
+	#print ("HTTP request complete: " + url)
 	
 	var result = response[0]
 	var response_code = response[1]

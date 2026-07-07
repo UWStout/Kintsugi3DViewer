@@ -87,7 +87,7 @@ func load_full_res():
 		return
 	
 	if not Preferences.read_pref("low res only"):
-		print("Loading full resolution for " + _shader_key)
+		#print("Loading full resolution for " + _shader_key)
 		_load_image(_image_at_index(_texture["source"]))
 	else:
 		texture_loaded.emit(_shader_key)

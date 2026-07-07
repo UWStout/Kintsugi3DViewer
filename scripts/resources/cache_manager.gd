@@ -38,7 +38,7 @@ func _ready():
 	
 	create_cache_directory()
 	
-	show_cache_info()
+	#show_cache_info()
 	
 	reduce_cache(cache_mode)
 
@@ -90,18 +90,18 @@ func import_gltf(dir_name : String, name : String):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
 	
 	if dir == null:
-		print("directory " + dir_path + " does not exist")
-		print("trying again")
+		#print("directory " + dir_path + " does not exist")
+		#print("trying again")
 		dir = DirAccess.open(dir_name)
 		if dir == null:
-			print("failed")
+			#print("failed")
 			return null
 		else:
-			print("sucsess")
+			#print("sucsess")
 			dir_path = dir_name + "/"
 	
 	if not dir.file_exists(file_name):
-		print("could not locate file " + file_name + " in directory " + dir_path)
+		#print("could not locate file " + file_name + " in directory " + dir_path)
 		return null
 	
 	# Import the GLTF
@@ -121,7 +121,7 @@ func import_gltf(dir_name : String, name : String):
 	# Import the JSON
 	file_name = name + ".json"
 	if not dir.file_exists(file_name):
-		print("could not locate file " + file_name + " in directory " + dir_path)
+		#print("could not locate file " + file_name + " in directory " + dir_path)
 		return null
 	
 	file_path = dir_path + file_name
@@ -173,7 +173,7 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 
 	# Export the .glb file
 	doc.write_to_filesystem(state, dir_path + file_name)
-	print("exported file " + file_name + " to directory " + dir_path)
+	#print("exported file " + file_name + " to directory " + dir_path)
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
