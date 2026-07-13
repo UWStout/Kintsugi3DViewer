@@ -22,7 +22,7 @@ func load_artifact():
 	pass
 	
 func refresh_aabb():
-	var meshes = find_children("*", "VisualInstance3D", true, false)
+	var meshes = find_children("*", "MeshInstance3D", true, false)
 	
 	if meshes.size() == 0:
 		aabb = global_transform * AABB()
@@ -31,7 +31,7 @@ func refresh_aabb():
 	aabb = meshes[0].global_transform * meshes[0].get_aabb()
 	
 	# merge AABBs of all meshes
-	for mesh : VisualInstance3D in meshes:
+	for mesh : MeshInstance3D in meshes:
 		aabb = aabb.merge(mesh.global_transform * mesh.get_aabb())
 	
 	return 0

@@ -2,10 +2,11 @@ extends Node
 
 var sceneData = {}
 var light_colors : Array[Color]
+var light_int : Array[float]
+var light_type : Array[String]
 var annotation_title
 var annotation_text
 var artifact_list
-
 # File path used to find specific JSON file to read from
 var data_file_path = "res://artifacts/guan-yu-test-voyager/scene.svx.json"
 
@@ -22,12 +23,20 @@ func update_with_json(jsonData : Dictionary):
 	#sceneData = load_json_file(data_file_path)
 	sceneData = jsonData
 	light_colors.clear() 
+	light_type.clear()
+	light_int.clear()
 	if sceneData["lights"] != null:
 		# Assigns colors from each light in Voyager Story scene to new light
 		for light in sceneData["lights"]:
-			light_colors.append(Color(light["color"][0], light["color"][1], light["color"][2], 1))
-			
-		
+			light_type.append(light["type"])
+			light_int.append(light["intensity"])
+			if not light.has("color"):
+				print("Light missing color key: ", light)
+				print(light["type"])
+				light_colors.append(Color.BLACK)
+			else:	
+				light_colors.append(Color(light["color"][0], light["color"][1], light["color"][2], 1))
+				
 
 	# Assigns annotation title and text in Voyager Story scene to new text objects
 	#annotation_title = Label.new()
@@ -66,7 +75,24 @@ func get_model_uri(modelIndex: int):
 		return sceneData["models"][modelIndex]["derivatives"][0]["assets"][0]["uri"]
 	else:
 		return null
+		
+func get_light_spot_data(light: int) -> Dictionary:
+	if sceneData.has("lights") and light < sceneData["lights"].size():
+		return sceneData["lights"][light].get("spot", {})
+	return {}
 
+func get_light_type(light : int):
+	if light < light_type.size():
+		return light_type[light]
+	else:
+		print("Chosen light doesn't exist!")
+		
+func get_light_intensity(light : int):
+	if light < light_int.size():
+		return light_int[light]
+	else:
+		print("Chosen light doesn't exist!")
+		
 func get_light_color(light : int):
 	if light < light_colors.size():
 		return light_colors[light]
@@ -81,7 +107,7 @@ func get_voyager_node_count():
 		
 func is_voyager_node_light(nodeIndex: int) -> bool:
 	return sceneData["nodes"] != null and nodeIndex < get_voyager_node_count() \
-		and sceneData["nodes"][nodeIndex].has("light")
+		and sceneData["nodes"][nodeIndex].has("light") 
 		
 func is_voyager_node_camera(nodeIndex: int) -> bool:
 	return sceneData["nodes"] != null and nodeIndex < get_voyager_node_count() \

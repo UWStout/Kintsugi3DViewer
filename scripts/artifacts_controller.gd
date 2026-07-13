@@ -199,7 +199,7 @@ func _clean_up():
 		loaded_artifact.queue_free()
 		
 func _on_model_preview_load_complete():
-	print("_environment_controller: ", _environment_controller)
+	#print("_environment_controller: ", _environment_controller)
 	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 	_place_artifact()
