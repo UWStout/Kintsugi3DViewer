@@ -53,7 +53,7 @@ func load_artifact() -> int:
 	var meshes = scene.find_children("*", "MeshInstance3D")
 	var mesh_count : int = 1
 	for mesh1 : MeshInstance3D in meshes:
-		print("mesh_count ", mesh_count)
+		#print("mesh_count ", mesh_count)
 		mesh_count += 1
 		var has_empty_materials
 		if mesh1.mesh != null:

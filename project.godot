@@ -31,6 +31,7 @@ UrlReader="*res://scripts/url_reader.gd"
 ResponsiveLightingRoot="*res://scripts/lighting/responsive_lighting_root.gd"
 UiScaling="*res://scripts/new_ui/ui_scaling.gd"
 LocalSaveData="*res://scripts/local_save_data.gd"
+VoyagerLoader="*res://scripts/resources/voyager_loader.gd"
 
 [display]
 
