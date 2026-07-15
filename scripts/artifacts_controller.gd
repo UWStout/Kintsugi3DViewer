@@ -132,6 +132,8 @@ func _place_artifact():
 		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
 		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
 		loaded_artifact.global_position = target_pos
+		var visualTrigger : VisibleOnScreenNotifier3D  = self.get_child(0)
+		visualTrigger.global_position = loaded_artifact.global_position
 		#print("really ", loaded_artifact.rotation.y)
 		#print("really ", loaded_artifact.rotation.y)
 		#print(loaded_artifact.transform.basis )
@@ -141,6 +143,9 @@ func _on_model_preview_load_complete():
 	print("_environment_controller: ", _environment_controller)
 	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
+		var visualTrigger : VisibleOnScreenNotifier3D  = self.get_child(0)
+		if visualTrigger != null:
+			visualTrigger.aabb = loaded_artifact.aabb
 	_place_artifact()
 	if(current_artifact != null):
 		artifact_changed.emit(current_artifact)

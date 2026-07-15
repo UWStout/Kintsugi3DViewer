@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8b616pdkad77"]
+[gd_scene load_steps=10 format=3 uid="uid://cnigddmkp1owi"]
 
-[ext_resource type="Script" uid="uid://j6ujgwvuswiu" path="res://scripts/new_ui/confirmation_panel_ui.gd" id="1_8kc32"]
-[ext_resource type="Script" uid="uid://dlre6ofopywpx" path="res://scripts/new_ui/buttons/base/extended_button.gd" id="1_prncf"]
+[ext_resource type="Script" uid="uid://dlre6ofopywpx" path="res://scripts/new_ui/buttons/base/extended_button.gd" id="1_7lb7t"]
+[ext_resource type="Script" uid="uid://cceus7c0uicuy" path="res://scripts/new_ui/reset_view_panel.gd" id="1_llb2i"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bp6xv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llb2i"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 1)
 border_width_left = 5
 border_width_top = 5
@@ -15,60 +15,66 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f6pam"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydb43"]
 bg_color = Color(0.85098, 0.85098, 0.85098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xgs7b"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plri0"]
 bg_color = Color(0.694118, 0.694118, 0.694118, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uj50i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ricnb"]
 bg_color = Color(0.772549, 0.772549, 0.772549, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yopi7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avwo1"]
 bg_color = Color(0.145098, 0.145098, 0.145098, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1m1v"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ej1ob"]
 bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ttia"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up24n"]
 bg_color = Color(0.105882, 0.105882, 0.105882, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="CenterContainer" type="CenterContainer" node_paths=PackedStringArray("header", "description", "cancel_button", "confirm_button")]
-custom_minimum_size = Vector2(1152, 648)
-script = ExtResource("1_8kc32")
-header = NodePath("confirmation_panel/VBoxContainer/MarginContainer/CenterContainer/header")
-description = NodePath("confirmation_panel/VBoxContainer/MarginContainer2/CenterContainer/description")
-cancel_button = NodePath("confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/cancel_button")
-confirm_button = NodePath("confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/confirm_button")
+[node name="ResetViewPanel" type="CenterContainer" node_paths=PackedStringArray("panel")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -450.0
+offset_top = -300.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_llb2i")
+panel = NodePath("confirmation_panel")
 
 [node name="confirmation_panel" type="Panel" parent="."]
+visible = false
 custom_minimum_size = Vector2(450, 300)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_bp6xv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_llb2i")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="confirmation_panel"]
 layout_mode = 1
@@ -89,7 +95,7 @@ layout_mode = 2
 [node name="header" type="Label" parent="confirmation_panel/VBoxContainer/MarginContainer/CenterContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "CLEAR CACHE?"
+text = "Out Of Bounds"
 
 [node name="MarginContainer2" type="MarginContainer" parent="confirmation_panel/VBoxContainer"]
 layout_mode = 2
@@ -103,7 +109,7 @@ custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.615686, 0.615686, 0.615686, 1)
 theme_override_font_sizes/font_size = 16
-text = "You will not be able to recover it"
+text = "you have moved to far from the object would you like to reset "
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -119,36 +125,52 @@ theme_override_constants/margin_bottom = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3"]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 30
 alignment = 1
 
-[node name="cancel_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(150, 50)
+[node name="zoom_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_focus_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_hover_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_f6pam")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_xgs7b")
-theme_override_styles/hover = SubResource("StyleBoxFlat_uj50i")
-text = "CANCEL"
-script = ExtResource("1_prncf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ydb43")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_plri0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ricnb")
+text = "Zoom"
+script = ExtResource("1_7lb7t")
 
-[node name="confirm_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(150, 50)
+[node name="panning_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
 theme_override_colors/font_focus_color = Color(0.85098, 0.85098, 0.85098, 1)
 theme_override_colors/font_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
 theme_override_colors/font_hover_color = Color(0.85098, 0.85098, 0.85098, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_yopi7")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_m1m1v")
-theme_override_styles/hover = SubResource("StyleBoxFlat_3ttia")
-text = "CLEAR CACHE"
-script = ExtResource("1_prncf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_avwo1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ej1ob")
+theme_override_styles/hover = SubResource("StyleBoxFlat_up24n")
+text = "Panning"
+script = ExtResource("1_7lb7t")
 
-[connection signal="pressed" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/cancel_button" to="." method="_on_canceled"]
-[connection signal="pressed" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/confirm_button" to="." method="_on_confirmed"]
+[node name="both_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_focus_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_hover_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_avwo1")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ej1ob")
+theme_override_styles/hover = SubResource("StyleBoxFlat_up24n")
+text = "Reset All"
+script = ExtResource("1_7lb7t")
+metadata/_custom_type_script = "uid://dlre6ofopywpx"
+
+[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/zoom_button" to="." method="_on_zoom_button_button_up"]
+[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/panning_button" to="." method="_on_panning_button_button_up"]
+[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/both_button" to="." method="_on_both_button_button_up"]
