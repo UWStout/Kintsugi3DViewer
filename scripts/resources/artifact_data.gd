@@ -62,17 +62,17 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 	if data.has("panning_distance"):
 		out_data.panning_distance = data.get("panning_distance")
 	else:
-		out_data.panning_distance = 10.0
+		out_data.panning_distance = 25.0
 		
 	if data.has("min_vert_rotation"):
 		out_data.min_vert_rotation =  data.get("min_vert_rotation")
 	else:
-		out_data.min_vert_rotation = 85.0	
+		out_data.min_vert_rotation = 175.0	
 		
 	if data.has("max_vert_rotation"):
 		out_data.max_vert_rotation =  data.get("max_vert_rotation")
 	else:
-		out_data.max_vert_rotation = 85.0	
+		out_data.max_vert_rotation = 5.0	
 
 	if data.has("display_opt"):
 		out_data.display_opt =  data.get("display_opt")

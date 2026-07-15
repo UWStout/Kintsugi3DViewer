@@ -20,6 +20,7 @@ class_name CameraRig
 @export var spotLight : SpotLight3D
 @export var configSettings: ArtifactConfigUI
 @export var artifactsManager: ArtifactsManager
+@export var resetPanel : ResetViewPanel
 
 @export_group("Rotation", "rot_")
 @export var rot_enabled: bool = true
@@ -33,6 +34,8 @@ class_name CameraRig
 @export var rot_vert_limit_bottom_angle: float = 5
 @onready var rot_vert_limit_min = deg_to_rad(180 - rot_vert_limit_bottom_angle) 
 @onready var rot_vert_limit_max = deg_to_rad(rot_vert_limit_top_angle)
+var old_rot_vert_limit_min = deg_to_rad(180 - rot_vert_limit_bottom_angle) 
+var old_rot_vert_limit_max = deg_to_rad(rot_vert_limit_top_angle)
 var last_frame_atn : float
 # Not Implemented
 @export_subgroup("Horizontal Limits", "rot_horiz_limit_")
@@ -47,6 +50,7 @@ var last_frame_rotation : float = 0.0;
 @export var drag_enabled: bool = true
 @export var drag_interpolate: bool = true
 @export var drag_panning_distance: float = 1
+var old_drag_panning_distance: float = 0
 @export_range(0, 25, 0.01) var drag_rate: float = 10
 @export var drag_initial_translation: Vector3
 var oldOrigin: Vector3
@@ -76,7 +80,7 @@ var oldOrigin: Vector3
 #reset
 var rotation_point_start_transform: Transform3D
 var start_position: Vector3
-
+var constrants_disabled : bool = false
 #autopan
 var do_autopan : bool = false
 var autopan_target : Vector3
@@ -168,9 +172,30 @@ func _ready():
 	camera.position.z = target_dolly
 	camera.fov = target_fov
 	configSettings.camera_setting_changed.connect(_on_camera_settings_changed)
+	configSettings.artifact_config_menu.disable_limits.connect(_disable_limits)
 	rotation_point_start_transform = rotationPoint.transform
 	start_position = Vector3(camera.global_position.x, 0, camera.global_position.z)
+	 
 	
+func _disable_limits(disable: bool):
+	constrants_disabled = disable
+	if disable == true:
+		dolly_limit_enabled = not disable
+		rot_horiz_limit_enabled = not disable
+		old_drag_panning_distance = drag_panning_distance
+		old_rot_vert_limit_max = rot_vert_limit_max
+		old_rot_vert_limit_min = rot_vert_limit_min
+		rot_vert_limit_min = 3.05432619099008
+		rot_vert_limit_max = 0.08726646259972
+		drag_panning_distance = 1000
+	else:
+		dolly_limit_enabled = not disable
+		rot_horiz_limit_enabled = not disable
+		reset_for_new_artifact()
+		drag_panning_distance = old_drag_panning_distance
+		rot_vert_limit_min = old_rot_vert_limit_min
+		rot_vert_limit_max = old_rot_vert_limit_max
+
 func _process(delta):
 	#print("distance to Rotation point ", (camera.global_position - rotationPoint.global_position).length())
 	if not rig_enabled:
@@ -234,14 +259,15 @@ func _process(delta):
 	
 	if drag_enabled:
 		#oldOrigin = rotationPoint.transform.origin
-		var offset_from_origin =  target_transform.origin - rotation_point_start_transform.origin
-		var weightOffset : float =  1.0
-		if offset_from_origin.length() > drag_panning_distance:
-			target_transform.origin = rotation_point_start_transform.origin + offset_from_origin.normalized() * 1
-
-		var weight = drag_rate * delta if drag_interpolate else 1
-		#print("weight times offset " , weight*weightOffset)
-		rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
+		if artifactsManager.active_controller.loaded_artifact != null:
+			var offset_from_origin =  target_transform.origin - artifactsManager.active_controller.loaded_artifact.transform.origin
+			var weightOffset : float =  1.0
+			if offset_from_origin.length() > drag_panning_distance:
+				target_transform.origin = artifactsManager.active_controller.loaded_artifact.transform.origin + offset_from_origin.normalized() * 1
+				weightOffset = 0.05
+			var weight = drag_rate * delta if drag_interpolate else 1
+			#print("weight times offset " , weight*weightOffset)
+			rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
 		
 	# if autopanning, lerp the camera towards the target point
 	# until it's close enough, then stop.
@@ -254,6 +280,14 @@ func _process(delta):
 		if rotationPoint.global_position.distance_to(autopan_target) <= 0.1:
 			rotationPoint.global_position = autopan_target
 			do_autopan = false
+	
+	if constrants_disabled:
+		if artifactsManager.active_controller.current_artifact != null:
+			if camera.global_position.distance_to(artifactsManager.active_controller.get_child(0).global_position) > 75 or not artifactsManager.active_controller.get_child(0).is_on_screen():
+				resetPanel.panel.visible = true
+			elif resetPanel.panel.visible:
+				resetPanel.panel.visible = false
+		
 
 #autopan functions
 func begin_autopan(new_target, new_speed : float):
@@ -319,16 +353,20 @@ func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
 			reset_for_new_artifact()
 		
 		
-	
+
+
 func reset_for_new_artifact() -> void:
 	set_rig_transform(rotation_point_start_transform)
 	set_zoom(dolly_initial_distance) 
 	apply_yaw(PI)
+	if constrants_disabled:
+		_disable_limits(constrants_disabled)
 	#artifactsManager.active_controller.loaded_artifact.rotate_y(-(PI/2))
 	
 
 func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHorizRotation: float, minVertRotation: float, maxVertRotation: float, pannDistance: float) -> void:
 	drag_panning_distance = pannDistance
+	old_drag_panning_distance = pannDistance
 	dolly_limit_minDistance = minDistance
 	dolly_limit_maxDistance = maxDistance
 	if maxHorizRotation < 359.9:
@@ -339,3 +377,4 @@ func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHori
 		rot_horiz_limit_enabled = false
 	rot_vert_limit_min = deg_to_rad(minVertRotation)
 	rot_vert_limit_max = deg_to_rad(maxVertRotation)
+	#print("min ", rot_vert_limit_min, " max " ,rot_vert_limit_max)
