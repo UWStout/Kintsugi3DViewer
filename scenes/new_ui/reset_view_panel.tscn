@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cnigddmkp1owi"]
+[gd_scene load_steps=8 format=3 uid="uid://cnigddmkp1owi"]
 
 [ext_resource type="Script" uid="uid://dlre6ofopywpx" path="res://scripts/new_ui/buttons/base/extended_button.gd" id="1_7lb7t"]
 [ext_resource type="Script" uid="uid://cceus7c0uicuy" path="res://scripts/new_ui/reset_view_panel.gd" id="1_llb2i"]
+[ext_resource type="Script" uid="uid://bmb66i6by3o6o" path="res://scenes/new_ui/drop_down.gd" id="3_ydb43"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llb2i"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 1)
@@ -36,28 +37,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avwo1"]
-bg_color = Color(0.145098, 0.145098, 0.145098, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ej1ob"]
-bg_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_up24n"]
-bg_color = Color(0.105882, 0.105882, 0.105882, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-
-[node name="ResetViewPanel" type="CenterContainer" node_paths=PackedStringArray("panel")]
+[node name="ResetViewPanel" type="CenterContainer" node_paths=PackedStringArray("panel", "option_drop_down")]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -69,6 +49,7 @@ grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource("1_llb2i")
 panel = NodePath("confirmation_panel")
+option_drop_down = NodePath("confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer/OptionButton")
 
 [node name="confirmation_panel" type="Panel" parent="."]
 visible = false
@@ -128,7 +109,10 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="zoom_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+
+[node name="zoom_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
@@ -136,41 +120,24 @@ theme_override_colors/font_focus_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_hover_color = Color(0.145098, 0.145098, 0.145098, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_font_sizes/font_size = 14
 theme_override_styles/normal = SubResource("StyleBoxFlat_ydb43")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_plri0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ricnb")
-text = "Zoom"
+text = "Reset Camera"
 script = ExtResource("1_7lb7t")
 
-[node name="panning_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(100, 50)
+[node name="OptionButton" type="OptionButton" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_focus_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_hover_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_avwo1")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ej1ob")
-theme_override_styles/hover = SubResource("StyleBoxFlat_up24n")
-text = "Panning"
-script = ExtResource("1_7lb7t")
+selected = 0
+item_count = 3
+popup/item_0/text = "More Options"
+popup/item_0/id = 0
+popup/item_1/text = "Reset Zoom"
+popup/item_1/id = 1
+popup/item_2/text = "Reset Panning"
+popup/item_2/id = 2
+script = ExtResource("3_ydb43")
 
-[node name="both_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
-custom_minimum_size = Vector2(100, 50)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_focus_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_hover_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_colors/font_hover_pressed_color = Color(0.85098, 0.85098, 0.85098, 1)
-theme_override_styles/normal = SubResource("StyleBoxFlat_avwo1")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_ej1ob")
-theme_override_styles/hover = SubResource("StyleBoxFlat_up24n")
-text = "Reset All"
-script = ExtResource("1_7lb7t")
-metadata/_custom_type_script = "uid://dlre6ofopywpx"
-
-[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/zoom_button" to="." method="_on_zoom_button_button_up"]
-[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/panning_button" to="." method="_on_panning_button_button_up"]
-[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/both_button" to="." method="_on_both_button_button_up"]
+[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer/zoom_button" to="." method="_on_zoom_button_button_up"]
+[connection signal="item_selected" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
