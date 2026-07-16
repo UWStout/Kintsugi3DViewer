@@ -33,5 +33,7 @@ func toggle_to_server():
 func _on_environment_changed(new_environment: DisplayEnvironment) -> void:
 	if active_controller != null:
 		active_controller._on_environment_changed(new_environment)
-		camera.global_position.y = active_controller.loaded_artifact.global_position.y
+		
+		if active_controller.loaded_artifact != null:
+			camera.global_position.y = active_controller.loaded_artifact.global_position.y
 		
