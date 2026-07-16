@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=140 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cvukgvnle2ipo" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
 [ext_resource type="Texture2D" uid="uid://ckoeurmsqnnnt" path="res://assets/UI 2D/Icons/Top Dock/Import/Import_White_V1.svg" id="17_6ee1a"]
 [ext_resource type="Texture2D" uid="uid://cyq6mug4f7usx" path="res://assets/UI 2D/Icons/Top Dock/Controls Help/V2/ControlsHelp_Shown_White_V2.svg" id="17_6nw6i"]
+[ext_resource type="PackedScene" uid="uid://b1aa37jbdxgoc" path="res://scenes/environments/voyager_default.tscn" id="18_drhpu"]
 [ext_resource type="Script" uid="uid://disebqe6a48a8" path="res://scripts/new_ui/desktop_only_control.gd" id="18_nhgjm"]
 [ext_resource type="Script" uid="uid://btrdt065ggt0m" path="res://scripts/new_ui/buttons/cycle_artifact_button.gd" id="21_0nwoy"]
 [ext_resource type="Texture2D" uid="uid://pkranv4v71ty" path="res://assets/UI 2D/Icons/Top Dock/Object Rotation/ObjectRotation_White_V2.svg" id="21_4k5n4"]
@@ -347,7 +348,7 @@ viewer_environment = NodePath("../WorldEnvironment")
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui", "display_config")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
-environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr"), ExtResource("18_drhpu")])
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 display_config = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig")
