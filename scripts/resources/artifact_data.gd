@@ -21,6 +21,7 @@ var panning_distance : float
 var min_vert_rotation : float
 var max_vert_rotation : float
 var display_opt : int
+var disabled_limits : bool
 
 static func from_dict(data: Dictionary) -> ArtifactData:
 	var out_data = ArtifactData.new()
@@ -78,6 +79,11 @@ static func from_dict(data: Dictionary) -> ArtifactData:
 		out_data.display_opt =  data.get("display_opt")
 	else:
 		out_data.display_opt = 0
+		
+	if data.has("disabled_limits"):
+		out_data.disabled_limits =  data.get("disabled_limits")
+	else:
+		out_data.disabled_limits = false
 	return out_data
 
 func _to_string() -> String:

@@ -38,6 +38,7 @@ var max_rot = 360.0
 var pan_dist = 10
 var max_vert_rot = 5.0
 var min_vert_rot = 5.0
+var disabled = false
 signal camera_setting_changed(min: float, max: float, max_rotation: float, min_vert_rotation: float, max_vert_rotation: float, pan_dist: float)
 signal disable_limits(disable: bool)
 func _ready() -> void:
@@ -127,7 +128,7 @@ func _on_vert_min_rot_scroll_bar_value_changed(value: float) -> void:
 	vert_min_rot_label.text = str(90 - min_vert_rot) + "°"
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
-func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_saved, min_vert_rot_saved, max_vert_rot_saved,  pan_dist_saved):
+func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_saved, min_vert_rot_saved, max_vert_rot_saved,  pan_dist_saved, disabled_limits):
 	min_zoom = min_zoom_saved
 	max_zoom = max_zoon_saved
 	max_rot = max_horiz_rot_saved
@@ -146,8 +147,11 @@ func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_save
 	pan_scroll_bar.value = pan_dist
 	vert_min_rot_scroll_bar.value = min_vert_rot_saved * -1
 	vert_max_rot_scroll_bar.value = max_vert_rot_saved * -1
+	disabled = disabled_limits
+	disable_check_box.set_pressed_no_signal(disabled_limits)
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
-
+	disable_limits.emit(disabled_limits)
+	
 
 func _disable_box_button_up() -> void:
 	disable_limits.emit(disable_check_box.button_pressed)
