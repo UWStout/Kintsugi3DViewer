@@ -10,6 +10,7 @@ extends Button
 
 @export var annotations_on_icon = preload("res://assets/UI 2D/toggle_annotations_on.png")
 @export var annotations_off_icon = preload("res://assets/UI 2D/toggle_annotations_off.png")
+@export var textureIcon : TextureRect 
 
 var is_on : bool = true
 
@@ -26,8 +27,10 @@ func _pressed():
 	is_on = not is_on
 	
 	if is_on:
-		icon = annotations_on_icon
-		AnnotationsManager.make_material()
+		textureIcon.texture = annotations_on_icon
+		if not AnnotationsManager.annotation_markers_array.is_empty():
+			AnnotationsManager.make_material()
 	else:
-		icon = annotations_off_icon
-		AnnotationsManager.make_immaterial()
+		textureIcon.texture = annotations_off_icon
+		if not AnnotationsManager.annotation_markers_array.is_empty():
+			AnnotationsManager.make_immaterial()

@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmtfwtq3xsquw"]
+
+[ext_resource type="Script" uid="uid://dv81l5vpsq3x" path="res://scripts/annotations/annotation_textbox_v2.gd" id="1_li5dl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5f4d"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+bg_color = Color(0.14117648, 0.14117648, 0.14117648, 0.78431374)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="Panel" type="Panel" node_paths=PackedStringArray("title_text", "content_text")]
+offset_right = 200.0
+offset_bottom = 150.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p5f4d")
+script = ExtResource("1_li5dl")
+title_text = NodePath("VBoxContainer/VBoxContainer/HBoxContainer/MarginContainer/TitleText")
+content_text = NodePath("VBoxContainer/ContentText")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 190.0
+offset_bottom = 140.0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleText" type="RichTextLabel" parent="VBoxContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+theme_override_font_sizes/bold_font_size = 16
+bbcode_enabled = true
+text = "[b]UNNAMED ANNOTATION[b]"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContentText" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+theme_override_font_sizes/italics_font_size = 8
+bbcode_enabled = true
+text = "[i]EMPTY ANNOTATION TEXT[i]"
+fit_content = true
+scroll_active = false

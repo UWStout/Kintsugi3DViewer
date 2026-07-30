@@ -172,6 +172,7 @@ func _ready():
 	start_position = Vector3(camera.global_position.x, 0, camera.global_position.z)
 	
 func _process(delta):
+	
 	if not rig_enabled:
 		return
 	
@@ -274,11 +275,13 @@ func cast_ray_to_world():
 	var mouse_position_screen = get_viewport().get_mouse_position()
 	var mouse_position_world = camera.project_ray_origin(mouse_position_screen)
 	var ray_end = mouse_position_world + camera.project_ray_normal(mouse_position_screen) * raycast_distance
-	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, raycast_collision_mask)
+	#print("origin=", mouse_position_world, " end=", ray_end, " mask=", raycast_collision_mask)
+	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, 0xFFFFFFFF)
 	var ray_result = space_state.intersect_ray(ray_query)
-	
+	#print("ray_result=", ray_result)
 	# if something was hit
 	if ray_result:
+		#print("Hit: ", ray_result["collider"], " | script: ", ray_result["collider"].get_script())
 		# if an annotation marker was hit, let it know that it was clicked,
 		# and begin autopanning towards it. If there was a light selected, unselect it
 		if ray_result["collider"] is AnnotationMarker:

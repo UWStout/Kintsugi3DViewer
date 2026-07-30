@@ -7,23 +7,20 @@
 # This code is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
 @tool
-extends Sprite3D
+extends Panel
 
-class_name AnnotationTextbox
+class_name AnnotationTextboxPannel
 
 @export_category("Annotation")
 @export_multiline var annotation_name : String = "UNNAMED ANNOTATION"
 @export_multiline var annotation_text : String = "EMPTY ANNOTATION TEXT"
 @export var recalculate_text : bool = false : set = recalc_text
 
-@export var sub_viewport_container : SubViewportContainer
-@export var sub_viewport : SubViewport
+
 
 @export var title_text : RichTextLabel
 @export var content_text : RichTextLabel
-@export var click_button : Button   
-signal exit_button_pressed()
-var camera : Camera3D
+
 
 func recalc_text(new_value):
 	# Update the text in the UI to match the properties of this object.
@@ -37,26 +34,14 @@ func recalc_text(new_value):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#sub_viewport_container.visibility_layer |= 0
-	texture = sub_viewport.get_texture()
+	#texture = sub_viewport.get_texture()
 	
 	title_text.text = str("[b]", annotation_name, "[b]")
 	content_text.text = str("[i]", annotation_text, "[i]")
 
-func _enter_tree():
-	if Engine.is_editor_hint():
-		#sub_viewport_container.visibility_layer |= 0
-		texture = sub_viewport.get_texture()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func _on_button_button_up() -> void:
-	exit_button_pressed.emit()
-	pass # Replace with function body.
-
-
-func _on_exit_button_button_up() -> void:
-	exit_button_pressed.emit()
 	
