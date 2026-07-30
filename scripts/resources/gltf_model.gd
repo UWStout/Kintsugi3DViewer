@@ -22,6 +22,14 @@ func _create_material() -> GltfMaterial:
 func set_up_load_artifact(par: Node3D):
 	parent = par
 
+func _add_runtime_collider(mesh_instance: MeshInstance3D):
+	var static_body = StaticBody3D.new()
+	var collision_shape = CollisionShape3D.new()
+	collision_shape.shape = mesh_instance.mesh.create_convex_shape()  # or create_trimesh_shape()
+	static_body.add_child(collision_shape)
+	static_body.collision_layer = 1
+	mesh_instance.add_child(static_body)
+
 func load_artifact() -> int:
 	obj = await _load_gltf()
 	if obj == null:
@@ -79,7 +87,7 @@ func load_artifact() -> int:
 				load_completed.emit() # no materials, done loading
 		else:
 			load_completed.emit() # no mesh, done loading (probably an error)
-	
+		_add_runtime_collider(mesh1)
 	return 0
 
 func _on_material_load_complete():

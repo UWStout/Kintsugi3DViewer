@@ -79,7 +79,7 @@ func _handle_input_event(event):
 	if event is InputEventMouseMotion:
 		if dragCamera:
 			camera.apply_drag((event.relative * Vector2(-1, 1)) * drag_rate)
-			AnnotationsManager.change_selected_annotation(null)
+			#AnnotationsManager.change_selected_annotation(null)
 		
 		if rotateCamera:
 			#camera.apply_rotation(Vector3(-event.relative.y, event.relative.x, 0) * rotation_rate)

@@ -1,26 +1,47 @@
-[gd_scene load_steps=4 format=3 uid="uid://jhiwkxxnuf01"]
+[gd_scene load_steps=10 format=3 uid="uid://jhiwkxxnuf01"]
 
 [ext_resource type="Script" uid="uid://bwyf74wh2c4h7" path="res://scripts/annotations/annotation_marker.gd" id="1_pgsrj"]
 [ext_resource type="Texture2D" uid="uid://dcark38y78rx1" path="res://dot.png" id="2_cxe8b"]
+[ext_resource type="Script" uid="uid://djg8ekyke8dwq" path="res://scripts/new_ui/buttons/circle_button.gd" id="2_roemc"]
+[ext_resource type="PackedScene" uid="uid://bmtfwtq3xsquw" path="res://scenes/annotations/annotation_textbox_test.tscn" id="3_boy7h"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_hmlrd"]
-radius = 0.15
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_elr55"]
 
-[node name="annotation" type="StaticBody3D"]
-transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 0, 0)
-collision_layer = 2
-collision_mask = 2
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_roemc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_boy7h"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t7l3j"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0pxnq"]
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("textbox", "textbox_panel", "leader_line", "sprite", "click_button")]
 script = ExtResource("1_pgsrj")
+textbox = NodePath("CanvasLayer/annotation_textbox")
+textbox_panel = NodePath("CanvasLayer/annotation_textbox")
+leader_line = NodePath("CanvasLayer/Line2D")
+sprite = NodePath("Sprite3D")
+click_button = NodePath("CanvasLayer/Button")
 
-[node name="collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, -1.86265e-09, 2.98023e-08, -1.11759e-08, 1, -7.45058e-09, 0, 0, 1, 0, 0, 0)
-shape = SubResource("SphereShape3D_hmlrd")
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="target_sprite" type="Sprite3D" parent="."]
-transform = Transform3D(1, -1.86265e-09, -5.96046e-08, 2.42144e-08, 1, 0, 2.98023e-08, 3.72529e-09, 1, 0, 0, 0)
-pixel_size = 0.001
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_elr55")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_roemc")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_boy7h")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_t7l3j")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0pxnq")
+script = ExtResource("2_roemc")
+
+[node name="annotation_textbox" parent="CanvasLayer" instance=ExtResource("3_boy7h")]
+
+[node name="Line2D" type="Line2D" parent="CanvasLayer"]
+default_color = Color(0.29803923, 0.29803923, 0.29803923, 0.78431374)
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.063, 0, 0, 0, 0.063, 0, 0, 0, 0.063, 0, 0, 0)
 billboard = 1
-double_sided = false
 no_depth_test = true
-alpha_cut = 1
 texture = ExtResource("2_cxe8b")

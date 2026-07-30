@@ -1,4 +1,4 @@
-[gd_scene load_steps=138 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=141 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -56,8 +56,11 @@
 [ext_resource type="Texture2D" uid="uid://cibmbmvm7k171" path="res://assets/UI 2D/Icons/NextAndPreviousArtifacts/V2/NextArtifact_White_V2.svg" id="45_drl5j"]
 [ext_resource type="Script" uid="uid://dfbtay8odfq6" path="res://scripts/new_ui/buttons/preferences/change_shadows_button.gd" id="45_lplh0"]
 [ext_resource type="Script" uid="uid://cr1747gna2kvx" path="res://scripts/new_ui/buttons/preferences/change_gi_button.gd" id="46_gy2xc"]
+[ext_resource type="Texture2D" uid="uid://c84fredealh5l" path="res://assets/UI 2D/Icons/Side Dock/Annotations Visability/V1/Annotations_Shown_White_V1.svg" id="47_0fy4r"]
+[ext_resource type="Script" uid="uid://bvpxug70uc5tg" path="res://scripts/ui/annotations_toggle_button.gd" id="47_ma54o"]
 [ext_resource type="Script" uid="uid://fokeq7qj3eu4" path="res://scripts/artifact_config.gd" id="48_dvgfk"]
 [ext_resource type="Script" uid="uid://b4w40etmy08k8" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
+[ext_resource type="Texture2D" uid="uid://b8wilkjloqfnq" path="res://assets/UI 2D/Icons/Side Dock/Annotations Visability/V1/Annotations_Hidden_White_V1.svg" id="49_5n2gs"]
 [ext_resource type="Texture2D" uid="uid://cqfyy4ttfyp7q" path="res://assets/UI 2D/Icons/Top Dock/Settings/Settings_White_V2.svg" id="49_8n3c5"]
 [ext_resource type="PackedScene" uid="uid://c6jha02ajpeme" path="res://scenes/new_ui/artifact_config_camera.tscn" id="49_kgc6k"]
 [ext_resource type="Script" uid="uid://ij3k5ptd2lbc" path="res://scripts/new_ui/buttons/preferences/change_ssao_button.gd" id="49_ulw4s"]
@@ -342,13 +345,14 @@ script = ExtResource("1_8lf8i")
 script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
-[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui", "display_config")]
+[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui", "display_config", "artiacts_manager")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
 environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 display_config = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig")
+artiacts_manager = NodePath("../artifacts_manager")
 
 [node name="artifacts_manager" type="Node3D" parent="." node_paths=PackedStringArray("local", "server")]
 script = ExtResource("3_e3ejb")
@@ -381,6 +385,7 @@ configSettings = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_doc
 artifactsManager = NodePath("../artifacts_manager")
 rot_horiz_limit_maxAngle = 360.0
 dolly_initial_distance = 7.0
+dolly_limit_enabled = false
 
 [node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera", "csg_mesh_3d")]
 visible = false
@@ -815,6 +820,39 @@ self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = ExtResource("54_78aod")
+expand_mode = 5
+
+[node name="MarginContainer6" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6"]
+layout_mode = 2
+
+[node name="annotations_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6/CenterContainer" node_paths=PackedStringArray("textureIcon")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("47_ma54o")
+annotations_on_icon = ExtResource("47_0fy4r")
+annotations_off_icon = ExtResource("49_5n2gs")
+textureIcon = NodePath("CenterContainer/TextureRect")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6/CenterContainer/annotations_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6/CenterContainer/annotations_button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("47_0fy4r")
 expand_mode = 5
 
 [node name="side_dock" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer"]

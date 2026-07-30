@@ -9,12 +9,14 @@ var annotation_text
 var artifact_list
 # File path used to find specific JSON file to read from
 var data_file_path = "res://artifacts/guan-yu-test-voyager/scene.svx.json"
-
+const ANNO_TEXT_BOX = preload("res://scenes/annotations/annotation_textbox.tscn")
+const ANNO_MARKER = preload("res://scenes/annotations/annotation_marker.tscn")
+const ANNO_FOCUS_POINT = preload("res://scenes/annotations/annotation_focuspoint.tscn")
 @onready var data_file_path2 = get_node("/root/GlobalFetcher/HTTP Fetcher")
 
 func load_for_artifact(artifactIndex : int):
 	# Loads dictionary object so that it could be accessed
-	#sceneData = load_json_file(data_file_path)
+	#ICATION_ENABLEDNOTIFsceneData = load_json_file(data_file_path)
 	sceneData = await get_server_json(artifactIndex)
 	update_with_json(sceneData)
 
@@ -39,15 +41,9 @@ func update_with_json(jsonData : Dictionary):
 				
 
 	# Assigns annotation title and text in Voyager Story scene to new text objects
-	#annotation_title = Label.new()
-	#annotation_text = Label.new()
-	
-	#annotation_title.text = sceneData["models"][0]["annotations"][0]["titles"]["EN"]
-	#annotation_text.text = sceneData["models"][0]["annotations"][0]["leads"]["EN"]
 	
 	# Test to make sure items were properly grabbed
-	#print(annotation_text.text)
-	#print(annotation_title.text)
+
 
 func get_server_json(artifactIndex : int) -> Dictionary:
 	artifact_list = await data_file_path2.force_fetch_artifacts()
@@ -192,6 +188,24 @@ func get_units_to_meters() -> float:
 			push_error("Unknown unit type in Voyager scene: %s" % units)
 			return 0.001  # fallback
 
+func setup_annotations(modelIndex : int) -> Array[AnnotationMarker]:
+	var markers : Array[AnnotationMarker]
+	if  sceneData["models"][modelIndex].has("annotations"):
+		for x in sceneData["models"][modelIndex]["annotations"]:
+			annotation_title = x["titles"]["EN"]
+			annotation_text = x["leads"]["EN"]
+			var marker = ANNO_MARKER.instantiate()
+			var focuspoint = ANNO_FOCUS_POINT.instantiate()
+			marker.textbox.annotation_name = annotation_title
+			marker.textbox.annotation_text = annotation_text
+			marker.textbox.recalc_text(true)
+			marker.focus_point = focuspoint
+			#marker.global_position = Vector3(x["position"][0],x["position"][1],x["position"][2])
+			marker.add_child(focuspoint)
+			AnnotationsManager.register_new_annotation(marker)
+			markers.append(marker)
+	return markers
+
 func get_voyager_node_translation(nodeIndex : int) -> Vector3:
 	if sceneData["nodes"] != null and nodeIndex < get_voyager_node_count() \
 			and sceneData["nodes"][nodeIndex].has("translation"):
@@ -201,8 +215,16 @@ func get_voyager_node_translation(nodeIndex : int) -> Vector3:
 		
 		if x != null and y != null and z != null:
 			return Vector3(x, y, z) * get_units_to_meters() # TODO figure out more robust unit conversion
-	
-	# default
+		
+	elif is_voyager_node_model(nodeIndex):
+		var modelIndex : int = int(sceneData["nodes"][nodeIndex]["model"])
+		var x = sceneData["models"][modelIndex]["translation"][0]
+		var y = sceneData["models"][modelIndex]["translation"][1]
+		var z = sceneData["models"][modelIndex]["translation"][2]
+		if x != null and y != null and z != null:
+			print("getting units to meters: ",get_model_units_to_meters(modelIndex))
+			return Vector3(x, y, z) * get_model_units_to_meters(modelIndex) 
+			
 	return Vector3(0, 0, 0)
 
 func get_voyager_node_quaternion(nodeIndex : int) -> Quaternion:

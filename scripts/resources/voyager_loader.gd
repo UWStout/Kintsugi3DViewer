@@ -11,7 +11,7 @@ func _center_lights_on_artifact(aabb):
 		light_node.position.x += center.x
 		light_node.position.z += center.z
 		#print("new light pos: ", light_node.position)
-
+	
 func _offset_lights_in_node(node: Node, center: Vector3):
 	for child in node.get_children():
 		if child is DirectionalLight3D or child is SpotLight3D or child is OmniLight3D:
@@ -78,6 +78,12 @@ func _load_voyager(loadable : LoadableArtifact, is_server : bool, voyager_json_p
 			nodes[i].scale *= display_scale
 			nodes[i].position *= display_scale
 			nodes[i].add_child(models[JsonReader.get_voyager_node_model_index(i)])
+			var anno = JsonReader.setup_annotations(JsonReader.get_voyager_node_model_index(i))
+			for annotation in anno:
+				annotation.sprite.scale *= 0.5/display_scale 
+				#annotation.position *= display_scale
+				nodes[i].add_child(annotation)
+
 	
 		if JsonReader.is_voyager_node_light(i):
 			light_nodes.append(nodes[i])
