@@ -48,13 +48,13 @@ shrunk_icon = ExtResource("4_sfj25")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(327, 302)
+custom_minimum_size = Vector2(327, 334)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3a8op")
 script = ExtResource("2_e6f2i")
 expand_direction = 0
 minimized_size = 45.0
-maximized_size = 302.0
+maximized_size = 334.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_nmx01")
 
