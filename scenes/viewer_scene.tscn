@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=141 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -427,6 +427,7 @@ mouse_filter = 2
 alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer2"]
+visible = false
 layout_mode = 2
 script = ExtResource("37_qxdlg")
 
@@ -585,6 +586,7 @@ layout_mode = 2
 script = SubResource("GDScript_amymp")
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -651,6 +653,7 @@ texture = ExtResource("17_6nw6i")
 expand_mode = 5
 
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -959,6 +962,7 @@ texture = ExtResource("60_d70fm")
 expand_mode = 5
 
 [node name="MarginContainer4" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_selection_menu/buttons"]
+visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -1066,6 +1070,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ncy14")
 placeholder_text = "Search..."
 
 [node name="Catalog_Toggle_Group" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2"]
+visible = false
 clip_contents = true
 layout_mode = 2
 
