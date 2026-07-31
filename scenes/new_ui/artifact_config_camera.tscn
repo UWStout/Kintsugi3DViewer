@@ -127,13 +127,6 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 4
 
-[node name="Position" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 4
-
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
@@ -147,6 +140,13 @@ text = "Disable Limits"
 
 [node name="CheckBox" type="CheckBox" parent="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
+
+[node name="Position" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/VBoxContainer/Position"]
 layout_mode = 2
@@ -484,11 +484,11 @@ rounded = true
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer/VertRotationMax/HBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 11
 
-[connection signal="button_up" from="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/CheckBox" to="." method="_disable_box_button_up"]]
+[connection signal="button_up" from="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/CheckBox" to="." method="_disable_box_button_up"]
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/min distance/HBoxContainer/MarginContainer/min_scroll_bar" to="." method="_on_min_scroll_bar_value_changed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/max distance/HBoxContainer/MarginContainer/max_scroll_bar" to="." method="_on_max_scroll_bar_value_changed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/VBoxContainer/panning/HBoxContainer/MarginContainer/pan_scroll_bar" to="." method="_on_pan_scroll_bar_value_changed"]
