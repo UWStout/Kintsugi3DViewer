@@ -14,5 +14,8 @@ background_mode = 2
 sky = SubResource("Sky_cvb0d")
 
 [node name="HdriScene" instance=ExtResource("1_3dt3f")]
-environment_name = "Voyager Default"
+environment_name = "Studio HDRI (Voyager Default)"
 environment_graphics = SubResource("Environment_ql85o")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_ql85o")
