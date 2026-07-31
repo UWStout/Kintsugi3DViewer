@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://cvukgvnle2ipo" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
 [ext_resource type="Texture2D" uid="uid://ckoeurmsqnnnt" path="res://assets/UI 2D/Icons/Top Dock/Import/Import_White_V1.svg" id="17_6ee1a"]
 [ext_resource type="Texture2D" uid="uid://cyq6mug4f7usx" path="res://assets/UI 2D/Icons/Top Dock/Controls Help/V2/ControlsHelp_Shown_White_V2.svg" id="17_6nw6i"]
+[ext_resource type="PackedScene" uid="uid://b1aa37jbdxgoc" path="res://scenes/environments/voyager_default.tscn" id="18_drhpu"]
 [ext_resource type="Script" uid="uid://disebqe6a48a8" path="res://scripts/new_ui/desktop_only_control.gd" id="18_nhgjm"]
 [ext_resource type="Script" uid="uid://btrdt065ggt0m" path="res://scripts/new_ui/buttons/cycle_artifact_button.gd" id="21_0nwoy"]
 [ext_resource type="Texture2D" uid="uid://pkranv4v71ty" path="res://assets/UI 2D/Icons/Top Dock/Object Rotation/ObjectRotation_White_V2.svg" id="21_4k5n4"]
@@ -79,7 +80,7 @@
 [ext_resource type="PackedScene" uid="uid://cr7gvekcb6mjk" path="res://scenes/new_ui/artifact_config_reset_save.tscn" id="66_70iam"]
 [ext_resource type="Script" uid="uid://biok10no4ariy" path="res://scripts/debug_local_open.gd" id="66_m30np"]
 [ext_resource type="PackedScene" uid="uid://cum2pa85altu4" path="res://scenes/environments/Beige_Room_Environment.tscn" id="67_6ljs3"]
-[ext_resource type="PackedScene" uid="uid://cy5xyvfycs66a" path="res://scenes/new_ui/object_display_config.tscn" id="67_8jy57"]
+[ext_resource type="PackedScene" uid="uid://dbriikwefddq" path="res://scenes/new_ui/object_display_config.tscn" id="67_8jy57"]
 [ext_resource type="Texture2D" uid="uid://dp7md5bqtxlvy" path="res://assets/UI 2D/Icons/Expanded Light Customization/Add Light/AddLight_White_V2.svg" id="67_63m5u"]
 [ext_resource type="Script" uid="uid://cco3bvvcgm7p4" path="res://scripts/save_file.gd" id="67_rdhqw"]
 [ext_resource type="PackedScene" uid="uid://b0ifr0bsst2vi" path="res://scenes/environments/Green_Square_Room.tscn" id="68_gxb4g"]
@@ -348,7 +349,7 @@ viewer_environment = NodePath("../WorldEnvironment")
 [node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui", "display_config")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
-environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr")])
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr"), ExtResource("18_drhpu")])
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 display_config = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig")

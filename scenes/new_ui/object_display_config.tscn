@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cy5xyvfycs66a"]
+[gd_scene load_steps=14 format=3 uid="uid://dbriikwefddq"]
 
 [ext_resource type="Script" uid="uid://0ses1bbiotfs" path="res://scripts/new_ui/artifact_config/object_display_config.gd" id="1_1m7kx"]
 [ext_resource type="Texture2D" uid="uid://dv0minaroyaff" path="res://assets/UI 2D/Icons/Expanded Light Customization/Light Expand/V2/LightExpansion_In_White_V2.svg" id="2_47c30"]
@@ -28,8 +28,8 @@ bg_color = Color(0.866108, 0.435504, 0.625633, 1)
 
 [node name="ObjectDisplayConfig" type="MarginContainer" node_paths=PackedStringArray("button", "texture_rect", "pedistal_check_box", "floating_check_box", "check_box_list")]
 clip_contents = true
-offset_right = 260.0
-offset_bottom = 150.0
+offset_right = 327.0
+offset_bottom = 132.0
 script = ExtResource("1_1m7kx")
 button = NodePath("Panel/VBoxContainer/VBoxContainer/Button")
 texture_rect = NodePath("Panel/VBoxContainer/VBoxContainer/Button/HBoxContainer2/HBoxContainer2/MarginContainer/CenterContainer/TextureRect")
@@ -41,26 +41,23 @@ shrunk_icon = ExtResource("4_02c4f")
 
 [node name="Panel" type="Panel" parent="."]
 clip_contents = true
-custom_minimum_size = Vector2(250, 150)
+custom_minimum_size = Vector2(327, 132)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3a8op")
 script = ExtResource("2_lwtgl")
 expand_direction = 0
 minimized_size = 45.0
-maximized_size = 150.0
+maximized_size = 132.0
 animation_speed = 0.1
 animation_curve = SubResource("Curve_nmx01")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -10.0
-offset_right = 10.0
-offset_bottom = 429.0
+offset_right = -11.0
+offset_bottom = 132.0
 grow_horizontal = 2
-grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -158,6 +155,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 12
 text = "Floating"
+
+[node name="MarginContainer3" type="MarginContainer" parent="Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 11
 
 [connection signal="button_up" from="Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer/PedestalCheckBox" to="." method="_on_pedestal_check_box_button_up"]
 [connection signal="button_up" from="Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer/FloatingCheckBox" to="." method="_on_floating_check_box_button_up"]
