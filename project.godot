@@ -35,7 +35,8 @@ VoyagerLoader="*res://scripts/resources/voyager_loader.gd"
 
 [display]
 
-window/size/mode=2
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/aspect="expand"
 
 [editor]
