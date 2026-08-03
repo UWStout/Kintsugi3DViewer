@@ -28,7 +28,20 @@ func _ready() -> void:
 	check_box_list = [pedistal_check_box, floating_check_box]
 	display_option = 0
 	save_reset.display_rbp.connect(_on_reset_button_pressed)
+func on_button_open():
+	#print("light made material")
+	#connected_light.make_material()
+	texture_rect.texture = expand_icon
+	#connected_light.controller.select_light(null)
+	pass
 
+func on_button_close():
+	#print("light made immaterial")
+	#connected_light.make_immaterial()
+	#connected_light.controller.force_hide_lights()
+	texture_rect.texture = shrunk_icon
+	pass
+	
 func _on_new_scene_load(de :DisplayEnvironment) -> void:
 	display_setting_changed.emit(display_option)
 

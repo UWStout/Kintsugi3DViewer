@@ -1,0 +1,143 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnigddmkp1owi"]
+
+[ext_resource type="Script" uid="uid://dlre6ofopywpx" path="res://scripts/new_ui/buttons/base/extended_button.gd" id="1_7lb7t"]
+[ext_resource type="Script" uid="uid://cceus7c0uicuy" path="res://scripts/new_ui/reset_view_panel.gd" id="1_llb2i"]
+[ext_resource type="Script" uid="uid://bmb66i6by3o6o" path="res://scenes/new_ui/drop_down.gd" id="3_ydb43"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llb2i"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ydb43"]
+bg_color = Color(0.85098, 0.85098, 0.85098, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_plri0"]
+bg_color = Color(0.694118, 0.694118, 0.694118, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ricnb"]
+bg_color = Color(0.772549, 0.772549, 0.772549, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ResetViewPanel" type="CenterContainer" node_paths=PackedStringArray("panel", "option_drop_down")]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -450.0
+offset_top = -300.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_llb2i")
+panel = NodePath("confirmation_panel")
+option_drop_down = NodePath("confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer/OptionButton")
+
+[node name="confirmation_panel" type="Panel" parent="."]
+visible = false
+custom_minimum_size = Vector2(450, 300)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_llb2i")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="confirmation_panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="confirmation_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 50
+
+[node name="CenterContainer" type="CenterContainer" parent="confirmation_panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="header" type="Label" parent="confirmation_panel/VBoxContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Out Of Bounds"
+
+[node name="MarginContainer2" type="MarginContainer" parent="confirmation_panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 15
+
+[node name="CenterContainer" type="CenterContainer" parent="confirmation_panel/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="description" type="Label" parent="confirmation_panel/VBoxContainer/MarginContainer2/CenterContainer"]
+custom_minimum_size = Vector2(350, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.615686, 0.615686, 0.615686, 1)
+theme_override_font_sizes/font_size = 16
+text = "You have moved too far from the object.  Would you like to reset?"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="confirmation_panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 2
+
+[node name="MarginContainer3" type="MarginContainer" parent="confirmation_panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="HBoxContainer" type="HBoxContainer" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer"]
+layout_mode = 2
+
+[node name="zoom_button" type="Button" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_focus_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_hover_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.145098, 0.145098, 0.145098, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_ydb43")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_plri0")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ricnb")
+text = "Reset Camera"
+script = ExtResource("1_7lb7t")
+
+[node name="OptionButton" type="OptionButton" parent="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "More Options"
+popup/item_0/id = 0
+popup/item_1/text = "Reset Zoom"
+popup/item_1/id = 1
+popup/item_2/text = "Reset Panning"
+popup/item_2/id = 2
+script = ExtResource("3_ydb43")
+
+[connection signal="button_up" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer/zoom_button" to="." method="_on_zoom_button_button_up"]
+[connection signal="item_selected" from="confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

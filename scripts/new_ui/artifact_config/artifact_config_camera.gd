@@ -13,6 +13,7 @@ class_name ArtifactConfigButton extends MarginContainer
 @export var button : Button
 @export var texture_rect : TextureRect
 
+@export var disable_check_box : CheckBox
 @export var min_scroll_bar : ScrollBar
 @export var max_scroll_bar : ScrollBar
 @export var pan_scroll_bar : ScrollBar
@@ -37,8 +38,9 @@ var max_rot = 360.0
 var pan_dist = 10
 var max_vert_rot = 5.0
 var min_vert_rot = 5.0
+var disabled = false
 signal camera_setting_changed(min: float, max: float, max_rotation: float, min_vert_rotation: float, max_vert_rotation: float, pan_dist: float)
-
+signal disable_limits(disable: bool)
 func _ready() -> void:
 	save_reset.reset_button_pressed.connect(_on_reset_button_pressed)
 
@@ -92,27 +94,41 @@ func _on_min_scroll_bar_value_changed(value: float) -> void:
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
 func _on_vert_max_rot_scroll_bar_value_changed(value: float) -> void:
+	# We invert the values in order to have the min and max vertical 
+	# scroll bars to deplay valuse from left to right
+	value *= -1
+	print("value " ,value)
 	if value < min_vert_rot:
-		max_vert_rot = value
+		# this may also seem back ward but is done in order to match 
+		# godot rotation systems while also making sense logically to us
+		# with max rotation being up and min being down
+		max_vert_rot = value 
 	else:
 		max_vert_rot = min_vert_rot
-		vert_max_rot_scroll_bar.value = min_vert_rot
+		vert_max_rot_scroll_bar.value = min_vert_rot *-1
 	vert_max_rot_label.text = str(90 - max_vert_rot) + "°"
-	#print("Max rotation: ", max_rot, " ", value)
+	#print("Max rotation: ", max_vert_rot, " ", value)
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
 
 func _on_vert_min_rot_scroll_bar_value_changed(value: float) -> void:
+	value *= -1
+	print("value " ,value)
+	# We invert the values in order to have the min and max vertical 
+	# scroll bars to deplay valuse from left to right
 	if value > max_vert_rot:
+		# this may also seem back ward but is done in order to match 
+		# godot rotation systems while also making sense logically to us
+		# with max rotation being up and min being down
 		min_vert_rot = value
 	else:
 		min_vert_rot = max_vert_rot
-		vert_min_rot_scroll_bar.value = max_vert_rot
-	#print("Max rotation: ", max_rot, " ", value)
+		vert_min_rot_scroll_bar.value = max_vert_rot*-1
+	#print("Min rotation: ", min_vert_rot, " ", value)
 	vert_min_rot_label.text = str(90 - min_vert_rot) + "°"
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
 
-func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_saved, min_vert_rot_saved, max_vert_rot_saved,  pan_dist_saved):
+func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_saved, min_vert_rot_saved, max_vert_rot_saved,  pan_dist_saved, disabled_limits):
 	min_zoom = min_zoom_saved
 	max_zoom = max_zoon_saved
 	max_rot = max_horiz_rot_saved
@@ -129,6 +145,14 @@ func _on_reset_button_pressed(min_zoom_saved, max_zoon_saved, max_horiz_rot_save
 	max_scroll_bar.value = max_zoom
 	rot_scroll_bar.value = max_rot
 	pan_scroll_bar.value = pan_dist
-	vert_min_rot_scroll_bar.value = min_vert_rot
-	vert_max_rot_scroll_bar.value = max_vert_rot
+	vert_min_rot_scroll_bar.value = min_vert_rot_saved * -1
+	vert_max_rot_scroll_bar.value = max_vert_rot_saved * -1
+	disabled = disabled_limits
+	disable_check_box.set_pressed_no_signal(disabled_limits)
 	camera_setting_changed.emit(min_zoom, max_zoom, max_rot, min_vert_rot, max_vert_rot, pan_dist)
+	disable_limits.emit(disabled_limits)
+	
+
+func _disable_box_button_up() -> void:
+	disable_limits.emit(disable_check_box.button_pressed)
+	

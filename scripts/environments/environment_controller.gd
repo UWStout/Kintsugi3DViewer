@@ -168,12 +168,11 @@ func show_light(light_index : int):
 
 func change_display_mode(display_opt: int):
 	var current_environment = get_current_environment()
-	if display_opt != 0:
-		if current_environment.podium != null:
+	if current_environment.podium != null:
+		if display_opt != 0:
 			current_environment.podium.visible = false
-	
-	else:
-		if current_environment.podium != null:
+		
+		else:
 			current_environment.podium.visible = true
 	
 func get_current_environment():
