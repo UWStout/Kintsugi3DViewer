@@ -15,6 +15,7 @@ func _ready():
 		toggle_group.register_button(self)
 
 	if _start_toggled and not _is_toggled:
+		print(self.get_parent().name)
 		toggle_group.make_button_active(self)
 	
 	super._ready()

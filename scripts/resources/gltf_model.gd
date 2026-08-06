@@ -29,6 +29,7 @@ func _add_runtime_collider(mesh_instance: MeshInstance3D):
 	static_body.add_child(collision_shape)
 	static_body.collision_layer = 1
 	mesh_instance.add_child(static_body)
+	load_completed.emit()
 
 func load_artifact() -> int:
 	obj = await _load_gltf()

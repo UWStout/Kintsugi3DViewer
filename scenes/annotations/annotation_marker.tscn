@@ -22,6 +22,16 @@ textbox_panel = NodePath("CanvasLayer/annotation_textbox")
 leader_line = NodePath("CanvasLayer/Line2D")
 sprite = NodePath("Sprite3D")
 click_button = NodePath("CanvasLayer/Button")
+base_button_size = null
+reference_distance = null
+min_button_size = null
+max_button_size = null
+sprite_base_pixel_size = null
+min_pixel_size = null
+max_pixel_size = null
+occlusion_check_enabled = null
+occlusion_collision_mask = null
+textbox_offset = null
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

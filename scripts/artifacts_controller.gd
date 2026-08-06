@@ -186,7 +186,7 @@ func _place_artifact():
 		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
 		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
 		if loaded_artifact is RemoteVoyagerStory:
-			loaded_artifact.global_position.y = target_pos.y
+			loaded_artifact.global_position = target_pos
 		else:
 			loaded_artifact.global_position = target_pos
 		#print(loaded_artifact.global_position)
