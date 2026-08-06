@@ -54,7 +54,6 @@ func _load_voyager(loadable : LoadableArtifact, is_server : bool, voyager_json_p
 		model.preview_load_completed.connect(preview_callback)
 
 		var complete_callback = func():
-			
 			fully_loaded[i] = true
 			if fully_loaded.all(func(b): return b):
 				loadable.load_completed.emit()
@@ -63,12 +62,17 @@ func _load_voyager(loadable : LoadableArtifact, is_server : bool, voyager_json_p
 		model.load_completed.connect(complete_callback)
 
 	# reconstruct scene graph as specified by Voyager
-	var scene_to_meters = JsonReader.get_units_to_meters()
-	var display_scale = 0.1 / scene_to_meters
+	
 	var nodes: Array[Node3D] = []
 	light_nodes.clear()
 	var light_count = 0
+
+	var scene_to_meters
+	var display_scale
 	for i in JsonReader.get_voyager_node_count():
+		scene_to_meters = JsonReader.get_model_units_to_meters(JsonReader.get_voyager_node_model_index(i))
+		display_scale = 1 / scene_to_meters
+		print(display_scale, " " , scene_to_meters)
 		nodes.append(Node3D.new())
 		nodes[i].scale = JsonReader.get_voyager_node_scale(i) 
 		nodes[i].position = JsonReader.get_voyager_node_translation(i) 
@@ -78,11 +82,7 @@ func _load_voyager(loadable : LoadableArtifact, is_server : bool, voyager_json_p
 			nodes[i].scale *= display_scale
 			nodes[i].position *= display_scale
 			nodes[i].add_child(models[JsonReader.get_voyager_node_model_index(i)])
-			var anno = JsonReader.setup_annotations(JsonReader.get_voyager_node_model_index(i))
-			for annotation in anno:
-				annotation.sprite.scale *= 0.5/display_scale 
-				#annotation.position *= display_scale
-				nodes[i].add_child(annotation)
+			
 
 	
 		if JsonReader.is_voyager_node_light(i):
@@ -121,6 +121,12 @@ func _load_voyager(loadable : LoadableArtifact, is_server : bool, voyager_json_p
 				nodes[i].add_child(light)
 			light_count += 1
 
+	if JsonReader.has_annotation():
+		var anno = JsonReader.setup_annotations()
+		for annotation in anno:
+			#annotation.sprite.scale *= 1/display_scale 
+			#annotation.position *= 1/display_scale
+			loadable.add_child(annotation)
 	for i in JsonReader.get_voyager_node_count():
 		for k in JsonReader.get_voyager_node_child_indices(i):
 			nodes[i].add_child(nodes[k])

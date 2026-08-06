@@ -26,15 +26,16 @@ class_name AnnotationMarker
 @export var max_pixel_size : float = 0.02
 		  
 
+@export var occlusion_check_enabled : bool = true
+@export var occlusion_collision_mask : int = 1  # match whatever layer your scene geometry (podium, models) is on
 @export var textbox_offset : Vector2 = Vector2(80, -80)
 
 var camera : Camera3D
 var tracking_input: bool = false
 var hold_triggered: bool = false
 var system_time_held: float = 0.0
-
-@export var occlusion_check_enabled : bool = true
-@export var occlusion_collision_mask : int = 1  # match whatever layer your scene geometry (podium, models) is on
+var viewing_angle: Vector3
+var turn_back_on: bool = false
 
 func _is_occluded() -> bool:
 	if not occlusion_check_enabled:
@@ -136,13 +137,29 @@ func _update_screen_position():
 	if camera == null or click_button == null:
 		print("early return - camera:", camera, " button:", click_button)
 		return
+	var unit_vec = camera.global_position.normalized()
+	var theta = acos(unit_vec.dot(viewing_angle.normalized()))
+	
+	#theta = rad_to_deg(theta)
 	
 	# Hide if behind the camera
-	if camera.is_position_behind(global_position): #or _is_occluded():
+	if camera.is_position_behind(global_position) or (theta >= PI/2 and (camera.global_position.distance_to(global_position) > 0.92)): #and (camera.global_position.distance_to(global_position) > 0.9)
+		
 		click_button.visible = false
+		sprite.visible = false
+		if textbox.visible:
+			turn_back_on = true
+			textbox.visible = false
+			leader_line.visible = false
 		return
+	if turn_back_on:
+		textbox.visible = true
+		leader_line.visible = true
+		turn_back_on = false
+	elif not textbox.visible:
+		click_button.visible = true
+		sprite.visible = true
 	var screen_pos = camera.unproject_position(global_position)
-	click_button.visible = true
 	click_button.global_position = screen_pos - click_button.size / 2.0
 	if textbox_panel and textbox_panel.visible:
 		var textbox_pos = screen_pos + textbox_offset 

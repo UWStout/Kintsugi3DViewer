@@ -29,7 +29,7 @@ func set_data(new_data : ArtifactData, new_controller : ArtifactsController):
 	artifact_label.text = data.name
 
 func _pressed():
-	if not controller == null and not controller.loaded_artifact == null:
+	if controller != null and controller.loaded_artifact != null:
 		if not controller.loaded_artifact.load_finished:
 			return
 	

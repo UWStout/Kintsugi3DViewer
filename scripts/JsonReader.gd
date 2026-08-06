@@ -188,22 +188,37 @@ func get_units_to_meters() -> float:
 			push_error("Unknown unit type in Voyager scene: %s" % units)
 			return 0.001  # fallback
 
-func setup_annotations(modelIndex : int) -> Array[AnnotationMarker]:
+func has_annotation()-> bool:
+	for model in sceneData["models"]:
+		if model.has("annotations"):
+			return true
+	return false
+	
+func get_annotation_count()-> int:
+	var anno_count = 0
+	for model in sceneData["models"]:
+		if model.has("annotations"):
+			anno_count +=  model["annotations"].size()
+	return anno_count
+	
+func setup_annotations() -> Array[AnnotationMarker]:
 	var markers : Array[AnnotationMarker]
-	if  sceneData["models"][modelIndex].has("annotations"):
-		for x in sceneData["models"][modelIndex]["annotations"]:
-			annotation_title = x["titles"]["EN"]
-			annotation_text = x["leads"]["EN"]
-			var marker = ANNO_MARKER.instantiate()
-			var focuspoint = ANNO_FOCUS_POINT.instantiate()
-			marker.textbox.annotation_name = annotation_title
-			marker.textbox.annotation_text = annotation_text
-			marker.textbox.recalc_text(true)
-			marker.focus_point = focuspoint
-			#marker.global_position = Vector3(x["position"][0],x["position"][1],x["position"][2])
-			marker.add_child(focuspoint)
-			AnnotationsManager.register_new_annotation(marker)
-			markers.append(marker)
+	for model in sceneData["models"]:
+		if  model.has("annotations"):
+			for x in model["annotations"]:
+				annotation_title = x["titles"]["EN"]
+				annotation_text = x["leads"]["EN"]
+				var marker = ANNO_MARKER.instantiate()
+				var focuspoint = ANNO_FOCUS_POINT.instantiate()
+				marker.textbox.annotation_name = annotation_title
+				marker.textbox.annotation_text = annotation_text
+				marker.textbox.recalc_text(true)
+				marker.focus_point = focuspoint
+				marker.global_position = Vector3(x["position"][0],x["position"][1],x["position"][2])
+				marker.add_child(focuspoint)
+				marker.viewing_angle = Vector3(x["direction"][0], x["direction"][1], x["direction"][2])
+				AnnotationsManager.register_new_annotation(marker)
+				markers.append(marker)
 	return markers
 
 func get_voyager_node_translation(nodeIndex : int) -> Vector3:
@@ -238,6 +253,15 @@ func get_voyager_node_quaternion(nodeIndex : int) -> Quaternion:
 		if x != null and y != null and z != null and w != null:
 			return Quaternion(x, y, z, w)
 			
+	elif is_voyager_node_model(nodeIndex):
+		var modelIndex : int = int(sceneData["nodes"][nodeIndex]["model"])
+		if  sceneData["models"][modelIndex].has("rotation"):
+			var x = sceneData["models"][modelIndex]["rotation"][0]
+			var y = sceneData["models"][modelIndex]["rotation"][1]
+			var z = sceneData["models"][modelIndex]["rotation"][2]
+			var w = sceneData["models"][modelIndex]["rotation"][3]
+			if x != null and y != null and z != null and w != null:
+				return Quaternion(x, y, z, w)
 	# default
 	return Quaternion()
 
