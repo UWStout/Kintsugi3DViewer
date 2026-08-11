@@ -33,8 +33,15 @@ InstallDir $PROGRAMFILES64\Kintsugi3DViewer
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 
+; Variables to store uninstall choices
+Var Checkbox_ClearViewerCache
+Var Checkbox_ClearViewerPreferences
+Var ClearViewerCache
+Var ClearViewerPreferences
+
 ; Uninstaller Pages
 !insertmacro MUI_UNPAGE_CONFIRM
+UninstPage custom un.CachePageCreate un.CachePageLeave
 !insertmacro MUI_UNPAGE_INSTFILES
 
 ; Language Files
@@ -116,6 +123,17 @@ Section "Uninstall"
     RMDir /r "$SMPROGRAMS\Kintsugi3DViewer"
     RMDir /r "$INSTDIR"
 
+    ; Remove viewer cache
+    ${If} $ClearViewerCache == 1
+        RMDir /r "$APPDATA\Kintsugi 3D Viewer\cache"
+        RMDir /r "$APPDATA\Kintsugi 3D Viewer\shader_cache"
+    ${EndIf}
+
+    ; Remove viewer preferences (will also remove cache)
+    ${If} $ClearViewerPreferences == 1
+        RMDir /r "$APPDATA\Kintsugi 3D Viewer"
+    ${EndIf}
+
     ; Remove Desktop Shortcut
     Delete "$DESKTOP\Kintsugi 3D Viewer.lnk"
 
@@ -137,6 +155,44 @@ Function LaunchLink
 
   ExecShell "" "$INSTDIR\Kintsugi3DViewer.exe"
 
+FunctionEnd
+
+; Options for uninstalling cache directories
+Function un.CachePageCreate
+    ; Create the page
+    nsDialogs::Create 1018
+
+    ; Set Page Header Text
+    !insertmacro MUI_HEADER_TEXT "Additional Directories" "Choose which additional software directories to remove."
+
+    ${NSD_CreateCheckbox} 10u 10u 100% 12u "Clear Kinstugi3D Viewer Preferences"
+    Pop $Checkbox_ClearViewerPreferences
+    ${NSD_Check} $Checkbox_ClearViewerPreferences
+    ${NSD_OnClick} $Checkbox_ClearViewerPreferences un.OnViewerPreferences
+
+    ${NSD_CreateCheckbox} 10u 25u 100% 12u "Clear Kinstugi3D Viewer Cache"
+    Pop $Checkbox_ClearViewerCache
+    ${NSD_Check} $Checkbox_ClearViewerCache
+
+    ; Display the configured page
+    nsDialogs::Show
+FunctionEnd
+
+; Force clearing preferences to clear cache as well
+Function un.OnViewerPreferences
+    Pop $0
+    ${NSD_GetState} $Checkbox_ClearViewerPreferences $0
+    ${If} $0 == 1
+        ${NSD_Check} $Checkbox_ClearViewerCache
+    ${Else}
+        ${NSD_Uncheck} $Checkbox_ClearViewerCache
+    ${EndIf}
+FunctionEnd
+
+; Read checkbox states
+Function un.CachePageLeave
+    ${NSD_GetState} $Checkbox_ClearViewerCache $ClearViewerCache
+    ${NSD_GetState} $Checkbox_ClearViewerPreferences $ClearViewerPreferences
 FunctionEnd
 
 ; Init function, read previous installation directory
