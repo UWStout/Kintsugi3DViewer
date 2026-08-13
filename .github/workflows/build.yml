@@ -32,7 +32,7 @@ jobs:
           mv Godot* Godot
 
       - name: Build project
-        run: ./Godot --headless --path project.godot --export-release "${{ env.project-build }}" build/
+        run: ./Godot --headless --path ./project.godot --export-release "${{ env.project-build }}" build/
 
       - name: Zip artifacts
         run: zip build/* ${{ env.artifact-name }}
@@ -68,7 +68,7 @@ jobs:
           mv Godot* Godot
 
       - name: Build project
-        run: ./Godot --headless --path project.godot --export-release "${{ env.project-build }}" build/
+        run: ./Godot --headless --path ./project.godot --export-release "${{ env.project-build }}" build/
 
       - name: Zip artifacts
         run: zip build/* ${{ env.artifact-name }}
