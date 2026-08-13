@@ -9,30 +9,40 @@ on:
 
 env:
   godot-version: 4.5
+  godot-bin: "./Godot"
 
 jobs:
-  build-windows:
-    name: "Build for Windows"
+  godot:
+    name: "Setup Project"
     runs-on: ubuntu-latest
-    env:
-      project-build: "Windows Desktop (single environment)"
-      artifact-name: "windows-${{ github.ref_name }}"
-      
-    steps:
+    steps: 
       - name: Check out repository
         uses: actions/checkout@v4
-
-      - name: Install prerequisites
-        run: sudo apt install nsis
 
       - name: Install Godot
         run: |
           curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
           unzip ./godot.zip
-          mv Godot* Godot
+          mv Godot* ${{ env.godot-bin }}
 
+      - name: Install Godot export templates
+        run: ${{ env.godot-bin }} --headless --editor --install-export-templates --verbose
+          
+      - name: Update project imports
+        run: ${{ env.godot-bin }} --headless --import --verbose
+
+    
+  build-windows:
+    name: "Build for Windows"
+    runs-on: ubuntu-latest
+    needs: [ godot ]
+    env:
+      project-build: "Windows Desktop (single environment)"
+      artifact-name: "windows-${{ github.ref_name }}"
+      
+    steps:
       - name: Build project
-        run: ./Godot --headless --path . --export-release "${{ env.project-build }}" build/
+        run: ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
 
       - name: Zip artifacts
         run: zip build/* ${{ env.artifact-name }}
@@ -42,6 +52,10 @@ jobs:
         with:
           name: ${{ env.artifact-name }}
           path: .
+
+      - name: Install NSIS
+        if: github.ref_type == 'tag'
+        run: sudo apt install nsis
 
       - name: Make installer
         if: github.ref_type == 'tag'
@@ -54,21 +68,13 @@ jobs:
   build-macos:
     name: "Build for MacOS"
     runs-on: ubuntu-latest
+    needs: [ godot ]
     env:
-      project-build: "MacOS (single environment)"
+      project-build: "macOS (single environment)"
       artifact-name: "macos-${{ github.ref_name }}"
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        
-      - name: Install Godot
-        run: |
-          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
-          unzip ./godot.zip
-          mv Godot* Godot
-
       - name: Build project
-        run: ./Godot --headless --path . --export-release "${{ env.project-build }}" build/
+        run: ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
 
       - name: Zip artifacts
         run: zip build/* ${{ env.artifact-name }}
