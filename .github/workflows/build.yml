@@ -15,7 +15,7 @@ jobs:
     name: "Build for Windows"
     runs-on: ubuntu-latest
     env:
-      project-build: "Windows Desktop (with environments)"
+      project-build: "Windows Desktop (single environment)"
       artifact-name: "windows-${{ github.ref_name }}"
       
     steps:
@@ -55,7 +55,7 @@ jobs:
     name: "Build for MacOS"
     runs-on: ubuntu-latest
     env:
-      project-build: "MacOS (all environments)"
+      project-build: "MacOS (single environment)"
       artifact-name: "macos-${{ github.ref_name }}"
     steps:
       - name: Check out repository
