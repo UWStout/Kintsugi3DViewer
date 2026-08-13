@@ -11,11 +11,43 @@ env:
   godot-version: 4.5
 
 jobs:
-  build:
+  build-windows:
+    name: "Build installer for Windows"
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        version: [ "Windows Desktop (with environments)", "MacOS (all environments)" ]
+    env:
+      project-build: "Windows Desktop (with environments)"
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install prerequisites
+        run: apt install nsis
+
+      - name: Install Godot
+        run: |
+          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
+          unzip ./godot.zip
+          mv Godot* Godot
+
+      - name: Build project
+        run: ""
+
+      - name: Upload artifacts
+        run: ""
+
+      - name: Make installer
+        if: github.ref_type == 'tag'
+        run: makensis installer.nsi
+
+      - name: Upload release
+        if: github.ref_type == 'tag'
+        run: ""
+    
+  build-macos:
+    name: "Build App for MacOS"
+    runs-on: ubuntu-latest
+    env:
+      project-build: "MacOS (all environments)"
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -24,5 +56,15 @@ jobs:
         run: |
           curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
           unzip ./godot.zip
-          mv Godot* Godot
+          mv Godot* ../Godot
+
+      - name: Build project
+        run: ""
+
+      - name: Upload artifacts
+        run: ""
+
+      - name: Upload release
+        if: github.ref_type == 'tag'
+        run: ""
           
