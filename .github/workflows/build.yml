@@ -1,0 +1,28 @@
+name: Build
+
+on:
+  push:
+    branches: [ "main", "build-automation" ]
+    tags: [ "v*.*.*" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  godot-version: 4.5
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [ "Windows Desktop (with environments)", "MacOS (all environments)" ]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        
+      - name: Install Godot
+        run: |
+          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.universal.zip"
+          unzip ./godot.zip
+          mv Godot* Godot
+          
