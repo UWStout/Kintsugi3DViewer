@@ -12,10 +12,12 @@ env:
 
 jobs:
   build-windows:
-    name: "Build installer for Windows"
+    name: "Build for Windows"
     runs-on: ubuntu-latest
     env:
       project-build: "Windows Desktop (with environments)"
+      artifact-name: "windows-${{ github.ref_name }}"
+      
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -30,10 +32,16 @@ jobs:
           mv Godot* Godot
 
       - name: Build project
-        run: ""
+        run: ./Godot --headless --path project.godot --export-release "${{ env.project-build }}" build/
+
+      - name: Zip artifacts
+        run: zip build/* ${{ env.artifact-name }}
 
       - name: Upload artifacts
-        run: ""
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact-name }}
+          path: .
 
       - name: Make installer
         if: github.ref_type == 'tag'
@@ -44,10 +52,11 @@ jobs:
         run: ""
     
   build-macos:
-    name: "Build App for MacOS"
+    name: "Build for MacOS"
     runs-on: ubuntu-latest
     env:
       project-build: "MacOS (all environments)"
+      artifact-name: "macos-${{ github.ref_name }}"
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -56,13 +65,19 @@ jobs:
         run: |
           curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
           unzip ./godot.zip
-          mv Godot* ../Godot
+          mv Godot* Godot
 
       - name: Build project
-        run: ""
+        run: ./Godot --headless --path project.godot --export-release "${{ env.project-build }}" build/
+
+      - name: Zip artifacts
+        run: zip build/* ${{ env.artifact-name }}
 
       - name: Upload artifacts
-        run: ""
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.artifact-name }}
+          path: .
 
       - name: Upload release
         if: github.ref_type == 'tag'
