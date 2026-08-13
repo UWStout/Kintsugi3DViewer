@@ -22,7 +22,7 @@ jobs:
         
       - name: Install Godot
         run: |
-          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.universal.zip"
+          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
           unzip ./godot.zip
           mv Godot* Godot
           
