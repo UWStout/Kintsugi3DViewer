@@ -30,7 +30,10 @@ jobs:
           mv Godot* ${{ env.godot-bin }}
 
       - name: Install Godot export templates
-        run: ${{ env.godot-bin }} --headless --editor --install-export-templates --verbose --quit
+        run: |
+          curl -L -o ./godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
+          unzip godot-templates.zip
+          mv ./templates/* ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
           
       - name: Update project imports
         run: ${{ env.godot-bin }} --headless --import --verbose
@@ -76,7 +79,10 @@ jobs:
           mv Godot* ${{ env.godot-bin }}
 
       - name: Install Godot export templates
-        run: ${{ env.godot-bin }} --headless --editor --install-export-templates --verbose --quit
+        run: |
+          curl -L -o ./godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
+          unzip godot-templates.zip
+          mv ./templates/* ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
           
       - name: Update project imports
         run: ${{ env.godot-bin }} --headless --import --verbose
