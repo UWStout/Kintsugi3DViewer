@@ -33,6 +33,7 @@ jobs:
         run: |
           curl -L -o ./godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
           unzip godot-templates.zip
+          mkdir -p ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
           mv ./templates/* ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
           
       - name: Update project imports
@@ -82,6 +83,7 @@ jobs:
         run: |
           curl -L -o ./godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
           unzip godot-templates.zip
+          mkdir -p ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
           mv ./templates/* ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
           
       - name: Update project imports
