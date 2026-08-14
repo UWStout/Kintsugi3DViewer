@@ -26,7 +26,7 @@ jobs:
           mv Godot* ${{ env.godot-bin }}
 
       - name: Install Godot export templates
-        run: ${{ env.godot-bin }} --headless --editor --install-export-templates --verbose
+        run: ${{ env.godot-bin }} --headless --editor --install-export-templates --verbose --quit
           
       - name: Update project imports
         run: ${{ env.godot-bin }} --headless --import --verbose
