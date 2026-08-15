@@ -21,10 +21,10 @@ jobs:
       matrix:
         include:
           - type: Windows Desktop (single environment)
-            name: ${{ github.env.windows-name }}
+            name: Kintsugi3DViewer-windows-${{ github.ref_name }}.exe
           
           - type: macOS (single environment)
-            name: ${{ github.env.macos-name }}
+            name: Kintsugi3DViewer-macos-${{ github.ref_name }}.zip
       
     steps:
       - name: Check out repository
@@ -49,7 +49,7 @@ jobs:
       - name: Build project
         run: |
           mkdir export/
-          ${{ env.godot-bin }} --headless --path . --export-release "${{ matrix.type }}" export/${{ matrix.name }} --verbose
+          ${{ env.godot-bin }} --headless --path . --export-release "${{ matrix.type }}" "export/${{ matrix.name }}" --verbose
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
