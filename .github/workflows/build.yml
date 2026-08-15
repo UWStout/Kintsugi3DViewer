@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [ 'main', 'build-automation' ]
+    branches: [ 'main' ]
     tags: [ 'v*.*.*' ]
   pull_request:
     branches: [ 'main' ]
@@ -109,7 +109,7 @@ jobs:
         run: sudo apt install nsis
 
       - name: Make installer
-        run: makensis installer.nsi
+        run: makensis -V3 installer.nsi
 
       - name: Upload release
         shell: bash
