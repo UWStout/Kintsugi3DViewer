@@ -48,14 +48,14 @@ jobs:
         
       - name: Build project
         run: |
-          mkdir build/
-          ${{ env.godot-bin }} --headless --path . --export-release "${{ matrix.type }}" build/${{ matrix.name }} --verbose
+          mkdir export/
+          ${{ env.godot-bin }} --headless --path . --export-release "${{ matrix.type }}" export/${{ matrix.name }} --verbose
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.name }}
-          path: ./build
+          path: export/*
 
   macos:
     name: Publish MacOS package
@@ -63,13 +63,28 @@ jobs:
     if: github.ref_type == 'tag'
     needs: [ 'build' ]
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.macos-name }}
 
+      - name: Unpack artifact
+        run: |
+          unzip ${{ env.macos-name }}
+
       - name: Upload release
-        run: ''
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload ${{ github.ref_name }} ${{ env.macos-name }} --clobber
+          else
+            gh release create ${{ github.ref_name }} ${{ env.macos-name }} -t "${{ github.ref_name }}" -F RELEASE.md
+          fi
 
   windows:
     name: Publish Windows installer
@@ -84,6 +99,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.windows-name }}
+
+      - name: Unpack artifact
+        run: |
+          mkdir export
+          unzip ${{ env.windows-name }} -d export/
+          mv export/${{ env.windows-name }} export/Kintsugi3DViewer.exe
         
       - name: Install NSIS
         run: sudo apt install nsis
@@ -92,5 +113,14 @@ jobs:
         run: makensis installer.nsi
 
       - name: Upload release
-        run: ''
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv export/Kintsugi3DViewer-setup.exe ${{ env.windows-name }}
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload ${{ github.ref_name }} ${{ env.windows-name }} --clobber
+          else
+            gh release create ${{ github.ref_name }} ${{ env.windows-name }} -t "${{ github.ref_name }}" -F RELEASE.md
+          fi
     
