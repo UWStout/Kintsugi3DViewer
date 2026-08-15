@@ -50,7 +50,8 @@ Section "Kintsugi 3D Viewer (required)" SectionApp
 
     SetOutPath $INSTDIR
     File "export\Kintsugi3DViewer.exe"
-    File "export\Kintsugi3DViewer.console.exe"
+	IfFileExists "export\Kintsugi3DViewer.console.exe" 0 +2
+    	File "export\Kintsugi3DViewer.console.exe"
     ;File "export\Kintsugi3DViewer.pck"
     File "README.md"
 
