@@ -20,10 +20,10 @@ jobs:
     strategy:
       matrix:
         include:
-          - type: Windows Desktop (single environment)
+          - type: Windows Desktop (with environments)
             name: Kintsugi3DViewer-windows-${{ github.ref_name }}.exe
           
-          - type: macOS (single environment)
+          - type: macOS (all environments)
             name: Kintsugi3DViewer-macos-${{ github.ref_name }}.zip
       
     steps:
@@ -62,6 +62,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref_type == 'tag'
     needs: [ 'build' ]
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -70,10 +72,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.macos-name }}
-
-      - name: Unpack artifact
-        run: |
-          unzip ${{ env.macos-name }}
 
       - name: Upload release
         shell: bash
@@ -91,6 +89,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref_type == 'tag'
     needs: [ 'build' ]
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -100,11 +100,10 @@ jobs:
         with:
           name: ${{ env.windows-name }}
 
-      - name: Unpack artifact
+      - name: Stage artifact
         run: |
           mkdir export
-          unzip ${{ env.windows-name }} -d export/
-          mv export/${{ env.windows-name }} export/Kintsugi3DViewer.exe
+          mv ${{ env.windows-name }} export/Kintsugi3DViewer.exe
         
       - name: Install NSIS
         run: sudo apt install nsis
