@@ -2,22 +2,29 @@ name: Build
 
 on:
   push:
-    branches: [ "main", "build-automation" ]
-    tags: [ "v*.*.*" ]
+    branches: [ 'main', 'build-automation' ]
+    tags: [ 'v*.*.*' ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ 'main' ]
 
 env:
   godot-version: 4.5
-  godot-bin: "./Godot"
+  godot-bin: ./Godot
+  windows-name: Kintsugi3DViewer-windows-${{ github.ref_name }}.exe
+  macos-name: Kintsugi3DViewer-macos-${{ github.ref_name }}.zip
 
 jobs:    
-  build-windows:
-    name: "Build for Windows"
+  build:
+    name: ${{ matrix.type }}
     runs-on: ubuntu-latest
-    env:
-      project-build: "Windows Desktop (single environment)"
-      artifact-name: "windows-${{ github.ref_name }}"
+    strategy:
+      matrix:
+        include:
+          - type: Windows Desktop (single environment)
+            name: ${{ github.env.windows-name }}
+          
+          - type: macOS (single environment)
+            name: ${{ github.env.macos-name }}
       
     steps:
       - name: Check out repository
@@ -42,70 +49,48 @@ jobs:
       - name: Build project
         run: |
           mkdir build/
-          ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
-
-      - name: Zip artifacts
-        run: zip build/* ${{ env.artifact-name }}
+          ${{ env.godot-bin }} --headless --path . --export-release "${{ matrix.type }}" build/${{ matrix.name }} --verbose
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ env.artifact-name }}
-          path: .
+          name: ${{ matrix.name }}
+          path: ./build
 
+  macos:
+    name: Publish MacOS package
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    needs: [ 'build' ]
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.macos-name }}
+
+      - name: Upload release
+        run: ''
+
+  windows:
+    name: Publish Windows installer
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    needs: [ 'build' ]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.windows-name }}
+        
       - name: Install NSIS
-        if: github.ref_type == 'tag'
         run: sudo apt install nsis
 
       - name: Make installer
-        if: github.ref_type == 'tag'
         run: makensis installer.nsi
 
       - name: Upload release
-        if: github.ref_type == 'tag'
-        run: ""
+        run: ''
     
-  build-macos:
-    name: "Build for MacOS"
-    runs-on: ubuntu-latest
-    env:
-      project-build: "macOS (single environment)"
-      artifact-name: "macos-${{ github.ref_name }}"
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Install Godot
-        run: |
-          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
-          unzip ./godot.zip
-          mv Godot* ${{ env.godot-bin }}
-
-      - name: Install Godot export templates
-        run: |
-          curl -L -o ./godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
-          unzip godot-templates.zip
-          mkdir -p ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
-          mv ./templates/* ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
-          
-      - name: Update project imports
-        run: ${{ env.godot-bin }} --headless --import --verbose
-        
-      - name: Build project
-        run: |
-          mkdir build/
-          ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
-
-      - name: Zip artifacts
-        run: zip build/* ${{ env.artifact-name }}
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.artifact-name }}
-          path: .
-
-      - name: Upload release
-        if: github.ref_type == 'tag'
-        run: ""
-          
