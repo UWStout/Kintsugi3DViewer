@@ -40,7 +40,9 @@ jobs:
         run: ${{ env.godot-bin }} --headless --import --verbose
         
       - name: Build project
-        run: ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
+        run: |
+          mkdir build/
+          ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
 
       - name: Zip artifacts
         run: zip build/* ${{ env.artifact-name }}
@@ -90,7 +92,9 @@ jobs:
         run: ${{ env.godot-bin }} --headless --import --verbose
         
       - name: Build project
-        run: ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
+        run: |
+          mkdir build/
+          ${{ env.godot-bin }} --headless --path . --export-release "${{ env.project-build }}" build/ --verbose
 
       - name: Zip artifacts
         run: zip build/* ${{ env.artifact-name }}
