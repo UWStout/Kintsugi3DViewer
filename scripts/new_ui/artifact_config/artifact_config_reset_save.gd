@@ -23,8 +23,7 @@ func _on_save_button_pressed() -> void:
 	current_artifact.max_distance = config.max_zoom
 	current_artifact.min_distance = config.min_zoom
 	current_artifact.max_rotation = config.max_rot
-	print("config.min_vert_rot ", config.min_vert_rot)
-	print("max_vert_rotation", config.max_vert_rot)
+
 	current_artifact.min_vert_rotation =  config.min_vert_rot
 	current_artifact.max_vert_rotation =  config.max_vert_rot
 	current_artifact.panning_distance = config.pan_dist

@@ -349,6 +349,8 @@ func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
 			rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
 		else:
 			rot_horiz_limit_enabled = false
+			rot_horiz_limit_maxAngle = 359.9
+			rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
 		if reset == true:
 			reset_for_new_artifact()
 		

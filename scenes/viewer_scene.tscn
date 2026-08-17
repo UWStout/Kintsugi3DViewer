@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=141 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -437,7 +437,7 @@ theme_override_constants/margin_bottom = 40
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer" node_paths=PackedStringArray("texture_rect", "panel", "toggle_group")]
+[node name="Up_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer" node_paths=PackedStringArray("texture_rect", "panel", "toggle_group")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("8_au3ok")
@@ -447,7 +447,7 @@ toggled_off_icon = ExtResource("41_3mdr6")
 panel = NodePath("../../../Panel")
 toggle_group = NodePath("../../../../../../ExclusiveToggleGroup")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Up_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -455,7 +455,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Up_button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
