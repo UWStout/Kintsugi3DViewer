@@ -357,10 +357,11 @@ environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContaine
 display_config = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig")
 artiacts_manager = NodePath("../artifacts_manager")
 
-[node name="artifacts_manager" type="Node3D" parent="." node_paths=PackedStringArray("local", "server")]
+[node name="artifacts_manager" type="Node3D" parent="." node_paths=PackedStringArray("local", "server", "camera")]
 script = ExtResource("3_e3ejb")
 local = NodePath("local_controller")
 server = NodePath("server_controller")
+camera = NodePath("../Camera")
 
 [node name="local_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui", "object_manager")]
 script = ExtResource("4_e3ejb")
@@ -2898,5 +2899,6 @@ script = ExtResource("29_4k4a7")
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]
 
+[editable path="Camera"]
 [editable path="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/artifact_config_camera"]
 [editable path="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig"]

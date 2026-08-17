@@ -270,6 +270,7 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
+		AnnotationsManager.annotation_markers_array.clear()
 	
 	var data = ArtifactData.new()
 	data.gltfUri = gltf_file_path

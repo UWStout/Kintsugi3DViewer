@@ -10,7 +10,7 @@ extends Node
 
 var annotation_markers_array = []
 var selected_annotation_index : int = -1
-
+var artifact_scene_center
 var is_material : bool = true
 
 func register_new_annotation(annotation_marker : AnnotationMarker):

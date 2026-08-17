@@ -380,3 +380,24 @@ func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHori
 	rot_vert_limit_min = deg_to_rad(minVertRotation)
 	rot_vert_limit_max = deg_to_rad(maxVertRotation)
 	#print("min ", rot_vert_limit_min, " max " ,rot_vert_limit_max)
+
+func pan_to_snapshot(orbit_deg: Vector3, offset: Vector3, center: Vector3, unit_scale: float = 1.0, ) -> void:
+	
+	var facing_correction = Basis(Vector3.UP, -PI/2)
+	var result = AnnotationMarker.convertVoy(
+		[orbit_deg.x, orbit_deg.y, orbit_deg.z],
+		[offset.x* unit_scale, offset.y* -unit_scale, offset.z],facing_correction
+		)
+	set_zoom(result.distance * unit_scale)
+	print(result)
+	offset *= -unit_scale	
+	#var cam_pos_cam_space = camera.unproject_position(camera.position)
+	#cam_pos_cam_space += Vector2(offset.x , offset.y)
+	#var ray_origin = camera.project_ray_origin(cam_pos_cam_space)
+	#var ray_direction = camera.project_ray_normal(cam_pos_cam_space)
+	#var world_pos = ray_origin + (ray_direction * result.distance)
+	#camera.position = world_pos
+	#camera.h_offset = offset.x 
+	#camera.v_offset = offset.y
+	set_rig_transform(Transform3D(result.pivot_basis, result.pivot_position * unit_scale + center))
+	
