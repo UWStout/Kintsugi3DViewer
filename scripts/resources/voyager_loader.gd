@@ -6,6 +6,8 @@ func _center_lights_on_artifact(aabb):
 	if aabb == AABB():
 		return
 	var center = aabb.get_center()
+	AnnotationsManager.artifact_scene_center = center
+	
 	#print("centering lights on: ", center)
 	for light_node in light_nodes:
 		light_node.position.x += center.x
@@ -122,8 +124,10 @@ func _load_voyager(loadable : LoadableArtifact, is_server : bool, voyager_json_p
 			light_count += 1
 
 	if JsonReader.has_annotation():
+		AnnotationsManager.annotation_markers_array.clear()
 		var anno = JsonReader.setup_annotations()
 		for annotation in anno:
+			
 			#annotation.sprite.scale *= 1/display_scale 
 			#annotation.position *= 1/display_scale
 			loadable.add_child(annotation)

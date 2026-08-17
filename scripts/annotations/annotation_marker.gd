@@ -47,14 +47,14 @@ func _is_occluded() -> bool:
 		global_position,
 		occlusion_collision_mask
 	)
-	query.exclude = [self]  # don't let the marker's own collider (if any) block itself
+	query.exclude = [self]  
 	var result = space_state.intersect_ray(query)
 
 	if result:
-		# If we hit something, and it's not very close to the marker itself, we're occluded.
+		
 		var hit_distance = camera.global_position.distance_to(result["position"])
 		var marker_distance = camera.global_position.distance_to(global_position)
-		return hit_distance < marker_distance - 0.05  # small tolerance to avoid self-occlusion flicker
+		return hit_distance < marker_distance - 0.05  # small tolerance to avoid flicker
 	return false
 
 func get_focus_point():
@@ -99,14 +99,88 @@ func determine_offset():
 			textbox_offset.y += textbox_panel.size.y/2
 		else:
 			textbox_offset.y -= textbox_panel.size.y/2
-
+			
+func vector3_to_array(vec: Vector3) -> Array:
+	return [vec.x, vec.y, vec.z]
+	
 func select_annotation():
 	sprite.visible = false
 	textbox.visible = true
 	click_button.disabled = true
+	if get_focus_point():
+		if focus_point.do_pan_to_annotation:
+			var controller = get_parent().get_parent()
+			
+			if controller.object_manager:
+				#var result = convertVoy(vector3_to_array(focus_point.view_angle),vector3_to_array(focus_point.view_position))
+				#controller.object_manager.camera.target_transform = Transform3D(result.pivot_basis, result.pivot_position)
+				#controller.object_manager.camera.target_dolly = result.distance
+				controller.object_manager.camera.pan_to_snapshot(
+					focus_point.view_angle,
+					focus_point.view_position,
+					AnnotationsManager.artifact_scene_center,
+					focus_point.voyager_scale)
+				
 	determine_offset()
 	#textbox.global_position = Vector2(global_position.x, global_position.y )
 
+static func convertVoy(
+	orbit: Array,
+	offset: Array,
+	facing_correction: Basis = Basis.IDENTITY
+) -> Dictionary:
+
+	var pitch := deg_to_rad(float(orbit[0]))
+	var heading := deg_to_rad(float(orbit[1]))
+	var roll := deg_to_rad(float(orbit[2]))
+
+	var ox := float(offset[0])
+	var oy := float(offset[1])
+	var distance := float(offset[2])
+
+	var sin_x := sin(pitch)
+	var cos_x := cos(pitch)
+	var sin_y := sin(heading)
+	var cos_y := cos(heading)
+	var sin_z := sin(roll)
+	var cos_z := cos(roll)
+
+	# Voyager's orbit rotation.
+	var voyager_basis := Basis(
+		Vector3(
+			cos_y * cos_z,
+			cos_y * sin_z,
+			-sin_y
+		),
+		Vector3(
+			cos_z * sin_y * sin_x - sin_z * cos_x,
+			sin_x * sin_y * sin_z + cos_z * cos_x,
+			cos_y * sin_x
+		),
+		Vector3(
+			cos_z * sin_y * cos_x + sin_z * sin_x,
+			sin_z * sin_y * cos_x - cos_z * sin_x,
+			cos_y * cos_x
+		)
+	)
+
+	# The orbit/pivot point is Voyager's rotated
+	# [offset.x, offset.y, 0].
+	var pivot_position := voyager_basis * Vector3(
+		ox,
+		oy,
+		0.0
+	)
+
+	pivot_position = facing_correction * pivot_position
+
+	var pivot_basis := facing_correction * voyager_basis
+
+	return {
+		"pivot_position": pivot_position,
+		"pivot_basis": pivot_basis,
+		"distance": distance,
+	}
 	
 func unselect_annotation():	
 	sprite.visible = true

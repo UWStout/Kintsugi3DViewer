@@ -11,10 +11,12 @@ extends Node3D
 class_name AnnotationFocusPoint
 
 @export_category("Camera View")
-@export var do_pan_to_annotation : bool = true
+@export var do_pan_to_annotation : bool = false
 @export var do_zoom_to_annotation : bool = true
 @export var annotation_distance : float = 3
-
+@export var view_position: Vector3
+@export var view_angle: Vector3
+@export var voyager_scale: float
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

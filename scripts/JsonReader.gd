@@ -132,6 +132,28 @@ func get_voyager_node_scale (nodeIndex : int) -> Vector3:
 	# default
 	return Vector3(1, 1, 1)
 		
+		
+func get_snapshot_display_scale(modelIndex: int) -> float:
+	return get_units_to_meters() / get_model_units_to_meters(modelIndex)
+	
+func get_setup_units_to_meters(setupIndex: int = 0) -> float:
+	var setups = sceneData.get("setups", [])
+	if setups.is_empty() or setupIndex >= setups.size():
+		return get_units_to_meters()  # fallback
+	var units = setups[setupIndex].get("units", "mm")
+	match units:
+		"mm": return 0.001
+		"cm": return 0.01
+		"dm": return 0.1
+		"m":  return 1.0
+		"km": return 1000.0
+		"in": return 0.0254
+		"ft": return 0.3048
+		"yd": return 0.9144
+		_:
+			push_error("Unknown unit type in Voyager setup: %s" % units)
+			return get_units_to_meters()
+			
 func get_model_units_to_meters(modelIndex: int) -> float:
 	if sceneData["models"] == null or modelIndex >= sceneData["models"].size():
 		return get_units_to_meters()  # fall back to scene units
@@ -203,13 +225,33 @@ func get_annotation_count()-> int:
 	
 func setup_annotations() -> Array[AnnotationMarker]:
 	var markers : Array[AnnotationMarker]
+	var model_index = -1
 	for model in sceneData["models"]:
+		model_index += 1
 		if  model.has("annotations"):
+			
 			for x in model["annotations"]:
 				annotation_title = x["titles"]["EN"]
 				annotation_text = x["leads"]["EN"]
+				
+							
 				var marker = ANNO_MARKER.instantiate()
 				var focuspoint = ANNO_FOCUS_POINT.instantiate()
+				if x.has("viewId"):
+					print("view Id ", x["viewId"])
+					print("fount it ", sceneData["setups"][0]["snapshots"]["states"][0]["id"],
+					 " ", sceneData["setups"][0]["snapshots"]["states"][0]["values"])
+					var snapshots = sceneData["setups"][0]["snapshots"]["states"]
+					for snaps in snapshots:
+						if x["viewId"] == snaps["id"]:
+							focuspoint.view_position = Vector3(snaps["values"][snaps["values"].size() - 1][0],
+							snaps["values"][snaps["values"].size() - 1][1], 
+							snaps["values"][snaps["values"].size() - 1][2]) 
+							focuspoint.view_angle =Vector3(snaps["values"][snaps["values"].size() - 2][0],
+							snaps["values"][snaps["values"].size() - 2][1], 
+							snaps["values"][snaps["values"].size() - 2][2])
+							focuspoint.do_pan_to_annotation = true
+							focuspoint.voyager_scale = get_snapshot_display_scale(model_index)
 				marker.textbox.annotation_name = annotation_title
 				marker.textbox.annotation_text = annotation_text
 				marker.textbox.recalc_text(true)
