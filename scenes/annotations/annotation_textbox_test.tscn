@@ -20,6 +20,7 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="Panel" type="Panel" node_paths=PackedStringArray("title_text", "content_text")]
+visible = false
 offset_right = 200.0
 offset_bottom = 150.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_p5f4d")
