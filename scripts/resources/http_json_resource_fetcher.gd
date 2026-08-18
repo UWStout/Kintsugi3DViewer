@@ -40,6 +40,7 @@ func force_fetch_artifacts() -> Array[ArtifactData]:
 	# Refresh the raw data cache if necessary
 	if (raw_data_cache == null
 	or (Time.get_ticks_msec() - artifacts_cache_time) >= cache_timeout_ms):
+		print(_format_relative_url(index_filepath))
 		raw_data_cache = await _fetch_url_json(_format_relative_url(index_filepath))
 		raw_data_cache_time = Time.get_ticks_msec()
 	
