@@ -238,9 +238,6 @@ func setup_annotations() -> Array[AnnotationMarker]:
 				var marker = ANNO_MARKER.instantiate()
 				var focuspoint = ANNO_FOCUS_POINT.instantiate()
 				if x.has("viewId"):
-					print("view Id ", x["viewId"])
-					print("fount it ", sceneData["setups"][0]["snapshots"]["states"][0]["id"],
-					 " ", sceneData["setups"][0]["snapshots"]["states"][0]["values"])
 					var snapshots = sceneData["setups"][0]["snapshots"]["states"]
 					for snaps in snapshots:
 						if x["viewId"] == snaps["id"]:
@@ -279,7 +276,7 @@ func get_voyager_node_translation(nodeIndex : int) -> Vector3:
 		var y = sceneData["models"][modelIndex]["translation"][1]
 		var z = sceneData["models"][modelIndex]["translation"][2]
 		if x != null and y != null and z != null:
-			print("getting units to meters: ",get_model_units_to_meters(modelIndex))
+			#print("getting units to meters: ",get_model_units_to_meters(modelIndex))
 			return Vector3(x, y, z) * get_model_units_to_meters(modelIndex) 
 			
 	return Vector3(0, 0, 0)
