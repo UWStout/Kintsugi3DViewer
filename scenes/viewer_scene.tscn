@@ -388,13 +388,38 @@ object_manager = NodePath("..")
 
 [node name="Camera" parent="." node_paths=PackedStringArray("configSettings", "artifactsManager", "resetPanel") instance=ExtResource("1_degd7")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 2, 0)
+rig_enabled = null
 reset = true
 configSettings = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration")
 artifactsManager = NodePath("../artifacts_manager")
 resetPanel = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/VBoxContainer/MarginContainer2/ResetViewPanel")
+rot_enabled = null
+rot_rate = null
+rot_initial_rotation = null
+rot_vert_limit_enabled = null
+rot_vert_limit_fix_roll = null
+rot_vert_limit_top_angle = null
+rot_vert_limit_bottom_angle = null
+rot_horiz_limit_enabled = null
+rot_horiz_limit_minAngle = null
 rot_horiz_limit_maxAngle = 360.0
+drag_enabled = null
+drag_interpolate = null
+drag_panning_distance = null
+drag_rate = null
+drag_initial_translation = null
+dolly_enabled = null
+dolly_interpolate = null
 dolly_initial_distance = 7.0
 dolly_limit_enabled = false
+dolly_limit_minDistance = null
+dolly_limit_maxDistance = null
+fov_enabled = null
+fov_interpolate = null
+fov_rate = null
+fov_initial_fov = null
+raycast_enabled = null
+raycast_distance = null
 
 [node name="world_plane" type="Node3D" parent="." node_paths=PackedStringArray("camera", "csg_mesh_3d")]
 visible = false

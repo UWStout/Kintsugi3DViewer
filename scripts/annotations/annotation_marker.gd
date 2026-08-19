@@ -124,7 +124,7 @@ func select_annotation():
 	determine_offset()
 	#textbox.global_position = Vector2(global_position.x, global_position.y )
 
-static func convertVoy(
+static func convert_voy(
 	orbit: Array,
 	offset: Array,
 	facing_correction: Basis = Basis.IDENTITY
