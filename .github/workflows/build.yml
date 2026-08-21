@@ -10,8 +10,8 @@ on:
 env:
   godot-version: 4.5
   godot-bin: ./Godot
-  windows-name: Kintsugi3DViewer-windows-${{ github.ref_name }}.exe
-  macos-name: Kintsugi3DViewer-macos-${{ github.ref_name }}.zip
+  windows-name: Kintsugi3DViewer-windows-${{ github.head_ref || github.ref_name }}.exe
+  macos-name: Kintsugi3DViewer-macos-${{ github.head_ref || github.ref_name }}.zip
 
 jobs:    
   build:
@@ -21,10 +21,10 @@ jobs:
       matrix:
         include:
           - type: Windows Desktop (with environments)
-            name: Kintsugi3DViewer-windows-${{ github.ref_name }}.exe
+            name: Kintsugi3DViewer-windows-${{ github.head_ref || github.ref_name }}.exe
           
           - type: macOS (all environments)
-            name: Kintsugi3DViewer-macos-${{ github.ref_name }}.zip
+            name: Kintsugi3DViewer-macos-${{ github.head_ref || github.ref_name }}.zip
       
     steps:
       - name: Check out repository
