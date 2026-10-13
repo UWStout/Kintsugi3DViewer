@@ -79,32 +79,24 @@ func display_artifact(index : int):
 		#change_scale()
 	pass
 
+func find_artifact_index(artifact: ArtifactData) -> int:
+	var index = 0
+	for object in artifacts:
+		if object["name"] == artifact["name"]:
+			return index
+		index += 1
+	return -1
+
 func display_artifact_data(artifact: ArtifactData):
-	##if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
-		##return
-	## 
-	##TOFIX: artifacts[] holds a copy of all data instead of the original data, currently rendering this find useless
-	#var artifact_index = artifacts.find(artifact)
-	#current_index = artifact_index
-	#
-	#if is_instance_valid(loaded_artifact):
-		##if not loaded_artifact.load_finished:
-			##loaded_artifact.stop_loading()
-		#
-		#loaded_artifact.queue_free()
-#
-	#if artifact["voyagerUri"] != null and not artifact["voyagerUri"].is_empty():
-		#loaded_artifact = RemoteVoyagerStory.new(artifact)
-	#elif artifact["localDir"] != null and not artifact["localDir"].is_empty():
-		#loaded_artifact = LocalGltfModel.create(artifact)
-	#else:
-		#loaded_artifact = RemoteGltfModel.create(artifact)
-		#
-		#
-		#
-	#add_child(loaded_artifact)
-	##this is a manual grab
-	#current_artifact = artifact
+	#if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
+		#return
+	# 
+	#TOFIX: artifacts[] holds a copy of all data instead of the original data, currently rendering this find useless
+	var artifact_index = find_artifact_index(artifact)
+	
+	current_index = artifact_index
+	#this is a manual grab
+	current_artifact = artifact
 	#
 	#if is_instance_valid(loaded_artifact):
 		#if not loaded_artifact.load_finished:
@@ -149,7 +141,7 @@ func display_local_artifact_data(artifact : ArtifactData):
 	pass
 
 func display_next_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished or loaded_artifact.is_local:
+	if loaded_artifact == null or not loaded_artifact.load_finished or not loaded_artifact.is_local:
 		return
 	
 	current_index = (current_index + 1) % artifacts.size()
@@ -158,9 +150,12 @@ func display_next_artifact():
 
 
 func display_previous_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished or loaded_artifact.is_local:
+	if loaded_artifact == null or not loaded_artifact.load_finished or not loaded_artifact.is_local:
+		print(loaded_artifact)
+		print(not loaded_artifact.load_finished)
+		print(loaded_artifact.is_local)
 		return
-	
+	print(current_index)
 	current_index -= 1
 	if current_index < 0:
 		current_index = artifacts.size() - 1
