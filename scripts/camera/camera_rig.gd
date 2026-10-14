@@ -240,7 +240,6 @@ func _process(delta):
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
 				
 			else: # Do normal limit calculations
-				print(angle_to_north)
 				if angle_to_north > effective_min:
 					var err_angle = angle_to_north - effective_min
 					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
