@@ -17,6 +17,8 @@ var _parent : Node
 var images : Array
 var _resources_loaded : Dictionary
 
+var _last_progress : Array[int]
+
 const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader") # TODO non-ORM shader may not be doing gamma decoding correclty
 const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader") 
 const SHADER_STANDARD = preload("res://shaders/standard_shader.gdshader")
@@ -37,6 +39,8 @@ func load(parent : Node):
 	if material_index == null:
 		material_index = 0
 	var material = _gltf.state.json.get("materials")[material_index]
+	#print("material JSON: ", material)  # add this
+	#print("images JSON: ", _gltf.state.json.get("images"))  # add this
 	images = _gltf.state.json.get("images")
 	
 	# Load the correct shader
@@ -54,6 +58,8 @@ func load(parent : Node):
 		_load_ibr_material(material["extras"])
 		_load_ibr_common_textures(material["extras"])
 	
+	if material.has("extensions"):
+		_load_extensions(material["extensions"])
 	_update_progress()
 
 func _load_ibr_common_textures(ibr : Dictionary):
@@ -65,8 +71,19 @@ func _load_ibr_common_textures(ibr : Dictionary):
 func _load_pbr_material(pbr : Dictionary):
 	if pbr.has("baseColorTexture"):
 		_load_image(pbr["baseColorTexture"], "albedoMap")
+	elif pbr.has("baseColorFactor"):
+		var factor = pbr["baseColorFactor"]
+		if factor.size() >= 3:
+			var color = Color(factor[0], factor[1], factor[2], 
+				factor[3] if factor.size() >= 4 else 1.0)
+			set_shader_parameter("albedoColor", color)
 	if pbr.has("metallicRoughnessTexture"):
 		_load_image(pbr["metallicRoughnessTexture"], "ormMap")
+	if pbr.has("roughnessFactor"):
+		set_shader_parameter("roughness", pbr["roughnessFactor"])
+	if pbr.has("metallicFactor"):
+		set_shader_parameter("metallic", pbr["metallicFactor"])
+
 
 func _load_ibr_material(ibr : Dictionary):
 	if ibr.has("diffuseTexture") and _shader_wants("diffuseMap"):
@@ -93,7 +110,8 @@ func _load_basis_functions(ibr : Dictionary):
 func _load_image(texture_info : Dictionary, shader_key : String):
 	pass
 
-
+func _load_extensions(extensions: Dictionary):
+	pass
 
 
 func _info_to_tex(texture_info: Dictionary) -> Dictionary:
@@ -124,6 +142,7 @@ func select_shader(material):
 func request_texture_keys(material : Dictionary):
 	if material.has("pbrMetallicRoughness"):
 		_resources_loaded["albedoMap"] = false
+		_resources_loaded["ormMap"] = false
 	if material.has("normalTexture"):
 		_resources_loaded["normalMap"] = false
 	if material.has("extras"):
@@ -183,8 +202,9 @@ func _get_self_mesh_index(parent: Node, state: GLTFState) -> int:
 func _update_progress():
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])
-	if progress[0] >= progress[1]:
+	if (_last_progress.size() == 0 or progress[0] != _last_progress[0]) and progress[0] >= progress[1]:
 		load_complete.emit()
+	_last_progress = progress
 
 func _get_load_progress() -> Array[int]:
 	var items = 0

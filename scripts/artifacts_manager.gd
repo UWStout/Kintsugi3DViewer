@@ -13,7 +13,7 @@ signal active_controller_changed(new_controller: ArtifactsController)
 
 @export var local : LocalArtifactsController
 @export var server : ServerArtifactsController
-@export var camera : Node3D
+@export var camera : CameraRig
 
 func _ready() -> void:
 	set_active_controller(local)
@@ -21,6 +21,8 @@ func _ready() -> void:
 func set_active_controller(controller: ArtifactsController):
 	if active_controller == controller:
 		return
+	if active_controller != null:
+		active_controller._clean_up()
 	active_controller = controller
 	emit_signal("active_controller_changed", active_controller)
 
@@ -32,8 +34,15 @@ func toggle_to_server():
 
 func _on_environment_changed(new_environment: DisplayEnvironment) -> void:
 	if active_controller != null:
+		
+		# remember old position so that we can move the camera to preserve the same relative position
+		var artifact = active_controller.loaded_artifact
+		var old_position = null
+		if artifact != null:
+			old_position = artifact.global_position
+		
 		active_controller._on_environment_changed(new_environment)
 		
-		if active_controller.loaded_artifact != null:
-			camera.global_position.y = active_controller.loaded_artifact.global_position.y
+		if artifact != null:
+			camera.move_global_position_direct(artifact.global_position - old_position);
 		

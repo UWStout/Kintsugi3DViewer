@@ -19,6 +19,7 @@ func _pressed():
 	#dialog.set_window_title("Pick a file, any file")
 	dialog.add_filter("*.glb", "GLB Files")
 	dialog.add_filter("*.gltf", "GLTF Files")
+	dialog.add_filter("*.svx.json", "Voyager Files")
 	dialog.access = FileDialog.ACCESS_FILESYSTEM
 	dialog.set_file_mode(FileDialog.FILE_MODE_OPEN_FILE)
 	dialog.popup(calculate_center_rect())
@@ -30,7 +31,7 @@ func _pressed():
 	#await dialog.has_result
 	
 	dialog.file_selected.connect(func(result : String):
-		if result.ends_with(".glb") or result.ends_with(".gltf"):
+		if result.ends_with(".glb") or result.ends_with(".gltf") or result.ends_with(".svx.json"):
 			artifacts_controller._open_artifact_through_file(result)
 			#LocalSaveData._save_model(result.get_slice("/", (result.get_slice_count("/")-2)), result)
 		else:

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cpbyngpkoitpu" path="res://scripts/annotations/annotation_textbox.gd" id="1_ilovh"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_l6mqf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_tjsho"]
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p5f4d"]
@@ -10,7 +10,7 @@ content_margin_left = 20.0
 content_margin_top = 20.0
 content_margin_right = 20.0
 content_margin_bottom = 20.0
-bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+bg_color = Color(0.14117648, 0.14117648, 0.14117648, 0.78431374)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -23,15 +23,16 @@ corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
 [node name="annotation_textbox" type="Sprite3D" node_paths=PackedStringArray("sub_viewport_container", "sub_viewport", "title_text", "content_text")]
-transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, -1.22234, 2.32904, 5.09109)
+transform = Transform3D(1, 7.26432e-08, 8.9407e-07, -3.72529e-07, 1, -1.30385e-07, -8.04663e-07, 1.49012e-08, 1, 0, 0, 0)
 billboard = 1
 double_sided = false
+no_depth_test = true
 alpha_cut = 1
-texture = SubResource("ViewportTexture_l6mqf")
+texture = SubResource("ViewportTexture_tjsho")
 script = ExtResource("1_ilovh")
 sub_viewport_container = NodePath("SubViewportContainer")
 sub_viewport = NodePath("SubViewportContainer/SubViewport")
-title_text = NodePath("SubViewportContainer/SubViewport/Panel/VBoxContainer/TitleText")
+title_text = NodePath("SubViewportContainer/SubViewport/Panel/VBoxContainer/VBoxContainer/HBoxContainer/MarginContainer/TitleText")
 content_text = NodePath("SubViewportContainer/SubViewport/Panel/VBoxContainer/ContentText")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
@@ -42,6 +43,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
 handle_input_locally = false
 size = Vector2i(400, 300)
 render_target_update_mode = 4
@@ -52,13 +54,24 @@ offset_bottom = 300.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_p5f4d")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/SubViewport/Panel"]
-layout_mode = 2
+layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 380.0
 offset_bottom = 280.0
 
-[node name="TitleText" type="RichTextLabel" parent="SubViewportContainer/SubViewport/Panel/VBoxContainer"]
+[node name="VBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewportContainer/SubViewport/Panel/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleText" type="RichTextLabel" parent="SubViewportContainer/SubViewport/Panel/VBoxContainer/VBoxContainer/HBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(4, 4)
 layout_mode = 2
 theme_override_font_sizes/bold_font_size = 32
@@ -66,6 +79,9 @@ bbcode_enabled = true
 text = "[b]UNNAMED ANNOTATION[b]"
 fit_content = true
 scroll_active = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SubViewportContainer/SubViewport/Panel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="ContentText" type="RichTextLabel" parent="SubViewportContainer/SubViewport/Panel/VBoxContainer"]
 custom_minimum_size = Vector2(4, 4)

@@ -97,7 +97,7 @@ func _on_vert_max_rot_scroll_bar_value_changed(value: float) -> void:
 	# We invert the values in order to have the min and max vertical 
 	# scroll bars to deplay valuse from left to right
 	value *= -1
-	print("value " ,value)
+	#print("value " ,value)
 	if value < min_vert_rot:
 		# this may also seem back ward but is done in order to match 
 		# godot rotation systems while also making sense logically to us
@@ -113,7 +113,7 @@ func _on_vert_max_rot_scroll_bar_value_changed(value: float) -> void:
 
 func _on_vert_min_rot_scroll_bar_value_changed(value: float) -> void:
 	value *= -1
-	print("value " ,value)
+	#print("value " ,value)
 	# We invert the values in order to have the min and max vertical 
 	# scroll bars to deplay valuse from left to right
 	if value > max_vert_rot:

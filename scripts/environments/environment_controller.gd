@@ -18,14 +18,18 @@ var loaded_scenes : Array[DisplayEnvironment]
 @export var light_selection_ui : LightSelectionUI
 @export var environment_selection_ui : EnvironmentSelectionUI
 @export var display_config : ObjectDisplayConfigButton
-
+@export var artiacts_manager : ArtifactsManager
 signal environment_changed(new_environment : DisplayEnvironment)
-
+var active_controller : ArtifactsController
 var selected_index : int = -1
 var selected_light : LightWidget
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	artiacts_manager.active_controller_changed.connect(change_active_manager)
+	if artiacts_manager.active_controller != null:
+		active_controller = artiacts_manager.active_controller
+		active_controller.artifact_changed.connect(check_for_lights)
 	display_config.display_setting_changed.connect(change_display_mode)
 	# Give the camera this object as a reference
 	if not scene_camera == null:
@@ -37,7 +41,24 @@ func _ready():
 	# Make the first scene current
 	#open_scene(0)
 	#connected_button.select(0)
+	
+func check_for_lights(artifact: ArtifactData):
+	var loaded_scene = loaded_scenes[selected_index]
+	if artifact.voyagerUri != "":
+		for dynamic_light in loaded_scene.get_dynamic_lighting().get_children():
+			dynamic_light = dynamic_light as LightWidget
+			dynamic_light.light.visible = false
+	else:
+		for dynamic_light in loaded_scene.get_dynamic_lighting().get_children():
+			dynamic_light = dynamic_light as LightWidget
+			dynamic_light.light.visible = true
 
+func change_active_manager(new_controller: ArtifactsController):
+	if active_controller != null:
+		active_controller.artifact_changed.disconnect(check_for_lights)
+	active_controller = new_controller
+	active_controller.artifact_changed.connect(check_for_lights)
+	
 func preload_all_scenes():
 	for scene in environment_scenes:
 		# Load the scene in, and change it's type

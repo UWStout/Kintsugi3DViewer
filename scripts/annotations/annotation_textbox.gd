@@ -21,6 +21,9 @@ class_name AnnotationTextbox
 
 @export var title_text : RichTextLabel
 @export var content_text : RichTextLabel
+@export var click_button : Button   
+signal exit_button_pressed()
+var camera : Camera3D
 
 func recalc_text(new_value):
 	# Update the text in the UI to match the properties of this object.
@@ -47,3 +50,13 @@ func _enter_tree():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_button_button_up() -> void:
+	exit_button_pressed.emit()
+	pass # Replace with function body.
+
+
+func _on_exit_button_button_up() -> void:
+	exit_button_pressed.emit()
+	

@@ -11,13 +11,17 @@ class_name RemoteGltfModel
 
 @export var fetcher: ResourceFetcher
 
-func _ready():
+func check_fetcher():
 	# Ensure the resource fetcher is avaliable
 	if not is_instance_valid(fetcher):
 		fetcher = GlobalFetcher
 		if not is_instance_valid(fetcher):
 			push_error("Remote glTF loader at node %s could not find a valid resource fetcher!" % get_path())
 			return
+
+func _ready():
+	# Ensure the resource fetcher is avaliable
+	check_fetcher()
 	
 	# If a URL is provided, override the artifact and load on ready. Used for testing.
 	if not artifactGltfUrl.is_empty():
@@ -84,7 +88,11 @@ func _ready():
 #	return 1
 
 func _load_gltf() -> GLTFObject:
-	var imported = null
+	
+	# might not have called _ready() yet
+	check_fetcher()
+	
+	var imported : GLTFObject = null 
 	
 	var dir_name = artifact.gltfUri.get_base_dir()
 	var file_name = artifact.gltfUri.trim_prefix(dir_name + "/")
@@ -94,16 +102,14 @@ func _load_gltf() -> GLTFObject:
 	imported = CacheManager.import_gltf(dir_name, file_name)
 	
 	if not imported == null:
-		var gltf_obj = GLTFObject.new()
-		gltf_obj.document = imported.doc
-		gltf_obj.state = imported.state
+		var gltf_obj = imported
 		gltf_obj.sourceUri = artifact.gltfUri
 		return gltf_obj
 	elif not Preferences.read_pref("offline mode"):
+		#print(Preferences.read_pref("offline mode"))
 		var gltf_obj = await fetcher.fetch_gltf(artifact)
-		
 		CacheManager.export_artifact_data(dir_name, artifact)
-		CacheManager.export_gltf_async(dir_name, file_name, gltf_obj.document, gltf_obj.state.duplicate())
+		CacheManager.export_gltf_async(dir_name, file_name, gltf_obj.document, gltf_obj.state.duplicate(true))
 		
 		return gltf_obj
 	

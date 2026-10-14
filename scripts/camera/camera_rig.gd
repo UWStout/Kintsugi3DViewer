@@ -34,8 +34,6 @@ class_name CameraRig
 @export var rot_vert_limit_bottom_angle: float = 5
 @onready var rot_vert_limit_min = deg_to_rad(180 - rot_vert_limit_bottom_angle) 
 @onready var rot_vert_limit_max = deg_to_rad(rot_vert_limit_top_angle)
-var old_rot_vert_limit_min = deg_to_rad(180 - rot_vert_limit_bottom_angle) 
-var old_rot_vert_limit_max = deg_to_rad(rot_vert_limit_top_angle)
 var last_frame_atn : float
 # Not Implemented
 @export_subgroup("Horizontal Limits", "rot_horiz_limit_")
@@ -50,7 +48,6 @@ var last_frame_rotation : float = 0.0;
 @export var drag_enabled: bool = true
 @export var drag_interpolate: bool = true
 @export var drag_panning_distance: float = 1
-var old_drag_panning_distance: float = 0
 @export_range(0, 25, 0.01) var drag_rate: float = 10
 @export var drag_initial_translation: Vector3
 var oldOrigin: Vector3
@@ -61,7 +58,6 @@ var oldOrigin: Vector3
 @export_range(0, 10, 0.01) var dolly_rate: float = 4
 @export var dolly_initial_distance: float = 10
 @export_subgroup("Limits", "dolly_limit_")
-@export var dolly_limit_enabled: bool = true
 @export var dolly_limit_minDistance: float = 0
 @export var dolly_limit_maxDistance: float = 50
 
@@ -76,11 +72,10 @@ var oldOrigin: Vector3
 @export var raycast_distance : float = 1000
 @export_flags_2d_physics var raycast_collision_mask
 
-
 #reset
 var rotation_point_start_transform: Transform3D
 var start_position: Vector3
-var constrants_disabled : bool = false
+var constraints_disabled : bool = false
 #autopan
 var do_autopan : bool = false
 var autopan_target : Vector3
@@ -151,7 +146,23 @@ func apply_drag_direct(delta_drag: Vector2):
 	if rig_enabled:
 		apply_drag(delta_drag)
 		rotationPoint.transform.origin = target_transform.origin
+		
+func move_global_position_direct(delta_position: Vector3):
+	rotationPoint.global_position += delta_position
+	
+	# rotation (and theoretically scale as well) might exist on this node
+	# (rotationPoint's parent) so make sure we invert that when applying 
+	# to the local target_transform
+	target_transform.origin += global_transform.basis.inverse() * delta_position
 
+func reset_rig_position():
+	var artifact = artifactsManager.active_controller.loaded_artifact
+	if artifact != null:
+		set_rig_position(global_transform.inverse() * artifact.global_position)
+		
+func reset_zoom():
+	set_zoom(clamp(dolly_initial_distance, dolly_limit_minDistance, dolly_limit_maxDistance))
+		
 func _ready():
 	# Validate variables
 	if not is_instance_valid(camera):
@@ -175,26 +186,11 @@ func _ready():
 	configSettings.artifact_config_menu.disable_limits.connect(_disable_limits)
 	rotation_point_start_transform = rotationPoint.transform
 	start_position = Vector3(camera.global_position.x, 0, camera.global_position.z)
-	 
 	
 func _disable_limits(disable: bool):
-	constrants_disabled = disable
-	if disable == true:
-		dolly_limit_enabled = not disable
-		rot_horiz_limit_enabled = not disable
-		old_drag_panning_distance = drag_panning_distance
-		old_rot_vert_limit_max = rot_vert_limit_max
-		old_rot_vert_limit_min = rot_vert_limit_min
-		rot_vert_limit_min = 3.05432619099008
-		rot_vert_limit_max = 0.08726646259972
-		drag_panning_distance = 1000
-	else:
-		dolly_limit_enabled = not disable
-		rot_horiz_limit_enabled = not disable
+	constraints_disabled = disable
+	if not disable:
 		reset_for_new_artifact()
-		drag_panning_distance = old_drag_panning_distance
-		rot_vert_limit_min = old_rot_vert_limit_min
-		rot_vert_limit_max = old_rot_vert_limit_max
 
 func _process(delta):
 	#print("distance to Rotation point ", (camera.global_position - rotationPoint.global_position).length())
@@ -207,48 +203,52 @@ func _process(delta):
 		camera.fov = lerp(camera.fov, target_fov, weight)
 	
 	if dolly_enabled:
-		if dolly_limit_enabled:
+		if not constraints_disabled:
 			target_dolly = clamp(target_dolly, dolly_limit_minDistance, dolly_limit_maxDistance)
 		var weight = dolly_rate * delta if dolly_interpolate else 1
 		camera.position.z = lerp(camera.position.z, target_dolly, weight)
 		
-		
 	if rot_enabled:
 		#print("last franes y axis rotation: ", last_frame_rotation)
 		var euler = target_transform.basis.get_euler()
-		if rot_horiz_limit_enabled:
+		if not constraints_disabled and rot_horiz_limit_enabled:
 			#clamp the rotation between pi and -pi 
-			euler.y = clamp(euler.y, maxf(-99*PI*0.01, rot_horiz_limit_min), minf(99*PI*0.01, rot_horiz_limit_max))
+			euler.y = clamp(euler.y, maxf(-0.99 * PI, rot_horiz_limit_min), minf(0.99 * PI, rot_horiz_limit_max))
 			#account for the wrap around that occurs once you rotatate past -pi
 			if is_equal_approx(euler.y, rot_horiz_limit_max) && last_frame_rotation < -2:
 				euler.y = rot_horiz_limit_min
 				
 			target_transform.basis = Basis.from_euler(euler)
 			last_frame_rotation = euler.y
+			
 		if rot_vert_limit_enabled:
-			var angle_to_north = acos(target_transform.basis.z.dot(transform.basis.y))
+			var angle_to_north = calc_angle_to_north(target_transform)
+			
+			# even if constraints are disabled, we still want to prevent going past the pole
+			var effective_min = 3.05432619099008 if constraints_disabled else rot_vert_limit_min
+			var effective_max = 0.08726646259972 if constraints_disabled else rot_vert_limit_max
+			
 			# Check if Camera is upside down (Limit was overrun in a single frame)
 			if target_transform.basis.y.dot(transform.basis.y) < 0:
 				# Camera is in northern hemisphere (Overran min angle)
 				if target_transform.basis.z.dot(transform.basis.y) > 0:
-					var err_angle = angle_to_north + rot_vert_limit_max
+					var err_angle = angle_to_north + effective_max
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
 					
 				else: # Camera is in southern hemisphere (Overran max angle)
-					var err_angle = angle_to_north-PI + rot_vert_limit_min-PI
+					var err_angle = angle_to_north + effective_min - 2 * PI
 					target_transform = target_transform.rotated_local(Vector3.RIGHT, err_angle)
 				
 			else: # Do normal limit calculations
-				if angle_to_north > rot_vert_limit_min:
-					var err_angle = angle_to_north - rot_vert_limit_min
+				if angle_to_north > effective_min:
+					var err_angle = angle_to_north - effective_min
 					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
-				elif angle_to_north < rot_vert_limit_max:
-					var err_angle = angle_to_north - rot_vert_limit_max
+				elif angle_to_north < effective_max:
+					var err_angle = angle_to_north - effective_max
 					target_transform = target_transform.rotated_local(Vector3.LEFT, err_angle)
 		
 			last_frame_atn = euler.x
 		
-			
 		var new_basis: Basis
 		if rot_interpolate:
 			new_basis = rotationPoint.transform.basis.slerp(target_transform.basis, rot_rate * delta)
@@ -258,15 +258,14 @@ func _process(delta):
 		rotationPoint.transform.basis = new_basis
 	
 	if drag_enabled:
-		#oldOrigin = rotationPoint.transform.origin
 		if artifactsManager.active_controller.loaded_artifact != null:
-			var offset_from_origin =  target_transform.origin - artifactsManager.active_controller.loaded_artifact.transform.origin
-			var weightOffset : float =  1.0
-			if offset_from_origin.length() > drag_panning_distance:
-				target_transform.origin = artifactsManager.active_controller.loaded_artifact.transform.origin + offset_from_origin.normalized() * 1
-				weightOffset = 0.05
+			var offset_from_origin = global_transform * target_transform.origin \
+				- artifactsManager.active_controller.loaded_artifact.global_position
+			if not constraints_disabled and offset_from_origin.length() > drag_panning_distance:
+				target_transform.origin = global_transform.inverse() * \
+						(artifactsManager.active_controller.loaded_artifact.global_position \
+							+ offset_from_origin.normalized() * min(1, drag_panning_distance))
 			var weight = drag_rate * delta if drag_interpolate else 1
-			#print("weight times offset " , weight*weightOffset)
 			rotationPoint.transform.origin = rotationPoint.transform.origin.lerp(target_transform.origin, weight)
 		
 	# if autopanning, lerp the camera towards the target point
@@ -281,13 +280,27 @@ func _process(delta):
 			rotationPoint.global_position = autopan_target
 			do_autopan = false
 	
-	if constrants_disabled:
-		if artifactsManager.active_controller.current_artifact != null:
-			if camera.global_position.distance_to(artifactsManager.active_controller.get_child(0).global_position) > 75 or not artifactsManager.active_controller.get_child(0).is_on_screen():
-				resetPanel.panel.visible = true
+	if constraints_disabled:
+		var artifact = artifactsManager.active_controller.loaded_artifact
+		if artifact != null:
+			#var angle_to_north = calc_angle_to_north(rotationPoint.transform)
+			#var euler = rotationPoint.transform.basis.get_euler()
+			if target_dolly > dolly_limit_maxDistance \
+				#or rot_vert_limit_enabled and \
+					#(angle_to_north > rot_vert_limit_min or angle_to_north < rot_vert_limit_max
+					#or rotationPoint.transform.basis.y.dot(transform.basis.y) < 0) \
+				#or rot_horiz_limit_enabled and \
+					#(euler.y < rot_horiz_limit_min or euler.y > rot_horiz_limit_max) \
+				or artifact.global_position.distance_to(rotationPoint.global_position) > drag_panning_distance \
+				or not artifactsManager.active_controller.get_child(0).is_on_screen():
+				resetPanel.show("You have moved too far from the object.")
+			elif target_dolly < dolly_limit_minDistance:
+				resetPanel.show("You have moved too close to the object.")
 			elif resetPanel.panel.visible:
-				resetPanel.panel.visible = false
-		
+				resetPanel.hide()
+
+func calc_angle_to_north(subject_transform):
+	return acos(subject_transform.basis.z.dot(transform.basis.y))
 
 #autopan functions
 func begin_autopan(new_target, new_speed : float):
@@ -309,11 +322,13 @@ func cast_ray_to_world():
 	var mouse_position_screen = get_viewport().get_mouse_position()
 	var mouse_position_world = camera.project_ray_origin(mouse_position_screen)
 	var ray_end = mouse_position_world + camera.project_ray_normal(mouse_position_screen) * raycast_distance
-	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, raycast_collision_mask)
+	#print("origin=", mouse_position_world, " end=", ray_end, " mask=", raycast_collision_mask)
+	var ray_query = PhysicsRayQueryParameters3D.create(mouse_position_world, ray_end, 0xFFFFFFFF)
 	var ray_result = space_state.intersect_ray(ray_query)
-	
+	#print("ray_result=", ray_result)
 	# if something was hit
 	if ray_result:
+		#print("Hit: ", ray_result["collider"], " | script: ", ray_result["collider"].get_script())
 		# if an annotation marker was hit, let it know that it was clicked,
 		# and begin autopanning towards it. If there was a light selected, unselect it
 		if ray_result["collider"] is AnnotationMarker:
@@ -337,36 +352,17 @@ func enable_flashlight():
 	
 func disable_flashlight():
 	spotLight.visible = false
-	
-func _on_artifacts_controller_artifact_changed(artifact: ArtifactData) -> void:
-	if artifact != null:
-		dolly_limit_minDistance = artifact.min_distance
-		dolly_limit_maxDistance = artifact.max_distance
-		drag_panning_distance = artifact.panning_distance
-		if artifact.max_rotation < 359.9:
-			rot_horiz_limit_enabled = true
-			rot_horiz_limit_maxAngle = artifact.max_rotation
-			rot_horiz_limit_max = deg_to_rad(rot_horiz_limit_maxAngle-180.0)
-		else:
-			rot_horiz_limit_enabled = false
-		if reset == true:
-			reset_for_new_artifact()
-		
-		
-
 
 func reset_for_new_artifact() -> void:
 	set_rig_transform(rotation_point_start_transform)
 	set_zoom(dolly_initial_distance) 
 	apply_yaw(PI)
-	if constrants_disabled:
-		_disable_limits(constrants_disabled)
+	if constraints_disabled:
+		_disable_limits(constraints_disabled)
 	#artifactsManager.active_controller.loaded_artifact.rotate_y(-(PI/2))
-	
 
 func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHorizRotation: float, minVertRotation: float, maxVertRotation: float, pannDistance: float) -> void:
 	drag_panning_distance = pannDistance
-	old_drag_panning_distance = pannDistance
 	dolly_limit_minDistance = minDistance
 	dolly_limit_maxDistance = maxDistance
 	if maxHorizRotation < 359.9:
@@ -378,3 +374,17 @@ func _on_camera_settings_changed(minDistance: float, maxDistance: float, maxHori
 	rot_vert_limit_min = deg_to_rad(minVertRotation)
 	rot_vert_limit_max = deg_to_rad(maxVertRotation)
 	#print("min ", rot_vert_limit_min, " max " ,rot_vert_limit_max)
+
+func pan_to_snapshot(orbit_deg: Vector3, offset: Vector3, center: Vector3, unit_scale: float = 1.0, ) -> void:
+	
+	var facing_correction = Basis(Vector3.UP, -PI/2)
+	var result = AnnotationMarker.convert_voy(
+		[orbit_deg.x, orbit_deg.y, orbit_deg.z],
+		[offset.x* unit_scale, offset.y* -unit_scale, offset.z],facing_correction
+		)
+	set_zoom(result.distance * unit_scale)
+	print(result)
+	offset *= -unit_scale	
+
+	set_rig_transform(Transform3D(result.pivot_basis, result.pivot_position * unit_scale + center))
+	

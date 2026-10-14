@@ -11,7 +11,11 @@
 background_mode = 1
 background_color = Color(0.122252, 0.122252, 0.122252, 1)
 
+<<<<<<< HEAD
+[node name="Node3D" type="Node3D"]
+=======
 [node name="Node3D" type="Node3D" node_paths=PackedStringArray("podium")]
+>>>>>>> main
 script = ExtResource("1_ksv7v")
 environment_name = "Black Studio"
 environment_graphics = SubResource("Environment_02eti")

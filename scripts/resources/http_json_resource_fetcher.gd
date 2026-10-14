@@ -40,6 +40,7 @@ func force_fetch_artifacts() -> Array[ArtifactData]:
 	# Refresh the raw data cache if necessary
 	if (raw_data_cache == null
 	or (Time.get_ticks_msec() - artifacts_cache_time) >= cache_timeout_ms):
+		print(_format_relative_url(index_filepath))
 		raw_data_cache = await _fetch_url_json(_format_relative_url(index_filepath))
 		raw_data_cache_time = Time.get_ticks_msec()
 	
@@ -51,29 +52,61 @@ func force_fetch_gltf(artifact: ArtifactData) -> GLTFObject:
 	var url = _format_relative_url(artifact.gltfUri)
 	var headers = PackedStringArray(["Accept: model/gltf-binary, model/gltf+json"])
 	var raw_data = await _fetch_url_raw(url, headers)
-	
-	print("Received glTF raw data")
+	#print("Downloaded bytes: ", raw_data.size())
 	
 	var document = GLTFDocument.new()
 	var state = GLTFState.new()
+	var gltf_error : int
 	
-	# 0x20 is used for flags to disable loading of textures and images, as
-	# the godot glTF loader will by default try to find external resources during
-	# the initial load process and is not euqipped to handle http resources, thus
-	# causing the load to fail outright. See modules/gltf/gltf_document.cpp@69,7318,7364
-	var gltf_error = document.append_from_buffer(raw_data, "", state, 0x20)
+	# Check if this is a binary GLB or a JSON GLTF
+	# GLB files start with magic bytes 0x46546C67 ("glTF")
+	if raw_data.size() >= 4 and raw_data.decode_u32(0) == 0x46546C67:
+		#print("Parsing as GLB")
+		gltf_error = document.append_from_buffer(raw_data, "", state, 0x20)
+	else:
+		#print("Parsing as GLTF, writing temp file")
+		var temp_path = "user://temp_gltf_%s.gltf" % Time.get_ticks_msec()
+		
+		#print("raw_data size before write: ", raw_data.size())
+		var temp_file = FileAccess.open(temp_path, FileAccess.WRITE)
+		if temp_file == null:
+			push_error("Failed to open temp file: %s" % FileAccess.get_open_error())
+			return GLTFObject.new()
+		
+		temp_file.store_buffer(raw_data)
+		var bytes_written = temp_file.get_position()
+		#print("Bytes written: ", bytes_written)
+		temp_file.close()
+		temp_file = null
+		
+		# Verify file on disk
+		var verify_size = FileAccess.get_file_as_bytes(temp_path).size()
+		#print("Verified temp file size on disk: ", verify_size)
+		
+		if verify_size == 0:
+			push_error("Temp file is empty after write!")
+			DirAccess.remove_absolute(temp_path)
+			return GLTFObject.new()
+		
+		gltf_error = document.append_from_file(temp_path, state, 0x20)
+		#print("gltf_error: ", gltf_error)
+		#print("buffers count: ", state.buffers.size())
+		#print("images count: ", state.json.get("images", []).size())
+		#if state.json.has("materials"):
+			#print("material 0: ", state.json["materials"][0].get("pbrMetallicRoughness", {}))
+		
+		DirAccess.remove_absolute(temp_path)
 	
 	if gltf_error:
 		push_error("An error occured parsing glTF data! Error code: %s" % gltf_error)
 		return GLTFObject.new()
 	
-	var object := GLTFObject.new()
+	var object = GLTFObject.new()
 	object.document = document
 	object.state = state
 	object.sourceUri = artifact.gltfUri
 	
 	return object
-
 
 func force_fetch_image(url: String) -> Image:
 	var image = Image.new()
@@ -108,6 +141,9 @@ func force_fetch_csv(uri: String) -> Array:
 
 func force_fetch_json(uri: String) -> Dictionary:
 	return await _fetch_url_json(_format_relative_url(uri))
+	
+func force_fetch_voyager(uri: String) -> Dictionary:
+	return await force_fetch_json(uri)
 
 
 func _format_relative_url(url: String) -> String:
@@ -115,7 +151,9 @@ func _format_relative_url(url: String) -> String:
 
 
 func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> Array:
-	var request = HTTPRequest.new();
+	var request = HTTPRequest.new()
+	request.use_threads = true
+	request.body_size_limit = -1  # unlimited
 	add_child(request)
 	
 	# Check for client-side request errors (malformed urls, etc)
@@ -128,7 +166,7 @@ func _fetch_url_fullraw(url: String, request_headers := PackedStringArray()) -> 
 	# Wait for the request to complete and fetch signal parameters
 	var response = await request.request_completed
 	
-	print ("HTTP request complete: " + url)
+	#print ("HTTP request complete: " + url)
 	
 	var result = response[0]
 	var response_code = response[1]
