@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://bmmsv1log3xwv"]
+[gd_scene load_steps=144 format=3 uid="uid://bmmsv1log3xwv"]
 
 [ext_resource type="Script" uid="uid://ciytwxkwp33ly" path="res://scripts/graphics_controller.gd" id="1_7gla8"]
 [ext_resource type="Script" uid="uid://8oqr844dk5jf" path="res://scripts/environments/viewer_environment.gd" id="1_8lf8i"]
@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://cvukgvnle2ipo" path="res://scripts/new_ui/buttons/import_gltf_button.gd" id="17_4rmbt"]
 [ext_resource type="Texture2D" uid="uid://ckoeurmsqnnnt" path="res://assets/UI 2D/Icons/Top Dock/Import/Import_White_V1.svg" id="17_6ee1a"]
 [ext_resource type="Texture2D" uid="uid://cyq6mug4f7usx" path="res://assets/UI 2D/Icons/Top Dock/Controls Help/V2/ControlsHelp_Shown_White_V2.svg" id="17_6nw6i"]
-[ext_resource type="PackedScene" uid="uid://b1aa37jbdxgoc" path="res://scenes/environments/voyager_default.tscn" id="18_drhpu"]
+[ext_resource type="PackedScene" uid="uid://b1aa37jbdxgoc" path="res://scenes/environments/voyager_default.tscn" id="18_hg5h6"]
 [ext_resource type="Script" uid="uid://disebqe6a48a8" path="res://scripts/new_ui/desktop_only_control.gd" id="18_nhgjm"]
 [ext_resource type="Script" uid="uid://btrdt065ggt0m" path="res://scripts/new_ui/buttons/cycle_artifact_button.gd" id="21_0nwoy"]
 [ext_resource type="Texture2D" uid="uid://pkranv4v71ty" path="res://assets/UI 2D/Icons/Top Dock/Object Rotation/ObjectRotation_White_V2.svg" id="21_4k5n4"]
@@ -57,8 +57,11 @@
 [ext_resource type="Texture2D" uid="uid://cibmbmvm7k171" path="res://assets/UI 2D/Icons/NextAndPreviousArtifacts/V2/NextArtifact_White_V2.svg" id="45_drl5j"]
 [ext_resource type="Script" uid="uid://dfbtay8odfq6" path="res://scripts/new_ui/buttons/preferences/change_shadows_button.gd" id="45_lplh0"]
 [ext_resource type="Script" uid="uid://cr1747gna2kvx" path="res://scripts/new_ui/buttons/preferences/change_gi_button.gd" id="46_gy2xc"]
+[ext_resource type="Texture2D" uid="uid://c84fredealh5l" path="res://assets/UI 2D/Icons/Side Dock/Annotations Visability/V1/Annotations_Shown_White_V1.svg" id="47_0fy4r"]
+[ext_resource type="Script" uid="uid://bvpxug70uc5tg" path="res://scripts/ui/annotations_toggle_button.gd" id="47_ma54o"]
 [ext_resource type="Script" uid="uid://fokeq7qj3eu4" path="res://scripts/artifact_config.gd" id="48_dvgfk"]
 [ext_resource type="Script" uid="uid://b4w40etmy08k8" path="res://scripts/new_ui/buttons/preferences/change_aa_button.gd" id="48_r3bj8"]
+[ext_resource type="Texture2D" uid="uid://b8wilkjloqfnq" path="res://assets/UI 2D/Icons/Side Dock/Annotations Visability/V1/Annotations_Hidden_White_V1.svg" id="49_5n2gs"]
 [ext_resource type="Texture2D" uid="uid://cqfyy4ttfyp7q" path="res://assets/UI 2D/Icons/Top Dock/Settings/Settings_White_V2.svg" id="49_8n3c5"]
 [ext_resource type="PackedScene" uid="uid://c6jha02ajpeme" path="res://scenes/new_ui/artifact_config_camera.tscn" id="49_kgc6k"]
 [ext_resource type="Script" uid="uid://ij3k5ptd2lbc" path="res://scripts/new_ui/buttons/preferences/change_ssao_button.gd" id="49_ulw4s"]
@@ -89,10 +92,10 @@
 [ext_resource type="Texture2D" uid="uid://cito2sce6dag" path="res://assets/UI 2D/Icons/SideFlyout/V2/SideFlyout_Out_White_V2.svg" id="71_muvog"]
 [ext_resource type="PackedScene" uid="uid://dax8cqqxulwsk" path="res://scenes/environments/round_classical_room_Environment.tscn" id="71_ns1n6"]
 [ext_resource type="PackedScene" uid="uid://co5kep7w2756c" path="res://scenes/environments/chinese_garden_hdri.tscn" id="72_7qija"]
-[ext_resource type="PackedScene" uid="uid://cnigddmkp1owi" path="res://scenes/new_ui/reset_view_panel.tscn" id="73_drhpu"]
 [ext_resource type="PackedScene" uid="uid://4dk8c3kcipcj" path="res://scenes/environments/hayloft-hdri.tscn" id="73_yat4e"]
 [ext_resource type="PackedScene" uid="uid://5qanqeo3p43b" path="res://scenes/environments/rooitou_park_hdri.tscn" id="74_23swl"]
 [ext_resource type="PackedScene" uid="uid://dm46deb605xdl" path="res://scenes/environments/sunny_vondelpark_hdri.tscn" id="75_nfilj"]
+[ext_resource type="PackedScene" uid="uid://cnigddmkp1owi" path="res://scenes/new_ui/reset_view_panel.tscn" id="76_5n2gs"]
 [ext_resource type="PackedScene" uid="uid://bk3g1aihs6y1q" path="res://scenes/environments/industrial_sunset_hdri.tscn" id="76_hkfn5"]
 [ext_resource type="PackedScene" uid="uid://c0330c6wvvubh" path="res://scenes/environments/thatch_chapel_hdri.tscn" id="77_1xop2"]
 [ext_resource type="PackedScene" uid="uid://diiijjog58f0c" path="res://scenes/environments/zhengyang_gate_hdri.tscn" id="78_f28kr"]
@@ -257,7 +260,7 @@ bg_color = Color(0.654902, 0.654902, 0.654902, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahlbe"]
 bg_color = Color(0.733333, 0.733333, 0.733333, 1)
 
-[sub_resource type="ButtonGroup" id="ButtonGroup_8jy57"]
+[sub_resource type="ButtonGroup" id="ButtonGroup_0fy4r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_116h6"]
 bg_color = Color(0.219608, 0.219608, 0.219608, 1)
@@ -346,13 +349,14 @@ script = ExtResource("1_8lf8i")
 script = ExtResource("1_7gla8")
 viewer_environment = NodePath("../WorldEnvironment")
 
-[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui", "display_config")]
+[node name="environment_controller" type="Node3D" parent="." node_paths=PackedStringArray("scene_camera", "light_selection_ui", "environment_selection_ui", "display_config", "artiacts_manager")]
 script = ExtResource("12_acvmt")
 scene_camera = NodePath("../Camera")
-environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr"), ExtResource("18_drhpu")])
+environment_scenes = Array[PackedScene]([ExtResource("33_80o4d"), ExtResource("79_hseew"), ExtResource("67_6ljs3"), ExtResource("68_gxb4g"), ExtResource("69_3p8jk"), ExtResource("71_ns1n6"), ExtResource("71_04ghq"), ExtResource("72_7qija"), ExtResource("73_yat4e"), ExtResource("74_23swl"), ExtResource("75_nfilj"), ExtResource("76_hkfn5"), ExtResource("77_1xop2"), ExtResource("78_f28kr"), ExtResource("18_hg5h6")])
 light_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/lights_selection")
 environment_selection_ui = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/environment_selection")
 display_config = NodePath("../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig")
+artiacts_manager = NodePath("../artifacts_manager")
 
 [node name="artifacts_manager" type="Node3D" parent="." node_paths=PackedStringArray("local", "server", "camera")]
 script = ExtResource("3_e3ejb")
@@ -360,7 +364,7 @@ local = NodePath("local_controller")
 server = NodePath("server_controller")
 camera = NodePath("../Camera")
 
-[node name="local_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui")]
+[node name="local_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_save_import_panel", "_save_import_button", "_duplicate_model_popup", "_overwrite_duplicate_button", "_invalid_file_popup", "_loader", "_environment_controller", "_artifact_catalog_ui", "object_manager")]
 script = ExtResource("4_e3ejb")
 _save_import_panel = NodePath("../../new_ui_root/MarginContainer/save_file")
 _save_import_button = NodePath("../../new_ui_root/MarginContainer/save_file/panel/VBoxContainer/MarginContainer6/HBoxContainer/MarginContainer2/Save")
@@ -370,14 +374,16 @@ _invalid_file_popup = NodePath("../../new_ui_root/MarginContainer/broken_file/pa
 _loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/VBoxContainer/MarginContainer/new_loading_container")
 _environment_controller = NodePath("../../environment_controller")
 _artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
+object_manager = NodePath("..")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="artifacts_manager/local_controller"]
 
-[node name="server_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui")]
+[node name="server_controller" type="Node3D" parent="artifacts_manager" node_paths=PackedStringArray("_loader", "_environment_controller", "_artifact_catalog_ui", "object_manager")]
 script = ExtResource("3_rwtoy")
 _loader = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/VBoxContainer/MarginContainer/new_loading_container")
 _environment_controller = NodePath("../../environment_controller")
 _artifact_catalog_ui = NodePath("../../new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog")
+object_manager = NodePath("..")
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="artifacts_manager/server_controller"]
 
@@ -419,7 +425,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("21_jg7c6")
-metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="new_ui_root/MarginContainer"]
 layout_mode = 2
@@ -437,7 +442,7 @@ theme_override_constants/margin_bottom = 40
 [node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer" node_paths=PackedStringArray("texture_rect", "panel", "toggle_group")]
+[node name="Up_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer" node_paths=PackedStringArray("texture_rect", "panel", "toggle_group")]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 script = ExtResource("8_au3ok")
@@ -447,7 +452,7 @@ toggled_off_icon = ExtResource("41_3mdr6")
 panel = NodePath("../../../Panel")
 toggle_group = NodePath("../../../../../../ExclusiveToggleGroup")
 
-[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Button"]
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Up_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -455,7 +460,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Button/CenterContainer"]
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer2/VBoxContainer/MarginContainer/CenterContainer/Up_button/CenterContainer"]
 self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -824,6 +829,39 @@ self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = ExtResource("54_78aod")
+expand_mode = 5
+
+[node name="MarginContainer6" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6"]
+layout_mode = 2
+
+[node name="annotations_button" type="Button" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6/CenterContainer" node_paths=PackedStringArray("textureIcon")]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+script = ExtResource("47_ma54o")
+annotations_on_icon = ExtResource("47_0fy4r")
+annotations_off_icon = ExtResource("49_5n2gs")
+textureIcon = NodePath("CenterContainer/TextureRect")
+
+[node name="CenterContainer" type="CenterContainer" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6/CenterContainer/annotations_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="new_ui_root/MarginContainer/VBoxContainer/top_dock/top_dock/HBoxContainer/HBoxContainer2/MarginContainer6/CenterContainer/annotations_button/CenterContainer"]
+self_modulate = Color(0.85098, 0.85098, 0.85098, 1)
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("47_0fy4r")
 expand_mode = 5
 
 [node name="side_dock" type="HBoxContainer" parent="new_ui_root/MarginContainer/VBoxContainer"]
@@ -1321,9 +1359,6 @@ connected_button = NodePath("../../sidebar_selection_menu/buttons/MarginContaine
 [node name="button_group" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
 script = ExtResource("28_7jo5e")
 
-[node name="button_group2" type="Node" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
-script = ExtResource("28_7jo5e")
-
 [node name="header" type="Panel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration"]
 custom_minimum_size = Vector2(0, 65)
 layout_mode = 2
@@ -1375,13 +1410,13 @@ save_reset = NodePath("../reset_save")
 enviroment_controller = NodePath("../../../../../../../../../environment_controller")
 
 [node name="Button" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig/Panel/VBoxContainer/VBoxContainer" index="0" node_paths=PackedStringArray("toggle_group")]
-toggle_group = NodePath("../../../../../../../button_group2")
+toggle_group = NodePath("../../../../../../../button_group")
 
 [node name="PedestalCheckBox" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig/Panel/VBoxContainer/VBoxContainer/MarginContainer/HBoxContainer" index="0"]
-button_group = SubResource("ButtonGroup_8jy57")
+button_group = SubResource("ButtonGroup_0fy4r")
 
 [node name="FloatingCheckBox" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig/Panel/VBoxContainer/VBoxContainer/MarginContainer2/HBoxContainer" index="0"]
-button_group = SubResource("ButtonGroup_8jy57")
+button_group = SubResource("ButtonGroup_0fy4r")
 
 [node name="reset_save" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer" node_paths=PackedStringArray("config", "display_config", "local_controller") instance=ExtResource("66_70iam")]
 layout_mode = 2
@@ -1440,7 +1475,6 @@ size_flags_vertical = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 
@@ -1450,9 +1484,8 @@ layout_mode = 2
 [node name="MarginContainer2" type="MarginContainer" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 10
-theme_override_constants/margin_top = 0
 
-[node name="ResetViewPanel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/VBoxContainer/MarginContainer2" node_paths=PackedStringArray("scene_camera") instance=ExtResource("73_drhpu")]
+[node name="ResetViewPanel" parent="new_ui_root/MarginContainer/VBoxContainer/side_dock/HFlowContainer/VBoxContainer/MarginContainer2" node_paths=PackedStringArray("scene_camera") instance=ExtResource("76_5n2gs")]
 layout_mode = 2
 scene_camera = NodePath("../../../../../../../../Camera")
 
@@ -2806,6 +2839,7 @@ offset_bottom = 40.0
 [node name="Window" type="Window" parent="." node_paths=PackedStringArray("artifacts_manager", "artifacts_controller", "v_box_container")]
 disable_3d = true
 transparent_bg = true
+oversampling_override = 1.0
 title = "Select Artifact"
 position = Vector2i(432, 81)
 size = Vector2i(288, 486)
@@ -2844,6 +2878,7 @@ parent_window = NodePath("../../..")
 artifacts_manager = NodePath("../../../../artifacts_manager")
 
 [node name="save_screenshot_popup_window" type="FileDialog" parent="."]
+oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(1152, 648)
 access = 2
@@ -2852,10 +2887,6 @@ script = ExtResource("29_4k4a7")
 
 [connection signal="environment_changed" from="environment_controller" to="WorldEnvironment" method="_on_environment_changed"]
 [connection signal="environment_changed" from="environment_controller" to="artifacts_manager" method="_on_environment_changed"]
-[connection signal="artifact_changed" from="artifacts_manager/local_controller" to="Camera" method="_on_artifacts_controller_artifact_changed"]
-[connection signal="artifact_loaded" from="artifacts_manager/local_controller" to="artifacts_manager/server_controller" method="_on_local_controller_artifact_loaded"]
-[connection signal="artifact_changed" from="artifacts_manager/server_controller" to="Camera" method="_on_artifacts_controller_artifact_changed"]
-[connection signal="artifact_loaded" from="artifacts_manager/server_controller" to="artifacts_manager/local_controller" method="_on_server_controller_artifact_loaded"]
 [connection signal="text_changed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/MarginContainer2/CenterContainer/searchbar" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog" method="_on_searchbar_text_changed"]
 [connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer2/CenterContainer/ArtifactServerToggle" method="_on_pressed"]
 [connection signal="pressed" from="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/ArtifactServerToggle" to="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_catalog/header/VBoxContainer2/Catalog_Toggle_Group/MarginContainer3/CenterContainer/ArtifactServerToggle" method="_on_pressed"]
@@ -2868,5 +2899,6 @@ script = ExtResource("29_4k4a7")
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
 [connection signal="confirmed" from="save_screenshot_popup_window" to="save_screenshot_popup_window" method="_on_confirmed"]
 
+[editable path="Camera"]
 [editable path="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/artifact_config_camera"]
 [editable path="new_ui_root/MarginContainer/VBoxContainer/side_dock/sidebar_context_menus/artifact_configuration/ScrollContainer/VBoxContainer/ObjectDisplayConfig"]

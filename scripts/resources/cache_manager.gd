@@ -38,7 +38,7 @@ func _ready():
 	
 	create_cache_directory()
 	
-	show_cache_info()
+	#show_cache_info()
 	
 	reduce_cache(cache_mode)
 
@@ -90,11 +90,18 @@ func import_gltf(dir_name : String, name : String):
 	var dir = DirAccess.open(_CACHE_ROOT_DIR + dir_name)
 	
 	if dir == null:
-		#print("directory " + dir_path + " does not exist")
-		return null
+		print("directory " + dir_path + " does not exist")
+		#print("trying again")
+		dir = DirAccess.open(dir_name)
+		if dir == null:
+			#print("failed")
+			return null
+		else:
+			#print("sucsess")
+			dir_path = dir_name + "/"
 	
 	if not dir.file_exists(file_name):
-		#print("could not locate file " + file_name + " in directory " + dir_path)
+		print("could not locate file " + file_name + " in directory " + dir_path)
 		return null
 	
 	# Import the GLTF
@@ -103,16 +110,17 @@ func import_gltf(dir_name : String, name : String):
 	
 	var buffer = file.get_buffer(file.get_length())
 	
-	var gltf = GLTFDocument.new()
+	var document = GLTFDocument.new()
 	var state = GLTFState.new()
+	var gltf_error = document.append_from_file(file_path, state, 0x20)
 	
-	var error = gltf.append_from_buffer(buffer, "", state, 0x20)
-	
-	if error:
-		#var err_message = "there was an error while attempting to import file "
-		#err_message += file_name + " from directory " + dir_path  + ". error " + error_string(error)
-		#print(err_message)
+	if gltf_error:
+		print("Error importing cached glTF: ", gltf_error)
 		return null
+
+	var object = GLTFObject.new()
+	object.document = document
+	object.state = state
 	
 	# Import the JSON
 	file_name = name + ".json"
@@ -124,12 +132,12 @@ func import_gltf(dir_name : String, name : String):
 	
 	file = FileAccess.open(file_path, FileAccess.READ)
 	
-	state.json = JSON.parse_string(file.get_as_text())
+	object.state.json = JSON.parse_string(file.get_as_text())
 	
 	#print("imported file " + name + ".glb from directory " + dir_path)
 	#print("imported file " + name + ".json from directory " + dir_path)
 	
-	return {"doc" : gltf, "state" : state}
+	return object
 
 func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : GLTFState):
 	#if outsized_folders.has(dir_name):
@@ -140,9 +148,10 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 	
 	var buffer = doc.generate_buffer(state.duplicate())
 	var file_size = buffer.size()
+	print("filesize: ", file_size)
 	if not should_add_to_cache(file_size):
 		reduce_cache_for_size(file_size, cache_mode)
-		#print("could not export " + name + ".glb to directory " + _CACHE_ROOT_DIR + dir_name + "/ because it would overflow the cache")
+		print("could not export " + name + ".glb to directory " + _CACHE_ROOT_DIR + dir_name + "/ because it would overflow the cache")
 		#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 		#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 #	if not should_add_to_cache(file_size):
@@ -169,7 +178,7 @@ func export_gltf(dir_name : String, name : String, doc : GLTFDocument, state : G
 
 	# Export the .glb file
 	doc.write_to_filesystem(state, dir_path + file_name)
-	print("exported file " + file_name + " to directory " + dir_path)
+	#print("exported file " + file_name + " to directory " + dir_path)
 	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
 	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
@@ -251,8 +260,8 @@ func export_png(dir_name : String, name : String, image : Image):
 		return
 	
 	print("exported file " + file_name + " to directory " + dir_path)
-	#print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
-	#print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
+	print("\tcurrent cache size: " + str(get_cache_size()) + ", max cache size: " + str(cache_size_limit))
+	print("\tpercent cache used: " + str(get_cache_size() / (cache_size_limit as float) * 100) + "%")
 
 func export_png_async(dir_name : String, name : String, image : Image):
 	var thread = Thread.new()

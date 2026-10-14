@@ -19,9 +19,14 @@ signal artifact_changed(artifact: ArtifactData)
 @export var _environment_controller : EnvironmentController
 @export var _artifact_catalog_ui : ArtifactCatalogUI
 
+@export var object_manager: ArtifactsManager
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
+var loaded_artifact1: LoadableArtifact
+
+## TESTING MODEL
+#var example_guan: Node3D
 var loaded_artifact: GltfModel
 var current_artifact: ArtifactData
 
@@ -33,32 +38,62 @@ func assign_fetcher():
 		if not is_instance_valid(_fetcher):
 			push_error("Artifacts Controller at node %s could not find a valid resource fetcher!" % get_path())
 			return
+	
+	await refresh_artifacts()
+	
+	if UrlReader.parameters.has("artifact"):
+		for artifact in artifacts:
+			if UrlReader.parameters["artifact"] == artifact.gltfUri.get_base_dir():
+				display_artifact_data(artifact)
+	
+	#print(OS.get_cmdline_args())
+	
+	var args = OS.get_cmdline_args()
+	_open_artifact_through_file(args[0])
+	#$"../new_ui_root/CenterContainer/Label".text += "\n" + arg
+	
+	#_open_artifact_through_file("C:\\Users\\BetanskiTyler\\test_directory\\guan-yu\\model.glb")
+	
+	## TESTING MODEL
+	#example_guan = get_parent().get_node("guan_model")
 
 
-#func refresh_artifacts() -> Array[ArtifactData]:
-	#if(Preferences.read_pref("offline mode")):
-		#artifacts = CacheManager.get_artifact_data()
-	#else:
-		#artifacts = await _fetcher.fetch_artifacts()
-		#artifacts_refreshed.emit(artifacts)
-		#
-		#if artifacts.size() == 0:
-			#artifacts = CacheManager.get_artifact_data()
-	#return artifacts
+func refresh_artifacts() -> Array[ArtifactData]:
+	if(Preferences.read_pref("offline mode")):
+		artifacts = CacheManager.get_artifact_data()
+	else:
+		artifacts = await _fetcher.fetch_artifacts()
+		artifacts_refreshed.emit(artifacts)
+		
+		if artifacts.size() == 0:
+			artifacts = CacheManager.get_artifact_data()
+	return artifacts
 
 
 func display_artifact(index : int):
 	if index < artifacts.size():
 		display_artifact_data(artifacts[index])
+		JsonReader.load_for_artifact(index) # for Voyager Story
+	
+	#if(index == 9):
+		#change_scale()
 	pass
 
+func find_artifact_index(artifact: ArtifactData) -> int:
+	var index = 0
+	for object in artifacts:
+		if object["name"] == artifact["name"]:
+			return index
+		index += 1
+	return -1
 
 func display_artifact_data(artifact: ArtifactData):
 	#if not loaded_artifact == null and artifact.name == loaded_artifact.artifact.name:
 		#return
 	# 
 	#TOFIX: artifacts[] holds a copy of all data instead of the original data, currently rendering this find useless
-	var artifact_index = artifacts.find(artifact)
+	var artifact_index = find_artifact_index(artifact)
+	
 	current_index = artifact_index
 	#this is a manual grab
 	current_artifact = artifact
@@ -87,6 +122,17 @@ func display_artifact_data(artifact: ArtifactData):
 	else:
 		if is_instance_valid(_loader):
 			_loader.end_loading()
+			
+	## Code for loading from Voyager JSON
+	#if current_index == 9:
+		##print(example_guan)
+		#example_guan.visible = true
+		#example_guan.scale = JsonReader.get_model_scale()
+		#change_scale()
+		#_environment_controller.set_environment_lights()
+	#else:
+		#example_guan.visible = false
+
 
 func display_remote_artifact_data(artifact : ArtifactData):
 	pass
@@ -95,7 +141,7 @@ func display_local_artifact_data(artifact : ArtifactData):
 	pass
 
 func display_next_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished or loaded_artifact.is_local:
+	if loaded_artifact == null or not loaded_artifact.load_finished:
 		return
 	
 	current_index = (current_index + 1) % artifacts.size()
@@ -104,9 +150,12 @@ func display_next_artifact():
 
 
 func display_previous_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished or loaded_artifact.is_local:
+	if loaded_artifact == null or not loaded_artifact.load_finished:
+		print(loaded_artifact)
+		print(not loaded_artifact.load_finished)
+		print(loaded_artifact.is_local)
 		return
-	
+	print(current_index)
 	current_index -= 1
 	if current_index < 0:
 		current_index = artifacts.size() - 1
@@ -124,14 +173,19 @@ func _on_model_begin_load():
 
 func _place_artifact():
 	var artifact_root = _environment_controller.get_active_artifact_root()
-	if not artifact_root == null:
+	if not artifact_root == null and loaded_artifact != null:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
 		#print(loaded_artifact.aabb.size.y)
 		target_pos -= loaded_artifact.aabb.position # position relative to bounding box
 		target_pos -= self.position # account for arbitrary position of artifacts controller node
 		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
 		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
-		loaded_artifact.global_position = target_pos
+		if loaded_artifact is RemoteVoyagerStory:
+			loaded_artifact.global_position = target_pos
+		else:
+			loaded_artifact.global_position = target_pos
+		#print(loaded_artifact.global_position)
+		
 		var visualTrigger : VisibleOnScreenNotifier3D  = self.get_child(0)
 		visualTrigger.global_position = loaded_artifact.global_position
 		#print("really ", loaded_artifact.rotation.y)
@@ -139,8 +193,12 @@ func _place_artifact():
 		#print(loaded_artifact.transform.basis )
 		
 		
+func _clean_up():
+	if is_instance_valid(loaded_artifact):
+		loaded_artifact.queue_free()
+		
 func _on_model_preview_load_complete():
-	print("_environment_controller: ", _environment_controller)
+	#print("_environment_controller: ", _environment_controller)
 	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 		var visualTrigger : VisibleOnScreenNotifier3D  = self.get_child(0)
@@ -149,7 +207,6 @@ func _on_model_preview_load_complete():
 	_place_artifact()
 	if(current_artifact != null):
 		artifact_changed.emit(current_artifact)
-		
 
 func _on_environment_changed(new_environment):
 	if loaded_artifact != null:
@@ -194,3 +251,31 @@ func _look_for_mesh(node : Node3D):
 		return null
 	else:
 		return results.pop_front()
+
+
+#func change_scale():
+	##print("HELLO THERE")
+	##self.get_child(0, false).get_child(0, false).scale = JsonReader.get_model_scale()
+	
+func _open_artifact_through_file(gltf_file_path : String):
+	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"): # \
+			# and not gltf_file_path.ends_with(".json"):
+		return
+	
+	if is_instance_valid(loaded_artifact):
+		loaded_artifact.queue_free()
+		AnnotationsManager.annotation_markers_array.clear()
+	
+	var data = ArtifactData.new()
+	data.gltfUri = gltf_file_path
+	
+	var model = LocalGltfModel.create(data)
+	add_child(model)
+	
+	model.preview_load_completed.connect(_on_model_preview_load_complete)
+	model.load_completed.connect(_on_model_load_complete)
+	model.load_progress.connect(_on_model_load_progress)
+	
+	loaded_artifact = model # set here to prevent null pointer dereference
+	model.load_artifact()
+	

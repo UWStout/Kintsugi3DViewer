@@ -6,4 +6,4 @@ class_name Texture2DArrayLoader
 func _init():
 	print("ran _init()")
 	self.create_from_images(imagesToLoad)
-	print(imagesToLoad.size())
+	#print(imagesToLoad.size())

@@ -26,10 +26,12 @@ Preferences="*res://scripts/preferences.gd"
 CacheManager="*res://scripts/resources/cache_manager.gd"
 GlobalFetcher="*res://scripts/resources/resource_fetcher_bootstrap.gd"
 AnnotationsManager="*res://scripts/annotations/annotations_manager.gd"
+JsonReader="*res://scripts/JsonReader.gd"
 UrlReader="*res://scripts/url_reader.gd"
 ResponsiveLightingRoot="*res://scripts/lighting/responsive_lighting_root.gd"
 UiScaling="*res://scripts/new_ui/ui_scaling.gd"
 LocalSaveData="*res://scripts/local_save_data.gd"
+VoyagerLoader="*res://scripts/resources/voyager_loader.gd"
 
 [display]
 
@@ -59,6 +61,11 @@ FlashlightStrengthControls={
 testaction={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
+]
+}
+left_click={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
 

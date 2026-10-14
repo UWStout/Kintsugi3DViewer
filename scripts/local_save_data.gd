@@ -53,8 +53,11 @@ func _init_save():
 	json.store_string(json_string)
 	json.close()
 	
-func _save_model(name, dir) -> bool:
+func _save_model(name, dir, voyager_uri := "") -> bool:
 	var data_to_send = {"name" : name, "localDir" : dir, "min_distance" : 0.0, "max_distance" : 10.0}
+	
+	if not voyager_uri.is_empty():
+		data_to_send["voyagerUri"] = voyager_uri
 	var data = get_dict()
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
 	

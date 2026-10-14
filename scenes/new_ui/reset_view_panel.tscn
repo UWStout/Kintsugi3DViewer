@@ -37,7 +37,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ResetViewPanel" type="CenterContainer" node_paths=PackedStringArray("panel", "option_drop_down")]
+[node name="ResetViewPanel" type="CenterContainer" node_paths=PackedStringArray("panel", "option_drop_down", "description")]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -50,6 +50,7 @@ grow_vertical = 0
 script = ExtResource("1_llb2i")
 panel = NodePath("confirmation_panel")
 option_drop_down = NodePath("confirmation_panel/VBoxContainer/VBoxContainer/MarginContainer3/HBoxContainer/VBoxContainer/OptionButton")
+description = NodePath("confirmation_panel/VBoxContainer/MarginContainer2/CenterContainer/description")
 
 [node name="confirmation_panel" type="Panel" parent="."]
 visible = false
