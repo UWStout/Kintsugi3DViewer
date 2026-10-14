@@ -53,8 +53,11 @@ func _init_save():
 	json.store_string(json_string)
 	json.close()
 	
-func _save_model(name, dir) -> bool:
+func _save_model(name, dir, voyager_uri := "") -> bool:
 	var data_to_send = {"name" : name, "localDir" : dir, "min_distance" : 0.0, "max_distance" : 10.0}
+	
+	if not voyager_uri.is_empty():
+		data_to_send["voyagerUri"] = voyager_uri
 	var data = get_dict()
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.READ_WRITE)
 	
@@ -137,7 +140,7 @@ func overwrite_exisitng_filename(filepath, new_name) -> void:
 	print("Overwrite sucessful!")
 	file.close()
 
-func overwrite_camera_constraints(filepath, min_distance, max_distance, max_rotation, min_vert_rotation, max_vert_rotation,  pan_dist, display_option) -> void:
+func overwrite_camera_constraints(filepath, min_distance, max_distance, max_rotation, min_vert_rotation, max_vert_rotation,  pan_dist, display_option, disable) -> void:
 	var data = get_dict()
 	for i in data["artifacts"].size():
 		if data["artifacts"][i]["localDir"] == filepath:
@@ -148,6 +151,7 @@ func overwrite_camera_constraints(filepath, min_distance, max_distance, max_rota
 			data["artifacts"][i]["max_vert_rotation"] = max_vert_rotation
 			data["artifacts"][i]["panning_distance"] = pan_dist
 			data["artifacts"][i]["display_opt"] = display_option
+			data["artifacts"][i]["disabled_limits"] = disable
 	var new_string = JSON.stringify(data, "\t")
 	var file = FileAccess.open("user://" + _LOCAL_SAVE_FILE, FileAccess.WRITE)
 	file.store_string(new_string)

@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1aa37jbdxgoc"]
+
+[ext_resource type="PackedScene" uid="uid://cuk31uqvwxclc" path="res://scenes/environments/hdri_scene.tscn" id="1_3dt3f"]
+[ext_resource type="Texture2D" uid="uid://c1a566yc0issl" path="res://assets/Environments/HDRIs/studio_small_08_1k.hdr" id="2_vyl62"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_q0u5w"]
+panorama = ExtResource("2_vyl62")
+
+[sub_resource type="Sky" id="Sky_cvb0d"]
+sky_material = SubResource("PanoramaSkyMaterial_q0u5w")
+
+[sub_resource type="Environment" id="Environment_ql85o"]
+background_mode = 2
+sky = SubResource("Sky_cvb0d")
+
+[node name="HdriScene" instance=ExtResource("1_3dt3f")]
+environment_name = "Studio HDRI (Voyager Default)"
+environment_graphics = SubResource("Environment_ql85o")
+
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_ql85o")

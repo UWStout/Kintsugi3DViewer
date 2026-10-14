@@ -29,7 +29,7 @@ func set_data(new_data : ArtifactData, new_controller : ArtifactsController):
 	artifact_label.text = data.name
 
 func _pressed():
-	if not controller == null and not controller.loaded_artifact == null:
+	if controller != null and controller.loaded_artifact != null:
 		if not controller.loaded_artifact.load_finished:
 			return
 	
@@ -48,7 +48,7 @@ func _on_toggle_off():
 	super._on_toggle_off()
 
 func _display_toggled_on():
-	print("on")
+	#print("on")
 	artifact_label.self_modulate = Color8(36, 36, 36, 255)
 	artifact_preview.self_modulate = Color8(36, 36, 36, 255)
 	artifact_status.self_modulate = Color8(36, 36, 36, 255)
@@ -61,8 +61,9 @@ func _display_toggled_off():
 	super._display_toggled_off()
 
 func make_inactive():
-	if controller.loaded_artifact.load_finished:
-		return
+	if controller.loaded_artifact != null :
+		if controller.loaded_artifact.load_finished:
+			return
 	
 	artifact_label.self_modulate = Color8(167, 167, 167, 255)
 	artifact_preview.self_modulate = Color8(167, 167, 167, 255)

@@ -26,7 +26,7 @@ func is_image_cached(uri: String) -> bool:
 
 
 func fetch_gltf(artifact: ArtifactData) -> GLTFObject:
-	print("glTF requested from cache: %s" % artifact)
+	#print("glTF requested from cache: %s" % artifact)
 	return await force_fetch_gltf(artifact) #TODO
 
 
