@@ -141,7 +141,7 @@ func display_local_artifact_data(artifact : ArtifactData):
 	pass
 
 func display_next_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished or not loaded_artifact.is_local:
+	if loaded_artifact == null or not loaded_artifact.load_finished:
 		return
 	
 	current_index = (current_index + 1) % artifacts.size()
@@ -150,7 +150,7 @@ func display_next_artifact():
 
 
 func display_previous_artifact():
-	if loaded_artifact == null or not loaded_artifact.load_finished or not loaded_artifact.is_local:
+	if loaded_artifact == null or not loaded_artifact.load_finished:
 		print(loaded_artifact)
 		print(not loaded_artifact.load_finished)
 		print(loaded_artifact.is_local)
@@ -207,7 +207,6 @@ func _on_model_preview_load_complete():
 	_place_artifact()
 	if(current_artifact != null):
 		artifact_changed.emit(current_artifact)
-		
 
 func _on_environment_changed(new_environment):
 	if loaded_artifact != null:

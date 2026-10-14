@@ -17,6 +17,8 @@ var _parent : Node
 var images : Array
 var _resources_loaded : Dictionary
 
+var _last_progress : Array[int]
+
 const SHADER_IBR = preload("res://shaders/BasisIBR.gdshader") # TODO non-ORM shader may not be doing gamma decoding correclty
 const SHADER_ORM_IBR = preload("res://shaders/BasisIBR-ORM.gdshader") 
 const SHADER_STANDARD = preload("res://shaders/standard_shader.gdshader")
@@ -140,6 +142,7 @@ func select_shader(material):
 func request_texture_keys(material : Dictionary):
 	if material.has("pbrMetallicRoughness"):
 		_resources_loaded["albedoMap"] = false
+		_resources_loaded["ormMap"] = false
 	if material.has("normalTexture"):
 		_resources_loaded["normalMap"] = false
 	if material.has("extras"):
@@ -199,8 +202,9 @@ func _get_self_mesh_index(parent: Node, state: GLTFState) -> int:
 func _update_progress():
 	var progress = _get_load_progress()
 	load_progress.emit(progress[0], progress[1])
-	if progress[0] >= progress[1]:
+	if (_last_progress.size() == 0 or progress[0] != _last_progress[0]) and progress[0] >= progress[1]:
 		load_complete.emit()
+	_last_progress = progress
 
 func _get_load_progress() -> Array[int]:
 	var items = 0

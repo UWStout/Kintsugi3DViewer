@@ -3,14 +3,21 @@ class_name ResetViewPanel extends Node
 @export var scene_camera : CameraRig
 @export var panel : Panel
 @export var option_drop_down : OptionButton
+@export var description : Label
+
+func show(message) -> void:
+	panel.visible = true
+	description.text = message + "  Would you like to reset?"
+	
+func hide() -> void:
+	panel.visible = false
 
 func reset_panning() -> void:
-	scene_camera.set_rig_transform(scene_camera.artifactsManager.active_controller.loaded_artifact.transform)
-	scene_camera.apply_yaw(-PI/2)
+	scene_camera.reset_rig_position()
+	#scene_camera.apply_yaw(-PI/2)
 
 func reset_zoom() -> void:
-	scene_camera.set_zoom(scene_camera.dolly_initial_distance) 
-	
+	scene_camera.reset_zoom()
 
 func _on_zoom_button_button_up() -> void:
 	reset_panning()

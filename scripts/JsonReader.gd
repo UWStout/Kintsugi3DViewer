@@ -27,7 +27,7 @@ func update_with_json(jsonData : Dictionary):
 	light_colors.clear() 
 	light_type.clear()
 	light_int.clear()
-	if sceneData["lights"] != null:
+	if sceneData.get("lights") != null:
 		# Assigns colors from each light in Voyager Story scene to new light
 		for light in sceneData["lights"]:
 			light_type.append(light["type"])
