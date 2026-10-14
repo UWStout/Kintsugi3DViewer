@@ -65,16 +65,10 @@ func _process(delta):
 		lerp_to_default_orientation(delta * _lerp_speed)
 
 func lerp_to_default_orientation(delta : float):
-	
-	
 	if not artifacts_controller.loaded_artifact == null:
 		var artifact = artifacts_controller.loaded_artifact
-		var lookVector = Vector3(scene_camera.start_position.x, artifact.global_position.y, scene_camera.start_position.z)
-		var lookTransform = artifact.transform.looking_at(lookVector)
-		if not artifacts_controller.loaded_artifact.transform.basis.is_equal_approx(lookTransform.basis):
-			
-			artifact.transform.basis = artifact.transform.basis.slerp(lookTransform.basis, delta).orthonormalized()
-		
+		if not artifacts_controller.loaded_artifact.transform.basis.is_equal_approx(Basis.IDENTITY):
+			artifact.transform.basis = artifact.transform.basis.slerp(Basis.IDENTITY, delta).orthonormalized()
 
 func _on_active_controller_changed(new_controller: ArtifactsController):
 	artifacts_controller = new_controller

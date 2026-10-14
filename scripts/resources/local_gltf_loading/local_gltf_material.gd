@@ -90,12 +90,24 @@ func _load_basis_functions(ibr : Dictionary):
 			var image = _basis_csv_to_image(contents)
 			if image:
 				_load_shader_image(image, "basisFunctions")
+			elif _resources_loaded.has("basisFunctions"):
+				# prevent incomplete loading state if the image couldn't be created
+				_resources_loaded["basisFunctions"] = true
+		elif _resources_loaded.has("basisFunctions"):
+			# prevent incomplete loading state if the file couldn't be loaded
+			_resources_loaded["basisFunctions"] = true
+			
 
 func _load_specular_weights(weights : Dictionary):
-	if not weights.has_all(["stride", "textures"]) or weights.get("textures").size() <= 0:
-		return
-	
 	const shader_keys = ["weights0123", "weights4567"]
+	if not weights.has_all(["stride", "textures"]) or weights.get("textures").size() <= 0:
+		for shader_key in shader_keys:
+			# Even if the textures are missing, 
+			# make sure that it knows that we don't still need to load them
+			# otherwise it can get stuck in an incomplete state.
+			if _resources_loaded.has(shader_key):
+				_resources_loaded[shader_key] = true
+		return
 	
 	# If the weights do NOT need to be converted
 	if weights.get("stride") == 4 and weights.get("textures").size() >= 2:
@@ -105,6 +117,11 @@ func _load_specular_weights(weights : Dictionary):
 			var image = get_image(images, index)
 			if image:
 				_load_shader_image(image, shader_keys[i])
+			elif _resources_loaded.has(shader_keys[i]):
+				# If the image doesn't load successfully,
+				# we still need to mark it as done so that 
+				# loading doesn't get stuck in an incomplete state.
+				_resources_loaded[shader_keys[i]] = true
 	else:
 		var uris : Array[String] = []
 		for texture in weights.get("textures"):
