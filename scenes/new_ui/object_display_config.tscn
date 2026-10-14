@@ -55,7 +55,6 @@ animation_curve = SubResource("Curve_nmx01")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_right = -11.0
 offset_bottom = 132.0
 grow_horizontal = 2
 

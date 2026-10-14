@@ -31,8 +31,8 @@ func refresh_artifacts() -> Array[ArtifactData]:
 	return artifacts
 
 func _open_artifact_through_file(gltf_file_path : String):
-	print("opening through file")
-	if not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb"):
+	#print("opening through file")
+	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) and not gltf_file_path.ends_with(".svx.json"):
 		return
 	
 	if is_instance_valid(loaded_artifact):
@@ -41,7 +41,14 @@ func _open_artifact_through_file(gltf_file_path : String):
 	var data = ArtifactData.new()
 	data.gltfUri = gltf_file_path
 	
-	var model = LocalGltfModel.create(data)
+	var model : GltfModel
+	if gltf_file_path.ends_with(".svx.json"):
+		data.voyagerUri = gltf_file_path
+		model = LocalVoyagerStory.new(data)
+	else:
+		data.gltfUri = gltf_file_path
+		model = LocalGltfModel.create(data)
+
 	add_child(model)
 	#_on_model_begin_load()
 	model.preview_load_completed.connect(_on_model_preview_load_complete)
@@ -50,7 +57,7 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
-	print("model loaded")
+	#print("model loaded")
 	#after model loads, show prompt to name filepath
 	_save_import_panel.visible = true
 	_save_import_panel.mouse_filter = Control.MOUSE_FILTER_STOP
@@ -72,12 +79,15 @@ func _open_artifact_through_file(gltf_file_path : String):
 		_duplicate_model_popup.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	refresh_artifacts()
 	_artifact_catalog_ui.refresh_list()
+	display_artifact_data(data)
 	
 
 func open_artifact(data : ArtifactData):
+	#print("local")
 	var gltf_file_path = data.localDir
 	#Check the file can be opened
-	if (not gltf_file_path.ends_with(".gltf") and not gltf_file_path.ends_with(".glb")) or ( not LocalSaveData._is_file_valid(gltf_file_path)):
+	var condition = gltf_file_path.ends_with(".gltf") or gltf_file_path.ends_with(".glb")
+	if (not(condition) and not gltf_file_path.ends_with(".svx.json")) or (not LocalSaveData._is_file_valid(gltf_file_path)):
 		_invalid_file_popup.visible = true
 		_invalid_file_popup.mouse_filter = Control.MOUSE_FILTER_STOP
 		LocalSaveData._remove_entry(gltf_file_path) #- bug found where it deletes all the data
@@ -85,17 +95,28 @@ func open_artifact(data : ArtifactData):
 
 	
 	if is_instance_valid(loaded_artifact):
-		if not loaded_artifact.load_finished:
-			loaded_artifact.stop_loading()
+		#if not loaded_artifact.load_finished:
+			#loaded_artifact.stop_loading()
 		loaded_artifact.queue_free()
 		
 	data.gltfUri = gltf_file_path
 	
-	loaded_artifact = LocalGltfModel.create(data)
+	
+	if data.voyagerUri != null and not data.voyagerUri.is_empty():
+		loaded_artifact = LocalVoyagerStory.new(data)
+	elif gltf_file_path.ends_with(".svx.json"):
+		data.voyagerUri = gltf_file_path
+		loaded_artifact = LocalVoyagerStory.new(data)
+	else:
+		loaded_artifact = LocalGltfModel.create(data)
+
+
 	add_child(loaded_artifact)
+	current_artifact = data
 	emit_signal("artifact_loaded")
 	#_on_model_begin_load()
 	display_artifact_data(data)
+	
 	#model.preview_load_completed.connect(_on_model_preview_load_complete)
 	#model.load_completed.connect(_on_model_load_complete)
 	#model.load_progress.connect(_on_model_load_progress)
