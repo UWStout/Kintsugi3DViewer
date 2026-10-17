@@ -14,7 +14,6 @@ class_name LocalArtifactsController extends ArtifactsController
 
 @export var _invalid_file_popup : CenterContainer
 
-
 func _ready():
 	assign_fetcher()
 	
@@ -80,7 +79,6 @@ func _open_artifact_through_file(gltf_file_path : String):
 	refresh_artifacts()
 	_artifact_catalog_ui.refresh_list()
 	display_artifact_data(data)
-	
 
 func open_artifact(data : ArtifactData):
 	#print("local")
@@ -93,14 +91,12 @@ func open_artifact(data : ArtifactData):
 		LocalSaveData._remove_entry(gltf_file_path) #- bug found where it deletes all the data
 		return
 
-	
 	if is_instance_valid(loaded_artifact):
 		#if not loaded_artifact.load_finished:
 			#loaded_artifact.stop_loading()
 		loaded_artifact.queue_free()
 		
 	data.gltfUri = gltf_file_path
-	
 	
 	if data.voyagerUri != null and not data.voyagerUri.is_empty():
 		loaded_artifact = LocalVoyagerStory.new(data)
@@ -109,7 +105,6 @@ func open_artifact(data : ArtifactData):
 		loaded_artifact = LocalVoyagerStory.new(data)
 	else:
 		loaded_artifact = LocalGltfModel.create(data)
-
 
 	add_child(loaded_artifact)
 	current_artifact = data
@@ -124,7 +119,6 @@ func open_artifact(data : ArtifactData):
 	#loaded_artifact = model # set here to prevent null pointer dereference
 	#model.load_artifact()
 
-	
 	#
 #func refresh_artifacts() -> Array[ArtifactData]:
 	#if(Preferences.read_pref("offline mode")):
@@ -136,7 +130,6 @@ func open_artifact(data : ArtifactData):
 		#if artifacts.size() == 0:
 			#artifacts = CacheManager.get_artifact_data()
 	#return artifacts
-
 
 func _on_server_controller_artifact_loaded() -> void:
 		if is_instance_valid(loaded_artifact):
