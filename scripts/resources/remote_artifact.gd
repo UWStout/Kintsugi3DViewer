@@ -1,4 +1,4 @@
-﻿extends Node3D
+extends Node3D
 class_name RemoteArtifact
 
 signal load_completed
@@ -12,7 +12,6 @@ var _voyager_loader: RemoteVoyagerStory
 
 func _init(p_artifact: ArtifactData):
 	artifact = p_artifact
-
 
 func load_artifact():
 	if artifact.voyagerUri:
@@ -32,17 +31,6 @@ func load_artifact():
 	else:
 		push_error("Failed to load artifact: no loadable resources")
 
-
-func get_aabb() -> AABB:
-	if is_instance_valid(_model_loader):
-		return _model_loader.aabb
-	elif is_instance_valid(_voyager_loader):
-		#TODO: Implement AABB for voyager scenes
-		return AABB()
-	else:
-		return AABB()
-
-
 func setup_signals(loader: Node):
 	if (loader.has_signal("load_completed")):
 		loader.load_completed.connect(_on_model_load_completed)
@@ -50,7 +38,6 @@ func setup_signals(loader: Node):
 	# Pass through the progress signal
 	if (loader.has_signal("load_progress")):
 		loader.load_progress.connect(func(p): load_progress.emit(p))
-
 
 func _on_model_load_completed():
 	load_finished = true

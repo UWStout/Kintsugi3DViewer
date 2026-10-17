@@ -23,14 +23,10 @@ signal artifact_changed(artifact: ArtifactData)
 var current_index : int = 0
 var artifacts: Array[ArtifactData]
 
-var loaded_artifact1: LoadableArtifact
-
 ## TESTING MODEL
 #var example_guan: Node3D
 var loaded_artifact: GltfModel
 var current_artifact: ArtifactData
-
-
 
 func assign_fetcher():
 	if not is_instance_valid(_fetcher):
@@ -122,17 +118,6 @@ func display_artifact_data(artifact: ArtifactData):
 	else:
 		if is_instance_valid(_loader):
 			_loader.end_loading()
-			
-	## Code for loading from Voyager JSON
-	#if current_index == 9:
-		##print(example_guan)
-		#example_guan.visible = true
-		#example_guan.scale = JsonReader.get_model_scale()
-		#change_scale()
-		#_environment_controller.set_environment_lights()
-	#else:
-		#example_guan.visible = false
-
 
 func display_remote_artifact_data(artifact : ArtifactData):
 	pass
@@ -148,7 +133,6 @@ func display_next_artifact():
 	display_artifact(current_index)
 	pass
 
-
 func display_previous_artifact():
 	if loaded_artifact == null or not loaded_artifact.load_finished:
 		print(loaded_artifact)
@@ -163,7 +147,6 @@ func display_previous_artifact():
 	display_artifact(current_index)
 	pass
 
-
 func _on_model_begin_load():
 	if is_instance_valid(_loader) and not loaded_artifact.load_finished:
 		_loader.start_loading()
@@ -175,30 +158,20 @@ func _place_artifact():
 	var artifact_root = _environment_controller.get_active_artifact_root()
 	if not artifact_root == null and loaded_artifact != null:
 		var target_pos = _environment_controller.get_active_artifact_root().global_position
-		#print(loaded_artifact.aabb.size.y)
 		target_pos -= loaded_artifact.aabb.position # position relative to bounding box
 		target_pos -= self.position # account for arbitrary position of artifacts controller node
 		target_pos.x -= loaded_artifact.aabb.size.x / 2 # center x-axis
 		target_pos.z -= loaded_artifact.aabb.size.z / 2 # center z-axis
-		if loaded_artifact is RemoteVoyagerStory:
-			loaded_artifact.global_position = target_pos
-		else:
-			loaded_artifact.global_position = target_pos
-		#print(loaded_artifact.global_position)
+		loaded_artifact.global_position = target_pos
 		
 		var visualTrigger : VisibleOnScreenNotifier3D  = self.get_child(0)
 		visualTrigger.global_position = loaded_artifact.global_position
-		#print("really ", loaded_artifact.rotation.y)
-		#print("really ", loaded_artifact.rotation.y)
-		#print(loaded_artifact.transform.basis )
-		
 		
 func _clean_up():
 	if is_instance_valid(loaded_artifact):
 		loaded_artifact.queue_free()
 		
 func _on_model_preview_load_complete():
-	#print("_environment_controller: ", _environment_controller)
 	if _environment_controller.get_current_environment() != null:
 		_environment_controller.get_current_environment().set_artifact_bounds(loaded_artifact.aabb)
 		var visualTrigger : VisibleOnScreenNotifier3D  = self.get_child(0)
@@ -252,7 +225,6 @@ func _look_for_mesh(node : Node3D):
 	else:
 		return results.pop_front()
 
-
 #func change_scale():
 	##print("HELLO THERE")
 	##self.get_child(0, false).get_child(0, false).scale = JsonReader.get_model_scale()
@@ -278,4 +250,3 @@ func _open_artifact_through_file(gltf_file_path : String):
 	
 	loaded_artifact = model # set here to prevent null pointer dereference
 	model.load_artifact()
-	
