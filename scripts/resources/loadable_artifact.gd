@@ -21,6 +21,12 @@ var aabb : AABB
 func load_artifact():
 	pass
 	
+static func apply_scale_adjustment(root : Node3D):
+	# Most environments seem to be authored with a scale assumption of 1 unit = 50cm
+	# since 1 unit = 1m is more typical, just scale up imported models.
+	# This function must be called explicitly on the root of each object when loaded.
+	root.scale = Vector3(2.0, 2.0, 2.0)
+	
 func refresh_aabb():
 	var meshes = find_children("*", "MeshInstance3D", true, false)
 	
