@@ -10,8 +10,9 @@ on:
 env:
   godot-version: 4.5
   godot-bin: ./Godot
-  windows-name: Kintsugi3DViewer-windows-${{ github.head_ref || github.ref_name }}.exe
-  macos-name: Kintsugi3DViewer-macos-${{ github.head_ref || github.ref_name }}.zip
+  windows-installer-name: Kintsugi3DViewer-windows-installer.exe
+  windows-name: Kintsugi3DViewer-windows.zip
+  macos-name: Kintsugi3DViewer-macos.zip
 
 jobs:    
   build:
@@ -21,10 +22,10 @@ jobs:
       matrix:
         include:
           - type: Windows Desktop (with environments)
-            name: Kintsugi3DViewer-windows-${{ github.head_ref || github.ref_name }}.exe
+            name: Kintsugi3DViewer-windows.zip
           
           - type: macOS (all environments)
-            name: Kintsugi3DViewer-macos-${{ github.head_ref || github.ref_name }}.zip
+            name: Kintsugi3DViewer-macos.zip
       
     steps:
       - name: Check out repository
@@ -85,6 +86,33 @@ jobs:
           fi
 
   windows:
+    name: Publish Windows package
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    needs: [ 'build' ]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.windows-name }}
+
+      - name: Upload release
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload ${{ github.ref_name }} ${{ env.windows-name }} --clobber
+          else
+            gh release create ${{ github.ref_name }} ${{ env.windows-name }} -t "${{ github.ref_name }}" -F RELEASE.md
+          fi
+
+  windows-installer:
     name: Publish Windows installer
     runs-on: ubuntu-latest
     if: github.ref_type == 'tag'
@@ -116,10 +144,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mv export/Kintsugi3DViewer-setup.exe ${{ env.windows-name }}
+          mv export/Kintsugi3DViewer-setup.exe ${{ env.windows-installer-name }}
           if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
-            gh release upload ${{ github.ref_name }} ${{ env.windows-name }} --clobber
+            gh release upload ${{ github.ref_name }} ${{ env.windows-installer-name }} --clobber
           else
-            gh release create ${{ github.ref_name }} ${{ env.windows-name }} -t "${{ github.ref_name }}" -F RELEASE.md
+            gh release create ${{ github.ref_name }} ${{ env.windows-installer-name }} -t "${{ github.ref_name }}" -F RELEASE.md
           fi
-    
