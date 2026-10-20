@@ -107,19 +107,20 @@ func select_annotation():
 	sprite.visible = false
 	textbox.visible = true
 	click_button.disabled = true
-	if get_focus_point():
-		if focus_point.do_pan_to_annotation:
-			var controller = get_parent().get_parent()
-			
-			if controller.object_manager:
-				#var result = convertVoy(vector3_to_array(focus_point.view_angle),vector3_to_array(focus_point.view_position))
-				#controller.object_manager.camera.target_transform = Transform3D(result.pivot_basis, result.pivot_position)
-				#controller.object_manager.camera.target_dolly = result.distance
-				controller.object_manager.camera.pan_to_snapshot(
-					focus_point.view_angle,
-					focus_point.view_position,
-					AnnotationsManager.artifact_scene_center,
-					focus_point.voyager_scale)
+	#if get_focus_point():
+		# TODO Figure out pan to annotation
+		#if focus_point.do_pan_to_annotation:
+			#var controller = get_parent().get_parent()
+			#
+			#if controller.object_manager:
+				##var result = convertVoy(vector3_to_array(focus_point.view_angle),vector3_to_array(focus_point.view_position))
+				##controller.object_manager.camera.target_transform = Transform3D(result.pivot_basis, result.pivot_position)
+				##controller.object_manager.camera.target_dolly = result.distance
+				#controller.object_manager.camera.pan_to_snapshot(
+					#focus_point.view_angle,
+					#focus_point.view_position,
+					#AnnotationsManager.artifact_scene_center,
+					#focus_point.voyager_scale)
 				
 	determine_offset()
 	#textbox.global_position = Vector2(global_position.x, global_position.y )

@@ -9,7 +9,7 @@
 class_name GltfModel extends LoadableArtifact
 
 var obj : GLTFObject
-var skip_scale: bool = false
+var preserve_scale: bool = false
 var parent : Node3D
 @export var artifactGltfUrl : String
 
@@ -34,44 +34,41 @@ func _add_runtime_collider(mesh_instance: MeshInstance3D):
 func load_artifact() -> int:
 	obj = await _load_gltf()
 	if obj == null:
+		load_completed.emit()
 		return -1
 	
 	var scene = obj.generate_scene()
 	if scene == null:
+		load_completed.emit()
 		return -1
 	
 	add_child(scene)
 	
-	var mesh : Node3D = scene.get_child(0, true)
-	if mesh == null:
+	# Make sure that the scene isn't empty
+	if scene.get_child(0, true) == null:
+		load_completed.emit()
 		return -1
 	
-	if not skip_scale:
-		mesh.scale = Vector3(1.0, 1.0, 1.0)
-# Find the actual MeshInstance3D regardless of nesting depth
-	var mesh_instances = scene.find_children("*", "MeshInstance3D", true, false)
-	if mesh_instances.size() > 0:
-		var first_mesh : MeshInstance3D = mesh_instances[0]
-		aabb = first_mesh.get_aabb()
-		for m in mesh_instances:
-			aabb = aabb.merge(m.get_aabb())
-	else:
-		aabb = AABB(Vector3(-0.5, -0.5, -0.5), Vector3(1.0, 1.0, 1.0)) # fallback unit box
+	# 2x scale to account for mis-scaling of Kintsugi environments
+	# Voyager models should not be scaled here since we need to scale up the scene root instead.
+	if not preserve_scale:
+		apply_scale_adjustment(scene)
+		
+	refresh_aabb()
 	preview_load_completed.emit()
 	
 	var meshes = scene.find_children("*", "MeshInstance3D")
 	var mesh_count : int = 1
-	for mesh1 : MeshInstance3D in meshes:
+	for mesh_instance : MeshInstance3D in meshes:
 		#print("mesh_count ", mesh_count)
 		mesh_count += 1
 		var has_empty_materials
-		if mesh1.mesh != null:
+		if mesh_instance.mesh != null:
 			# only replace empty materials
 			# skip material load step completely if there are no empty materials
-			var surface_count = mesh1.mesh.get_surface_count()
+			var surface_count = mesh_instance.mesh.get_surface_count()
 			for i in surface_count:
-				has_empty_materials = has_empty_materials || mesh1.mesh.surface_get_material(i) == null
-				
+				has_empty_materials = has_empty_materials || mesh_instance.mesh.surface_get_material(i) == null
 		
 			if has_empty_materials:
 				#print("loading external materials")
@@ -80,15 +77,15 @@ func load_artifact() -> int:
 				mat_loader.load_progress.connect(_on_material_load_progress)
 				
 				for i in surface_count:
-					if mesh1.mesh.surface_get_material(i) == null:
-						mesh1.set_surface_override_material(i, mat_loader)
+					if mesh_instance.mesh.surface_get_material(i) == null:
+						mesh_instance.set_surface_override_material(i, mat_loader)
 					
-				mat_loader.load(mesh1)
+				mat_loader.load(mesh_instance)
 			else:
 				load_completed.emit() # no materials, done loading
 		else:
 			load_completed.emit() # no mesh, done loading (probably an error)
-		_add_runtime_collider(mesh1)
+		_add_runtime_collider(mesh_instance)
 	return 0
 
 func _on_material_load_complete():
