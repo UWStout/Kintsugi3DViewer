@@ -1,0 +1,152 @@
+name: Build
+
+on:
+  push:
+    branches: [ 'main' ]
+    tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ 'main' ]
+
+env:
+  godot-version: 4.5
+  godot-bin: ./Godot
+  windows-installer-name: Kintsugi3DViewer-windows-installer.exe
+  windows-name: Kintsugi3DViewer-windows.zip
+  macos-name: Kintsugi3DViewer-macos.zip
+
+jobs:    
+  build:
+    name: ${{ matrix.type }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - type: Windows Desktop (with environments)
+            name: Kintsugi3DViewer.exe
+          
+          - type: macOS (all environments)
+            name: Kintsugi3DViewer-macos.zip
+      
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Godot
+        run: |
+          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
+          unzip ./godot.zip
+          mv Godot* ${{ env.godot-bin }}
+
+      - name: Install Godot export templates
+        run: |
+          curl -L -o ./godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
+          unzip godot-templates.zip
+          mkdir -p ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
+          mv ./templates/* ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
+          
+      - name: Update project imports
+        run: ${{ env.godot-bin }} --headless --import --verbose
+        
+      - name: Build project
+        run: |
+          mkdir export/
+          ${{ env.godot-bin }} --headless --path . --export-release "${{ matrix.type }}" "export/${{ matrix.name }}" --verbose
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: export/*
+
+  macos:
+    name: Publish MacOS package
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    needs: [ 'build' ]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.macos-name }}
+
+      - name: Upload release
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload ${{ github.ref_name }} ${{ env.macos-name }} --clobber
+          else
+            gh release create ${{ github.ref_name }} ${{ env.macos-name }} -t "${{ github.ref_name }}" -F RELEASE.md --draft
+          fi
+
+  windows:
+    name: Publish Windows package
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    needs: [ 'build' ]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Kintsugi3DViewer.exe
+
+
+      - name: Create ZIP package
+        run: zip "${{ env.windows-name }}" Kintsugi3DViewer.exe
+
+      - name: Upload release
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload ${{ github.ref_name }} ${{ env.windows-name }} --clobber
+          else
+            gh release create ${{ github.ref_name }} ${{ env.windows-name }} -t "${{ github.ref_name }}" -F RELEASE.md --draft
+          fi
+
+  windows-installer:
+    name: Publish Windows installer
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    needs: [ 'build' ]
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Kintsugi3DViewer.exe
+          path: export
+        
+      - name: Install NSIS
+        run: sudo apt install nsis
+
+      - name: Make installer
+        run: makensis -V3 installer.nsi
+
+      - name: Upload release
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv export/Kintsugi3DViewer-setup.exe ${{ env.windows-installer-name }}
+          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release upload ${{ github.ref_name }} ${{ env.windows-installer-name }} --clobber
+          else
+            gh release create ${{ github.ref_name }} ${{ env.windows-installer-name }} -t "${{ github.ref_name }}" -F RELEASE.md --draft
+          fi
