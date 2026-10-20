@@ -9,7 +9,7 @@ Name "Kintsugi 3D Viewer"
 RequestExecutionLevel admin
 Unicode True
 ManifestDPIAware True
-OutFile "export/Kintsugi3DViewer-setup.exe"
+OutFile "export/Kintsugi3DViewer-windows-installer.exe"
 
 InstallDir $PROGRAMFILES64\Kintsugi3DViewer
 
