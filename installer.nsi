@@ -165,12 +165,12 @@ Function un.CachePageCreate
     ; Set Page Header Text
     !insertmacro MUI_HEADER_TEXT "Additional Directories" "Choose which additional software directories to remove."
 
-    ${NSD_CreateCheckbox} 10u 10u 100% 12u "Clear Kinstugi3D Viewer Preferences"
+    ${NSD_CreateCheckbox} 10u 10u 100% 12u "Clear Kintsugi 3D Viewer preferences, logs, and local files list"
     Pop $Checkbox_ClearViewerPreferences
     ${NSD_Check} $Checkbox_ClearViewerPreferences
     ${NSD_OnClick} $Checkbox_ClearViewerPreferences un.OnViewerPreferences
 
-    ${NSD_CreateCheckbox} 10u 25u 100% 12u "Clear Kinstugi3D Viewer Cache"
+    ${NSD_CreateCheckbox} 10u 25u 100% 12u "Clear Kintsugi 3D Viewer cache"
     Pop $Checkbox_ClearViewerCache
     ${NSD_Check} $Checkbox_ClearViewerCache
 
