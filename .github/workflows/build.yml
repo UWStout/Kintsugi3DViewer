@@ -72,6 +72,14 @@ jobs:
           $output = Join-Path $PWD "export/Kintsugi3DViewer.exe"
           New-Item -ItemType Directory -Force export | Out-Null
           ./Godot.exe --headless --path . --export-release "Windows Desktop (with environments)" "$output" --verbose
+          $code = $LASTEXITCODE
+          Write-Host "Godot exit code: $code"
+          if (!(Test-Path $output -PathType Leaf)) {
+            throw "Godot did not create the executable at: $output"
+          }
+          if ($code -ne 0) {
+            throw "Godot export failed with exit code $code"
+          }
 
       - name: Package Windows ZIP
         shell: pwsh
