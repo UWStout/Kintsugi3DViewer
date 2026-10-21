@@ -23,6 +23,8 @@ jobs:
       - name: Check out repository
         if: github.ref_type == 'tag'
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
 
       - name: Create draft release if needed
         if: github.ref_type == 'tag'
@@ -45,6 +47,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
 
       - name: Install Godot
         shell: pwsh
@@ -197,6 +201,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
 
       - name: Install Godot
         run: |
