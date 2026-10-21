@@ -64,15 +64,25 @@ jobs:
           Copy-Item godot-templates/templates/* $templateDir -Recurse -Force
 
       - name: Update project imports
-        run: ./Godot.exe --headless --import --verbose
+        run: |
+          $process = Start-Process -FilePath "$PWD/Godot.exe" `
+            -ArgumentList '--headless --import --verbose' `
+            -Wait -PassThru
+
+          Write-Host "Godot import exit code: $($process.ExitCode)"
+          if ($process.ExitCode -ne 0) {
+            throw "Godot import failed with exit code $($process.ExitCode)"
+          }
 
       - name: Build project
         shell: pwsh
         run: |
           $output = Join-Path $PWD "export/Kintsugi3DViewer.exe"
           New-Item -ItemType Directory -Force export | Out-Null
-          ./Godot.exe --headless --path . --export-release "Windows Desktop (with environments)" "$output" --verbose
-          $code = $LASTEXITCODE
+
+          $arguments = '--headless --path . --export-release "Windows Desktop (with environments)" "' + $output + '" --verbose'
+          $process = Start-Process -FilePath "$PWD/Godot.exe" -ArgumentList $arguments -Wait -PassThru
+
           Write-Host "Godot exit code: $code"
           if (!(Test-Path $output -PathType Leaf)) {
             throw "Godot did not create the executable at: $output"
