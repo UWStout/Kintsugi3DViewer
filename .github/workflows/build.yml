@@ -9,119 +9,87 @@ on:
 
 env:
   godot-version: 4.5
-  godot-bin: ./Godot
   windows-installer-name: Kintsugi3DViewer-windows-installer.exe
   windows-name: Kintsugi3DViewer-windows.zip
   macos-name: Kintsugi3DViewer-macos.zip
 
-jobs:    
-  build:
-    name: ${{ matrix.type }}
+jobs:
+  prepare-release:
+    name: Prepare draft release
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - type: Windows Desktop (with environments)
-            name: Kintsugi3DViewer.exe
-          
-          - type: macOS (all environments)
-            name: Kintsugi3DViewer-macos.zip
-      
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        if: github.ref_type == 'tag'
+        uses: actions/checkout@v4
+
+      - name: Create draft release if needed
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if ! gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
+            gh release create "${{ github.ref_name }}" \
+              --title "${{ github.ref_name }}" \
+              --notes-file RELEASE.md \
+              --draft
+          fi
+
+  windows:
+    name: Windows build and tests
+    runs-on: windows-latest
+    needs: [ 'prepare-release']
+    permissions:
+      contents: write
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
       - name: Install Godot
+        shell: pwsh
         run: |
-          curl -L -o ./godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_linux.x86_64.zip"
-          unzip ./godot.zip
-          mv Godot* ${{ env.godot-bin }}
+          curl.exe -L -o godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_win64.exe.zip"
+          Expand-Archive godot.zip -DestinationPath godot
+          Move-Item "godot/Godot_v${{ env.godot-version }}-stable_win64.exe" Godot.exe
 
       - name: Install Godot export templates
+        shell: pwsh
         run: |
-          curl -L -o ./godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
-          unzip godot-templates.zip
-          mkdir -p ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
-          mv ./templates/* ~/.local/share/godot/export_templates/${{ env.godot-version }}.stable/
-          
+          curl.exe -L -o godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
+          Expand-Archive godot-templates.zip -DestinationPath godot-templates
+
+          $templateDir = "$env:APPDATA/Godot/export_templates/${{ env.godot-version }}.stable"
+          New-Item -ItemType Directory -Force -Path $templateDir | Out-Null
+          Copy-Item godot-templates/templates/* $templateDir -Recurse -Force
+
       - name: Update project imports
-        run: ${{ env.godot-bin }} --headless --import --verbose
-        
+        run: ./Godot.exe --headless --import --verbose
+
       - name: Build project
+        shell: pwsh
         run: |
-          mkdir export/
-          ${{ env.godot-bin }} --headless --path . --export-release "${{ matrix.type }}" "export/${{ matrix.name }}" --verbose
+          New-Item -ItemType Directory -Force export | Out-Null
+          ./Godot.exe --headless --path . --export-release "Windows Desktop (with environments)" "export/Kintsugi3DViewer.exe" --verbose
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.name }}
-          path: export/*
-
-  package-windows:
-    name: Package Windows ZIP
-    runs-on: ubuntu-latest
-    needs: [ 'build' ]
-    steps:
-      - name: Download Windows executable
-        uses: actions/download-artifact@v4
-        with:
-          name: Kintsugi3DViewer.exe
-
-      - name: Create ZIP package
-        run: |
-          zip ${{ env.windows-name }} Kintsugi3DViewer.exe
-
-      - name: Upload Windows ZIP
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.windows-name }}
-          path: ${{ env.windows-name }} 
-
-  package-windows-installer:
-    name: Build NSIS installer
-    runs-on: ubuntu-latest
-    needs: [ 'build' ]
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Download Windows executable
-        uses: actions/download-artifact@v4
-        with:
-          name: Kintsugi3DViewer.exe
-          path: export
+      - name: Package Windows ZIP
+        shell: pwsh
+        run: Compress-Archive -Path export/Kintsugi3DViewer.exe -DestinationPath "${{ env.windows-name }}"
 
       - name: Install NSIS
-        run: sudo apt-get update && sudo apt-get install -y nsis
-
-      - name: Make installer
-        run: makensis -V3 installer.nsi
-
-      - name: Upload installer
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ env.windows-installer-name }}
-          path: export/${{ env.windows-installer-name }}
-
-  smoke-test-windows:
-    name: Smoke test Windows
-    runs-on: windows-latest
-    needs: [ 'package-windows' ]
-    steps:
-      - name: Download Windows ZIP
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.windows-name }}
-
-      - name: Extract ZIP
-        shell: pwsh
-        run: Expand-Archive ${{ env.windows-name }} -DestinationPath extracted
-
-      - name: Launch and check for immediate crash
         shell: pwsh
         run: |
-          # Generated by ChatGPT
+          choco install nsis --yes --no-progress
+          "C:\Program Files (x86)\NSIS" >> $env:GITHUB_PATH
+
+      - name: Build NSIS installer
+        run: makensis -V3 installer.nsi
+
+      - name: Smoke test Windows ZIP
+        shell: pwsh
+        run: |
+          Expand-Archive "${{ env.windows-name }}" -DestinationPath extracted
+
           $exe = Join-Path $PWD "extracted/Kintsugi3DViewer.exe"
           if (!(Test-Path $exe)) {
             throw "Executable missing from ZIP."
@@ -136,21 +104,114 @@ jobs:
           }
 
           Write-Host "App remained open for 30 seconds."
-
           Stop-Process -Id $p.Id -Force
 
-  smoke-test-macos:
-    name: Smoke test macOS
+      - name: Install application
+        shell: pwsh
+        run: |
+          $installer = Join-Path $PWD "export/${{ env.windows-installer-name }}"
+          if (!(Test-Path $installer)) {
+            throw "Installer missing: $installer"
+          }
+
+          $installDir = Join-Path $env:RUNNER_TEMP "Kintsugi3DViewer"
+          $p = Start-Process -FilePath $installer `
+            -ArgumentList "/S", "/D=$installDir" -Wait -PassThru
+
+          if ($p.ExitCode -ne 0) {
+            throw "Installer exited with code $($p.ExitCode)."
+          }
+
+          $exe = Join-Path $installDir "Kintsugi3DViewer.exe"
+          if (!(Test-Path $exe)) {
+            throw "Installed executable missing."
+          }
+
+          $uninstaller = Join-Path $installDir "uninstall.exe"
+          if (!(Test-Path $uninstaller)) {
+            throw "Uninstaller missing."
+          }
+
+          "INSTALL_DIR=$installDir" >> $env:GITHUB_ENV
+
+      - name: Smoke test installed executable
+        shell: pwsh
+        run: |
+          $exe = Join-Path $env:INSTALL_DIR "Kintsugi3DViewer.exe"
+          $p = Start-Process -FilePath $exe `
+            -WorkingDirectory $env:INSTALL_DIR -PassThru
+
+          Start-Sleep -Seconds 30
+          $p.Refresh()
+
+          if ($p.HasExited) {
+            throw "App failed to launch or exited within 30 seconds with code $($p.ExitCode)."
+          }
+
+          Stop-Process -Id $p.Id -Force
+          Write-Host "App remained open for 30 seconds."
+
+      - name: Uninstall application
+        shell: pwsh
+        run: |
+          $uninstaller = Join-Path $env:INSTALL_DIR "uninstall.exe"
+          $p = Start-Process -FilePath $uninstaller `
+            -ArgumentList "/S" -Wait -PassThru
+
+          if ($p.ExitCode -ne 0) {
+            throw "Uninstaller exited with code $($p.ExitCode)."
+          }
+
+          if (Test-Path (Join-Path $env:INSTALL_DIR "Kintsugi3DViewer.exe")) {
+            throw "Application executable still exists after uninstall."
+          }
+
+          Write-Host "App successfully uninstalled."
+
+      - name: Upload Windows release assets
+        if: github.ref_type == 'tag'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ github.ref_name }}" \
+            "${{ env.windows-name }}" \
+            "export/${{ env.windows-installer-name }}" \
+            --clobber
+
+  macos:
+    name: macOS build and tests
     runs-on: macos-latest
-    needs: [ 'build' ]
+    needs: [ 'prepare-release' ]
+    permissions:
+      contents: write
     steps:
-      - name: Download macOS ZIP
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.macos-name }}
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install Godot
+        run: |
+          curl -L -o godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_macos.universal.zip"
+          unzip -q godot.zip
+          mv Godot.app ./Godot.app
+
+      - name: Install Godot export templates
+        run: |
+          curl -L -o godot-templates.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_export_templates.tpz"
+          unzip -q godot-templates.zip
+          mkdir -p ~/Library/Application\ Support/Godot/export_templates/${{ env.godot-version }}.stable/
+          mv ./templates/* ~/Library/Application\ Support/Godot/export_templates/${{ env.godot-version }}.stable/
+
+      - name: Update project imports
+        run: ./Godot.app/Contents/MacOS/Godot --headless --import --verbose
+
+      - name: Build project
+        run: |
+          mkdir -p export
+          ./Godot.app/Contents/MacOS/Godot --headless --path . --export-release "macOS (all environments)" "export/${{ env.macos-name }}" --verbose
 
       - name: Extract macOS ZIP
-        run: unzip ${{ env.macos-name }}
+        run: unzip -q "export/${{ env.macos-name }}" -d extracted
 
       - name: Install timeout utility
         run: brew install coreutils
@@ -158,8 +219,7 @@ jobs:
       - name: Smoke-test macOS app
         shell: bash
         run: |
-          # Generated by ChatGPT
-          APP="Kintsugi 3D Viewer.app"
+          APP="extracted/Kintsugi 3D Viewer.app"
           EXE="$APP/Contents/MacOS/Kintsugi 3D Viewer"
 
           # Test 1: Run the executable directly and check whether it exits early.
@@ -189,135 +249,14 @@ jobs:
           set -e
 
           if [ "$STATUS" -eq 124 ]; then
-            echo "App remained open for 30 seconds (app launched with "open")."
+            echo "App remained open for 30 seconds (app launched with 'open')."
           else
             echo "App failed to launch or exited within 30 seconds with code $STATUS (app launched with 'open')."
             exit 1
           fi
 
-  smoke-test-windows-installer:
-    name: Smoke test NSIS installer
-    runs-on: windows-latest
-    needs: [ 'package-windows-installer' ]
-    steps:
-      - name: Download installer
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.windows-installer-name }}
-          path: package
-
-      - name: Install application
-        shell: pwsh
-        run: |
-          # Generated by ChatGPT
-          $installer = Join-Path $PWD "package/${{ env.windows-installer-name }}"
-          if (!(Test-Path $installer)) {
-            throw "Installer artifact missing."
-          }
-
-          $installDir = Join-Path $env:RUNNER_TEMP "Kintsugi3DViewer"
-          $p = Start-Process -FilePath $installer `
-            -ArgumentList "/S", "/D=$installDir" -Wait -PassThru
-
-          if ($p.ExitCode -ne 0) {
-            throw "Installer exited with code $($p.ExitCode)."
-          }
-
-          $exe = Join-Path $installDir "Kintsugi3DViewer.exe"
-          if (!(Test-Path $exe)) {
-            throw "Installed executable missing."
-          }
-
-          $uninstaller = Join-Path $installDir "uninstall.exe"
-          if (!(Test-Path $uninstaller)) {
-            throw "Uninstaller missing."
-          }
-
-          echo "INSTALL_DIR=$installDir" >> $env:GITHUB_ENV
-
-      - name: Smoke test installed executable
-        shell: pwsh
-        run: |
-          # Generated by ChatGPT
-          $exe = Join-Path $env:INSTALL_DIR "Kintsugi3DViewer.exe"
-          $p = Start-Process -FilePath $exe `
-            -WorkingDirectory $env:INSTALL_DIR -PassThru
-
-          Start-Sleep -Seconds 30
-          $p.Refresh()
-
-          if ($p.HasExited) {
-            throw "App failed to launch or exited within 30 seconds with code $($p.ExitCode)."
-          }
-
-          Stop-Process -Id $p.Id -Force
-
-          Write-Host "App remained open for 30 seconds."
-
-      - name: Uninstall application
-        shell: pwsh
-        run: |
-          # Generated by ChatGPT
-          $uninstaller = Join-Path $env:INSTALL_DIR "uninstall.exe"
-          $p = Start-Process -FilePath $uninstaller `
-            -ArgumentList "/S" -Wait -PassThru
-
-          if ($p.ExitCode -ne 0) {
-            throw "Uninstaller exited with code $($p.ExitCode)."
-          }
-
-          if (Test-Path (Join-Path $env:INSTALL_DIR "Kintsugi3DViewer.exe")) {
-            throw "Application executable still exists after uninstall."
-          }
-
-          Write-Host "App successfully uninstalled."
-
-  publish-release-draft:
-    name: Publish release draft
-    runs-on: ubuntu-latest
-    if: github.ref_type == 'tag'
-    needs:
-      - smoke-test-windows
-      - smoke-test-macos
-      - smoke-test-windows-installer
-    permissions:
-      contents: write
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Download Windows ZIP
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.windows-name }}
-
-      - name: Download macOS ZIP
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.macos-name }}
-
-      - name: Download NSIS installer
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ env.windows-installer-name }}
-
-      - name: Create or update draft release
-        shell: bash
+      - name: Upload macOS release asset
+        if: github.ref_type == 'tag'
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          if gh release view "${{ github.ref_name }}" >/dev/null 2>&1; then
-            gh release upload "${{ github.ref_name }}" \
-              ${{ env.windows-name }} \
-              ${{ env.macos-name }} \
-              ${{ env.windows-installer-name }} \
-              --clobber
-          else
-            gh release create "${{ github.ref_name }}" \
-              ${{ env.windows-name }} \
-              ${{ env.macos-name }} \
-              ${{ env.windows-installer-name }} \
-              --title "${{ github.ref_name }}" \
-              --notes-file RELEASE.md \
-              --draft
-          fi
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.ref_name }}" "export/${{ env.macos-name }}" --clobber
