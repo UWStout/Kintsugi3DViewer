@@ -69,13 +69,14 @@ jobs:
       - name: Build project
         shell: pwsh
         run: |
+          $output = Join-Path $PWD "export/Kintsugi3DViewer.exe"
           New-Item -ItemType Directory -Force export | Out-Null
-          ./Godot.exe --headless --path . --export-release "Windows Desktop (with environments)" "export/Kintsugi3DViewer.exe" --verbose
+          ./Godot.exe --headless --path . --export-release "Windows Desktop (with environments)" "$output" --verbose
 
       - name: Package Windows ZIP
         shell: pwsh
-        run: Compress-Archive -Path export/Kintsugi3DViewer.exe -DestinationPath "${{ env.windows-name }}"
-
+        run: Compress-Archive -Path "export/Kintsugi3DViewer.exe" -DestinationPath "${{ env.windows-name }}"
+      
       - name: Install NSIS
         shell: pwsh
         run: |
@@ -193,7 +194,6 @@ jobs:
         run: |
           curl -L -o godot.zip "https://github.com/godotengine/godot/releases/download/${{ env.godot-version }}-stable/Godot_v${{ env.godot-version }}-stable_macos.universal.zip"
           unzip -q godot.zip
-          mv Godot.app ./Godot.app
 
       - name: Install Godot export templates
         run: |
